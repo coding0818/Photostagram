@@ -10,6 +10,7 @@
       href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
     />
     <style>
+      html {height: 100%;}
         * {
         box-sizing: border-box;
       }
@@ -22,6 +23,7 @@
         background: #fafafa;
         color: #262626;
         font-family: BlinkMacSystemFont;
+        height: 100%;
       }
 
       .sidebar {
@@ -203,13 +205,11 @@
         margin-top: auto;
       }
 
-      .side{visibility: hidden;}
-
       .side {
         position: fixed;
         top: 0;
         left: 0;
-        display: flex;
+        display: none;
         flex-direction: column;
         align-items: flex-start;
         width: 75px;
@@ -218,6 +218,10 @@
         background: #ffffff;
         border-right: 1px solid #dbdbdb;
         transition: 0.3s;
+      }
+
+      .side.on {
+        display: flex;
       }
 
       .side-header {
@@ -371,19 +375,55 @@
         margin-top: auto;
       }
 
+      
       .sidesearch{
+        display: none;
         width: 397px;
         height: 100%;
         position: relative;
         top: 0;
         left: 75px;
-        display: flex;
-        flex-direction: column;
         align-items: flex-start;
-        padding: 40px 10px 30px 10px;
+        padding: 15px 10px 30px 10px;
         background: #ffffff;
         border-right: 1px solid #dbdbdb;
         transition: 0.3s;
+        box-sizing: border-box;        
+      }
+      .sidesearch.on {
+        display: block;
+      }
+
+      .sidesearch > div>h2{margin-bottom: 50px;}
+
+      .sidesearch > div{
+        background: #ffffff;
+      }
+
+      .sidesearch > div:nth-child(1){display: block; box-sizing: border-box; border-bottom: #dbdbdb; position: absolute; margin-left: 10px;}
+
+      .sidesearch > div:nth-child(2){
+        position: relative;
+        top: 150px;
+        box-sizing: border-box;
+        margin-left: 10px;
+        width: 348px;
+        
+      }
+
+      .sidesearch > div:nth-child(2) > h3{
+        float: left;
+        width: 348px;
+        height: 24px;
+        box-sizing: border-box;
+      }
+
+      .sidesearch > div:nth-child(2) > h3 > button{
+        float: right;
+        background: none;
+        border: none;
+        color: aqua;
+        box-sizing: border-box;
       }
 
       #searchAll{
@@ -394,16 +434,79 @@
         font-size: 16px;
         padding: 2px;
         position: relative;
-        
+        border: #efefef;
       }
+
+      .sidesearch > div:nth-child(3){
+        position: relative;
+        top: 200px;
+        box-sizing: border-box;
+        margin-left: 10px;
+      }
+
+      .sidesearch > div:nth-child(3) > div:nth-of-type(1){
+        width: 54px;
+        height: 54px;
+        float: left;
+      }
+
+      .sidesearch > div:nth-child(3) > div:nth-child(2){
+        float: left;
+      }
+
+      .sidesearch > div:nth-child(3) > div:nth-of-type(1) > img{
+        width: 54px;
+        height: 54px;
+      }
+
+      #searchlist{
+        background: #ffffff;
+      }
+
+      .sidesearch > #searchlist > div:nth-child(2) > div {
+        width: 252px;
+        height: auto;
+        display: block;
+        box-sizing: border-box;
+        margin-left: 20px;
+      }
+
+      .sidesearch > #searchlist > div:nth-child(2) > div:nth-child(1) > h3 {
+        width: 252px;
+        height: 18px;
+        font-size: 14px;
+        margin-bottom: 3px;
+        margin-top: 5px;
+      }
+
+      .sidesearch > #searchlist > div:nth-child(2) > div:nth-child(2) > h8 {
+        width: 252px;
+        height: 18px;
+      }
+
+      .sidesearch > #searchlist > div:nth-child(3){
+        float: right;
+      }
+
+      .sidesearch > #searchlist > div:nth-child(3) > button{
+        margin-top: 5px;
+        background: none;
+        border: none;
+      }
+
+      
+
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script>
+      
       $(function(){
+
           $('#search').on('click',function(){
-              $('.sidebar').hide();
-              $('.side').css('visibility', 'visible');   
+              $('.sidesearch').toggleClass('on');
+              $('.side').toggleClass('on');              
           });
+        
           
       });
     </script>
@@ -533,13 +636,32 @@
     </aside>
     <div class="sidesearch">
         <div>
-            <h5>검색</h5>
+            <h2>검색</h2>
             <form>
-              <input type="text" name="search" id="searchAll" placeholder="검색"/>
-              <button type="reset" class="search" id="search-btn"></button>
+              <input type="text" name="search" id="searchAll" placeholder="검색"/>              
             </form>
         </div>
-        <div></div>
+        <div>
+            <h3>최근 검색 항목 <button>모두 지우기</button></h3>
+        </div>
+        <div id="searchlist">
+          <div>
+            <img src="/aside_seller_ico.PNG" alt="">
+          </div>
+          <div>
+            <div>
+              <h3>nickname</h3>
+            </div>
+            <div>
+              <h8>text</h8>
+            </div>
+          </div>
+          <div>
+            <button>
+              <img src="./aside_x.PNG" alt="">
+            </button>
+          </div>
+        </div>
     </div>
   </body>
 </html>
