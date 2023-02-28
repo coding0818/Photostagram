@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+        margin: 0;
+        padding: 0;
+        font: normal 12px 'Arial';
+        }
+
+        ul, ol {list-style: none;}
+        a {text-decoration: none; color: #111;}
+        input, textarea {outline: none;}
+
+        #wrapper {
+            width: 1200px; 
+            margin-left: 500px;
+            margin-top: 50px;
+        }
+
+        #post {
+            width: auto;
+            height: 700px;
+            display: block;
+            border: 1px solid #e9e9e9;
+        }
+
+        #post > .picture {float: left; width: 700px; max-height: 700px;}
+        #post > .contents {float: right; width: 490px; height: 700px;}
+        #post > .contents > nav {height: 50px; display: block; border-bottom: 1px solid #e9e9e9;}
+        #post > .contents > nav > #profile {display: block; float: left;}
+        #post > .contents > nav > #profile > img {float: left; margin: 10px; width: 30px; height: 30px;}
+        #post > .contents > nav > #profile > span {float: left;}
+        #post > .contents > nav > button {float: right;}
+        #post > .contents > ul {height: 500px; border-bottom:1px solid  #e9e9e9;}
+        
+
+    </style>
+</head>
+<body>
+    <header></header>
+    <main id="wrapper">
+        <article id="post">
+            <section class="picture"><img src="./img/700x700.png" alt="picture"></section>
+            <section class="contents">
+                <nav>
+                    <div id="profile">
+                        <img src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                        <span id="nick">gildong</span>
+                        ·
+                        <span id="follow">팔로우</span>
+                    </div>
+                    <button>...</button>
+                </nav>
+                <ul>
+                    <li>
+                        <img src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                        <div id="reply">
+                            <span>gildong</span>
+                            <h1>댓글 내용</h1>
+                            <a href="#">#해시태그</a>
+                            <div>
+                                5주 &nbsp;&nbsp;
+                                좋아요 <span>100</span>개 &nbsp;&nbsp;
+                                <a href="#">답글달기</a>
+                            </div>
+                            <a href="#">좋아요</a>
+                        </div>
+                        <label>ㅡ <a href="#">답글보기</a></label>
+                    </li>
+                </ul>
+                <div>
+                    <div>
+                        <button>좋아요</button>
+                        <button>댓글</button>
+                        <button>비행기</button>
+                        <button>책갈피</button>
+                    </div>
+                    <div>
+                        <div>좋아요 <span>100</span>개</div>
+                        <div>2월 28일</div>
+                    </div>
+                    <div>
+                        <button>이모티콘</button>
+                        <textarea name="" id=""></textarea>
+                        <input type="submit" value="게시"/>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <div>
+            <div>게시물 더 보기</div>
+            <div>
+                <img src="../profile/img/300x300-1.png" alt="pic">
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>
