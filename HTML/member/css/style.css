@@ -130,6 +130,93 @@ html, body {height: 100%}
 }
 /*========== register 끝 ==========*/
 
+ #login{
+    width: 348px;
+    height: 401px;
+    border: 1px solid #cccccc;
+    margin: 0 auto;
+    margin-left: 350px;
+    margin-top: 100px;
+}
+
+#login > .haveId {
+    position: relative;
+    border: 1px solid #cccccc;
+    width: 100%;
+    height: 70px;
+    margin-top: 65px;
+}
+
+/* #login > .phone {
+    position: absolute;
+    left: 511px;
+    width: 380px;
+    height: 580px;
+    border: 1px solid red;
+}
+#login > .phone > div img {
+    width: 100%;
+    height: 100%;
+} */
+
+#login > article .logo {
+    margin-top: 35px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#login > .loginForm > form > table tr td > input{
+    width: 236px;
+    padding: 12px 10px;
+    margin-left: 46px;
+    margin-top: 6px;
+    background: #FAFAFA;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+} 
+#login > .loginForm > form > div > input[type=submit] {
+    width: 258px;
+    padding: 6px 10px;
+    margin-left: 46px;
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0;
+    background: #5aace1;
+    color: white;
+}
+
+
+.haveId{
+    width: 348px;
+    height: 63px;
+    border: 1px solid #cccccc;
+    margin: 0 auto;
+    margin-left: 350px;
+    margin-top: 12px;
+    
+}
+
+.haveId > span {
+    position: relative;
+    font-size: 14px;
+    margin-left: 76px;
+    text-align: center;
+    top: 20px;
+}
+.haveId > span > a {
+    margin-left: 5px;
+    font-size: 13px;
+    color: #5aace1;
+    font-weight: bold;
+}
+
+.download{
+    
+}
+
+
 footer {
     width: 100%;
     min-height: 135px;
