@@ -17,7 +17,7 @@ slide = () => {
 
 setInterval(slide, 2000)
 
-// animate input
+// input 애니메이션
 document.querySelectorAll('.animate-input').forEach(e => {
     let input = e.querySelector('input')
     let button = e.querySelector('button')
@@ -36,20 +36,20 @@ document.querySelectorAll('.animate-input').forEach(e => {
         }
     }
 
-    // show password button
+    // 비밀번호 입력시 보이기, 숨기기 버튼 출력
     if (button) {
         button.onclick = () => {
             if (input.getAttribute('type') === 'text') {
                 input.setAttribute('type', 'password')
-                button.innerHTML = 'Show'
+                button.innerHTML = '비밀번호 표시'
             } else {
                 input.setAttribute('type', 'text')
-                button.innerHTML = 'Hide'
+                button.innerHTML = '숨기기'
             }
         }
     }
 })
-
+// 6자리 이상일 때 버튼 활성화
 checkSigninInput = () => {
     let inputs = signin_form.querySelectorAll('input')
     return Array.from(inputs).every(input => {
@@ -57,7 +57,7 @@ checkSigninInput = () => {
     })
 }
 
-// darkmode toggle
+// 다크모드
 darkmode_toggle.onclick = (e) => {
     e.preventDefault()
     let body = document.querySelector('body')
