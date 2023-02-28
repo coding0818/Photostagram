@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photostagram</title>
+    <title>Photostagram::register</title>
     <link rel="shortcut icon" href="./images/favicon.png" type="image/png">
     <!-- 구글 폰트 -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -12,31 +12,34 @@
     <link rel="stylesheet" href="./css/member.css">
 </head>
 <body>
+<main class="member">
     <div class="container">
         <div class="main-container">
             <div class="main-content">
-                <div class="slide-container" style="background-image: url(./images/phone-frame.png);">
-                    <div class="slide-content" id="slide-content">
-                        <img src="./images/slide (1).jpg" alt="slide image" class="active">
-                        <img src="./images/slide (2).jpg" alt="slide image">
-                        <img src="./images/slide (3).jpg" alt="slide image">
-                        <img src="./images/slide (4).jpg" alt="slide image">
-                        <img src="./images/slide (5).jpg" alt="slide image">
-                    </div>
-                </div>
                 <div class="form-container">
                     <div class="form-content box">
                         <div class="logo">
                             <img src="./images/logo_light.png" alt="Instagram logo" class="logo-light">
                             <img src="./images/logo_dark.png" alt="Instagram logo" class="logo-dark">
                         </div>
-                        
-                        <div class="signin-form" id="signin-form">
+                        <div class="signin-form-reg" id="signin-form">
+                            <div class="btn-group">
+                            <p>친구들의 사진과 동영상을 보려면 가입하세요.</p>
+                            <button class="btn-fb">
+                                <img src="./images/facebook-icon.png" alt="">
+                                <span>Facebook으로 로그인</span>
+                            </button>
+                            </div>
+                            <div class="divine">
+                            <div></div>
+                            <div>또는</div>
+                            <div></div>
+                            </div>
                             <form action="#">
                                 <div class="form-group">
                                     <div class="animate-input">
                                         <span>
-                                            전화번호, 사용자 이름 또는 이메일
+                                            휴대폰 번호 또는 이메일 주소
                                         </span>
                                         <input type="text">
                                     </div>
@@ -44,36 +47,40 @@
                                 <div class="form-group">
                                     <div class="animate-input">
                                         <span>
-                                            비밀번호
+                                            성명
                                         </span>
-                                        <input type="password">
-                                        <button>비밀번호 표시</button>
+                                        <input type="text">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="animate-input">
+                                        <span>
+                                            사용자 이름
+                                        </span>
+                                        <input type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                <div class="animate-input">
+                                    <span>
+                                        비밀번호
+                                    </span>
+                                    <input type="password">
+                                    <button>비밀번호 표시</button>
+                                </div>
+                            </div>
                                 <div class="btn-group">
-                                    <button class="btn-login" id="signin-btn" disabled>
-                                        로그인
+                                    <button type="submit" class="btn-login" id="signin-btn" onclick="location.href='.birth.html'" disabled>
+                                        가입
                                     </button>
                                 </div>
-                            </form>
-                            <div class="divine">
-                                <div></div>
-                                <div>또는</div>
-                                <div></div>
-                            </div>
-                            <div class="btn-group">
-                                <button class="btn-fb">
-                                    <img src="./images/facebook-icon.png" alt="">
-                                    <span>Facebook으로 로그인</span>
-                                </button>
-                            </div>
-                            <a href="#" class="forgot-pw">비밀번호를 잊으셨나요?</a>
+                            </form>                          
                         </div>
                     </div>
                     <div class="box goto">
                         <p>
-                            계정이 없으신가요?
-                            <a href="./register.html">가입하기</a>
+                            계정이 있으신가요?
+                            <a href="./login.html">로그인</a>
                         </p>
                     </div>
 
@@ -113,10 +120,8 @@
             </div>
         </div>
     </div>
-
+    </main>
     <!-- APP JS -->
     <script src="./js/member.js"></script>
-
 </body>
-
 </html>
