@@ -1,0 +1,149 @@
+* {margin: 0; padding: 0; font: normal 12px 고딕;}
+a {text-decoration: none; color: #111;}
+ul, ol {list-style: none;}
+html, body {height: 100%}
+#wrapper { 
+    width: 771px;
+    height: auto;
+    margin: 0 auto;
+}
+/* 인스타그램 이미지 */
+.logo > img {
+    width: 175px;
+}
+
+
+
+/*========= register =============*/
+/* 회원가입 페이지 h2 내용 */
+.title{
+    color: #8e8e8e;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 100px;
+}
+
+#register{
+    width: 348px;
+    height: 650px;
+    border: 1px solid #cccccc;
+    margin: 0 auto;
+    margin-left: 200px;
+    margin-top: 20px;
+}
+
+
+#register > form > table tr > td > input{
+    width: 228px;
+    padding: 12px 10px;
+    margin-left: 40px;
+    margin-top: 6px;
+    background: #FAFAFA;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+}
+#register > .logo{
+    padding: 20px 10px;
+    text-align: center;
+}
+
+#register > form {
+    text-align: center;
+}
+
+#register > form > div {
+    margin-top: 20px;
+}
+#register > form > div > span{
+    color: #cccccc;
+    text-align: center;
+    font-size: 13px;
+    
+}
+#register > form > div > span a {
+    color: blue;
+}
+
+#register > .haveId {
+    position: relative;
+    border: 1px solid #cccccc;
+    width: 100%;
+    height: 70px;
+    margin-top: 85px;
+}
+
+#register > .haveId > span {
+    position: relative;
+    font-size: 16px;
+    margin-left: 76px;
+    text-align: center;
+    top: 23px;
+}
+
+#register > .haveId > span a {
+    font-size: 16px;
+    margin-left: 4px;
+    color: #5aace1;
+    text-align: center;
+    top: 23px;
+}
+
+#register > .download {
+    width: 100%;
+    position: relative;
+    margin-top:15px;
+}
+#register > .download > span {
+    margin-left: 82px;
+    font-size: 16px;
+}
+#register > .download > div {
+    margin-top: 15px;
+    text-align: center;
+}
+#register > .download > div > a {}
+#register > .download > div > a > img {
+    width: 122px;
+    height: 40px;
+    
+}
+
+#register > form > div {
+    width: 100%;
+    height: 48px;
+}
+/* 가입 버튼 */
+#register > form > div > input[type=submit]{
+    width: 250px;
+    position: relative;
+    overflow: hidden;
+    padding: 9px 0 7px 8px;
+    outline: none;
+    color: white;
+    background: #5aace1;
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0;
+}
+/*========== register 끝 ==========*/
+
+footer {
+    width: 100%;
+    min-height: 135px;
+    margin-top: 250px;
+}
+
+footer > div > div {
+    display: inline-block;
+    font-size: 13px;
+    color: gray;
+    margin-left: 11px;
+}
+
+footer > div:nth-child(2){
+    font-size: 40px;
+    text-align: center;
+}
