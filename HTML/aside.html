@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram</title>
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <style>
+        * {
+        box-sizing: border-box;
+      }
+
+      a:link{color:black; text-decoration: none;}
+      a:visited{color: black; text-decoration: none;}
+
+      body {
+        margin: 0;
+        background: #fafafa;
+        color: #262626;
+        font-family: BlinkMacSystemFont;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 250px;
+        height: 100%;
+        padding: 40px 10px 30px 10px;
+        background: #ffffff;
+        border-right: 1px solid #dbdbdb;
+        transition: 0.3s;
+      }
+
+      .sidebar-header {
+        width: 100%;
+        margin-bottom: 44px;
+      }
+
+      .logo-icon {
+        display: none;
+        font-size: 28px;
+        height: 35px;
+        width: 51px;
+        text-align: center;
+      }
+
+      .logo-img {
+        margin-left: 14px;
+        height: 32px;
+      }
+
+      .sidebar button {
+        height: 60px;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        font-family: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
+
+      .sidebar button > span {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 48px;
+        padding: 0 12px;
+        border-radius: 24px;
+        line-height: 1;
+      }
+
+      .sidebar button > a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 48px;
+        padding: 0 12px;
+        border-radius: 24px;
+        line-height: 1;
+      }
+
+      .sidebar button:hover > span {
+        background: #f2f2f2;
+      }
+
+      .sidebar button:hover > a {
+        background: #f2f2f2;
+      }
+
+      .sidebar button:hover > span :is(i, img) {
+        scale: 1.05;
+      }
+
+      .sidebar button:hover > a :is(i, img) {
+        scale: 1.05;
+      }
+
+      .sidebar button > span > span {
+        transition: 0.3s;
+      }
+
+      .sidebar button > a > span {
+        transition: 0.3s;
+      }
+
+      @media (width < 580px) {
+        .logo-img {
+          display: none;
+        }
+
+        .logo-icon {
+          display: block;
+        }
+
+        .sidebar {
+          width: 72px;
+        }
+
+        .sidebar button > span {
+          width: 50px;
+        }
+
+        .sidebar button > a {
+          width: 50px;
+        }
+
+        .sidebar button > span > span {
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        .sidebar button > a > span {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+
+      .sidebar button i {
+        position: relative;
+        font-size: 28px;
+        transition: 0.2s;
+      }
+
+      .sidebar button img {
+        width: 28px;
+        height: 28px;
+        transition: 0.2s;
+      }
+
+      .sidebar button i > span {
+        display: grid;
+        place-items: center;
+        height: 20px;
+        padding: 0 4px;
+        border-radius: 10px;
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        border: 1px solid #ffffff;
+        background: #ff2f40;
+        color: #f9f9f9;
+        font-size: 12px;
+        font-family: BlinkMacSystemFont;
+        font-style: normal;
+      }
+
+      .sidebar button i > em {
+        display: block;
+        height: 10px;
+        width: 10px;
+        border-radius: 10px;
+        position: absolute;
+        top: 2px;
+        right: -1px;
+        border: 1px solid #ffffff;
+        background: #ff2f40;
+        color: #f9f9f9;
+        font-size: 12px;
+        font-family: BlinkMacSystemFont;
+        font-style: normal;
+      }
+
+      .sidebar button span {
+        font-size: 17px;
+      }
+
+      .sidebar > nav {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .sidebar > nav button:last-child {
+        margin-top: auto;
+      }
+
+      .side{visibility: hidden;}
+
+      .side {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 75px;
+        height: 100%;
+        padding: 40px 10px 30px 10px;
+        background: #ffffff;
+        border-right: 1px solid #dbdbdb;
+        transition: 0.3s;
+      }
+
+      .side-header {
+        width: 100%;
+        margin-bottom: 44px;
+      }
+
+      .side button {
+        height: 60px;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        font-family: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
+
+      .side button > span {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 48px;
+        padding: 0 12px;
+        border-radius: 24px;
+        line-height: 1;
+      }
+
+      .side button > a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 48px;
+        padding: 0 12px;
+        border-radius: 24px;
+        line-height: 1;
+      }
+
+      .side button:hover > span {
+        background: #f2f2f2;
+      }
+
+      .side button:hover > a {
+        background: #f2f2f2;
+      }
+
+      .side button:hover > span :is(i, img) {
+        scale: 1.05;
+      }
+
+      .side button:hover > a :is(i, img) {
+        scale: 1.05;
+      }
+
+      .side button > span > span {
+        transition: 0.3s;
+      }
+
+      .side button > a > span {
+        transition: 0.3s;
+      }
+
+      @media (width < 580px) {
+        .logo-img {
+          display: none;
+        }
+
+        .logo-icon {
+          display: block;
+        }
+
+        .side {
+          width: 72px;
+        }
+
+        .side button > span {
+          width: 50px;
+        }
+
+        .side button > a {
+          width: 50px;
+        }
+
+        .side button > span > span {
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        .side button > a > span {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+
+      .side button i {
+        position: relative;
+        font-size: 28px;
+        transition: 0.2s;
+      }
+
+      .side button img {
+        width: 28px;
+        height: 28px;
+        transition: 0.2s;
+      }
+
+      .side button i > span {
+        display: grid;
+        place-items: center;
+        height: 20px;
+        padding: 0 4px;
+        border-radius: 10px;
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        border: 1px solid #ffffff;
+        background: #ff2f40;
+        color: #f9f9f9;
+        font-size: 12px;
+        font-family: BlinkMacSystemFont;
+        font-style: normal;
+      }
+
+      .side button i > em {
+        display: block;
+        height: 10px;
+        width: 10px;
+        border-radius: 10px;
+        position: absolute;
+        top: 2px;
+        right: -1px;
+        border: 1px solid #ffffff;
+        background: #ff2f40;
+        color: #f9f9f9;
+        font-size: 12px;
+        font-family: BlinkMacSystemFont;
+        font-style: normal;
+      }
+
+      .side button span {
+        font-size: 17px;
+      }
+
+      .side > nav {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .side > nav button:last-child {
+        margin-top: auto;
+      }
+
+      .sidesearch{
+        width: 397px;
+        height: 100%;
+        position: relative;
+        top: 0;
+        left: 75px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 40px 10px 30px 10px;
+        background: #ffffff;
+        border-right: 1px solid #dbdbdb;
+        transition: 0.3s;
+      }
+
+      #searchAll{
+        box-sizing: border-box;
+        width: 364px;
+        height: 40px;
+        background-color: #efefef;
+        font-size: 16px;
+        padding: 2px;
+        position: relative;
+        
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+      $(function(){
+          $('#search').on('click',function(){
+              $('.sidebar').hide();
+              $('.side').css('visibility', 'visible');   
+          });
+          
+      });
+    </script>
+  </head>
+  <body>
+
+    <aside class="sidebar">
+      <header class="sidebar-header">
+        <img class="logo-img" src="photostagram_logo.png" />
+        <i class="logo-icon uil uil-instagram"></i>
+      </header>
+      <nav>
+
+        <button>
+            <a href="">
+              <i class="uil uil-estate"></i>
+              <span>홈</span>
+            </a>
+        </button>
+
+        <button id="search">
+          <span>
+              <i class="uil uil-search"></i>
+              <span>검색</span>
+          </span>
+        </button>
+
+        <button>
+          <a href="">
+            <i class="uil uil-compass"></i>
+            <span>탐색 탭</span>
+          </a>
+        </button>
+
+        <button>
+          <a href="">
+            <i class="uil uil-location-arrow"></i>
+            <span>메시지</span>
+          </a>
+        </button>
+
+        <button>
+          <span>
+            <i class="uil uil-heart"></i>
+            <span>알림</span>
+          </span>
+        </button>
+
+        <button>
+          <span>
+            <i class="uil uil-plus-circle"> </i>
+            <span>만들기</span>
+          </span>
+        </button>
+
+        <button>
+          <span>
+            <img src="https://raw.githubusercontent.com/zouraiz523/Instagram-Sidebar-/b2750eba8fa31cde49364428bf28fbb41b3a02f0/Instagram%20Sidebar%20Coding/Profile.svg" />
+            <span>프로필</span>
+          </span>
+        </button>
+
+        <button>
+          <span>
+            <i class="uil uil-bars"> </i>
+            <span>더보기</span>
+          </span>
+        </button>
+      </nav>
+    </aside>
+
+    <aside class="side">
+      <header class="sidebar-header">
+        <img class="logo-img" src="https://raw.githubusercontent.com/zouraiz523/Instagram-Sidebar-/b2750eba8fa31cde49364428bf28fbb41b3a02f0/Instagram%20Sidebar%20Coding/Profile.svg" />
+        <i class="logo-icon uil uil-instagram"></i>
+      </header>
+      <nav>
+
+        <button>
+            <a href="">
+              <i class="uil uil-estate"></i>
+            </a>
+        </button>
+
+        <button>
+          <span>
+              <i class="uil uil-search"></i>
+          </span>
+        </button>
+
+        <button>
+          <a href="">
+            <i class="uil uil-compass"></i>
+          </a>
+        </button>
+
+        <button>
+          <a href="">
+            <i class="uil uil-location-arrow"></i>
+          </a>
+        </button>
+
+        <button>
+          <span>
+            <i class="uil uil-heart"></i>
+          </span>
+        </button>
+
+        <button>
+          <span>
+            <i class="uil uil-plus-circle"> </i>
+          </span>
+        </button>
+
+        <button>
+          <span>
+            <img src="https://raw.githubusercontent.com/zouraiz523/Instagram-Sidebar-/b2750eba8fa31cde49364428bf28fbb41b3a02f0/Instagram%20Sidebar%20Coding/Profile.svg" />
+          </span>
+        </button>
+
+        <button>
+          <span>
+            <i class="uil uil-bars"> </i>
+          </span>
+        </button>
+      </nav>
+    </aside>
+    <div class="sidesearch">
+        <div>
+            <h5>검색</h5>
+            <form>
+              <input type="text" name="search" id="searchAll" placeholder="검색"/>
+              <button type="reset" class="search" id="search-btn"></button>
+            </form>
+        </div>
+        <div></div>
+    </div>
+  </body>
+</html>
