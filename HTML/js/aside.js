@@ -63,11 +63,9 @@ function uploadFiles(e){
     
       let modal = $('#modal_add_feed');
       let modal_feed = $('#modal_add_feed_content');
-      let scroll = $(document).scrollTop();
 
-      console.log(scroll);
       $('#add_feed').on('click', function(){
-          modal.css('top', scroll+'px');
+          modal.css('top', $(window).scrollTop()+'px');
           modal.css('display', 'flex');
           $('body').css('overflow-y', 'hidden');
       });
