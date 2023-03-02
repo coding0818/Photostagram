@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photostagram::birth</title>
+    <title>Photostagram::email</title>
     <link rel="shortcut icon" href="./images/favicon.png" type="image/png">
     <!-- 구글 폰트 -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -18,40 +18,31 @@
             <div class="main-content">
                 <div class="form-container">
                     <div class="form-content box">
-                        <div class="birth-logo">
-                            <img src="./images/birthday-cake.png" alt="Instagram logo" class="logo-light">
+                        <div class="email-logo">
+                            <img src="./images/mail.png" alt="Instagram logo" class="logo-light">
                         </div>
                         <div class="signin-form-reg" id="signin-form">
                             <div class="birth">
-                                <p>생일 추가</p>
+                                <p>인증 코드 입력</p>
                                 <div>
-                                    공개프로필에 포함되지 않습니다. <br>
-                                    <a href="#">왜 생일 정보를 입력해야하나요?</a>
+                                    email1234@naver.com 주소로 전송된 인증 <br>
+                                    코드를 입력하세요. 
+                                    <a href="#">코드 재전송</a>
                                 </div>
                             </div>
                             <form action="#">
-                                <div class="info" id="info__birth">
-                                    <select class="box" id="select_year" onchange="javascript:lastday();"></select>
-                                    <select class="box" id="select_month" onchange="javascript:lastday();"></select>
-                                    <select class="box" id="select_day"></select>
-                                </div>
-                                <div class="birth2">
-                                    <div>
-                                        태어난 날짜를 입력해야합니다
-                                    </div>
-                                    <div>
-                                        비즈니스나 반려동물 등을 위한 계정인 경우에도 회원님의 생일 정보를 사용하세요
-                                    </div>
+                                <div class="email-input">
+                                    <input type="text" placeholder="인증코드">
                                 </div>
                                 <div class="btn-group">
-                                    <button type="submit" class="btn-login" id="signin-btn" onclick="location.href='/member/email'">
+                                    <button type="submit" class="btn-login" id="signin-btn" onclick="location.href='/member/terms'">
                                         다음
                                     </button>
                                 </div>
                             </form>     
                             <div class="birth">
                                 <div>
-                                    <a href="./register.html">돌아가기</a>
+                                    <a href="./birth.html">돌아가기</a>
                                 </div>
                             </div>                     
                         </div>
