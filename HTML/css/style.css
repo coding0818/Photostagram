@@ -11,7 +11,7 @@
 
 
 body{
-    background:#fafafa;
+    background:red;
 }
 
 
@@ -77,6 +77,11 @@ body{
 .contents .top .user_container{
     display: flex;
 }
+
+.contents .top .user_container .user_name .time {font-size: 12px; color: gray;}
+.contents .top .user_container .user_name .followBtn {cursor: pointer; border: 0; background: 0; color: skyblue; font-weight: bold;}
+.contents .top .user_container .user_name .followBtn:hover {color: #111;}
+.contents .top .user_container .user_name .jum {color: gray;}
 .contents .sprite_more_icon{
     position: relative;
 }
@@ -134,7 +139,7 @@ body{
 }
 
 .sprite_heart_icon_outline.on {
-    background: url('../imgs/background01.png') no-repeat -26px -261px;
+    background: url('/img/background01.png') no-repeat -26px -261px;
 }
 
 .contents .likes{
@@ -163,11 +168,15 @@ body{
 }
 
 .contents .timer{
-    font-size: 10px;
+    font-size: 14px;
     letter-spacing: 0.2px;
-    color:#999;
     border-bottom: 1px solid rgba(0,0,0,0.09);
     padding: 10px 20px;
+    margin-left: 1px;
+}
+
+.contents .timer > a {
+    color: gray;
 }
 
 .contents .comment_field{
@@ -207,7 +216,6 @@ body{
     position:absolute;
     right: 0;
     top: 0;
-
 }
 
 .side_box.on{
@@ -233,6 +241,29 @@ body{
     font-size: 14px;
     color:#262626;
 }
+
+.side_box .info {
+    margin-top: 30px;
+    font-size: 12px;
+}
+
+.side_box .info > nav{
+    width: 100%;
+    line-height: normal;
+    margin-bottom: 20px;
+}
+.side_box .info > span{
+    
+    font-size: 12px;
+    color: gray;
+}
+.side_box .info > nav > ul > li {
+    display: inline-block;
+}
+.side_box .info > nav > ul > li > a{
+    color: gray;
+}
+
 .side_box .detail .id{
     margin-bottom: 5px;
 }
@@ -240,6 +271,12 @@ body{
 .side_box .detail .ko_name{
     font-size: 12px;
     color:#999;
+}
+
+.side_box .trans > a {
+    margin-left: 137px;
+    font-weight: bold;
+    color: skyblue;
 }
 
 .side_box > article{
@@ -292,14 +329,14 @@ body{
 }
 
 .hidden_menu{
-    display:none;
-    width: 600px;
-    /*background: red;*/
-    position: absolute;
-    left: 50%;
-    transform:translateX(-50%);
-    top: 100px;
-    overflow:hidden;
+    
+    width: 666px;
+    /* background: red; */
+    position: relative;
+    left: 43%;
+    transform: translateX(-50%);
+    top: 60px;
+    overflow: hidden;
     border: 1px solid rgba(0,0,0,0.09);
     border-radius: 3px;
 }
