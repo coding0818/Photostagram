@@ -97,7 +97,8 @@ function uploadFiles(e){
         .on("drop", uploadFiles);
 
       $('#file_upload').on('change', function(){
-          //alert('dfsf');
+          alert('file_upload!');
+
           let file = this.files;
           console.log('file : ' +file);
           let dataTransfer = new DataTransfer();
@@ -110,7 +111,7 @@ function uploadFiles(e){
           });
 
           let images= dataTransfer.files;
-          console.log(images);
+          console.log('images : '+images);
                         
           let url = [];
           for(i=0 ; i<images.length ; i++){
@@ -139,7 +140,7 @@ function uploadFiles(e){
               });                  
               $('#modal_add_feed').css({
                   display: 'none'
-              })
+              });
 
           }else{
               alert('이미지가 아닙니다.');
