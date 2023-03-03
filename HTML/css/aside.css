@@ -402,7 +402,7 @@ html {height: 100%;}
         width: 20px;
         height: 20px;
         position: absolute;
-        top: 105px;
+        top: 90px;
         left: 325px;
       }
 
@@ -523,7 +523,9 @@ html {height: 100%;}
         display: block;
       }
 
-      .sidealarm > div:nth-child(1){margin-top: 20px; margin-left: 10px; font-weight: bold; font-size: 20px;}
+      .sidealarm > div:nth-child(1){margin-top: 20px; margin-left: 10px;}
+
+      .sidealarm > div:nth-child(1) > h2{ font-weight: bold; font-size: 20px;}
 
       .sidealarm > div:nth-child(2){
         margin-top: 100px;
@@ -582,7 +584,7 @@ html {height: 100%;}
         background: #f5e1e1;
         box-sizing: border-box;
         z-index: 10;
-        position: absolute;
+        position: fixed;
         bottom: 100px;
         left: 15px;
         border-radius: 5px;
@@ -793,6 +795,12 @@ html {height: 100%;}
         border-bottom: 1px solid rgba(0, 0, 0, 0.18);
     }
 
+    .modal_title > div{
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 5px;
+    }
+
     .modal_title_side{
         margin: 5px;
         flex: 0 0 40px;
@@ -839,11 +847,15 @@ html {height: 100%;}
       position: fixed;
       top: 45%;
       left: 9px;
+      background: none;
+      border: none;
     }
     #input_image > .afterBtn{
       position: fixed;
       top: 45%;
       right: 305px;
+      background: none;
+      border: none;
     }
 
 
