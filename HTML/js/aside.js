@@ -56,9 +56,19 @@ function uploadFiles(e){
           $('.side').toggleClass('on');              
       });
 
+      $('#search_close').on('click', function(){
+        $('.sidesearch').toggleClass('on');
+        $('.side').toggleClass('on');
+      });
+
       $('#alarm').on('click',function(){
           $('.sidealarm').toggleClass('on');
           $('.side').toggleClass('on');              
+      });
+
+      $('#alarm_close').on('click',function(){
+        $('.sidealarm').toggleClass('on');
+        $('.side').toggleClass('on');              
       });
     
       let modal = $('#modal_add_feed');
@@ -186,5 +196,9 @@ function uploadFiles(e){
         }); 
         console.log("j"+j); 
         
+    });
+
+    $('#more_view').on('click', function(){
+        $('.more_logout').toggleClass('on');
     });
   });

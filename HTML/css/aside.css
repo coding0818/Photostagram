@@ -193,6 +193,7 @@ html {height: 100%;}
         margin-top: auto;
       }
 
+      /*사이드바2*/
       .side {
         position: fixed;
         top: 0;
@@ -363,7 +364,7 @@ html {height: 100%;}
         margin-top: auto;
       }
 
-      
+      /*검색창*/
       .sidesearch{
         display: none;
         width: 397px;
@@ -391,6 +392,19 @@ html {height: 100%;}
 
       .sidesearch > div:nth-child(1){display: block; box-sizing: border-box; border-bottom: #dbdbdb; position: absolute; margin-left: 10px;}
 
+      .sidesearch > div:nth-child(1) > button{
+        background: none;
+        border: none;
+      }
+
+      .sidesearch > div:nth-child(1) > button > img{
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 105px;
+        left: 325px;
+      }
+
       .sidesearch > div:nth-child(2){
         position: relative;
         top: 150px;
@@ -415,34 +429,7 @@ html {height: 100%;}
         box-sizing: border-box;
       }
 
-      .sidesearch > div:nth-child(3){
-        margin-top: 200px;
-        margin-left: 0;
-      }
-      .sidesearch > div:nth-child(4){
-        margin-top: 15px;
-        margin-left: 0;
-      }
-      .sidesearch > div:nth-child(5){
-        margin-top: 15px;
-        margin-left: 0;
-      }
-      .sidesearch > div:nth-child(6){
-        margin-top: 15px;
-        margin-left: 0;
-      }
-      .sidesearch > div:nth-child(7){
-        margin-top: 15px;
-        margin-left: 0;
-      }
-      .sidesearch > div:nth-child(8){
-        margin-top: 15px;
-        margin-left: 0;
-      }
-      .sidesearch > div:nth-child(9){
-        margin-top: 15px;
-        margin-left: 0;
-      }
+      
 
       #searchAll{
         box-sizing: border-box;
@@ -453,6 +440,14 @@ html {height: 100%;}
         padding: 2px;
         position: relative;
         border: #efefef;
+      }
+
+      .searchListAll{
+        overflow-y: scroll;
+        overflow-x: hidden;
+        margin-top: 220px;
+        margin-left: 0;
+        height: 700px;
       }
 
       .searchlist > div:nth-of-type(1){
@@ -507,7 +502,7 @@ html {height: 100%;}
         border: none;
       }
 
-     
+     /*알림*/
       .sidealarm{
         display: none;
         width: 397px;
@@ -527,58 +522,36 @@ html {height: 100%;}
         display: block;
       }
 
-      .sidealarm > div:nth-child(1){margin-top: 20px; margin-left: 10px; font-weight: bold; font-size: 25px;}
+      .sidealarm > div:nth-child(1){margin-top: 20px; margin-left: 10px; font-weight: bold; font-size: 20px;}
 
       .sidealarm > div:nth-child(2){
         margin-top: 100px;
         float: left;
       }
-      .sidealarm > div:nth-child(3){
-        float: left;
-        margin-top: 10px;
+      
+      .alarmListAll{
+        overflow-y: scroll;
+        overflow-x: hidden;
+        position: fixed;
+        top: 50px;
+        margin-left: 0;
+        height: 800px;
       }
-      .sidealarm > div:nth-child(4){
-        float: left;
-        margin-top: 10px;
-      }
-      .sidealarm > div:nth-child(5){
-        float: left;
-        margin-top: 10px;
-      }
-      .sidealarm > div:nth-child(6){
-        float: left;
-        margin-top: 10px;
-      }
-      .sidealarm > div:nth-child(7){
-        float: left;
-        margin-top: 10px;
-      }
-      .sidealarm > div:nth-child(8){
-        float: left;
-        margin-top: 10px;
-      }
-      .sidealarm > div:nth-child(9){
-        float: left;
-        margin-top: 10px;
-      }
-      .sidealarm > div:nth-child(10){
-        float: left;
-        margin-top: 10px;
-      }
-      .sidealarm > div:nth-child(11){
-        float: left;
+
+      .alarmListAll > div{
+        display: flex;
         margin-top: 10px;
       }
 
       .alarmlist > div:nth-child(1){
-        width: 54px;
-        height: 54px;
+        width: 50px;
+        height: 50px;
         float: left;
       }
 
       .alarmlist > div:nth-child(1) > img{
-        width: 54px;
-        height: 54px;
+        width: 50px;
+        height: 50px;
       }
 
       .alarmlist > div:nth-child(2) {
@@ -600,6 +573,35 @@ html {height: 100%;}
         float: right;
       }
 
+
+      /*logout*/
+      .more_logout{
+        width: 230px; 
+        height: 44px;
+        background: #f5e1e1;
+        box-sizing: border-box;
+        z-index: 10;
+        position: absolute;
+        bottom: 100px;
+        left: 15px;
+        border-radius: 5px;
+        display: none;
+      }
+
+      .more_logout.on{
+        display: block;
+      }
+
+      .more_logout > a{
+        display: block;
+        text-align: center;
+        width: 230px;
+        height: 44px;
+        font-size: 15px;
+        line-height: 44px;
+      }
+
+    /*modal*/  
     .modal_image_upload > button{
       position: relative;
       top: 45%;

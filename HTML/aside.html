@@ -59,7 +59,7 @@
     </script>
   </head>
   <body>
-
+    <!--sidebar 기본-->
     <aside class="sidebar">
       <header class="sidebar-header">
         <img class="logo-img" src="./img/photostagram_logo.png" />
@@ -116,7 +116,7 @@
           </span>
         </button>
 
-        <button>
+        <button id="more_view">
           <span>
             <i class="uil uil-bars"> </i>
             <span>더보기</span>
@@ -124,7 +124,7 @@
         </button>
       </nav>
     </aside>
-
+    <!--sidebar 축소(검색, 알람창 선택시)-->
     <aside class="side">
       <header class="sidebar-header">
         <img class="logo-img" src="https://raw.githubusercontent.com/zouraiz523/Instagram-Sidebar-/b2750eba8fa31cde49364428bf28fbb41b3a02f0/Instagram%20Sidebar%20Coding/Profile.svg" />
@@ -138,7 +138,7 @@
             </a>
         </button>
 
-        <button>
+        <button id="search_close">
           <span>
               <i class="uil uil-search"></i>
           </span>
@@ -156,7 +156,7 @@
           </a>
         </button>
 
-        <button>
+        <button id="alarm_close">
           <span>
             <i class="uil uil-heart"></i>
           </span>
@@ -181,260 +181,418 @@
         </button>
       </nav>
     </aside>
+    <!--검색창-->
     <div class="sidesearch">
         <div>
             <h2>검색</h2>
-            <form>
-              <input type="text" name="search" id="searchAll" placeholder="검색"/>              
-            </form>
+            <input type="text" name="search" id="searchAll" placeholder="검색"></input>   
+            <button><img src="./img/search.png" alt=""></button>    
         </div>
         <div>
             <h3>최근 검색 항목 <button>모두 지우기</button></h3>
         </div>
     
-        <div class="searchlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
+        <div class="searchListAll">
+          <div class="searchlist">
             <div>
-              <h3>nickname</h3>
+              <img src="./img/aside_seller_ico.PNG" alt="">
             </div>
             <div>
-              <h8>text</h8>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
             </div>
           </div>
-          <div>
-            <button>
-              <img src="./img/aside_x.PNG" alt="">
-            </button>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
+          </div>
+         
+          <div class="searchlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+              <div>
+                <h3>nickname</h3>
+              </div>
+              <div>
+                <h8>text</h8>
+              </div>
+            </div>
+            <div>
+              <button>
+                <img src="./img/aside_x.PNG" alt="">
+              </button>
+            </div>
           </div>
         </div>
-        <div class="searchlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-            <div>
-              <h3>nickname</h3>
-            </div>
-            <div>
-              <h8>text</h8>
-            </div>
-          </div>
-          <div>
-            <button>
-              <img src="./img/aside_x.PNG" alt="">
-            </button>
-          </div>
-        </div>
-        <div class="searchlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-            <div>
-              <h3>nickname</h3>
-            </div>
-            <div>
-              <h8>text</h8>
-            </div>
-          </div>
-          <div>
-            <button>
-              <img src="./img/aside_x.PNG" alt="">
-            </button>
-          </div>
-        </div>
-        <div class="searchlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-            <div>
-              <h3>nickname</h3>
-            </div>
-            <div>
-              <h8>text</h8>
-            </div>
-          </div>
-          <div>
-            <button>
-              <img src="./img/aside_x.PNG" alt="">
-            </button>
-          </div>
-        </div>
-        <div class="searchlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-            <div>
-              <h3>nickname</h3>
-            </div>
-            <div>
-              <h8>text</h8>
-            </div>
-          </div>
-          <div>
-            <button>
-              <img src="./img/aside_x.PNG" alt="">
-            </button>
-          </div>
-        </div>
-        <div class="searchlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-            <div>
-              <h3>nickname</h3>
-            </div>
-            <div>
-              <h8>text</h8>
-            </div>
-          </div>
-          <div>
-            <button>
-              <img src="./img/aside_x.PNG" alt="">
-            </button>
-          </div>
-        </div>
-        <div class="searchlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-            <div>
-              <h3>nickname</h3>
-            </div>
-            <div>
-              <h8>text</h8>
-            </div>
-          </div>
-          <div>
-            <button>
-              <img src="./img/aside_x.PNG" alt="">
-            </button>
-          </div>
-        </div>
+        
     </div>
+
+    <!--알림창-->
     <div class="sidealarm">
         <div>
             <h2>알림</h2>
         </div>
-        <div class="alarmlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
+        <div class="alarmListAll">
+          <div class="alarmlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+                <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+            </div>
+            <div>
+                <img src="./img/aside_x.PNG" alt="">
+            </div>
           </div>
-          <div>
-              <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+          <div class="alarmlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+                <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+            </div>
+            <div>
+                <img src="./img/aside_x.PNG" alt="">
+            </div>
           </div>
-          <div>
-              <img src="./img/aside_x.PNG" alt="">
+          <div class="alarmlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+                <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+            </div>
+            <div>
+                <img src="./img/aside_x.PNG" alt="">
+            </div>
           </div>
-        </div>
-        <div class="alarmlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
+          <div class="alarmlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+                <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+            </div>
+            <div>
+                <img src="./img/aside_x.PNG" alt="">
+            </div>
           </div>
-          <div>
-              <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+          <div class="alarmlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+                <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+            </div>
+            <div>
+                <img src="./img/aside_x.PNG" alt="">
+            </div>
           </div>
-          <div>
-              <img src="./img/aside_x.PNG" alt="">
+          <div class="alarmlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+                <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+            </div>
+            <div>
+                <img src="./img/aside_x.PNG" alt="">
+            </div>
           </div>
-        </div>
-        <div class="alarmlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
+          <div class="alarmlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+                <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+            </div>
+            <div>
+                <img src="./img/aside_x.PNG" alt="">
+            </div>
           </div>
-          <div>
-              <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+          <div class="alarmlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+                <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+            </div>
+            <div>
+                <img src="./img/aside_x.PNG" alt="">
+            </div>
           </div>
-          <div>
-              <img src="./img/aside_x.PNG" alt="">
+          <div class="alarmlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+                <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+            </div>
+            <div>
+                <img src="./img/aside_x.PNG" alt="">
+            </div>
           </div>
-        </div>
-        <div class="alarmlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-              <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-          </div>
-          <div>
-              <img src="./img/aside_x.PNG" alt="">
-          </div>
-        </div>
-        <div class="alarmlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-              <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-          </div>
-          <div>
-              <img src="./img/aside_x.PNG" alt="">
-          </div>
-        </div>
-        <div class="alarmlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-              <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-          </div>
-          <div>
-              <img src="./img/aside_x.PNG" alt="">
-          </div>
-        </div>
-        <div class="alarmlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-              <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-          </div>
-          <div>
-              <img src="./img/aside_x.PNG" alt="">
-          </div>
-        </div>
-        <div class="alarmlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-              <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-          </div>
-          <div>
-              <img src="./img/aside_x.PNG" alt="">
-          </div>
-        </div>
-        <div class="alarmlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-              <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-          </div>
-          <div>
-              <img src="./img/aside_x.PNG" alt="">
-          </div>
-        </div>
-        <div class="alarmlist">
-          <div>
-            <img src="./img/aside_seller_ico.PNG" alt="">
-          </div>
-          <div>
-              <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-          </div>
-          <div>
-              <img src="./img/aside_x.PNG" alt="">
+          <div class="alarmlist">
+            <div>
+              <img src="./img/aside_seller_ico.PNG" alt="">
+            </div>
+            <div>
+                <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+            </div>
+            <div>
+                <img src="./img/aside_x.PNG" alt="">
+            </div>
           </div>
         </div>
     </div>
     
+    <!--더보기 선택시 팝업-->
+    <div class="more_logout">
+      <a href="">로그아웃</a>
+    </div>
+
+    <!--게시글 작성 선택시 모달 팝업(</body>바깥부분에배치)-->
   <div id="modal_add_feed" class="modal modal_overlay">
     <div class="modal_window">
         <div class="modal_title">
