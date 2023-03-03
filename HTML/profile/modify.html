@@ -55,7 +55,46 @@
       });
     </script>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font: normal 12px 'Arial';
+        }
 
+        ul, ol {list-style: none;}
+        a {text-decoration: none; color: #111;}
+        input, textarea {outline: none;}
+
+        #wrapper {
+            width: 1200px; 
+            margin-left: 500px;
+            margin-top: 50px;
+        }
+
+        #wrapper > #myInfo {
+            width: 800px;
+            height: auto;
+            border: 1px solid #e9e9e9;
+            background: white;
+        }
+        #myInfo > div {text-align: center; width:400px; height:80px; padding: 10px;}
+        #myInfo > div > img {float: left; width: 45px; height: auto;}
+        #myInfo > div > div {margin-left: 20px; margin-top:5px; float: left; width: 120px; position: relative;}
+        #myInfo > div > div > span {float: left; font-size: 16px;}
+        #myInfo > div > div > a {float: left; color: #32a4ff; font-weight: bold;}
+        #myInfo > form {padding: 10px; border-collapse:collapse;}
+        #myInfo > form > table > tbody > tr {position: relative;}
+        #myInfo > form > table > tbody > tr > td:nth-child(1) {width: 150px; text-align:right;}
+        #myInfo > form > table > tbody > tr > td:nth-child(2) {padding: 15px;}
+        #myInfo > form > table > tbody > tr > td:nth-child(2) > input {width: 350px; height: 35px; border: 1px solid #dcdcdc; font-size: 15px;}
+        #myInfo > form > table > tbody > tr > td:nth-child(2) > textarea {width: 350px; height: 50px; border: 1px solid #dcdcdc; font-size: 15px; resize: none;}
+        #myInfo > form > table > tbody > tr > td:nth-child(2) > #check {width: 15px; height: 15px;}
+        #myInfo > form > table > tbody > tr > #private {color: #808080; font-size: 12px; width: 350px;}
+        #myInfo > form > table > tbody > tr > td:nth-child(1) > span {font-weight: bold; font-size: 17px;}
+        #myInfo > form > table > tbody > tr > td:nth-child(2) > span {display: block; color: #808080; width: 350px; font-size: 12px; margin-top: 10px;}
+        #myInfo > form > table > tbody > tr:nth-child(9) > td:nth-child(2) > span {float: left;}
+        #myInfo > form > table > tbody > tr:nth-child(9) > td:nth-child(2) {display: block;}
+        #check {float: left;}
     </style>
 </head>
 <body>
@@ -488,90 +527,98 @@
     </div>
 </div>
 <main id="wrapper">
-  <section>
-      <div class="myProfile">
-          <div class="proPhoto">
-              <div>
-                  <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-              </div>
-          </div>
-          <div class="detail">
-              <div class="pTop">
-                  <div class="userName">gildong</div>
-                  <a href="#" class="button" id="follow">팔로우</a>
-                  <a href="#" class="button">프로필 편집</a>
-              </div>
-              <ul class="pMiddle">
-                  <li>
-                      <span>게시물</span>3
-                  </li>
-                  <li>
-                      <span>팔로워</span>3
-                  </li>
-                  <li>
-                      <span>팔로우</span>3
-                  </li>
-              </ul>
-              <p class="pAbout">
-                  <span class="notice">
-                      홍길동
-                  </span>
-              </p>
-          </div>
-      </div>
-      <div class="myNav">
-          <div><a href="#">게시물</a></div>
-          <div><a href="#">릴스</a></div>
-          <div><a href="#">태그됨</a></div>
-      </div>
-      <div class="myList">
-          <div class="pic">
-              <a href="#">
-                  <img src="./img/300x300-1.png">
-              </a>
-          </div>
-          <div class="pic">
-              <a href="#">
-                  <img src="./img/300x300-1.png">
-              </a>
-          </div>
-          <div class="pic">
-              <a href="#">
-                  <img src="./img/300x300-1.png">
-              </a>
-          </div>
-          <div class="pic">
-              <a href="#">
-                  <img src="./img/300x300-1.png">
-              </a>
-          </div>
-          <div class="pic">
-              <a href="#">
-                  <img src="./img/300x300-1.png">
-              </a>
-          </div>
-          <div class="pic">
-              <a href="#">
-                  <img src="./img/300x300-1.png">
-              </a>
-          </div>
-          <div class="pic">
-              <a href="#">
-                  <img src="./img/300x300-1.png">
-              </a>
-          </div>
-          <div class="pic">
-              <a href="#">
-                  <img src="./img/300x300-1.png">
-              </a>
-          </div>
-          <div class="pic">
-              <a href="#">
-                  <img src="./img/300x300-1.png">
-              </a>
-          </div>
-      </div>
-  </section>
+    <div id="myInfo">
+        <div>
+            <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+            <div>
+                <span>gildong</span>
+                <a href="#">프로필 사진 바꾸기</a>
+            </div>
+        </div>
+        <form action="#" method="">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span>이름</span>
+                        </td>
+                        <td>
+                            <input type="text" value="홍길동"><br/>
+                            <span>사람들이 이름, 별명 또는 비즈니스 이름 등 회원님의 알려진 이름을 사용하여 회원님의 계정을 찾을 수 있도록 도와주세요.</span>
+                            <span>이름은 14일 안에 두 번만 변경할 수 있습니다.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>사용자 이름</span>
+                        </td>
+                        <td>
+                            <input type="text" value="gildong">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>웹사이트</span>
+                        </td>
+                        <td>
+                            <input type="text" value="웹사이트">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>소개</span>
+                        </td>
+                        <td>
+                            <textarea name="intro" id="intro"></textarea>
+                            <span>0 / 150</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td id="private">
+                            개인 정보 <br/>
+                            비즈니스나 반려동물 등에 사용된 계정인 경우에도 회원님의 정보를 입력하세요. 공개 프로필에는 포함되지 않습니다.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>이메일</span>
+                        </td>
+                        <td>
+                            <input type="email" value="gildong@gmail.com">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>전화번호</span>
+                        </td>
+                        <td>
+                            <input type="text" placeholder="전화번호">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>성별</span>
+                        </td>
+                        <td>
+                            <input type="text" value="밝히고 싶지 않음">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>프로필에 계정 추천 표시</span>
+                        </td>
+                        <td>
+                            <input type="checkbox" value="1" id="check">
+                            <span>사람들이 회원님의 프로필에서 비슷한 계정 추천을 볼 수 있는지와 회원님의 계정이 다른 프로필에서 추천될 수 있는지를 선택하세요.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" value="제출">
+        </form>
+        <a href="#">일시적으로 내 계정 비활성화하기</a>
+    </div>
 </main>
     <footer></footer>
 </body>
