@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="./css/common.css" />
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/임시_aside.css" />
     <link
       rel="stylesheet"
       href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
@@ -25,168 +24,14 @@
       href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./css/aside.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script>
-      function dragOver(e) {
-        e.stopPropagation();
-        e.preventDefault();
-
-        if (e.type == "dragover") {
-          $(e.target).css({
-            "background-color": "black",
-            "outline-offset": "-20px",
-          });
-        } else {
-          $(e.target).css({
-            "background-color": "white",
-            "outline-offset": "-10px",
-          });
-        }
-      }
-
-      function uploadFiles(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        console.log(e.dataTransfer);
-        console.log(e.originalEvent.dataTransfer);
-
-        e.dataTransfer = e.originalEvent.dataTransfer;
-
-        files = e.dataTransfer.files;
-        if (files.length > 1) {
-          alert("하나만 올려라.");
-          return;
-        }
-
-        if (files[0].type.match(/image.*/)) {
-          $("#modal_add_feed_content").css({
-            display: "flex",
-          });
-          $(".modal_image_upload_content").css({
-            "background-image":
-              "url(" + window.URL.createObjectURL(files[0]) + ")",
-            outline: "none",
-            "background-size": "contain",
-            "background-repeat": "no-repeat",
-            "background-position": "center",
-          });
-          $("#modal_add_feed").css({
-            display: "none",
-          });
-        } else {
-          alert("이미지가 아닙니다.");
-          return;
-        }
-      }
-
-      let num = 1;
-
-      function changePic(idx) {
-        if (idx) {
-        }
-      }
-
-      $(function () {
-        $("#search").on("click", function () {
-          $(".sidesearch").toggleClass("on");
-          $(".side").toggleClass("on");
-        });
-
-        let modal = $("#modal_add_feed");
-        let scroll = $(document).scrollTop();
-
-        console.log(scroll);
-        $("#add_feed").on("click", function () {
-          modal.css("top", scroll + "px");
-          modal.css("display", "flex");
-          $("body").css("overflow-y", "hidden");
-        });
-
-        $("#close_modal").on("click", function () {
-          modal.css("display", "none");
-          $("body").css("overflow-y", "visible");
-        });
-
-        $(".modal_image_upload")
-          .on("dragover", dragOver)
-          .on("dragleave", dragOver)
-          .on("drop", uploadFiles);
-
-        $("#file_upload").on("change", function () {
-          //alert('dfsf');
-          let file = this.files;
-          //let url = createObjectURL(file);
-          console.log("file : " + file);
-          let dataTransfer = new DataTransfer();
-
-          let fileArray = Array.from(file);
-          console.log("fileArray : " + fileArray);
-
-          fileArray.forEach((file) => {
-            dataTransfer.items.add(file);
-          });
-
-          let images = dataTransfer.files;
-          console.log(images);
-
-          if (images[0].type.match(/image.*/)) {
-            $("#modal_add_feed_content").css({
-              display: "flex",
-            });
-            $(".modal_image_upload_content").css({
-              "background-image":
-                "url(" + window.URL.createObjectURL(images[0]) + ")",
-              outline: "none",
-              "background-size": "contain",
-              "background-repeat": "no-repeat",
-              "background-position": "center",
-            });
-            $("#modal_add_feed").css({
-              display: "none",
-            });
-          } else {
-            alert("이미지가 아닙니다.");
-            return;
-          }
-        });
-
-        //게시글 업로드 버튼 클릭시(ajax추가하면 됨)
-        $("#button_write_feed").on("click", () => {
-          const image = $("#input_image")
-            .css("background-image")
-            .replace(/^url\(['"](.+)['"]\)/, "$1");
-          const content = $("#input_content").val();
-          const profile_image = $("#input_profile_image").attr("src");
-          const user_id = $("#input_user_id").text();
-
-          const file = files[0];
-
-          let fd = new FormData();
-
-          fd.append("file", file);
-          fd.append("image", image);
-          fd.append("content", content);
-          fd.append("profile_image", profile_image);
-          fd.append("user_id", user_id);
-
-          if (image.length <= 0) {
-            alert("이미지가 비어있습니다.");
-          } else if (content.length <= 0) {
-            alert("설명을 입력하세요");
-          } else if (profile_image.length <= 0) {
-            alert("프로필 이미지가 비어있습니다.");
-          } else if (user_id.length <= 0) {
-            alert("사용자 id가 없습니다.");
-          } else {
-            writeFeed(fd);
-            console.log(files[0]);
-          }
-        });
-      });
-    </script>
+    <script src="./js/aside.js"></script>
+    <script src="./js/aside_JGwnaghou.js"></script>
   </head>
 
   <body>
+    <!---- 사이드 ---->
     <aside class="sidebar">
       <header class="sidebar-header">
         <img class="logo-img" src="./img/photostagram_logo.png" />
@@ -221,7 +66,7 @@
           </a>
         </button>
 
-        <button>
+        <button id="alarm">
           <span>
             <i class="uil uil-heart"></i>
             <span>알림</span>
@@ -253,6 +98,7 @@
       </nav>
     </aside>
 
+    <!---- 클릭 시 나오는 버튼들 ---->
     <aside class="side">
       <header class="sidebar-header">
         <img
@@ -314,6 +160,7 @@
       </nav>
     </aside>
 
+    <!---- 검색 click ---->
     <div class="sidesearch">
       <div>
         <h2>검색</h2>
@@ -324,9 +171,10 @@
       <div>
         <h3>최근 검색 항목 <button>모두 지우기</button></h3>
       </div>
-      <div id="searchlist">
+
+      <div class="searchlist">
         <div>
-          <img src="./aside_seller_ico.PNG" alt="" />
+          <img src="./img/aside_seller_ico.PNG" alt="" />
         </div>
         <div>
           <div>
@@ -338,88 +186,216 @@
         </div>
         <div>
           <button>
-            <img src="./aside_x.PNG" alt="" />
+            <img src="./img/aside_x.PNG" alt="" />
+          </button>
+        </div>
+      </div>
+
+      <div class="searchlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <div>
+            <h3>nickname</h3>
+          </div>
+          <div>
+            <h8>text</h8>
+          </div>
+        </div>
+        <div>
+          <button>
+            <img src="./img/aside_x.PNG" alt="" />
+          </button>
+        </div>
+      </div>
+      <div class="searchlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <div>
+            <h3>nickname</h3>
+          </div>
+          <div>
+            <h8>text</h8>
+          </div>
+        </div>
+        <div>
+          <button>
+            <img src="./img/aside_x.PNG" alt="" />
+          </button>
+        </div>
+      </div>
+      <div class="searchlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <div>
+            <h3>nickname</h3>
+          </div>
+          <div>
+            <h8>text</h8>
+          </div>
+        </div>
+        <div>
+          <button>
+            <img src="./img/aside_x.PNG" alt="" />
+          </button>
+        </div>
+      </div>
+      <div class="searchlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <div>
+            <h3>nickname</h3>
+          </div>
+          <div>
+            <h8>text</h8>
+          </div>
+        </div>
+        <div>
+          <button>
+            <img src="./img/aside_x.PNG" alt="" />
+          </button>
+        </div>
+      </div>
+      <div class="searchlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <div>
+            <h3>nickname</h3>
+          </div>
+          <div>
+            <h8>text</h8>
+          </div>
+        </div>
+        <div>
+          <button>
+            <img src="./img/aside_x.PNG" alt="" />
           </button>
         </div>
       </div>
     </div>
 
-    <div id="modal_add_feed" class="modal modal_overlay">
-      <div class="modal_window">
-        <div class="modal_title">
-          <div class="modal_title_side"></div>
-          <div>새 게시물</div>
-          <div class="modal_title_side">
-            <span
-              id="close_modal"
-              class="close_modal material-icons-outlined"
-              style="font-size: 30px"
-            >
-              close
-            </span>
-          </div>
+    <!---- 알림 click ---->
+    <div class="sidealarm">
+      <div>
+        <h2>알림</h2>
+      </div>
+      <div class="alarmlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
         </div>
-        <div class="modal_image_upload">
-          <button id="fileButton">
-            <label for="file_upload">컴퓨터에서 선택</label>
-            <input
-              type="file"
-              id="file_upload"
-              accept="image/*"
-              required
-              multiple
-            />
-          </button>
+        <div>
+          <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+        </div>
+        <div>
+          <img src="./img/aside_x.PNG" alt="" />
         </div>
       </div>
-    </div>
-
-    <div id="modal_add_feed_content" class="modal modal_overlay_content">
-      <div class="modal_window">
-        <div class="modal_title">
-          <div class="modal_title_side"></div>
-          <div style="margin: 5px">새 게시물</div>
-          <div class="modal_title_side">
-            <span
-              id="close_modal"
-              class="close_modal material-icons-outlined"
-              style="font-size: 30px"
-            >
-              close
-            </span>
-          </div>
+      <div class="alarmlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
         </div>
-        <div class="modal_image_content">
-          <div id="input_image" class="modal_image_upload_content">
-            <button onclick="changePic(0);">이전</button>
-            <button onclick="changePic(1);">다음</button>
-          </div>
-          <div class="modal_content_write">
-            <div class="feed_name">
-              <div class="profile_box">
-                <img id="input_profile_image" class="profile_img" src="#" />
-              </div>
-              <span id="input_user_id" class="feed_name_txt"> jin.99 </span>
-            </div>
-            <div style="height: 440px">
-              <textarea
-                id="input_content"
-                class="feed_content_textarea form-control col-sm-5"
-                rows="10"
-                placeholder="설명을 입력하세요..."
-              ></textarea>
-            </div>
-            <div style="width: 100%; text-align: center">
-              <button
-                id="button_write_feed"
-                type="button"
-                class="btn btn-primary"
-                style="width: 268px"
-              >
-                공유하기
-              </button>
-            </div>
-          </div>
+        <div>
+          <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+        </div>
+        <div>
+          <img src="./img/aside_x.PNG" alt="" />
+        </div>
+      </div>
+      <div class="alarmlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+        </div>
+        <div>
+          <img src="./img/aside_x.PNG" alt="" />
+        </div>
+      </div>
+      <div class="alarmlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+        </div>
+        <div>
+          <img src="./img/aside_x.PNG" alt="" />
+        </div>
+      </div>
+      <div class="alarmlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+        </div>
+        <div>
+          <img src="./img/aside_x.PNG" alt="" />
+        </div>
+      </div>
+      <div class="alarmlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+        </div>
+        <div>
+          <img src="./img/aside_x.PNG" alt="" />
+        </div>
+      </div>
+      <div class="alarmlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+        </div>
+        <div>
+          <img src="./img/aside_x.PNG" alt="" />
+        </div>
+      </div>
+      <div class="alarmlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+        </div>
+        <div>
+          <img src="./img/aside_x.PNG" alt="" />
+        </div>
+      </div>
+      <div class="alarmlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+        </div>
+        <div>
+          <img src="./img/aside_x.PNG" alt="" />
+        </div>
+      </div>
+      <div class="alarmlist">
+        <div>
+          <img src="./img/aside_seller_ico.PNG" alt="" />
+        </div>
+        <div>
+          <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
+        </div>
+        <div>
+          <img src="./img/aside_x.PNG" alt="" />
         </div>
       </div>
     </div>
@@ -514,20 +490,7 @@
                 </div>
 
                 <!------ 게시글 상단 토글박스 ------>
-                <div class="sprite_more_icon" data-name="more">
-                  <ul class="toggle_box">
-                    <li>
-                      <input
-                        type="submit"
-                        class="follow"
-                        value="팔로우"
-                        data-name="follow"
-                      />
-                    </li>
-                    <li>수정</li>
-                    <li>삭제</li>
-                  </ul>
-                </div>
+                <div class="sprite_more_icon" data-name="more"></div>
               </header>
 
               <!------- 게시글 사진 ------>
@@ -584,7 +547,13 @@
                   <div class="sprite_small_heart_icon_outline"></div>
                 </div>
               </div>
-              <div class="timer"><a href="#">댓글 82개 모두 보기</a></div>
+              <div class="commentMore">
+                <input
+                  type="button"
+                  class="commentAll"
+                  value="댓글 82개 모두 보기"
+                />
+              </div>
 
               <!----- 댓글 작성 폼 ------->
               <div class="comment_field" id="add-comment-post37">
@@ -928,4 +897,217 @@
       </section>
     </section>
   </body>
+
+  <div id="modal_add_feed" class="modal modal_overlay">
+    <div class="modal_window">
+      <div class="modal_title">
+        <div class="modal_title_side"></div>
+        <div>새 게시물</div>
+        <div class="modal_title_side">
+          <span
+            id="close_modal"
+            class="close_modal material-icons-outlined"
+            style="font-size: 30px"
+          >
+            close
+          </span>
+        </div>
+      </div>
+      <div class="modal_image_upload">
+        <button id="fileButton">
+          <label for="file_upload">컴퓨터에서 선택</label>
+          <input
+            type="file"
+            id="file_upload"
+            accept="image/*"
+            required
+            multiple
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal_add_feed_content" class="modal modal_overlay_content">
+    <div class="modal_window">
+      <div class="modal_title">
+        <div class="modal_title_side"></div>
+        <div style="margin: 5px">새 게시물</div>
+        <div class="modal_title_side">
+          <span
+            id="close_modal"
+            class="close_modal material-icons-outlined"
+            style="font-size: 30px"
+          >
+            close
+          </span>
+        </div>
+      </div>
+      <div class="modal_image_content">
+        <div id="input_image" class="modal_image_upload_content">
+          <button onclick="changePic(0);">이전</button>
+          <button onclick="changePic(1);">다음</button>
+        </div>
+        <div class="modal_content_write">
+          <div class="feed_name">
+            <div class="profile_box">
+              <img id="input_profile_image" class="profile_img" src="#" />
+            </div>
+            <span id="input_user_id" class="feed_name_txt"> jin.99 </span>
+          </div>
+          <div style="height: 440px">
+            <textarea
+              id="input_content"
+              class="feed_content_textarea form-control col-sm-5"
+              rows="10"
+              placeholder="설명을 입력하세요..."
+            ></textarea>
+          </div>
+          <div style="width: 100%; text-align: center">
+            <button
+              id="button_write_feed"
+              type="button"
+              class="btn btn-primary"
+              style="width: 268px"
+            >
+              공유하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-post">
+    <svg class="post-close" fill="#ffffff" viewBox="0 0 48 48">
+      <path
+        clip-rule="evenodd"
+        d="M41.8 9.8L27.5 24l14.2 14.2c.6.6.6 1.5 0 2.1l-1.4 1.4c-.6.6-1.5.6-2.1 0L24 27.5 9.8 41.8c-.6.6-1.5.6-2.1 0l-1.4-1.4c-.6-.6-.6-1.5 0-2.1L20.5 24 6.2 9.8c-.6-.6-.6-1.5 0-2.1l1.4-1.4c.6-.6 1.5-.6 2.1 0L24 20.5 38.3 6.2c.6-.6 1.5-.6 2.1 0l1.4 1.4c.6.6.6 1.6 0 2.2z"
+        fill-rule="evenodd"
+      ></path>
+    </svg>
+    <div class="wrapper">
+      <div class="image">
+        <img id="post-main" ondblclick="dblClickLike()" />
+        <div class="heart-wrapper">
+          <div class="heart"></div>
+        </div>
+      </div>
+      <div class="post-content">
+        <div class="user">
+          <img src="img/ppukku4.jpg" />
+          <a onclick="location.href='profile.html'">ppukku_world</a>
+          <span>ㆍ</span>
+          <button class="follow">팔로우</button>
+          <div class="blank"></div>
+          <svg
+            aria-label="옵션 더 보기"
+            class="etc"
+            onclick="postMenu()"
+            viewBox="0 0 48 48"
+          >
+            <circle
+              clip-rule="evenodd"
+              cx="8"
+              cy="24"
+              fill-rule="evenodd"
+              r="4.5"
+            ></circle>
+            <circle
+              clip-rule="evenodd"
+              cx="24"
+              cy="24"
+              fill-rule="evenodd"
+              r="4.5"
+            ></circle>
+            <circle
+              clip-rule="evenodd"
+              cx="40"
+              cy="24"
+              fill-rule="evenodd"
+              r="4.5"
+            ></circle>
+          </svg>
+        </div>
+        <div class="rest">
+          <div class="text">
+            <div class="top">
+              <img src="./img/thumb02.jpg" />
+              <div class="posting">
+                <div>
+                  <p class="comment">
+                    <a class="id" onclick="location.href='profile.html'"
+                      >ppukku_world</a
+                    >
+                  </p>
+                </div>
+                <p class="time"></p>
+              </div>
+            </div>
+          </div>
+          <div class="buttons">
+            <button class="like">
+              <svg class="like-no" viewBox="0 0 48 48">
+                <path
+                  d="M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"
+                ></path>
+              </svg>
+              <svg class="like-yes" viewBox="0 0 48 48">
+                <path
+                  d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"
+                ></path>
+              </svg>
+            </button>
+            <button class="comment">
+              <svg viewBox="0 0 48 48">
+                <path
+                  d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.1 2.8-11.1C47.5 11 37 .5 24 .5S.5 11 .5 24 11 47.5 24 47.5c4 0 7.8-1 11.1-2.8l11 2.8c.8.2 1.6-.6 1.4-1.4zm-3-22.1c0 4-1 7-2.6 10-.2.4-.3.9-.2 1.4l2.1 8.4-8.3-2.1c-.5-.1-1-.1-1.4.2-1.8 1-5.2 2.6-10 2.6-11.4 0-20.6-9.2-20.6-20.5S12.7 3.5 24 3.5 44.5 12.7 44.5 24z"
+                ></path>
+              </svg>
+            </button>
+            <button class="direct" onclick="direct()">
+              <svg viewBox="0 0 48 48">
+                <path
+                  d="M47.8 3.8c-.3-.5-.8-.8-1.3-.8h-45C.9 3.1.3 3.5.1 4S0 5.2.4 5.7l15.9 15.6 5.5 22.6c.1.6.6 1 1.2 1.1h.2c.5 0 1-.3 1.3-.7l23.2-39c.4-.4.4-1 .1-1.5zM5.2 6.1h35.5L18 18.7 5.2 6.1zm18.7 33.6l-4.4-18.4L42.4 8.6 23.9 39.7z"
+                ></path>
+              </svg>
+            </button>
+            <div class="blank"></div>
+            <button class="save">
+              <svg class="save-no" viewBox="0 0 48 48">
+                <path
+                  d="M43.5 48c-.4 0-.8-.2-1.1-.4L24 29 5.6 47.6c-.4.4-1.1.6-1.6.3-.6-.2-1-.8-1-1.4v-45C3 .7 3.7 0 4.5 0h39c.8 0 1.5.7 1.5 1.5v45c0 .6-.4 1.2-.9 1.4-.2.1-.4.1-.6.1zM24 26c.8 0 1.6.3 2.2.9l15.8 16V3H6v39.9l15.8-16c.6-.6 1.4-.9 2.2-.9z"
+                ></path>
+              </svg>
+              <svg class="save-yes" viewBox="0 0 48 48">
+                <path
+                  d="M43.5 48c-.4 0-.8-.2-1.1-.4L24 28.9 5.6 47.6c-.4.4-1.1.6-1.6.3-.6-.2-1-.8-1-1.4v-45C3 .7 3.7 0 4.5 0h39c.8 0 1.5.7 1.5 1.5v45c0 .6-.4 1.2-.9 1.4-.2.1-.4.1-.6.1z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <button class="likes-count">좋아요 1,351개</button>
+          <div class="post-date">2020년 6월 19일</div>
+          <div class="comment-wrapper">
+            <textarea onkeyup="comment()" placeholder="댓글 달기..."></textarea>
+            <button class="submit">게시</button>
+          </div>
+        </div>
+      </div>
+      <div class="previous" onclick="postPrevious();"></div>
+      <div class="next" onclick="postNext();"></div>
+    </div>
+  </div>
+
+  <!-- 포스트 메뉴 모달 -->
+  <div class="post-menu">
+    <div class="wrapper">
+      <button>신고</button>
+      <button>게시물로 이동</button>
+      <button>공유 대상...</button>
+      <button>링크 복사</button>
+      <button>퍼가기</button>
+      <button onclick="cancel()">취소</button>
+    </div>
+  </div>
 </html>
