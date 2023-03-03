@@ -44,7 +44,7 @@ body {
   height: 10px;
 }
 
-.sprite_more_icon {
+.moreIcon {
   display: inline-block;
   background: url("../img/background01.png") no-repeat -301px -218px;
   width: 15px;
@@ -83,6 +83,7 @@ body {
   background: url("../img/background01.png") no-repeat -323px -274px;
   width: 12px;
   height: 11px;
+  cursor: pointer;
 }
 
 .sprite_camera_icon {

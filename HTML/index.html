@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="./css/aside.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="./js/aside.js"></script>
-    <script src="./js/aside_JGwnaghou.js"></script>
+    <script src="./js/index.js"></script>
   </head>
 
   <body>
@@ -490,7 +490,9 @@
                 </div>
 
                 <!------ 게시글 상단 토글박스 ------>
-                <div class="sprite_more_icon" data-name="more"></div>
+                <div class="sprite_more_icon">
+                  <div class="moreIcon" data-name="more"></div>
+                </div>
               </header>
 
               <!------- 게시글 사진 ------>
@@ -536,7 +538,10 @@
                     <div class="nick_name m_text">
                       <a href="#">KindTiger</a>
                     </div>
-                    <div>우리집 강아지 귀엽죠?</div>
+                    <div class="commentWord">
+                      우리집 강아지 귀엽죠? 우리집 강아지 귀엽죠?
+                      우리집 강아지 귀엽죠? 우리집 강아지 귀엽죠?
+                    </div>
                     &nbsp;
                     <span style="color: gray">더보기</span>
                   </div>
@@ -546,6 +551,7 @@
                 <div class="small_heart">
                   <div class="sprite_small_heart_icon_outline"></div>
                 </div>
+
               </div>
               <div class="commentMore">
                 <input
@@ -988,15 +994,16 @@
     </svg>
     <div class="wrapper">
       <div class="image">
-        <img id="post-main" ondblclick="dblClickLike()" />
+        <img id="post-main" src="./img/thumb02.jpg" />
         <div class="heart-wrapper">
           <div class="heart"></div>
         </div>
       </div>
       <div class="post-content">
+        <!-- 글 작성자 -->
         <div class="user">
-          <img src="img/ppukku4.jpg" />
-          <a onclick="location.href='profile.html'">ppukku_world</a>
+          <img src="./img/thumb.jpeg" />
+          <a onclick="location.href='profile.html'">KindTiger</a>
           <span>ㆍ</span>
           <button class="follow">팔로우</button>
           <div class="blank"></div>
@@ -1032,16 +1039,17 @@
         <div class="rest">
           <div class="text">
             <div class="top">
-              <img src="./img/thumb02.jpg" />
+              <img src="./img/thumb.jpeg" />
               <div class="posting">
                 <div>
-                  <p class="comment">
-                    <a class="id" onclick="location.href='profile.html'"
-                      >ppukku_world</a
-                    >
-                  </p>
+                  <span class="comment">
+                    <a class="id" onclick="location.href='profile.html'">KingTiger</a>
+                    안녕하세요 나는 타이거입니다.
+                  </span>
+                  <div class="sprite_small_heart_icon_outline"></div>
                 </div>
-                <p class="time"></p>
+                <span class="heart">좋아요</span>
+                <span class="reComment">답글달기</span>
               </div>
             </div>
           </div>
@@ -1107,7 +1115,9 @@
       <button>공유 대상...</button>
       <button>링크 복사</button>
       <button>퍼가기</button>
-      <button onclick="cancel()">취소</button>
+      <button class="postmenu-cancel">
+        취소
+      </button>
     </div>
   </div>
 </html>
