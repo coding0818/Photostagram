@@ -273,6 +273,16 @@ button:disabled {
     color: var(--a-color);
     text-decoration: none;
 }
+.search {
+    text-align: center;
+}
+.search a{
+    text-decoration: none;
+    color: var(--btn-bg);
+    font-size: inherit;
+    line-height: 18px;
+    font-weight: 600;
+}
 
 .goto {
     padding: 10px;
@@ -346,6 +356,62 @@ button:disabled {
     font-size: 13px;
     line-height: 18px;
     text-align: center;
+}
+.checking div {
+    font-size: 12px;
+    margin: 15px;
+    text-align: center;
+    color: red;
+}
+.checkId p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.code {
+    margin: auto;
+    margin-top: 15px;
+}
+
+.btn-code {
+    width: 100px;
+    margin: auto;
+    display:block;
+    border: 1px solid transparent;
+    outline: 0;
+    background-color: var(--btn-bg);
+    color: var(--btn-color);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 5px 9px;
+    border-radius: 4px;
+}
+.checkResult {
+    margin : 20px;
+    margin-left: 40px;
+    padding-top: 20px;
+}
+.guide {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.guide span {
+    color: blue;
+}
+.pass-logo img {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    display: block;
+}
+.id-logo img {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    display: block;
 }
 
 /* responsive */
@@ -445,8 +511,12 @@ option {
     display: block;
 }
 .email-input input {
-    width: 100%;
+    width: 250px;
     height: 32px;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
     font-size: 15px;
     border: 0;
     border-radius: 15px;

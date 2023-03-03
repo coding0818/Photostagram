@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photostagram::login</title>
+    <title>Photostagram::checkId</title>
     <link rel="shortcut icon" href="./images/favicon.png" type="image/png">
     <!-- 구글 폰트 -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -12,31 +12,23 @@
     <link rel="stylesheet" href="./css/member.css">
 </head>
 <body>
+<main class="member">
     <div class="container">
         <div class="main-container">
             <div class="main-content">
-                <div class="slide-container" style="background-image: url(./images/phone-frame.png);">
-                    <div class="slide-content" id="slide-content">
-                        <img src="./images/slide (1).jpg" alt="slide image" class="active">
-                        <img src="./images/slide (2).jpg" alt="slide image">
-                        <img src="./images/slide (3).jpg" alt="slide image">
-                        <img src="./images/slide (4).jpg" alt="slide image">
-                        <img src="./images/slide (5).jpg" alt="slide image">
-                    </div>
-                </div>
                 <div class="form-container">
                     <div class="form-content box">
-                        <div class="logo">
-                            <img src="./images/logo_light.png" alt="Instagram logo" class="logo-light">
-                            <img src="./images/logo_dark.png" alt="Instagram logo" class="logo-dark">
+                        <div class="id-logo">
+                            <img src="./images/id.png" alt="Id logo" class="logo-light">
                         </div>
-                        
-                        <div class="signin-form" id="signin-form">
-                            <form action="#">
+                        <div class="signin-form-reg" id="signin-form">
+                            <div class="checkId">
+                                <p>아이디 찾기</p>
+                            </div>
                                 <div class="form-group">
                                     <div class="animate-input">
                                         <span>
-                                            전화번호, 사용자 이름 또는 이메일
+                                            성명 입력
                                         </span>
                                         <input type="text">
                                     </div>
@@ -44,42 +36,41 @@
                                 <div class="form-group">
                                     <div class="animate-input">
                                         <span>
-                                            비밀번호
+                                            이메일 입력
                                         </span>
-                                        <input type="password">
-                                        <button>비밀번호 표시</button>
+                                        <input type="text">
                                     </div>
                                 </div>
                                 <div class="checking">
                                     <div>존재하지 않는 회원입니다.</div>
-                                </div>
-                                <div class="btn-group">
-                                    <button type="submit" class="btn-login" id="signin-btn" disabled>
-                                        로그인
+                                </div>     
+                                <div class="code">
+                                    <button type="submit" class="btn-code" >
+                                        코드 보내기
                                     </button>
                                 </div>
-                            </form>
-                            <div class="divine">
-                                <div></div>
-                                <div>또는</div>
-                                <div></div>
-                            </div>
-                            <div class="btn-group">
-                                <button class="btn-fb">
-                                    <img src="./images/facebook-icon.png" alt="">
-                                    <span>Facebook으로 로그인</span>
-                                </button>
-                            </div>
-                            <a href="./checkId.html" class="forgot-pw">아이디를 잊으셨나요?</a>
-                            <a href="./checkPass.html" class="forgot-pw">비밀번호를 잊으셨나요?</a>
+                                <div>
+                                    <div class="email-input">
+                                        <input type="text" placeholder="인증코드">
+                                    </div>
+                                    <div class="checking">
+                                        <div>인증코드가 틀렸습니다.</div>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn-login">
+                                            다음
+                                        </button>
+                                    </div>
+                                </div>          
                         </div>
                     </div>
                     <div class="box goto">
                         <p>
-                            계정이 없으신가요?
-                            <a href="./register.html">가입하기</a>
+                            계정이 있으신가요?
+                            <a href="./login.html">로그인</a>
                         </p>
                     </div>
+
                     <div class="app-download">
                         <p>앱을 다운로드 하세요.</p>
                         <div class="store-link">
@@ -116,10 +107,8 @@
             </div>
         </div>
     </div>
-
+    </main>
     <!-- APP JS -->
     <script src="./js/member.js"></script>
-
 </body>
-
 </html>
