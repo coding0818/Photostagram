@@ -674,9 +674,9 @@ html {height: 100%;}
         justify-content: space-between;
     }
 
-    span {
-        padding-right: 5px;
-    }
+    /* span {
+        padding-right: 5px; // 주석 : 조광호
+    } */
 
     .feed_name {
         padding: 10px;
@@ -871,7 +871,7 @@ div.modal-post svg.post-close {
 div.modal-post div.wrapper {
   display: flex;
   position: relative;
-  width: 935px;
+  width: 1160px;
   height: 600px;
   background-color: #ffffff;
   flex-direction: row;
@@ -925,6 +925,7 @@ div.modal-post div.wrapper div.post-content div.user img {
   cursor: pointer;
 }
 div.modal-post div.wrapper div.post-content div.user a {
+  font-weight: 900;
   font-size: 12px;
   font-family: "nsM";
   padding: 0px 0px 0px 14px;
@@ -941,6 +942,7 @@ div.modal-post div.wrapper div.post-content div.user button.follow {
   background-color: transparent;
   outline: none;
   cursor: pointer;
+  border: 0;
 }
 div.modal-post div.wrapper div.post-content div.user svg.etc {
   width: 16px;
@@ -1030,6 +1032,7 @@ div.modal-post
   a.id {
   font-size: 12px;
   font-family: "nsM";
+  font-weight: 900;
   padding-right: 4px;
   cursor: pointer;
 }
@@ -1050,7 +1053,8 @@ div.modal-post
   div.comment-container
   div.posting
   div
-  p.comment {
+  span.comment {
+  font-weight: 500;
   font-size: 14px;
   font-family: "nsL";
   padding-right: 34px;
@@ -1297,14 +1301,15 @@ div.modal-post div.wrapper div.post-content div.rest div.text div.center {
 div.modal-post div.wrapper div.post-content div.rest div.buttons {
   display: flex;
   border-top: 1px solid rgba(var(--ce3, 239, 239, 239), 1);
-  padding: 14px 8px 10px 16px;
+  padding: 14px 8px 10px 9px;
   margin-top: 4px;
 }
 div.modal-post div.wrapper div.post-content div.rest div.buttons button {
-  width: 24px;
+  border: 0;
+  width: 29px;
   height: 24px;
   background-color: transparent;
-  margin-right: 16px;
+  margin-right: -3px;
   outline: none;
   cursor: pointer;
 }
@@ -1332,6 +1337,8 @@ div.modal-post
   display: none;
 }
 div.modal-post div.wrapper div.post-content div.rest button.likes-count {
+  font-weight: 600;
+  border: 0;
   height: 20px;
   background-color: transparent;
   font-family: "nsM";
@@ -1343,7 +1350,7 @@ div.modal-post div.wrapper div.post-content div.rest button.likes-count {
   cursor: pointer;
 }
 div.modal-post div.wrapper div.post-content div.rest div.post-date {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 18px;
   color: #8e8e8e;
   letter-spacing: 0.2px;
@@ -1366,7 +1373,8 @@ div.modal-post
   div.rest
   div.comment-wrapper
   textarea {
-  height: 44px;
+  line-height: normal;
+  height: 40px;
   flex: 1;
   font-size: 14px;
   font-family: "nsM";
@@ -1376,6 +1384,7 @@ div.modal-post
   box-sizing: border-box;
   margin-right: 10px;
   padding-top: 10px;
+  border: 0;
 }
 div.modal-post
   div.wrapper
@@ -1399,6 +1408,7 @@ div.modal-post
   margin-top: -4px;
   outline: none;
   cursor: pointer;
+  border: 0;
 }
 div.modal-post div.wrapper div.previous {
   position: absolute;
@@ -1450,9 +1460,10 @@ div.post-menu div.wrapper button {
   font-size: 14px;
   text-align: center;
   background-color: transparent;
-  border-top: 1px solid #dbdbdb;
   padding: 4px 8px;
   cursor: pointer;
+  border: 0;
+  border-bottom: 1px solid #cccccc
 }
 div.post-menu div.wrapper button:focus {
   outline: none;

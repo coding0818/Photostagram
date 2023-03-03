@@ -58,7 +58,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 10px;
 }
 
 .contents .top .profile_img {
@@ -94,9 +94,15 @@ body {
 .contents .top .user_container .user_name .jum {
   color: gray;
 }
+
+.contents .abc {
+  
+}
 .contents .sprite_more_icon {
   position: relative;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
 
 .contents .toggle_box {
@@ -135,7 +141,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 13px;
 }
 
 .contents .bottom_icons .left_icons {
@@ -156,7 +162,7 @@ body {
 }
 
 .contents .likes {
-  padding: 5px 20px;
+  padding: 5px 13px;
   color: #262626;
 }
 
@@ -164,7 +170,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 20px;
+  padding: 5px 13px;
 }
 .contents .comment_container .comment {
   display: flex;
@@ -178,6 +184,11 @@ body {
 
 .contents .comment_container .comment .nick_name {
   margin-right: 7px;
+}
+.contents .comment_container .comment .commentWord {
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
 }
 
 .contents .commentMore {
