@@ -96,6 +96,7 @@ body {
 }
 .contents .sprite_more_icon {
   position: relative;
+  cursor: pointer;
 }
 
 .contents .toggle_box {
@@ -176,19 +177,23 @@ body {
 }
 
 .contents .comment_container .comment .nick_name {
-  margin-right: 10px;
+  margin-right: 7px;
 }
 
-.contents .timer {
-  font-size: 14px;
+.contents .commentMore {
   letter-spacing: 0.2px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.09);
-  padding: 10px 20px;
+  padding: 5px 13px;
   margin-left: 1px;
 }
 
-.contents .timer > a {
+.contents .commentMore > input {
+  font-size: 13px;
+  border: 0;
+  left: 10px;
+  background-color: white;
   color: gray;
+  cursor: pointer;
 }
 
 .contents .comment_field {
