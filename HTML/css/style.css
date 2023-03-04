@@ -167,28 +167,43 @@ body {
 }
 
 .contents .comment_container {
-  display: flex;
+  display: inline-block;
   justify-content: space-between;
   align-items: center;
   padding: 5px 13px;
 }
 .contents .comment_container .comment {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   font-size: 14px;
 }
 
 .contents .comment_container .comment-detail {
-  display: flex;
+  display: inline-block;
+}
+
+.contents .comment_container .ContentsMore {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: inline-block;
+  color: gray;
 }
 
 .contents .comment_container .comment .nick_name {
-  margin-right: 7px;
+  display: inline-block;
+  margin-right: 4px;
+  margin-bottom: 3px;
 }
 .contents .comment_container .comment .commentWord {
   text-overflow: ellipsis;
   display: inline-block;
   overflow: hidden;
+}
+
+.contents .comment_container .small_heart {
+  display: inline-block;
+  float: right;
+  margin-left: 367px;
 }
 
 .contents .commentMore {
@@ -199,7 +214,7 @@ body {
 }
 
 .contents .commentMore > input {
-  font-size: 13px;
+  font-size: 14px;
   border: 0;
   left: 10px;
   background-color: white;
