@@ -1,4 +1,12 @@
 package kr.co.photostagram.dao;
 
-public class MainDAO {
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
+@Mapper
+@Repository
+public interface MainDAO {
+
+    public int insertPost();
+    public int insertImage();
 }
