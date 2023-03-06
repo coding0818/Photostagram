@@ -1,0 +1,51 @@
+.fullscreen{
+    width: 870px;
+    height: 900px;
+    background-color: antiquewhite;
+    margin: 0 auto;
+}
+
+.left{
+    width: 350px;
+    height: 100%;
+    background-color: green;
+    float: left;
+}
+
+.right{
+    width: 520px;
+    height: 100%;
+    background-color: red;
+    float: right;
+}
+
+.up{
+    width: auto;
+    height: 60px;
+    background-color: blue;
+}
+
+.src1{
+    width: 300px;
+    height: 100%;
+    background-color: aqua;
+    float: left;
+    text-align: center;
+}
+
+
+.src2{
+    width: 50px;
+    height: 100%;
+    background-color: bisque;
+    float: right;
+    position: relative;
+}
+
+.src2 img{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 15%;
+    left: 14%;
+}
