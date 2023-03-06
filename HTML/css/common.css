@@ -80,10 +80,13 @@ body {
 
 .sprite_small_heart_icon_outline {
   display: inline-block;
-  background: url("../img/background01.png") no-repeat -323px -274px;
+  background: url(../img/background01.png) no-repeat -323px -274px;
   width: 12px;
   height: 11px;
   cursor: pointer;
+  float: right;
+  margin-top: 16px;
+  margin-right: 17px;
 }
 
 .sprite_camera_icon {
