@@ -23,8 +23,6 @@ public class MyUserDetails implements UserDetails{
 	@Autowired
 	UserEntity user;
 
-
-	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// 계정이 갖는 권한 목록
