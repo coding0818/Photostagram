@@ -198,6 +198,7 @@ body {
   text-overflow: ellipsis;
   display: inline-block;
   overflow: hidden;
+  line-height: normal;
 }
 
 .contents .comment_container .small_heart {
