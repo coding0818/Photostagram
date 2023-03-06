@@ -30,7 +30,8 @@ main > section > .myProfile > .proPhoto {
     margin-right:100px; 
     width: 200px;
 }
-main > section > .myProfile > .proPhoto > div > img {width: 150px;}
+main > section > .myProfile > .proPhoto > div {width: 150px; height: 150px; border-radius: 70%; overflow: hidden;}
+main > section > .myProfile > .proPhoto > div > img {width: 100%; height: 100%; object-fit: cover;}
 main > section > .myProfile > .detail {float:left; width:500px;}
 main > section > .myProfile > .detail > .pTop {
     display: block; 
