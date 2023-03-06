@@ -1,0 +1,2 @@
+Spring/Photostagram/log/
+Spring/Photostagram/src/main/resources/application.properties
