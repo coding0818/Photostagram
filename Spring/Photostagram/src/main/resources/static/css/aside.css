@@ -871,6 +871,7 @@ div.modal-post {
   align-items: center;
   justify-content: center;
   z-index: 1;
+  font: normal 12px 'Arial';
 }
 div.modal-post svg.post-close {
   position: absolute;
@@ -937,8 +938,8 @@ div.modal-post div.wrapper div.post-content div.user img {
   cursor: pointer;
 }
 div.modal-post div.wrapper div.post-content div.user a {
-  font-weight: 900;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: bold;
   font-family: "nsM";
   padding: 0px 0px 0px 14px;
   cursor: pointer;
@@ -950,7 +951,8 @@ div.modal-post div.wrapper div.post-content div.user span {
 div.modal-post div.wrapper div.post-content div.user button.follow {
   color: #2e9afe;
   font-size: 14px;
-  font-family: "nsM";
+  font-weight: bold;
+  /* font-family: "nsM"; */
   background-color: transparent;
   outline: none;
   cursor: pointer;
@@ -1042,11 +1044,10 @@ div.modal-post
   div.posting
   div
   a.id {
-  font-size: 12px;
-  font-family: "nsM";
-  font-weight: 900;
-  padding-right: 4px;
-  cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    padding-right: 4px;
+    cursor: pointer;
 }
 div.modal-post
   div.wrapper
@@ -1443,6 +1444,17 @@ div.modal-post div.wrapper div.next {
   cursor: pointer;
 }
 
+div.modal-post div.commentInfo {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #a9a9a9;
+  font-weight: bold;
+}
+
+div.modal-post span.comment {
+  font-size: 13px;
+}
+
 /**** 게시글 상단 점 눌렀을때 나오는 모달css ****/
 div.post-menu {
   display: none;
@@ -1482,6 +1494,13 @@ div.post-menu div.wrapper button:focus {
 }
 div.post-menu div.wrapper button:nth-child(1) {
   color: #ed4956;
+  font-weight: bold;
   border-top: none;
 }
+
+div.post-menu div.wrapper button:nth-child(2) {
+  color: #ed4956;
+  font-weight: bold;
+}
+
 
