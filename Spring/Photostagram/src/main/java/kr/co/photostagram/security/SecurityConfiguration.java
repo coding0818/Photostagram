@@ -17,11 +17,11 @@ import javax.sql.DataSource;
 @Configuration
 public class SecurityConfiguration {
 
-	@Autowired
-	private SecurityUserService service;
-
-	@Autowired
-	private DataSource dataSource;
+//	@Autowired
+//	private SecurityUserService service;
+//
+//	@Autowired
+//	private DataSource dataSource;
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,22 +33,22 @@ public class SecurityConfiguration {
 		http.csrf().disable();
 
 
-		// 로그인 설정
-		http.formLogin()
-		.loginPage("/member/login")
-		.defaultSuccessUrl("/index")
-		.failureUrl("/member/login?success=111")
-		.usernameParameter("username")
-		.passwordParameter("password");
-
-		// 로그아웃 설정
-		http.logout()
-		.invalidateHttpSession(true)
-		.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")).deleteCookies("JSESSIONID", "autoUid")
-		.logoutSuccessUrl("/member/login?success=200");
+//		// 로그인 설정
+//		http.formLogin()
+//		.loginPage("/member/login")
+//		.defaultSuccessUrl("/index")
+//		.failureUrl("/member/login?success=111")
+//		.usernameParameter("username")
+//		.passwordParameter("password");
+//
+//		// 로그아웃 설정
+//		http.logout()
+//		.invalidateHttpSession(true)
+//		.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")).deleteCookies("JSESSIONID", "autoUid")
+//		.logoutSuccessUrl("/member/login?success=200");
 		
 		// 사용자 인증 처리 컴포넌트 서비스 등록
-		http.userDetailsService(service);
+//		http.userDetailsService(service);
 
 		/*
 		// 로그인 유지
@@ -60,7 +60,8 @@ public class SecurityConfiguration {
 		.tokenRepository(tokenRepository());
 		*/
 
-		return http.build();
+//		return http.build();
+		return null;
 	}
 	
 	@Bean
