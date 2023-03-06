@@ -10,6 +10,9 @@
     <link
             href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
             rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://kit.fontawesome.com/2467fa7e8b.css" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/2467fa7e8b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/aside.css">
     <link rel="stylesheet" href="./css/profile.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -65,10 +68,15 @@
         });
       });
       $(function(){
-        $('#following').click(function(){
+        $('#unFollow').click(function(){
           $('#following').hide();
           $('#follow').show();
         });
+      $(function(){
+        $('.fClose').click(function(){
+          $('#fCancel').hide();
+        });
+      });
       });
     </script>
     <!-- modal 창 띄우기 -->
@@ -104,28 +112,34 @@
         top: 0;
         width: 100%; 
         height: 100%; 
-        overflow: auto; 
+        overflow: hidden; 
         background-color: rgba(0,0,0,0.4); 
+        -ms-overflow-style: none;
       }
+      .fModal::-webkit-scrollbar {display: none;}
 
       .fContents {
         background-color: #fefefe;
         margin: 15% auto; 
         padding: 20px;
         border: 1px solid #888;
-        width: 500px; 
+        width: 400px; 
         border-radius: 10px;
       }
 
-      .fContents > #fTop {margin-left: 185px; width:55px; position: relative; text-align: center;padding: 20px;}
+      .fContents > #fTop {margin-left: 135px; width:55px; position: relative; text-align: center;padding: 20px;}
       .fContents > #fTop > img {display: inline-block; width: 55px; height: auto; vertical-align: middle;}
       .fContents > #fTop > span {display: inline-block; width: 55px; height: auto; vertical-align: middle; font-size: 14px; font-weight: bold; margin-top: 5px;}
-      .fContents > #fBottom {border-top: 1px solid #e9e9e9; }
+      .fContents > #fBottom {border-top: 1px solid #e9e9e9;}
+      .fContents > #fBottom > li {height:40px; display: block; height: 40px; box-sizing: border-box;}
+      .fContents > #fBottom > li > a {top: 14px; position: relative; float: left; display: block; width: 350px; font-size: 14px; }
+      .fContents > #fBottom > li > a > span {float:left;}
+      .fContents > #fBottom > li > a > i {float: right;}
+
       .fClose {
         color: #aaa;
         float: right;
         font-size: 28px;
-        font-weight: bold;
       }
 
       .fClose:hover,
@@ -764,11 +778,11 @@
         <span>gildong</span>
       </div>
       <ul id="fBottom">
-        <li>친한 친구 리스트에 추가</li>
-        <li>즐겨찾기에에 추가</li>
-        <li>일시 차단</li>
-        <li>제한</li>
-        <li>팔로우 취소</li>
+        <li><a href="#" class="fClose"><span>친한 친구 리스트에 추가</span><i class="fa-solid fa-star"></i></a></li>
+        <li><a href="#" class="fClose"><span>즐겨찾기에에 추가</span><i class="fa-regular fa-star"></i></a></li>
+        <li><a href="#" class="fClose"><span>일시 차단</span><i class="fa-solid fa-chevron-right"></i></a></li>
+        <li><a href="#" class="fClose"><span>제한</span><i class="fa-solid fa-chevron-right"></i></a></li>
+        <li ><a href="#" id="unFollow" class="fClose">팔로우 취소</a></li>
       </ul>
     </div>
   </div>
