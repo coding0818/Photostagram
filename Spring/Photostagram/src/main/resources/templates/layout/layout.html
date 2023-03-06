@@ -14,9 +14,9 @@
       이름 : 조광호
       내용 : 메인 index 화면 구현
   -->
-  <link rel="stylesheet" href="./css/common.css" />
-  <link rel="stylesheet" href="./css/reset.css" />
-  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" th:href="@{/css/common.css}" />
+  <link rel="stylesheet" th:href="@{/css/reset.css}" />
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
   <link
           rel="stylesheet"
           href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
@@ -25,10 +25,14 @@
           href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
           rel="stylesheet"
   />
-  <link rel="stylesheet" href="./css/aside.css" />
+
+  <link rel="stylesheet" th:href="@{/css/aside.css]" />
+  <link rel="stylesheet" th:href="@{/css/profile.css}">
+  <link rel="stylesheet" th:href="@{/css/profileModify.css}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-  <script src="./js/aside.js"></script>
-  <script src="./js/index.js"></script>
+  <script th:src="@{/js/aside.js}"></script>
+  <script th:src="@{/js/index.js}"></script>
+  <script th:src="@{/js/proFollow.js}"></script>
 </head>
 <body>
 <div id="wrapper">
