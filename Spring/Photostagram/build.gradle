@@ -22,19 +22,19 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-<<<<<<< HEAD
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-=======
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
 	implementation 'org.springframework.security:spring-security-core:5.7.7'
 	implementation 'org.springframework.security:spring-security-web:5.7.7'
->>>>>>> be4ef083b8e56f98fe052b68415d8c9e19437cea
+	implementation 'org.springframework.security:spring-security-config:5.7.7'
+
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
