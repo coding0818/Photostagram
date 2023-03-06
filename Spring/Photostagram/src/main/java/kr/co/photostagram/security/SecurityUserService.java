@@ -23,7 +23,13 @@ public class SecurityUserService implements UserDetailsService{
 
 		log.info("SecurityUserService...0 : " + username);
 
-		UserDetails myUser = null;
+		UserEntity user = repo.findByUsername(username);
+
+		if(user == null){
+			throw new UsernameNotFoundException(username);
+		}
+
+		UserDetails myUser = MyUserDetails.builder().user(user).build();
 
 		log.info("here5");
 		return myUser;
