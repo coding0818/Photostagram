@@ -11,4 +11,9 @@ public class ProfileController {
         return "profile/index";
     }
 
+    @GetMapping("profile/modify")
+    public String modify(){
+        return "profile/modify";
+    }
+
 }

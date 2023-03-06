@@ -1,111 +1,110 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
-<th:block layout:fragment="main">
-    <div id="pro">
-      <section>
-          <div class="myProfile">
-              <div class="proPhoto">
-                  <div>
-                      <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile">
+    <th:block layout:fragment="main">
+        <div id="pro">
+          <section>
+              <div class="myProfile">
+                  <div class="proPhoto">
+                      <div>
+                          <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile">
+                      </div>
+                  </div>
+                  <div class="detail">
+                      <div class="pTop">
+                          <div class="userName">gildong</div>
+                          <a href="#" class="button" id="follow">팔로우</a>
+                          <a href="#" class="button" id="following">팔로잉</a>
+                          <a href="#" class="button">프로필 편집</a>
+                      </div>
+                      <ul class="pMiddle">
+                          <li>
+                              <span>게시물</span>3
+                          </li>
+                          <li>
+                              <span>팔로워</span>3
+                          </li>
+                          <li>
+                              <span>팔로우</span>3
+                          </li>
+                      </ul>
+                      <p class="pAbout">
+                          <span class="notice">
+                              홍길동
+                          </span>
+                      </p>
                   </div>
               </div>
-              <div class="detail">
-                  <div class="pTop">
-                      <div class="userName">gildong</div>
-                      <a href="#" class="button" id="follow">팔로우</a>
-                      <a href="#" class="button" id="following">팔로잉</a>
-                      <a href="#" class="button">프로필 편집</a>
+              <div class="myNav">
+                  <div><a href="#">게시물</a></div>
+                  <div><a href="#">릴스</a></div>
+                  <div><a href="#">태그됨</a></div>
+              </div>
+              <div class="myList">
+                  <div class="pic">
+                      <a href="#">
+                          <img th:src="@{/img/300x300-1.png}">
+                      </a>
                   </div>
-                  <ul class="pMiddle">
-                      <li>
-                          <span>게시물</span>3
-                      </li>
-                      <li>
-                          <span>팔로워</span>3
-                      </li>
-                      <li>
-                          <span>팔로우</span>3
-                      </li>
-                  </ul>
-                  <p class="pAbout">
-                      <span class="notice">
-                          홍길동
-                      </span>
-                  </p>
+                  <div class="pic">
+                      <a href="#">
+                          <img th:src="@{/img/300x300-1.png}">
+                      </a>
+                  </div>
+                  <div class="pic">
+                      <a href="#">
+                          <img th:src="@{/img/300x300-1.png}">
+                      </a>
+                  </div>
+                  <div class="pic">
+                      <a href="#">
+                          <img th:src="@{/img/300x300-1.png}">
+                      </a>
+                  </div>
+                  <div class="pic">
+                      <a href="#">
+                          <img th:src="@{/img/300x300-1.png}">
+                      </a>
+                  </div>
+                  <div class="pic">
+                      <a href="#">
+                          <img th:src="@{/img/300x300-1.png}">
+                      </a>
+                  </div>
+                  <div class="pic">
+                      <a href="#">
+                          <img th:src="@{/img/300x300-1.png}">
+                      </a>
+                  </div>
+                  <div class="pic">
+                      <a href="#">
+                          <img th:src="@{/img/300x300-1.png}">
+                      </a>
+                  </div>
+                  <div class="pic">
+                      <a href="#">
+                          <img th:src="@{/img/300x300-1.png}">
+                      </a>
+                  </div>
               </div>
-          </div>
-          <div class="myNav">
-              <div><a href="#">게시물</a></div>
-              <div><a href="#">릴스</a></div>
-              <div><a href="#">태그됨</a></div>
-          </div>
-          <div class="myList">
-              <div class="pic">
-                  <a href="#">
-                      <img src="./img/300x300-1.png">
-                  </a>
-              </div>
-              <div class="pic">
-                  <a href="#">
-                      <img src="./img/300x300-1.png">
-                  </a>
-              </div>
-              <div class="pic">
-                  <a href="#">
-                      <img src="./img/300x300-1.png">
-                  </a>
-              </div>
-              <div class="pic">
-                  <a href="#">
-                      <img src="./img/300x300-1.png">
-                  </a>
-              </div>
-              <div class="pic">
-                  <a href="#">
-                      <img src="./img/300x300-1.png">
-                  </a>
-              </div>
-              <div class="pic">
-                  <a href="#">
-                      <img src="./img/300x300-1.png">
-                  </a>
-              </div>
-              <div class="pic">
-                  <a href="#">
-                      <img src="./img/300x300-1.png">
-                  </a>
-              </div>
-              <div class="pic">
-                  <a href="#">
-                      <img src="./img/300x300-1.png">
-                  </a>
-              </div>
-              <div class="pic">
-                  <a href="#">
-                      <img src="./img/300x300-1.png">
-                  </a>
-              </div>
-          </div>
-      </section>
-      <div id="fCancel" class="fModal">
-        <div class="fContents">
-          <span class="fClose">&times;</span>
-          <div id="fTop">
-            <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-            <span>gildong</span>
-          </div>
-          <ul id="fBottom">
-            <li>친한 친구 리스트에 추가</li>
-            <li>즐겨찾기에에 추가</li>
-            <li>일시 차단</li>
-            <li>제한</li>
-            <li>팔로우 취소</li>
-          </ul>
+          </section>
+            <div id="fCancel" class="fModal">
+                <div class="fContents">
+                    <span class="fClose">&times;</span>
+                    <div id="fTop">
+                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile">
+                        <span>gildong</span>
+                    </div>
+                    <ul id="fBottom">
+                        <li><a href="#" class="fClose"><span>친한 친구 리스트에 추가</span><i class="fa-solid fa-star"></i></a></li>
+                        <li><a href="#" class="fClose"><span>즐겨찾기에에 추가</span><i class="fa-regular fa-star"></i></a></li>
+                        <li><a href="#" class="fClose"><span>일시 차단</span><i class="fa-solid fa-chevron-right"></i></a></li>
+                        <li><a href="#" class="fClose"><span>제한</span><i class="fa-solid fa-chevron-right"></i></a></li>
+                        <li ><a href="#" id="unFollow" class="fClose">팔로우 취소</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
     </th:block>
-  </body>
 </html>
