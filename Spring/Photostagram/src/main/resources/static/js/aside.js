@@ -97,7 +97,7 @@ function uploadFiles(e){
         .on("drop", uploadFiles);
 
       $('#file_upload').on('change', function(){
-          alert('file_upload!');
+          //alert('file_upload!');
 
           let file = this.files;
           console.log('file : ' +file);
@@ -112,7 +112,8 @@ function uploadFiles(e){
 
           let images= dataTransfer.files;
           console.log('images : '+images);
-                        
+
+          /*
           let url = [];
           for(i=0 ; i<images.length ; i++){
             let page = "url(" + window.URL.createObjectURL(images[i]) + ")";
@@ -125,7 +126,7 @@ function uploadFiles(e){
           let jsonData = {"url":url};
           sessionStorage.setItem("url", JSON.stringify(jsonData));
           //console.log("jsonData : "+JSON.stringify(jsonData));
-                      
+          */
 
           if (images[0].type.match(/image.*/)) {
               $('#modal_add_feed_content').css({
@@ -153,43 +154,61 @@ function uploadFiles(e){
     let j = 0;
 
     $('.afterBtn').on('click', function(){
-        let file = sessionStorage.getItem("url");
+        let inputFile = $('#file_upload');
+        let file = inputFile[0].files;
 
         console.log(file);
 
-        let jsonData = JSON.parse(file);
-        let urls = jsonData.url;
-        console.log(urls[0]);
-        console.log(urls.length);
+        let dataTransfer = new DataTransfer();
 
-        if(j == urls.length)return;
+        let fileArray = Array.from(file);
+        console.log('fileArray : ' +fileArray);
+
+        fileArray.forEach(f => {
+            dataTransfer.items.add(f);
+        });
+
+        let images= dataTransfer.files;
+        console.log('images : '+images);
+
+        if(j+1 == images.length) return;
         j++;
 
+        console.log("j1 :"+j);
+
         $('.modal_image_upload_content').css({
-            "background-image": jsonData.url[j],
+            "background-image": "url(" + window.URL.createObjectURL(images[j]) + ")",
             "outline": "none",
             "background-size": "contain",
             "background-repeat" : "no-repeat",
             "background-position" : "center"
         }); 
-        console.log("j :"+j);
+        console.log("j2 :"+j);
     });
 
     $('.beforeBtn').on('click', function(){
-        let file = sessionStorage.getItem("url");
+        let inputFile = $('#file_upload');
+        let file = inputFile[0].files;
 
         console.log(file);
 
-        let jsonData = JSON.parse(file);
-        let urls = jsonData.url;
-        console.log(urls[0]);
-        console.log(urls.length);
+        let dataTransfer = new DataTransfer();
+
+        let fileArray = Array.from(file);
+        console.log('fileArray : ' +fileArray);
+
+        fileArray.forEach(f => {
+            dataTransfer.items.add(f);
+        });
+
+        let images= dataTransfer.files;
+        console.log('images : '+images);
 
         if(j == 0)return;
         j--;
 
         $('.modal_image_upload_content').css({
-            "background-image": jsonData.url[j],
+            "background-image": "url(" + window.URL.createObjectURL(images[j]) + ")",
             "outline": "none",
             "background-size": "contain",
             "background-repeat" : "no-repeat",
