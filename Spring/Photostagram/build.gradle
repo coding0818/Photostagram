@@ -22,16 +22,6 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-<<<<<<< HEAD
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-	implementation 'org.springframework.security:spring-security-config:5.7.7'
-	implementation 'org.springframework.security:spring-security-core:5.7.7'
-	implementation 'org.springframework.security:spring-security-web:5.7.7'
-=======
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -39,7 +29,6 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-core:5.7.7'
 	implementation 'org.springframework.security:spring-security-web:5.7.7'
 	implementation 'org.springframework.security:spring-security-config:5.7.7'
->>>>>>> 13ff6383fc6d9d521eecc01134489e73bee38056
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
