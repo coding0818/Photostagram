@@ -8,16 +8,20 @@
               <div class="myProfile">
                   <div class="proPhoto">
                       <div>
-                          <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile">
+                      <th:block th:if="${#strings.equals(myName, username)}">
+                      <input type="file" class="real-addProf" accept="image/*" style="display: none;"/>
+                      </th:block>
+                      <th:block th:unless="${#strings.equals(myName, username)}"></th:block>
+                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile" class="addProf"/>
                       </div>
                   </div>
                   <div class="detail">
                       <div class="pTop">
                           <div class="userName">[[${username}]]</div>
-                          <th:block th:if="${#strings.equals('#authentication.principal.user.username', 'username')}">
-                              <a href="#" class="button">프로필 편집</a>
+                          <th:block th:if="${#strings.equals(myName, username)}">
+                              <a th:href="@{/profile/modify}" class="button">프로필 편집</a>
                           </th:block>
-                          <th:block th:unless="${#strings.equals('#authentication.principal.user.username', 'username')}">
+                          <th:block th:unless="${#strings.equals(myName, username)}">
                               <a href="#" class="button" id="follow">팔로우</a>
                               <a href="#" class="button" id="following">팔로잉</a>
                           </th:block>
@@ -111,5 +115,29 @@
                 </div>
             </div>
         </div>
+        <!--/*** 프로필 사진 업로드 ***/-->
+        <script>
+
+            function getProfile(input){
+                if(input.files && input.files[0]) {
+                    const reader = new FileReader()
+
+                    reader.onload = e => {
+                        const preview = document.querySelector('.addProf');
+                        preview.src = e.target.result
+                    }
+
+                    reader.readAsDataURL(input.files[0])
+                }
+            }
+
+            const real = document.querySelector('.real-addProf');
+            const fake = document.querySelector('.addProf');
+
+            fake.addEventListener('click', () => real.click());
+            real.addEventListener('change', e => {
+                getProfile(e.target);
+            });
+        </script>
     </th:block>
 </html>

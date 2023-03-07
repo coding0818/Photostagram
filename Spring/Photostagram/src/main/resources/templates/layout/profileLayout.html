@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
@@ -76,6 +77,6 @@
     </main>
 </body>
     <!--/*** aside modal ***/-->
-    <th:block th:replace="~{fragments/_modal::modalFragment}"></th:block>
+    <th:block th:replace="~{fragments/profile/_modal::modalFragment}"></th:block>
     <th:block layout:fragment="script"></th:block>
 </html>
