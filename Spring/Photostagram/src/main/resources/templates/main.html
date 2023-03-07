@@ -57,11 +57,11 @@
           console.log('content : '+content);
           console.log('user_no : '+user_no);
 
-          let fd = new FormData();
-          fd.append('urls', urls);
-          fd.append('content', content);
-          fd.append('files', files);
-          fd.append('user_no', user_no);
+          let formData = new FormData();
+          formData.append('urls', urls);
+          formData.append('content', content);
+          formData.append('files', files);
+          formData.append('user_no', user_no);
 
           $.ajax({
             url:'/Photostagram/postUpload',
@@ -74,7 +74,7 @@
 
             }
           });
-          */
+
         });
       });
     </script>
