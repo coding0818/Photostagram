@@ -16,5 +16,6 @@ public class PostVO {
     private String content;
     private int user_no;
     private String rdate;
-    private MultipartFile files[];
+    private MultipartFile files;
+    private String urls[];
 }
