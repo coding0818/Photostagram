@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+
 @Slf4j
 @Service
 public class MemberService {
@@ -13,7 +15,11 @@ public class MemberService {
     @Autowired
     private MemberDAO dao;
 
-    public void insertMember(MemberVO vo){
-        dao.insertMember(vo);
+    public int insertMember(MemberVO vo){
+        return dao.insertMember(vo);
+    }
+
+    public void removeSessMember(HttpSession sess){
+        sess.removeAttribute("sessMember");
     }
 }

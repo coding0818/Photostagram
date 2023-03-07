@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface MemberDAO {
-    public void insertMember(MemberVO vo);
+    public int insertMember(MemberVO vo);
 }
