@@ -156,7 +156,9 @@ body {
 .contents .bottom_icons .right_icon > div {
   cursor: pointer;
 }
-
+/**
+   게시글 좋아요
+*/
 .sprite_heart_icon_outline.on {
   background: url("./img/background01.png") no-repeat -26px -261px;
 }
@@ -167,6 +169,7 @@ body {
 }
 
 .contents .comment_container {
+  width: 100%;
   display: inline-block;
   justify-content: space-between;
   align-items: center;
@@ -215,9 +218,7 @@ body {
 
 .contents .comment_container .small_heart {
   display: inline-block;
-  /* float: right; */
-  /* margin-left: 367px; */
-  padding-left: 397px;
+  float: right;
 }
 
 .contents .commentMore {
