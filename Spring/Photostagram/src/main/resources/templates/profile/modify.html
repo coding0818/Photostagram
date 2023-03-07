@@ -12,7 +12,7 @@
                       <a href="#">프로필 사진 바꾸기</a>
                   </div>
               </div>
-              <form action="#" method="">
+              <form th:action="@{/profile/modify}" method="post">
                   <table>
                       <tbody>
                           <tr>
@@ -20,7 +20,7 @@
                                   <span>이름</span>
                               </td>
                               <td>
-                                  <input type="text" value="홍길동"><br/>
+                                  <input type="text" name="name" th:value="${user.name}"><br/>
                                   <span>사람들이 이름, 별명 또는 비즈니스 이름 등 회원님의 알려진 이름을 사용하여 회원님의 계정을 찾을 수 있도록 도와주세요.</span>
                                   <span>이름은 14일 안에 두 번만 변경할 수 있습니다.</span>
                               </td>
@@ -30,9 +30,10 @@
                                   <span>사용자 이름</span>
                               </td>
                               <td>
-                                  <input type="text" value="gildong">
+                                  <input type="text" name="username" th:value="${user.username}">
                               </td>
                           </tr>
+                          <!--/*
                           <tr>
                               <td>
                                   <span>웹사이트</span>
@@ -41,12 +42,13 @@
                                   <input type="text" value="웹사이트">
                               </td>
                           </tr>
+                          */-->
                           <tr>
                               <td>
                                   <span>소개</span>
                               </td>
                               <td>
-                                  <textarea name="intro" id="intro"></textarea>
+                                  <textarea name="profileText" th:value="${user.profileText}"></textarea>
                                   <span>0 / 150</span>
                               </td>
                           </tr>
@@ -62,7 +64,7 @@
                                   <span>이메일</span>
                               </td>
                               <td>
-                                  <input type="email" value="gildong@gmail.com">
+                                  <input type="email" th:value="${user.email}">
                               </td>
                           </tr>
                           <tr>
@@ -70,17 +72,25 @@
                                   <span>전화번호</span>
                               </td>
                               <td>
-                                  <input type="text" placeholder="전화번호">
+                                  <input type="text" name="profilePhone" th:value="${user.profilePhone}">
                               </td>
                           </tr>
                           <tr>
                               <td>
                                   <span>성별</span>
                               </td>
-                              <td>
-                                  <input type="text" value="밝히고 싶지 않음">
-                              </td>
+                              <th:block th:if="${user.gender} == null">
+                                  <td>
+                                      <input type="text" name="gender" value="밝히고 싶지 않음">
+                                  </td>
+                              </th:block>
+                              <th:block th:unless="${user.gender} == null">
+                                  <td>
+                                      <input type="text" name="gender" th:value="@{user.gender}">
+                                  </td>
+                              </th:block>
                           </tr>
+                          <!--/*
                           <tr>
                               <td>
                                   <span>프로필에 계정 추천 표시</span>
@@ -90,6 +100,7 @@
                                   <span>사람들이 회원님의 프로필에서 비슷한 계정 추천을 볼 수 있는지와 회원님의 계정이 다른 프로필에서 추천될 수 있는지를 선택하세요.</span>
                               </td>
                           </tr>
+                          */-->
                       </tbody>
                   </table>
                   <input type="submit" value="제출">

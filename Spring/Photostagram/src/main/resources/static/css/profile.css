@@ -32,6 +32,7 @@ input, textarea {outline: none;}
 }
 #pro > section > .myProfile > .proPhoto > div {width: 150px; height: 150px; border-radius: 70%; overflow: hidden;}
 #pro > section > .myProfile > .proPhoto > div > img {width: 100%; height: 100%; object-fit: cover;}
+#pro > section > .myProfile > .proPhoto > div > a > img {width: 100%; height: 100%; object-fit: cover;}
 #pro > section > .myProfile > .detail {float:left; width:500px;}
 #pro > section > .myProfile > .detail > .pTop {
     display: block; 
