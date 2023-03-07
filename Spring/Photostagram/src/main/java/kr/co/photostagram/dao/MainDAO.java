@@ -1,5 +1,7 @@
 package kr.co.photostagram.dao;
 
+import kr.co.photostagram.vo.ImageVO;
+import kr.co.photostagram.vo.PostVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -7,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MainDAO {
 
-    public int insertPost();
-    public int insertImage();
+    public int insertPost(PostVO vo);
+    public int insertImage(ImageVO vo);
 }

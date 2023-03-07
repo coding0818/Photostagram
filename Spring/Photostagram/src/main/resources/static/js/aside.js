@@ -221,4 +221,56 @@ function uploadFiles(e){
     $('#more_view').on('click', function(){
         $('.more_logout').toggleClass('on');
     });
+
+    //게시글 업로드 버튼 클릭시
+    $('#button_write_feed').on('click', ()=>{
+      let inputFile = $('#file_upload');
+      let files = inputFile[0].files;
+
+      console.log(files);
+
+      let dataTransfer = new DataTransfer();
+      let fileArray = Array.from(files);
+      console.log('fileArray : ' +fileArray);
+
+      fileArray.forEach(f => {
+          dataTransfer.items.add(f);
+      });
+
+      let images= dataTransfer.files;
+      let urls = [];
+      for(i=0; i<images.length; i++){
+        let url = window.URL.createObjectURL(images[i]);
+        urls.push(url);
+      }
+      console.log('urls : ' +urls);
+
+      let content = $('#input_content').val();
+      let user_no = $('#input_user_id').data('no');
+      console.log('content : '+content);
+      console.log('user_no : '+user_no);
+
+      let formData = new FormData();
+      for(j=0; j<images.length; j++){
+        formData.append('files', files[j]);
+      }
+      formData.append('urls', urls);
+      formData.append('content', content);
+      formData.append('user_no', user_no);
+
+      $.ajax({
+        url:'/Photostagram/postUpload',
+        processData: false,
+        contentType: false,
+        method:'POST',
+        data:formData,
+        dataType:'json',
+        success:function(data){
+          if(data.result > 0){
+            alert('업로드되었습니다.');
+            $('#modal_add_feed_content').css({display : 'none'});
+          }
+        }
+      });
+    });
   });
