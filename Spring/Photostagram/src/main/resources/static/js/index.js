@@ -49,7 +49,6 @@ $(function () {
     }
 
     btnMore.click(toggle_content);
-    heart.click(Like);
 
     function toggle_content() {
       if ($(".ContentsMore").hasClass("short")) {
@@ -77,10 +76,7 @@ $(function () {
 
     let str = "<div class='reply_user'>";
     str += "<span class='reply_nick'>" + uid + "</span>";
-    str +=
-      "<span class='reply_content' style='margin-left:2px;'>" +
-      text +
-      "</span>";
+    str += "<span class='reply_content' style='margin-left:2px;'>" + text + "</span>";
     str += "<span class='small_heart'>";
     str += "<div class=sprite_small_heart_icon_outline></div>";
     str += "</span>";
