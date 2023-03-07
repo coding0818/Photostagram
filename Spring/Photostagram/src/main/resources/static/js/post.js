@@ -27,4 +27,18 @@
       }
     });
 
+    /*** 댓글 접기, 펴기 ***/
+    $('.reOpen').click(function(e){
+      e.preventDefault();
+
+      let items = $(this).parent().find('.reHide');
+
+      if (items.is(":visible")){
+        items.hide();
+      } else {
+        items.show();
+      }
+
+    });
+
   });
