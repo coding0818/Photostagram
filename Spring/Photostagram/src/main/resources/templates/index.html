@@ -151,10 +151,13 @@
                 </div>
               </div>
 
-              <!-- ---- 댓글 좋아요 // 댓글리스트에 추가하는게 적합해보임 ----
-              <div class="small_heart">
-                <div class="sprite_small_heart_icon_outline"></div>
-              </div> -->
+              <div class="reply_user">
+                <span class="reply_nick">j_hlli</span>
+                <span class="reply_content">강아지가 너무 귀여워요!</span>
+                <span class="small_heart">
+                  <div class="sprite_small_heart_icon_outline"></div>
+                </span>
+              </div>
 
             </div>
             <div class="commentMore">
@@ -167,8 +170,9 @@
 
             <!----- 댓글 작성 폼 ------->
             <div class="comment_field" id="add-comment-post37">
-              <input type="text" placeholder="댓글달기..." />
-              <div class="upload_btn m_text" data-name="comment">게시</div>
+              <input type="hidden" name="uid" value="123">
+              <input type="text" name="commentText" placeholder="댓글달기..." />
+              <div class="upload_btn m_text">게시</div>
             </div>
           </article>
 
