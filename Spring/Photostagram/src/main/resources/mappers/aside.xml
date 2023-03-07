@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.photostagram.dao.MainDAO">
+    <!--게시글 업로드-->
     <insert id="insertPost" useGeneratedKeys="true" keyColumn="no" keyProperty="no" parameterType="kr.co.photostagram.vo.PostVO">
         insert into `post` set `content`=#{content}, `user_no`=#{user_no}, `rdate`=NOW();
     </insert>
+    <!--이미지 업로드-->
     <insert id="insertImage">
         insert into `image` set `thumb`=#{thumb}, `post_no`=#{post_no};
+    </insert>
+    <!--해시태그 존재여부 확인-->
+    <select id="findTagByContent" resultType="int">
+        select count(`no`) from `hashtag` where `hashtag`=#{hashtag};
+    </select>
+    <!--해시태그 추가-->
+    <insert id="saveTag" useGeneratedKeys="true" keyColumn="no" keyProperty="no" parameterType="kr.co.photostagram.vo.HashTagVO">
+        insert into `hashtag` set `hashtag`=#{hashtag};
+    </insert>
+    <!--태그-포스트 매핑 테이블 추가-->
+    <insert id="saveTagAndPost">
+        insert into `post_hashtag` set `hashtag_no`=#{hashtag_no}, `post_no`=#{post_no};
     </insert>
 </mapper>

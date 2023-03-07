@@ -254,7 +254,6 @@ function uploadFiles(e){
       for(j=0; j<images.length; j++){
         formData.append('files', files[j]);
       }
-      formData.append('urls', urls);
       formData.append('content', content);
       formData.append('user_no', user_no);
 

@@ -45,7 +45,6 @@ public class MainController {
 
         //log.info("files : "+files.get(0).getOriginalFilename());
         log.info("PostVO content: "+vo.getContent());
-        log.info("PostVO urls: "+vo.getUrls()[0]);
         log.info("PostVO userno: "+vo.getUser_no());
 
         return resultMap;
