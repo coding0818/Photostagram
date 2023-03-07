@@ -24,6 +24,10 @@ public class MainController {
         return "index";
     }
 
+    // 댓글 작성
+    @PostMapping
+    public void replyRegister(){}
+
     @GetMapping("main")
     public String main(){
         return "main";

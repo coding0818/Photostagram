@@ -178,6 +178,18 @@ body {
   font-size: 14px;
 }
 
+.contents .comment_container .reply_user {
+    font-size: 12px;
+    height: 20px;
+}
+
+.contents .comment_container .reply_user .reply_nick{
+    font-weight: bold;
+}
+.contents .comment_container .reply_user .reply_content{
+
+}
+
 .contents .comment_container .comment-detail {
   display: inline-block;
 }
@@ -203,8 +215,9 @@ body {
 
 .contents .comment_container .small_heart {
   display: inline-block;
-  float: right;
-  margin-left: 367px;
+  /* float: right; */
+  /* margin-left: 367px; */
+  padding-left: 397px;
 }
 
 .contents .commentMore {
