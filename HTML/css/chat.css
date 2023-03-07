@@ -10,6 +10,7 @@
     float: left;
     background: #ffffff;
     border: 1px solid #dbdbdb;
+    overflow: scroll;
 }
 
 .right{
@@ -23,11 +24,11 @@
 .up{
     width: auto;
     height: 60px;
-    
+    box-sizing: border-box;
 }
 
 .src1{
-    width: 298px;
+    width: 281px;
     height: 100%;
     float: left;
     text-align: center;
@@ -51,32 +52,103 @@
     left: 14%;
 }
 
-.down{
-    width: auto;
-    height: 100%;
+.dir2{
+    /* 친구 리스트를 flex box로 레이아웃 구성 */
+    grid-area: dir2; 
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 0.125rem; /* 16 브라우저 기준 2px */
+    cursor: pointer;
+    overflow: hidden auto;
 }
-
 ul{
-    list-style:none;
-    padding: 8px 20px 8px 20px;
-    }
-
-li {
+    width: 340px;
+    height: 70px;
+    list-style: none;
+    padding:0 0 8px 0;
+    margin: 0 0 0 0;
+    box-sizing: border-box;
+    /* unordered list 기본 스타일 제거(점, 들여쓰기) */
+}
+/* 제목(h2와 p) 사이즈 재정의 */
+.profile-title > *{
+    font-size: 0.75rem; /* 16px 브라우저 기준 12px 의미*/
+    color: gray;
+    display: inline-block;
+    margin: 0;
+}
+li{
+    /* 각각의 프로필을 flex box로 구성 */
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
+    margin-bottom: 1.25rem; /* 16 브라우저 기준 20px */
+    margin-top: 0.625rem; /* 16 브라우저 기준 10px */
+    margin-left: 15px;
     align-items: center;
-}    
-
-li img{
-    width: 50px;
-    height: 50px;
-    top: 15%;
-    left: 15%;
-    flex-direction: row;
+}
+li > img{
+    /* 프로필사진 사이즈 조절 */
+    width: 3.125rem;
+}
+.profile > *{
+    /* 이름과 프로필 사진의 margin 조절 */
+    margin: 0.3125rem; /* 5px (16px 브라우저 기준) */
+    margin-left: 0.625rem;
+}
+.profile > *:first-of-type{
+    /* 이름 스타일 변경 : 굵게 처리 */
+    font-weight: bold;
+    font-size: 0.875rem; /* 16 브라우저 기준 14px */
+} 
+.profile > *:nth-of-type(2){
+    /* 상태메시지 스타일 변경*/
+    color: gray;
+    font-size: 12px; /* 16 브라우저 기준 12px */
+}
+.profile-title{
+    border-top: 1px solid rgb(202, 200, 200);
+    padding-top: 12px;
 }
 
-p{
+.newdir1{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 24px 24px 24px;
+}
+
+.newdir1 img{
+    width: 96px;
+    height: 96px;
+}
+
+.mydir{
+    margin-top: 16px;
+}
+
+.fgbsm{
+    margin-top: 16px;
+}
+
+.mes{
+    margin-top: 24px;
+    background-color: rgb(var(--ig-primary-button));
+    --ig-primary-button: 0, 149, 246;
+    font-family: var(--font-family-system);
+    --font-family-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: rgb(var(--web-always-white));
+    --web-always-white: 255, 255, 255;
     font-size: 14px;
+    font-weight: var(--font-weight-system-semibold);
+    --font-weight-system-semibold: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 16px!important;
 }
+
