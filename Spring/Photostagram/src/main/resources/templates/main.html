@@ -58,9 +58,11 @@
           console.log('user_no : '+user_no);
 
           let formData = new FormData();
+          for(j=0; j<images.length; j++){
+            formData.append('files', files[j]);
+          }
           formData.append('urls', urls);
           formData.append('content', content);
-          formData.append('files', files);
           formData.append('user_no', user_no);
 
           $.ajax({
