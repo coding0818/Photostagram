@@ -112,20 +112,6 @@ function uploadFiles(e){
 
           let images= dataTransfer.files;
           console.log('images : '+images);
-                        
-          let url = [];
-          for(i=0 ; i<images.length ; i++){
-            let page = "url(" + window.URL.createObjectURL(images[i]) + ")";
-            console.log("page : " + page);
-            url.push(page);
-          }
-
-          console.log("url : " + url);
-          
-          let jsonData = {"url":url};
-          sessionStorage.setItem("url", JSON.stringify(jsonData));
-          //console.log("jsonData : "+JSON.stringify(jsonData));
-                      
 
           if (images[0].type.match(/image.*/)) {
               $('#modal_add_feed_content').css({
@@ -153,20 +139,31 @@ function uploadFiles(e){
     let j = 0;
 
     $('.afterBtn').on('click', function(){
-        let file = sessionStorage.getItem("url");
+          let inputFile = $('#file_upload');
+          let files = inputFile[0].files;
 
-        console.log(file);
+          console.log(files);
 
-        let jsonData = JSON.parse(file);
-        let urls = jsonData.url;
-        console.log(urls[0]);
-        console.log(urls.length);
+          let dataTransfer = new DataTransfer();
+          let fileArray = Array.from(files);
+          console.log('fileArray : ' +fileArray);
+
+          fileArray.forEach(f => {
+              dataTransfer.items.add(f);
+          });
+
+          let images= dataTransfer.files;
+          let urls = [];
+          for(i=0; i<images.length; i++){
+            let url = window.URL.createObjectURL(images[i]);
+            urls.push(url);
+          }
 
         if(j == urls.length)return;
         j++;
 
         $('.modal_image_upload_content').css({
-            "background-image": jsonData.url[j],
+            "background-image": urls[j],
             "outline": "none",
             "background-size": "contain",
             "background-repeat" : "no-repeat",
@@ -176,20 +173,31 @@ function uploadFiles(e){
     });
 
     $('.beforeBtn').on('click', function(){
-        let file = sessionStorage.getItem("url");
+          let inputFile = $('#file_upload');
+          let files = inputFile[0].files;
 
-        console.log(file);
+          console.log(files);
 
-        let jsonData = JSON.parse(file);
-        let urls = jsonData.url;
-        console.log(urls[0]);
-        console.log(urls.length);
+          let dataTransfer = new DataTransfer();
+          let fileArray = Array.from(files);
+          console.log('fileArray : ' +fileArray);
+
+          fileArray.forEach(f => {
+              dataTransfer.items.add(f);
+          });
+
+          let images= dataTransfer.files;
+          let urls = [];
+          for(i=0; i<images.length; i++){
+            let url = window.URL.createObjectURL(images[i]);
+            urls.push(url);
+          }
 
         if(j == 0)return;
         j--;
 
         $('.modal_image_upload_content').css({
-            "background-image": jsonData.url[j],
+            "background-image": urls[j],
             "outline": "none",
             "background-size": "contain",
             "background-repeat" : "no-repeat",
@@ -202,4 +210,57 @@ function uploadFiles(e){
     $('#more_view').on('click', function(){
         $('.more_logout').toggleClass('on');
     });
+
+    //게시글 업로드 버튼 클릭시
+    $('#button_write_feed').on('click', ()=>{
+      let inputFile = $('#file_upload');
+      let files = inputFile[0].files;
+
+      console.log(files);
+
+      let dataTransfer = new DataTransfer();
+      let fileArray = Array.from(files);
+      console.log('fileArray : ' +fileArray);
+
+      fileArray.forEach(f => {
+          dataTransfer.items.add(f);
+      });
+
+      let images= dataTransfer.files;
+      let urls = [];
+      for(i=0; i<images.length; i++){
+        let url = window.URL.createObjectURL(images[i]);
+        urls.push(url);
+      }
+      console.log('urls : ' +urls);
+
+      let content = $('#input_content').val();
+      let user_no = $('#input_user_id').data('no');
+      console.log('content : '+content);
+      console.log('user_no : '+user_no);
+
+      let formData = new FormData();
+      for(j=0; j<images.length; j++){
+        formData.append('files', files[j]);
+      }
+      formData.append('urls', urls);
+      formData.append('content', content);
+      formData.append('user_no', user_no);
+
+      $.ajax({
+        url:'/Photostagram/postUpload',
+        processData: false,
+        contentType: false,
+        method:'POST',
+        data:formData,
+        dataType:'json',
+        success:function(data){
+          if(data.result > 0){
+            alert('업로드되었습니다.');
+            $('#modal_add_feed_content').css({display : 'none'});
+          }
+        }
+      });
+    });
+
   });

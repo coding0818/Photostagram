@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+      layout:decorate="~{layout/profileLayout}">
     <th:block layout:fragment="main">
         <div id="pro">
           <section>
@@ -13,10 +13,15 @@
                   </div>
                   <div class="detail">
                       <div class="pTop">
-                          <div class="userName">gildong</div>
-                          <a href="#" class="button" id="follow">팔로우</a>
-                          <a href="#" class="button" id="following">팔로잉</a>
-                          <a href="#" class="button">프로필 편집</a>
+                          <div class="userName">[[${username}]]</div>
+                          <th:block th:if="${#strings.equals('#authentication.principal.user.username', 'username')}">
+                              <a href="#" class="button">프로필 편집</a>
+                          </th:block>
+                          <th:block th:unless="${#strings.equals('#authentication.principal.user.username', 'username')}">
+                              <a href="#" class="button" id="follow">팔로우</a>
+                              <a href="#" class="button" id="following">팔로잉</a>
+                          </th:block>
+
                       </div>
                       <ul class="pMiddle">
                           <li>
@@ -94,7 +99,7 @@
                     <span class="fClose">&times;</span>
                     <div id="fTop">
                         <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile">
-                        <span>gildong</span>
+                        <span>[[${username}]]</span>
                     </div>
                     <ul id="fBottom">
                         <li><a href="#" class="fClose"><span>친한 친구 리스트에 추가</span><i class="fa-solid fa-star"></i></a></li>
