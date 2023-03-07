@@ -7,12 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -32,40 +31,32 @@ public class MemberController {
         return "member/register";
     }
 
-    @PostMapping("/register")
-    public String register(MemberVO vo, HttpSession sess){
-        log.info("register...");
-
-        sess.setAttribute("sessMember", vo);
-
-        return "redirect:/member/birth";
-    }
-
     @GetMapping("/birth")
     public String birth(){
         return "member/birth";
     }
 
-    @PostMapping("/birth")
-    public String birth(@SessionAttribute("sessMember") MemberVO sessMember, BirthVO vo){
-
-        String birth = String.format("%d-%d-%d", vo.getYear(), vo.getMonth(), vo.getDay());
-        sessMember.setBirth(birth);
-
-        System.out.println("sessMember = " + sessMember);
-
-        return "redirect:/member/email";
-    }
-
     @GetMapping("/email")
     public String email(){
-        return "redirect:/member/terms";
+        return "member/email";
     }
 
     @GetMapping("/terms")
-    public String terms(@SessionAttribute ("sessMember") MemberVO sessMember){
-        
+    public String terms(){
         return "member/terms";
+    }
+
+    @ResponseBody
+    @PostMapping("/terms")
+    public Map<String, Integer> terms(@RequestBody MemberVO vo){
+        log.info("TermsController...");
+        System.out.println("vo = " + vo);
+//        int result = service.insertMember(vo);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+//        resultMap.put("result", result);
+
+        return null;
     }
 
     @GetMapping("/checkId")
@@ -87,4 +78,33 @@ public class MemberController {
     public String resultPass(){
         return "member/resultPass";
     }
+
+
+
+
+/*
+@PostMapping("/birth")
+public String birth(@SessionAttribute("sessMember") MemberVO sessMember, BirthVO vo){
+
+    String birth = String.format("%d-%d-%d", vo.getYear(), vo.getMonth(), vo.getDay());
+    sessMember.setBirth(birth);
+
+    System.out.println("sessMember = " + sessMember);
+
+    return "redirect:/member/email";
+}
+
+ */
+
+    /*
+    @PostMapping("/register")
+    public String register(MemberVO vo, HttpSession sess){
+        log.info("register...");
+        sess.setAttribute("sessMember", vo);
+
+        return "redirect:/member/birth";
+    }
+
+     */
+
 }
