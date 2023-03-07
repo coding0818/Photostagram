@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
+    <link
+            rel="stylesheet"
+            href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <link
+            href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/aside.css}" />
+    <link rel="stylesheet" th:href="@{/css/profile.css}"/>
+    <link rel="stylesheet" th:href="@{/css/profileModify.css}"/>
+    <link rel="stylesheet" th:href="@{/css/post.css}"/>
+    <script th:src="@{/js/aside.js}"></script>
+    <script th:src="@{/js/proFollow.js}"></script>
+    <script th:src="@{/js/post.js}"></script>
+    <script>
+      $(function(){
+        //게시글 업로드 버튼 클릭시(ajax추가하면 됨)
+      $('#button_write_feed').on('click', ()=>{
+        const image = $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
+        const content = $('#input_content').val();
+        const profile_image = $('#input_profile_image').attr('src');
+        const user_id = $('#input_user_id').text();
+
+        const file = files[0];
+
+        let fd = new FormData();
+
+        fd.append('file', file);
+        fd.append('image', image);
+        fd.append('content', content);
+        fd.append('profile_image', profile_image);
+        fd.append('user_id', user_id);
+
+        if(image.length <= 0)
+        {
+            alert("이미지가 비어있습니다.");
+        }
+        else if(content.length <= 0)
+        {
+            alert("설명을 입력하세요");
+        }
+        else if(profile_image.length <= 0)
+        {
+            alert("프로필 이미지가 비어있습니다.");
+        }
+        else if(user_id.length <= 0)
+        {
+            alert("사용자 id가 없습니다.");
+        }
+        else{
+            writeFeed(fd);
+            console.log(files[0]);
+        }
+      });
+      });
+    </script>
+</head>
+<body>
+    <main>
+        <!--/*** aside ***/-->
+        <th:block th:replace="~{fragments/_aside::asideFragment}"></th:block>
+        <!--/*** 본문 ***/-->
+        <th:block layout:fragment="main"></th:block>
+    </main>
+</body>
+    <!--/*** aside modal ***/-->
+    <th:block th:replace="~{fragments/_modal::modalFragment}"></th:block>
+    <th:block layout:fragment="script"></th:block>
+</html>

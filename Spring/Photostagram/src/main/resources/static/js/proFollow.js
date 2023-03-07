@@ -12,15 +12,34 @@
           $('#following').hide();
           $('#follow').show();
         });
+       });
       $(function(){
         $('.fClose').click(function(){
           $('#fCancel').hide();
         });
       });
+
+
+      $(function(){
+        $('#postFollow').click(function(){
+            $('#postFollow').hide();
+            $('#postFollowing').show();
+        });
+      });
+      $(function(){
+          $('#postUnFollow').click(function(){
+            $('#postFollowing').hide();
+            $('#postFollow').show();
+          });
+       });
+      $(function(){
+        $('.pClose').click(function(){
+          $('#pCancel').hide();
+        });
       });
 
 
-  /*** 팔로잉 클릭 시 뜨는 모달 창 ***/
+  /*** 프로필 팔로잉 클릭 시 뜨는 모달 창 ***/
 
     $(function(){
       var modal = document.getElementById("fCancel");
@@ -33,6 +52,23 @@
 
       span.onclick = function() {
         modal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    });
+
+    /*** 게시물 팔로잉 클릭 시 뜨는 모달 창 ***/
+
+    $(function(){
+      var modal = document.getElementById("pCancel");
+      var btn = document.getElementById("postFollowing");
+
+      btn.onclick = function() {
+        modal.style.display = "block";
       }
 
       window.onclick = function(event) {

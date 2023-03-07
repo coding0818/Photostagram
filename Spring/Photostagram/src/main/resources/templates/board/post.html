@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+      layout:decorate="~{layout/profileLayout}">
 <th:block layout:fragment="main">
     <div id="wrapper">
         <article id="post">
-            <section class="picture"><img src="./img/700x700.png" alt="picture"></section>
+            <section class="picture"><img th:src="@{/img/700x700.png}" alt="picture"></section>
             <section class="contents">
                 <nav>
                     <div id="profile">
-                        <img src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                         <p class="postTop">
                             <span id="nick">gildong</span>
                             ·
-                            <a id="follow">팔로우</a>
+                            <a id="postFollowing" href="#">팔로잉</a>
+                            <a id="postFollow" href="#">팔로우</a>
                         </p>
                     </div>
                     <a href="#">...</a>
                 </nav>
                 <ul>
                     <li>
-                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                         <div class="reply">
                             <h1><span>gildong</span>댓글 내용12312321321321312321312321321321321321321321211111111111111111111111111111111111111111111113</h1>
                             <a href="#">#해시태그</a>
@@ -36,7 +37,7 @@
                             <div class="listReply reHide">
                                 <ul class="reReply">
                                     <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile">
                                         <div class="reply">
                                             <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
                                             <a href="#">#해시태그</a>
@@ -49,7 +50,7 @@
                                         <a href="#" id="reHeart" class="reWhite">좋아요</a>
                                     </li>
                                     <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                                         <div class="reply">
                                             <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
                                             <a href="#">#해시태그</a>
@@ -62,7 +63,7 @@
                                         <a href="#" id="reHeart" class="reWhite">좋아요</a>
                                     </li>
                                     <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                                         <div class="reply">
                                             <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
                                             <a href="#">#해시태그</a>
@@ -75,7 +76,7 @@
                                         <a href="#" id="reHeart" class="reWhite">좋아요</a>
                                     </li>
                                     <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                                         <div class="reply">
                                             <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
                                             <a href="#">#해시태그</a>
@@ -88,7 +89,7 @@
                                         <a href="#" id="reHeart" class="reWhite">좋아요</a>
                                     </li>
                                     <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                                         <div class="reply">
                                             <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
                                             <a href="#">#해시태그</a>
@@ -101,497 +102,7 @@
                                         <a href="#" id="reHeart" class="reWhite">좋아요</a>
                                     </li>
                                     <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                        <div class="reply">
-                            <h1><span>gildong</span>댓글 내용12312321321321312321312321321321321321321321211111111111111111111111111111111111111111111113</h1>
-                            <a href="#">#해시태그</a>
-                            <div>
-                                5주 &nbsp;&nbsp;
-                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                <a href="#">답글달기</a>
-                            </div>
-                        </div>
-                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                        <div class="showReply">
-                            <a href="#" class="reOpen">ㅡ 답글보기</a>
-                            <div class="listReply reHide">
-                                <ul class="reReply">
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                        <div class="reply">
-                            <h1><span>gildong</span>댓글 내용12312321321321312321312321321321321321321321211111111111111111111111111111111111111111111113</h1>
-                            <a href="#">#해시태그</a>
-                            <div>
-                                5주 &nbsp;&nbsp;
-                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                <a href="#">답글달기</a>
-                            </div>
-                        </div>
-                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                        <div class="showReply">
-                            <a href="#" class="reOpen">ㅡ 답글보기</a>
-                            <div class="listReply reHide">
-                                <ul class="reReply">
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                        <div class="reply">
-                            <h1><span>gildong</span>댓글 내용12312321321321312321312321321321321321321321211111111111111111111111111111111111111111111113</h1>
-                            <a href="#">#해시태그</a>
-                            <div>
-                                5주 &nbsp;&nbsp;
-                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                <a href="#">답글달기</a>
-                            </div>
-                        </div>
-                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                        <div class="showReply">
-                            <a href="#" class="reOpen">ㅡ 답글보기</a>
-                            <div class="listReply reHide">
-                                <ul class="reReply">
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                        <div class="reply">
-                            <h1><span>gildong</span>댓글 내용12312321321321312321312321321321321321321321211111111111111111111111111111111111111111111113</h1>
-                            <a href="#">#해시태그</a>
-                            <div>
-                                5주 &nbsp;&nbsp;
-                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                <a href="#">답글달기</a>
-                            </div>
-                        </div>
-                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                        <div class="showReply">
-                            <a href="#" class="reOpen">ㅡ 답글보기</a>
-                            <div class="listReply reHide">
-                                <ul class="reReply">
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                        <div class="reply">
-                            <h1><span>gildong</span>댓글 내용12312321321321312321312321321321321321321321211111111111111111111111111111111111111111111113</h1>
-                            <a href="#">#해시태그</a>
-                            <div>
-                                5주 &nbsp;&nbsp;
-                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                <a href="#">답글달기</a>
-                            </div>
-                        </div>
-                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                        <div class="showReply">
-                            <a href="#" class="reOpen">ㅡ 답글보기</a>
-                            <div class="listReply reHide">
-                                <ul class="reReply">
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" src="../profile/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                                         <div class="reply">
                                             <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
                                             <a href="#">#해시태그</a>
@@ -630,23 +141,35 @@
         <div id="more">
             <div><span>gildong</span>님의 게시물 더 보기</div>
             <a href="#">
-                <img src="../profile/img/300x300-1.png" alt="pic">
+                <img th:src="@{/img/300x300-1.png}" alt="pic">
             </a>
             <a href="#">
-                <img src="../profile/img/300x300-1.png" alt="pic">
+                <img th:src="@{/img/300x300-1.png}" alt="pic">
             </a>
             <a href="#">
-                <img src="../profile/img/300x300-1.png" alt="pic">
+                <img th:src="@{/img/300x300-1.png}" alt="pic">
             </a>
             <a href="#">
-                <img src="../profile/img/300x300-1.png" alt="pic">
+                <img th:src="@{/img/300x300-1.png}" alt="pic">
             </a>
             <a href="#">
-                <img src="../profile/img/300x300-1.png" alt="pic">
+                <img th:src="@{/img/300x300-1.png}" alt="pic">
             </a>
             <a href="#">
-                <img src="../profile/img/300x300-1.png" alt="pic">
+                <img th:src="@{/img/300x300-1.png}" alt="pic">
             </a>
+        </div>
+        <div id="pCancel" class="pModal">
+            <div class="pContents">
+                <div>
+                    <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}">
+                    <h1><span>gildong</span>님의 팔로우를 취소하시겠어요?</h1>
+                </div>
+                <ul>
+                    <li><a href="#" class="pClose" id="postUnFollow">팔로우 취소</a></li>
+                    <li><a href="#" class="pClose">취소</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </th:block>
