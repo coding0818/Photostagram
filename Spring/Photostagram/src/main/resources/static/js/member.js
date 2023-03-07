@@ -55,12 +55,12 @@ document.querySelectorAll('.animate-input').forEach(e => {
     }
 })
 // 6자리 이상일 때 버튼 활성화
-checkSigninInput = () => {
-    let inputs = signin_form.querySelectorAll('input')
-    return Array.from(inputs).every(input => {
-        return input.value.trim().length >= 6
-    })
-}
+//checkSigninInput = () => {
+//    let inputs = signin_form.querySelectorAll('input')
+//    return Array.from(inputs).every(input => {
+//        return input.value.trim().length >= 6
+//    })
+//}
 
 // 다크모드
 darkmode_toggle.onclick = (e) => {
@@ -86,7 +86,6 @@ for(var m=1; m<=12; m++){
 	index++;
 }
 
-lastday();
 
 function lastday(){ //년과 월에 따라 마지막 일 구하기 
 	var Year=document.getElementById('select_year').value;
