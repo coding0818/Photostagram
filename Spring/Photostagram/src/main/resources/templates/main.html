@@ -56,10 +56,12 @@
           let user_no = $('#input_user_id').data('no');
           console.log('content : '+content);
           console.log('user_no : '+user_no);
-/*
-          let fd = new FormData();
-          fd.append('image');
 
+          let fd = new FormData();
+          fd.append('urls', urls);
+          fd.append('content', content);
+          fd.append('files', files);
+          fd.append('user_no', user_no);
 
           $.ajax({
             url:'/Photostagram/postUpload',
