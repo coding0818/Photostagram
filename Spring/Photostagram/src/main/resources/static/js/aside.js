@@ -24,16 +24,12 @@ function uploadFiles(e){
     e.dataTransfer = e.originalEvent.dataTransfer;
 
     files = e.dataTransfer.files;
-    if (files.length > 1) {
-        alert('하나만 올려라.');
-        return;
-    }
 
     if (files[0].type.match(/image.*/)) {
-        $('#modal_add_feed_content').css({
+        $('#modal_add_feed_content_drop').css({
             display : 'flex'
         });
-        $('.modal_image_upload_content').css({
+        $('#input_image_drop').css({
             "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
             "outline": "none",
             "background-size": "contain",
@@ -112,21 +108,6 @@ function uploadFiles(e){
 
           let images= dataTransfer.files;
           console.log('images : '+images);
-
-          /*
-          let url = [];
-          for(i=0 ; i<images.length ; i++){
-            let page = "url(" + window.URL.createObjectURL(images[i]) + ")";
-            console.log("page : " + page);
-            url.push(page);
-          }
-
-          console.log("url : " + url);
-          
-          let jsonData = {"url":url};
-          sessionStorage.setItem("url", JSON.stringify(jsonData));
-          //console.log("jsonData : "+JSON.stringify(jsonData));
-          */
 
           if (images[0].type.match(/image.*/)) {
               $('#modal_add_feed_content').css({

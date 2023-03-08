@@ -60,7 +60,7 @@ public class MainService {
             images.get(i).setPost_no(vo.getNo());
             dao.insertImage(images.get(i));
         }
-        return 0;
+        return result1;
     }
 
     @Value("${spring.servlet.multipart.location}")

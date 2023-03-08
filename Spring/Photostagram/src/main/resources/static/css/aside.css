@@ -858,6 +858,24 @@ html {height: 100%;}
       border: none;
     }
 
+    /*modal drop*/
+    #input_image_drop > .beforeBtn{
+      position: fixed;
+      top: 45%;
+      left: 9px;
+      background: none;
+      border: none;
+    }
+    #input_image_drop > .afterBtn{
+      position: fixed;
+      top: 45%;
+      right: 305px;
+      background: none;
+      border: none;
+    }
+
+
+
 
 /********** post Modal ************/
 div.modal-post {

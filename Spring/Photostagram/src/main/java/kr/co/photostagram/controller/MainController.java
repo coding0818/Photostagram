@@ -1,14 +1,18 @@
 package kr.co.photostagram.controller;
 
 import kr.co.photostagram.service.MainService;
+import kr.co.photostagram.service.ProfileService;
+import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +23,15 @@ public class MainController {
     @Autowired
     private MainService service;
 
+    @Autowired
+    private ProfileService profileService;
+
     @GetMapping(value = {"/", "index"})
-    public String index(){
+    public String index(Principal principal, Model model){
+        MemberVO user =  profileService.selectMember(principal.getName());
+        log.info("user_no : "+user.getNo());
+
+        model.addAttribute("user", user);
         return "index";
     }
 
@@ -29,7 +40,11 @@ public class MainController {
     public void replyRegister(){}
 
     @GetMapping("main")
-    public String main(){
+    public String main(Principal principal, Model model){
+        MemberVO user =  profileService.selectMember(principal.getName());
+        log.info("user_no : "+user.getNo());
+
+        model.addAttribute("user", user);
         return "main";
     }
 
