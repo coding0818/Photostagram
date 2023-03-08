@@ -124,14 +124,20 @@ public class MainService {
 
             HashTagVO vos = new HashTagVO();
             vos.setHashtag(tag);
-            // 등록된 태그가 아니라면 태그부터 추가
-            if(findResult == 0){
-                dao.saveTag(vos);
-            }
 
             Post_hashtagVO vo = new Post_hashtagVO();
-            vo.setPost_no(post_no);
-            vo.setHashtag_no(vos.getNo());
+
+            if(findResult == 0){
+                // 등록된 태그가 아니라면 태그부터 추가
+                dao.saveTag(vos);
+                vo.setPost_no(post_no);
+                vo.setHashtag_no(vos.getNo());
+            }else{
+                // 등록된 태그라면 태그번호 조회
+                int hashtag_no = dao.selectHashTagNo(tag);
+                vo.setPost_no(post_no);
+                vo.setHashtag_no(hashtag_no);
+            }
 
             // 태그-포스트 매핑 테이블에 데이터 추가
             dao.saveTagAndPost(vo);
