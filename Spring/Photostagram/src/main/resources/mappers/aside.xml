@@ -25,4 +25,8 @@
     <insert id="saveTagAndPost">
         insert into `post_hashtag` set `hashtag_no`=#{hashtag_no}, `post_no`=#{post_no};
     </insert>
+    <!--검색(해시태그)-->
+    <select id="selectHashTag" resultType="kr.co.photostagram.vo.HashTagVO">
+        SELECT * FROM `hashtag` WHERE `hashtag` LIKE CONCAT(#{searchItem},'%');
+    </select>
 </mapper>

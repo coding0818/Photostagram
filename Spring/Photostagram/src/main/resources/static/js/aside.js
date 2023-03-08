@@ -139,7 +139,7 @@ function uploadFiles(e){
 
     let j = 0;
 
-    $('.afterBtn').on('click', function(){
+    $('#afterBtn').on('click', function(){
         let inputFile = $('#file_upload');
         let file = inputFile[0].files;
 
@@ -172,7 +172,7 @@ function uploadFiles(e){
         console.log("j2 :"+j);
     });
 
-    $('.beforeBtn').on('click', function(){
+    $('#beforeBtn').on('click', function(){
         let inputFile = $('#file_upload');
         let file = inputFile[0].files;
 
@@ -202,6 +202,68 @@ function uploadFiles(e){
         }); 
         console.log("j"+j); 
         
+    });
+
+    $('#afterBtnDrop').on('click', function(){
+        let file = files;
+
+        console.log(file);
+
+        let dataTransfer = new DataTransfer();
+
+        let fileArray = Array.from(file);
+        console.log('fileArray : ' +fileArray);
+
+        fileArray.forEach(f => {
+            dataTransfer.items.add(f);
+        });
+
+        let images= dataTransfer.files;
+        console.log('images : '+images);
+
+        if(j+1 == images.length) return;
+        j++;
+
+        console.log("j1 :"+j);
+
+        $('.modal_image_upload_content').css({
+            "background-image": "url(" + window.URL.createObjectURL(images[j]) + ")",
+            "outline": "none",
+            "background-size": "contain",
+            "background-repeat" : "no-repeat",
+            "background-position" : "center"
+        });
+        console.log("j2 :"+j);
+    });
+
+    $('#beforeBtnDrop').on('click', function(){
+        let file = files;
+
+        console.log(file);
+
+        let dataTransfer = new DataTransfer();
+
+        let fileArray = Array.from(file);
+        console.log('fileArray : ' +fileArray);
+
+        fileArray.forEach(f => {
+            dataTransfer.items.add(f);
+        });
+
+        let images= dataTransfer.files;
+        console.log('images : '+images);
+
+        if(j == 0)return;
+        j--;
+
+        $('.modal_image_upload_content').css({
+            "background-image": "url(" + window.URL.createObjectURL(images[j]) + ")",
+            "outline": "none",
+            "background-size": "contain",
+            "background-repeat" : "no-repeat",
+            "background-position" : "center"
+        });
+        console.log("j"+j);
     });
 
     $('#more_view').on('click', function(){
@@ -257,5 +319,103 @@ function uploadFiles(e){
           }
         }
       });
+    });
+
+    $('#button_write_feed_drop').on('click', function(){
+        let content = $('#input_content_drop').val();
+        let user_id = $('#input_user_id_drop').data('no');
+        let file = files;
+
+        console.log('file_formData : '+file[0]);
+        console.log('file_formData : '+file[1]);
+
+        let fd = new FormData();
+
+        for(j=0; j<file.length; j++){
+          fd.append('files', file[j]);
+        }
+        fd.append('content', content);
+        fd.append('user_no', user_id);
+
+        $.ajax({
+            url:'/Photostagram/postUpload',
+            processData: false,
+            contentType: false,
+            method:'POST',
+            data:fd,
+            dataType:'json',
+            success:function(data){
+              if(data.result > 0){
+                alert('업로드되었습니다.');
+                $('#modal_add_feed_content').css({display : 'none'});
+              }
+            }
+        });
+    });
+
+    // 검색 버튼 클릭시
+    $('#searchBtn').on('click', function(){
+        let searchItem = $('#searchAll').val();
+        let user_no = $('input[name=user_no]').val();
+        console.log('user_no : '+user_no);
+
+        let isHashTag = /(#[^\s#]+)/g;
+        if(isHashTag.test(searchItem)){
+            // 검색 아이템이 해시태그일 경우
+            console.log('true');
+            let cate = 2;
+            let content = searchItem.substring(1);
+
+            let jsonData = {"user_no":user_no, "searchItem":content, "cate":cate};
+
+            $.ajax({
+                url:'/Photostagram/searchHashtag',
+                method:'POST',
+                data:jsonData,
+                dataType:'json',
+                success:function(data){
+                    if(data.result){
+                        let r = data.result;
+                        console.log(r);
+                        $('#searchListRecent').hide();
+                        $('.searchListAll').empty();
+                        r.forEach(function(i){
+                            let searchResult = "<div class='searchlist'>";
+                                searchResult += "<a>";
+                                searchResult += "<div><img src=./img/hashtag.PNG></div>";
+                                searchResult += "<div>";
+                                searchResult += "<div><h3>#"+i.hashtag+"</h3></div>";
+                                searchResult += "<div><h8>게시물x개</h8></div>";
+                                searchResult += "</div>";
+                                searchResult += "<div>";
+                                searchResult += "<button><img src=./img/aside_x.PNG></button>";
+                                searchResult += "</div>";
+                                searchResult += "</a>";
+                                searchResult += "</div>";
+
+                            $('.searchListAll').append(searchResult);
+                            $('.searchListAll').trigger("create");
+                        });
+                    }else{
+                        alert("검색 결과가 없습니다.");
+                    }
+                }
+            });
+        }else{
+            // 검색 아이템이 계정일 경우
+            console.log('false');
+            let cate = 1;
+            let jsonData = {"user_no":user_no, "searchItem":searchItem, "cate":cate};
+
+            $.ajax({
+                url:'/Photostagram/searchUser',
+                method:'POST',
+                data:jsonData,
+                dataType:'json',
+                success:function(data){
+                    console.log('성공!');
+                }
+            });
+        }
     });
   });
