@@ -11,12 +11,29 @@
         SELECT * FROM `user` WHERE `username`=#{username};
     </select>
 
+    <select id="selectCountPost" resultType="int">
+        SELECT COUNT(*) FROM `post` WHERE `user_no`=#{no};
+    </select>
+    <select id="selectCountFollower" resultType="int">
+        SELECT COUNT(*) FROM `follow` WHERE `follower`=#{no};
+    </select>
+    <select id="selectCountFollowing" resultType="int">
+        SELECT COUNT(*) FROM `follow` WHERE `following`=#{no};
+    </select>
+
     <update id="updateMember">
         UPDATE `user` SET
             `username` = #{username},
             `name` = #{name},
             `email` = #{email},
-            `profileText` = #{profileText}
+            `profileText` = #{profileText},
+            `profilePhone` = #{profilePhone}
+            WHERE `no`=#{no};
+    </update>
+
+    <update id="updateProfilePhoto">
+        UPDATE `user` SET
+            `profileImg` = #{newName}
             WHERE `no`=#{no};
     </update>
 
