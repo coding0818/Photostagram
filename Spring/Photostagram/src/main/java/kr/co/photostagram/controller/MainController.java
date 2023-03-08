@@ -19,15 +19,6 @@ public class MainController {
     @Autowired
     private MainService service;
 
-    @GetMapping(value = {"/", "index"})
-    public String index(){
-        return "index";
-    }
-
-    // 댓글 작성
-    @PostMapping
-    public void replyRegister(){}
-
     @GetMapping("main")
     public String main(){
         return "main";

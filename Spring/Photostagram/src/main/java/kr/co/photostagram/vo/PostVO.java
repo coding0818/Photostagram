@@ -20,4 +20,7 @@ public class PostVO {
     private String rdate;
     private List<MultipartFile> files;
     private String urls[];
+
+    private ImageVO imageVO;
+    private MemberVO memberVO;
 }
