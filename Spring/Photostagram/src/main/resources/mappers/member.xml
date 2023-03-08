@@ -9,7 +9,12 @@
                 `username`= #{username},
                 `name`= #{name},
                 `password`= #{password},
-                `email`= #{email}
+                `email`= #{email},
+                `birth` = #{birth}
     </insert>
+
+    <select id="chkUserName">
+        select `username` from `user` where `username` = #{userName};
+    </select>
 
 </mapper>
