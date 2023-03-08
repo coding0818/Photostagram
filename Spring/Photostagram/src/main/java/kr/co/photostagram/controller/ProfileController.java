@@ -1,10 +1,9 @@
 package kr.co.photostagram.controller;
 
-import kr.co.photostagram.entity.UserEntity;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.vo.MemberVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 
+@Slf4j
 @Controller
 public class ProfileController {
 
@@ -20,6 +20,12 @@ public class ProfileController {
 
     @GetMapping(value = {"profile", "profile/index"})
     public String index(Principal principal, Model model, String username) {
+
+        // modal팝업창 로그인정보 불러오기
+        MemberVO user =  service.selectMember(principal.getName());
+        log.info("user_no : "+user.getNo());
+
+        model.addAttribute("user", user);
 
         String myName = principal.getName();
 
@@ -38,6 +44,7 @@ public class ProfileController {
     public String modify(Principal principal, Model model){
 
         MemberVO user =  service.selectMember(principal.getName());
+        log.info("user_no : "+user.getNo());
 
         model.addAttribute("user", user);
         return "profile/modify";
