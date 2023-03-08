@@ -17,4 +17,5 @@ public interface MainDAO {
     public int findTagByContent(String hashtag);
     public int saveTag(HashTagVO vo);
     public int saveTagAndPost(Post_hashtagVO vo);
+    public int selectHashTagNo(String hashtag);
 }

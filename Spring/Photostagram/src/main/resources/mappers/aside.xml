@@ -17,6 +17,10 @@
     <insert id="saveTag" useGeneratedKeys="true" keyColumn="no" keyProperty="no" parameterType="kr.co.photostagram.vo.HashTagVO">
         insert into `hashtag` set `hashtag`=#{hashtag};
     </insert>
+    <!--해시태그 번호 조회-->
+    <select id="selectHashTagNo" resultType="int">
+        select `no` from `hashtag` where `hashtag`=#{hashtag};
+    </select>
     <!--태그-포스트 매핑 테이블 추가-->
     <insert id="saveTagAndPost">
         insert into `post_hashtag` set `hashtag_no`=#{hashtag_no}, `post_no`=#{post_no};
