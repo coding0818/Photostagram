@@ -10,10 +10,10 @@
                 <div class="slide-container" style="background-image: url(../img/phone-frame.png);">
                     <div class="slide-content" id="slide-content">
                         <img th:src="@{/img/slide (1).jpg}" alt="slide image" class="active">
-                        <img th:src="@{/img/slide (2).jpg}" alt="slide image">
-                        <img th:src="@{/img/slide (3).jpg}" alt="slide image">
-                        <img th:src="@{/img/slide (4).jpg}" alt="slide image">
-                        <img th:src="@{/img/slide (5).jpg}" alt="slide image">
+                        <img th:src="@{/img/slide (2).jpg}" alt="slide image" class="slide">
+                        <img th:src="@{/img/slide (3).jpg}" alt="slide image" class="slide">
+                        <img th:src="@{/img/slide (4).jpg}" alt="slide image" class="slide">
+                        <img th:src="@{/img/slide (5).jpg}" alt="slide image" class="slide">
                     </div>
                 </div>
                 <div class="form-container">
@@ -30,7 +30,7 @@
                                         <span>
                                             전화번호, 사용자 이름 또는 이메일
                                         </span>
-                                        <input type="text" name="username">
+                                        <input type="text" name="username" class="able">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -38,15 +38,15 @@
                                         <span>
                                             비밀번호
                                         </span>
-                                        <input type="password" name="password">
-                                        <button>비밀번호 표시</button>
+                                        <input type="password" name="password" id="pass" class="able">
+                                        <button type="button" class="passView">비밀번호 표시</button>
                                     </div>
                                 </div>
                                 <div class="checking">
                                     <div>존재하지 않는 회원입니다.</div>
                                 </div>
                                 <div class="btn-group">
-                                    <button type="submit" class="btn-login" id="signin-btn">
+                                    <button type="submit" class="btn-login" id="signin-btn" disabled>
                                         로그인
                                     </button>
                                 </div>
@@ -86,5 +86,19 @@
                 </div>
             </div>
         </div>
+<script>
+    // 로그인화면 슬라이드
+    $(function(){
+        let slide_content = document.querySelector('#slide-content')
+
+        slide = () => {
+            let slide_items = slide_content.querySelectorAll('img.slide')
+            slide_items.forEach(e => e.classList.remove('active'))
+            slide_index = slide_index + 1 === slide_items.length ? 0 : slide_index + 1
+            slide_items[slide_index].classList.add('active')
+        }
+        setInterval(slide, 2000)
+    });
+</script>
 </th:block>
 </html>

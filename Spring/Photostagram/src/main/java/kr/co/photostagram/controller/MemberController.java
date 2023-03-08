@@ -1,15 +1,12 @@
 package kr.co.photostagram.controller;
 
 import kr.co.photostagram.service.MemberService;
-import kr.co.photostagram.vo.BirthVO;
 import kr.co.photostagram.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +26,19 @@ public class MemberController {
     @GetMapping("/register")
     public String register(){
         return "member/register";
+    }
+
+    @ResponseBody
+    @PostMapping("/chkUserName")
+    public Map<String, Integer> chkUserName(@RequestBody String userName){
+        log.info("chkUsername...");
+        System.out.println("userName = " + userName);
+
+        int result = service.chkUserName(userName);
+        
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+        return resultMap;
     }
 
     @GetMapping("/birth")
@@ -51,12 +61,12 @@ public class MemberController {
     public Map<String, Integer> terms(@RequestBody MemberVO vo){
         log.info("TermsController...");
         System.out.println("vo = " + vo);
-//        int result = service.insertMember(vo);
+        int result = service.insertMember(vo);
 
         Map<String, Integer> resultMap = new HashMap<>();
-//        resultMap.put("result", result);
+        resultMap.put("result", result);
 
-        return null;
+        return resultMap;
     }
 
     @GetMapping("/checkId")
@@ -78,33 +88,5 @@ public class MemberController {
     public String resultPass(){
         return "member/resultPass";
     }
-
-
-
-
-/*
-@PostMapping("/birth")
-public String birth(@SessionAttribute("sessMember") MemberVO sessMember, BirthVO vo){
-
-    String birth = String.format("%d-%d-%d", vo.getYear(), vo.getMonth(), vo.getDay());
-    sessMember.setBirth(birth);
-
-    System.out.println("sessMember = " + sessMember);
-
-    return "redirect:/member/email";
-}
-
- */
-
-    /*
-    @PostMapping("/register")
-    public String register(MemberVO vo, HttpSession sess){
-        log.info("register...");
-        sess.setAttribute("sessMember", vo);
-
-        return "redirect:/member/birth";
-    }
-
-     */
 
 }

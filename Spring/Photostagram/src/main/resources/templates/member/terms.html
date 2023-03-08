@@ -21,13 +21,14 @@ $(function() {
 
         if(isCheck1 && isCheck2 && isCheck3) {
             alert('체크 완료!!!');
-            let userData = sessionStorage.getItem("user");
-            console.log("userData : ", userData);
+            let userData = sessionStorage.getItem("user"); // session에서 가져오기
+            console.log(userData);
 
             $.ajax({
                 url: '/Photostagram/member/terms',
                 method: 'POST',
-                data: {userData : userData},
+                contentType:'application/json',
+                data: userData,
                 dataType: 'json',
                 success: function(data) {
                     if(data.result = 1) {
@@ -37,14 +38,16 @@ $(function() {
                     } else {
                         alert('회원가입에 실패하였습니다.');
                     }
+                }
             });
 
-        }else{
+        } else {
             alert('동의 체크를 하셔야 합니다.');
             return false;
         }
     });
 });
+
 </script>
 
 <main class="member">

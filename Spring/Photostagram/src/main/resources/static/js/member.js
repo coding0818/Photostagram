@@ -3,30 +3,17 @@
 이름 : 김진우
 내용 : member js
 */
-let slide_content = document.querySelector('#slide-content')
-
 let signin_form = document.querySelector('#signin-form')
-
-let signin_btn = document.querySelector('#signin-btn')
-
+let signin_btn = document.querySelector('.btn-login')
 let darkmode_toggle = document.querySelector('#darkmode-toggle')
-
 let slide_index = 0
-
-slide = () => {
-    let slide_items = slide_content.querySelectorAll('img')
-    slide_items.forEach(e => e.classList.remove('active'))
-    slide_index = slide_index + 1 === slide_items.length ? 0 : slide_index + 1
-    slide_items[slide_index].classList.add('active')
-}
-
-setInterval(slide, 2000)
 
 // input 애니메이션
 document.querySelectorAll('.animate-input').forEach(e => {
     let input = e.querySelector('input')
     let button = e.querySelector('button')
 
+    // 아이디 입력하라는 문구 위로 올리기
     input.onkeyup = () => {
         if (input.value.trim().length > 0) {
             e.classList.add('active')
@@ -54,13 +41,14 @@ document.querySelectorAll('.animate-input').forEach(e => {
         }
     }
 })
+
 // 6자리 이상일 때 버튼 활성화
-//checkSigninInput = () => {
-//    let inputs = signin_form.querySelectorAll('input')
-//    return Array.from(inputs).every(input => {
-//        return input.value.trim().length >= 6
-//    })
-//}
+checkSigninInput = () => {
+    let inputs = signin_form.querySelectorAll('input.able')
+    return Array.from(inputs).every(input => {
+        return input.value.trim().length >= 6
+    })
+}
 
 // 다크모드
 darkmode_toggle.onclick = (e) => {
@@ -86,7 +74,6 @@ for(var m=1; m<=12; m++){
 	index++;
 }
 
-
 function lastday(){ //년과 월에 따라 마지막 일 구하기 
 	var Year=document.getElementById('select_year').value;
 	var Month=document.getElementById('select_month').value;
@@ -105,3 +92,6 @@ function lastday(){ //년과 월에 따라 마지막 일 구하기
 		}
 	}
 }
+
+
+

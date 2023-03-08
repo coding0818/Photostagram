@@ -17,10 +17,15 @@
             let userData = sessionStorage.getItem("user");
             let user = JSON.parse(userData);
 
-            user.birthDate = year + '-' + month + '-' + day;
+            // 1의 자리 수이면 앞에 0 붙이기
+            if(month < 10 && day < 10) {
+                month = '0' + month;
+                day = '0' + day;
+            }
+
+            user.birth = year + '-' + month + '-' + day;
 
             sessionStorage.setItem("user", JSON.stringify(user));
-
             location.href = '/Photostagram/member/email';
         });
     });
