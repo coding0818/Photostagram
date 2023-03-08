@@ -23,4 +23,5 @@ public class PostVO {
 
     private ImageVO imageVO;
     private MemberVO memberVO;
+    private CommentVO commentVO;
 }

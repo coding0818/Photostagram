@@ -77,8 +77,8 @@
 
         <div class="contents_box">
           <!-- 메인콘텐츠 -->
-          <th:block th:each="article : ${articles}">
-          <article class="contents">
+          <th:block th:each="article, i : ${articles}">
+          <article th:class="contents" th:value="${article.no}">
             <header class="top">
               <div class="user_container">
                 <!-- 상단 게시자 정보 div -->
@@ -163,14 +163,15 @@
                   </div>
                 </div>
               </div>
-
-              <div class="reply_user">
-                <span class="reply_nick">j_hlli</span>
-                <span class="reply_content">강아지가 너무 귀여워요!</span>
-                <span class="small_heart">
+              <th:block th:each="comment : ${comments}" th:if="${#strings.equals(comment.post_no,article.no)}">
+                <div class="reply_user">
+                  <span class="reply_nick" th:text="${comment.username}">j_hlli</span>
+                  <span class="reply_content" th:text="${comment.comment}">강아지가 너무 귀여워요!</span>
+                  <span class="small_heart">
                   <div class="sprite_small_heart_icon_outline" ></div>
                 </span>
-              </div>
+                </div>
+              </th:block>
 
             </div>
             <div class="commentMore">
@@ -180,7 +181,9 @@
             <!----- 댓글 작성 폼 ------->
             <div class="comment_field" id="add-comment-post37">
               <input type="hidden" name="uid" th:value="${#authentication.principal.user.username}">
-              <input type="text" name="commentText" placeholder="댓글달기..." />
+              <input type="text" name="postNo" th:value="${article.no}">
+              <input type="hidden" name="userNo" th:value="${user.no}">
+              <input type="text" name="commentText" class="commentText" placeholder="댓글달기..." />
               <div class="upload_btn m_text">게시</div>
             </div>
           </article>

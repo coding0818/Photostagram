@@ -2,6 +2,7 @@ package kr.co.photostagram.controller;
 
 import kr.co.photostagram.service.IndexService;
 import kr.co.photostagram.service.ProfileService;
+import kr.co.photostagram.vo.CommentVO;
 import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -28,19 +33,33 @@ public class IndexController {
     public String index(Model model, Principal principal){
 
         List<PostVO> articles = service.selectArticles();
+        List<CommentVO> comments = service.selectComment();
         MemberVO user =  profileService.selectMember(principal.getName());
+
         log.info("user_no : "+user.getNo());
 
         model.addAttribute("user", user);
 
-//        log.info("articles : " + articles);
-
+        log.info("articles : " + articles);
+        log.info("comments : " + comments);
 
         model.addAttribute("articles", articles);
+        model.addAttribute("comments", comments);
         return "index";
     }
 
     // 댓글 작성
-    @PostMapping
-    public void replyRegister(){}
+    @PostMapping("CmtRegister")
+    @ResponseBody
+    public Map cmtRegister(@RequestBody CommentVO vo){
+        int result = 0;
+        result = service.insertComment(vo);
+
+        log.info(" result =====================> " + result);
+
+        Map map = new HashMap();
+        map.put("result", result);
+
+        return map;
+    }
 }
