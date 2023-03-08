@@ -26,19 +26,6 @@ public class MainController {
     @Autowired
     private ProfileService profileService;
 
-    @GetMapping(value = {"/", "index"})
-    public String index(Principal principal, Model model){
-        MemberVO user =  profileService.selectMember(principal.getName());
-        log.info("user_no : "+user.getNo());
-
-        model.addAttribute("user", user);
-        return "index";
-    }
-
-    // 댓글 작성
-    @PostMapping
-    public void replyRegister(){}
-
     @GetMapping("main")
     public String main(Principal principal, Model model){
         MemberVO user =  profileService.selectMember(principal.getName());
