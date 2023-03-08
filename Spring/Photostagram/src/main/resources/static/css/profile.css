@@ -71,14 +71,14 @@ input, textarea {outline: none;}
 #pro > section > .myProfile > .detail > .pMiddle > li {
     box-sizing: border-box; 
     margin-right:35px; 
-    float: left; 
-    font-size: 16px; 
-    font-weight: bold;
+    float: left;
+    font-size:15px;
+    width: 100px;
 }
 #pro > section > .myProfile > .detail > .pMiddle > li > span {
-    font-size:15px; 
-    width: 100px; 
-    margin-right: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 5px;
 }
 #pro > section > .myProfile > .detail > .pAbout > .notice {font-size: 15px;}
 
@@ -151,5 +151,10 @@ input, textarea {outline: none;}
   .fClose:focus {
     color: black;
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  .addProf:hover,
+  .addProf:focus {
     cursor: pointer;
   }
