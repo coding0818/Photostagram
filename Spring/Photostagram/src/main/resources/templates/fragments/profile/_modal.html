@@ -41,7 +41,7 @@
                         <div class="profile_box">
                             <img id="input_profile_image" class="profile_img" src="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/s1080x2048/165180104_277246477102900_6106347261862438192_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=730e14&_nc_ohc=1sN4d8i7rn8AX-7aKYN&_nc_ht=scontent-ssn1-1.xx&oh=5049b7cd176848e330b0f5ea95f28172&oe=615A08D1">
                         </div>
-                        <span id="input_user_id" class="feed_name_txt" data-no="1"> jin.99 </span>
+                        <span id="input_user_id" class="feed_name_txt" th:data-no="${user.no}">[[${#authentication.principal.username}]]</span>
                     </div>
                     <div style="height: 440px">
                         <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10" placeholder="설명을 입력하세요..."></textarea>
