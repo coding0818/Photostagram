@@ -66,9 +66,10 @@ function uploadFiles(e){
         $('.sidealarm').toggleClass('on');
         $('.side').toggleClass('on');              
       });
-    
+
       let modal = $('#modal_add_feed');
       let modal_feed = $('#modal_add_feed_content');
+      let modal_feed_drop = $('#modal_add_feed_content_drop');
 
       $('#add_feed').on('click', function(){
           modal.css('top', $(window).scrollTop()+'px');
@@ -84,7 +85,11 @@ function uploadFiles(e){
       $('#close_modal_feed').on('click', function(){
         modal_feed.css('display', 'none');
         $('body').css('overflow-y', 'visible');
-        sessionStorage.clear();
+      });
+
+      $('#close_modal_feed_drop').on('click', function(){
+        modal_feed_drop.css('display', 'none');
+        $('body').css('overflow-y', 'visible');
       });
       
       $('.modal_image_upload')
