@@ -7,6 +7,8 @@ import kr.co.photostagram.vo.Post_hashtagVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface MainDAO {
@@ -18,4 +20,5 @@ public interface MainDAO {
     public int saveTag(HashTagVO vo);
     public int saveTagAndPost(Post_hashtagVO vo);
     public int selectHashTagNo(String hashtag);
+    public List<HashTagVO> selectHashTag(String searchItem);
 }

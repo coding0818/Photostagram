@@ -40,17 +40,21 @@ public class MainService {
         List<String> tagList = findHashtag(vo.getContent());
         log.info("tagList : "+tagList);
 
-        // 게시글 내용 수정(태그 제외한 글)
-        String newContent = replaceContent(vo.getContent());
-        log.info("content : "+newContent);
-        vo.setContent(newContent);
+        if(!tagList.isEmpty()){
+            // 게시글 내용 수정(태그 제외한 글)
+            String newContent = replaceContent(vo.getContent());
+            log.info("content : "+newContent);
+            vo.setContent(newContent);
+        }
 
         // 게시글 DB 넣기
         int result1 = dao.insertPost(vo);
         log.info("result1 :"+result1);
 
-        // 해시태그 DB 넣기
-        saveTag(tagList, vo.getNo());
+        if(!tagList.isEmpty()){
+            // 해시태그 DB 넣기
+            saveTag(tagList, vo.getNo());
+        }
 
         // 이미지 DB 넣기
         List<ImageVO> images = fileUpload(files);
@@ -142,6 +146,10 @@ public class MainService {
             // 태그-포스트 매핑 테이블에 데이터 추가
             dao.saveTagAndPost(vo);
         }
+    }
+
+    public List<HashTagVO> selectHashTag(String searchItem){
+        return dao.selectHashTag(searchItem);
     }
 
 }

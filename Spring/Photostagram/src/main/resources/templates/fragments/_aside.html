@@ -129,284 +129,235 @@
             <div>
                 <h2>검색</h2>
                 <input type="text" name="search" id="searchAll" placeholder="검색"></input>
-                <button><img src="./img/search.png" alt=""></button>
+                <input type="hidden" name="user_no" th:value="${user.no}"/>
+                <button id="searchBtn"><img src="./img/search.png" alt=""></button>
             </div>
-            <div>
+            <div id="searchListRecent">
                 <h3>최근 검색 항목 <button>모두 지우기</button></h3>
             </div>
 
             <div class="searchListAll">
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/hashtag.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <div>
+                                <h3>#서면네일</h3>
+                            </div>
+                            <div>
+                                <h8>게시물 1개</h8>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                        <div>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/hashtag.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <div>
+                                <h3>#서면네일</h3>
+                            </div>
+                            <div>
+                                <h8>게시물 1개</h8>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                        <div>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/hashtag.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <div>
+                                <h3>#서면네일</h3>
+                            </div>
+                            <div>
+                                <h8>게시물 1개</h8>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                        <div>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/hashtag.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <div>
+                                <h3>#서면네일</h3>
+                            </div>
+                            <div>
+                                <h8>게시물 1개</h8>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                        <div>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/hashtag.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <div>
+                                <h3>#서면네일</h3>
+                            </div>
+                            <div>
+                                <h8>게시물 1개</h8>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                        <div>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <div>
+                                <h3>nickname</h3>
+                            </div>
+                            <div>
+                                <h8>text</h8>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                        <div>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <div>
+                                <h3>nickname</h3>
+                            </div>
+                            <div>
+                                <h8>text</h8>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                        <div>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <div>
+                                <h3>nickname</h3>
+                            </div>
+                            <div>
+                                <h8>text</h8>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                        <div>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <div>
+                                <h3>nickname</h3>
+                            </div>
+                            <div>
+                                <h8>text</h8>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                        <div>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <div>
+                                <h3>nickname</h3>
+                            </div>
+                            <div>
+                                <h8>text</h8>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                        <div>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
+                    <a>
                         <div>
-                            <h3>nickname</h3>
+                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
                         </div>
                         <div>
-                            <h8>text</h8>
-                        </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
-                </div>
-                <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <div>
-                            <h3>nickname</h3>
+                            <div>
+                                <h3>nickname</h3>
+                            </div>
+                            <div>
+                                <h8>text</h8>
+                            </div>
                         </div>
                         <div>
-                            <h8>text</h8>
+                            <button>
+                                <img src="./img/aside_x.PNG" alt="">
+                            </button>
                         </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
-                </div>
-                <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <div>
-                            <h3>nickname</h3>
-                        </div>
-                        <div>
-                            <h8>text</h8>
-                        </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
-                </div>
-                <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <div>
-                            <h3>nickname</h3>
-                        </div>
-                        <div>
-                            <h8>text</h8>
-                        </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
+                    </a>
                 </div>
 
-                <div class="searchlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <div>
-                            <h3>nickname</h3>
-                        </div>
-                        <div>
-                            <h8>text</h8>
-                        </div>
-                    </div>
-                    <div>
-                        <button>
-                            <img src="./img/aside_x.PNG" alt="">
-                        </button>
-                    </div>
-                </div>
             </div>
 
         </div>
