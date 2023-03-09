@@ -137,227 +137,63 @@
             </div>
 
             <div class="searchListAll">
-                <div class="searchlist">
-                    <a th:href="@{#}">
-                        <div>
-                            <img th:src="@{/img/hashtag.PNG}" alt="">
+                <th:block th:each="list:${searchList}">
+                    <!--검색결과가 계정일 경우-->
+                    <th:block th:if="${list.cate == 1}">
+                        <div class="searchlist">
+                            <a>
+                                <div>
+                                    <th:block th:if="${#strings.isEmpty(list.img)}">
+                                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="">
+                                    </th:block>
+                                    <th:block th:unless="${#strings.isEmpty(list.img)}">
+                                        <img th:src="@{/thumb/{img}(img=${list.img})}" alt="">
+                                    </th:block>
+                                </div>
+                                <div>
+                                    <div>
+                                        <h3>[[${list.result}]]</h3>
+                                    </div>
+                                    <div>
+                                        <th:block th:if="${#strings.isEmpty(list.text)}">
+                                            <h8></h8>
+                                        </th:block>
+                                        <th:block th:unless="${#strings.isEmpty(list.text)}">
+                                            <h8>[[${list.text}]]</h8>
+                                        </th:block>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button>
+                                        <img src="./img/aside_x.PNG" alt="">
+                                    </button>
+                                </div>
+                            </a>
                         </div>
-                        <div>
+                    </th:block>
+                </th:block>
+                <th:block th:if="${list.cate == 2}">
+                    <div class="searchlist">
+                        <a>
                             <div>
-                                <h3>#서면네일</h3>
+                                <img th:src="@{/img/hashtag.PNG}" alt="">
                             </div>
                             <div>
-                                <h8>게시물 1개</h8>
-                            </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="searchlist">
-                    <a>
-                        <div>
-                            <img th:src="@{/img/hashtag.PNG}" alt="">
-                        </div>
-                        <div>
-                            <div>
-                                <h3>#서면네일</h3>
+                                <div>
+                                    <h3>[[${list.result}]]</h3>
+                                </div>
+                                <div>
+                                    <h8>게시물 x개</h8>
+                                </div>
                             </div>
                             <div>
-                                <h8>게시물 1개</h8>
+                                <button>
+                                    <img src="./img/aside_x.PNG" alt="">
+                                </button>
                             </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="searchlist">
-                    <a>
-                        <div>
-                            <img th:src="@{/img/hashtag.PNG}" alt="">
-                        </div>
-                        <div>
-                            <div>
-                                <h3>#서면네일</h3>
-                            </div>
-                            <div>
-                                <h8>게시물 1개</h8>
-                            </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="searchlist">
-                    <a>
-                        <div>
-                            <img th:src="@{/img/hashtag.PNG}" alt="">
-                        </div>
-                        <div>
-                            <div>
-                                <h3>#서면네일</h3>
-                            </div>
-                            <div>
-                                <h8>게시물 1개</h8>
-                            </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="searchlist">
-                    <a>
-                        <div>
-                            <img th:src="@{/img/hashtag.PNG}" alt="">
-                        </div>
-                        <div>
-                            <div>
-                                <h3>#서면네일</h3>
-                            </div>
-                            <div>
-                                <h8>게시물 1개</h8>
-                            </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="searchlist">
-                    <a>
-                        <div>
-                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
-                        </div>
-                        <div>
-                            <div>
-                                <h3>nickname</h3>
-                            </div>
-                            <div>
-                                <h8>text</h8>
-                            </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="searchlist">
-                    <a>
-                        <div>
-                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
-                        </div>
-                        <div>
-                            <div>
-                                <h3>nickname</h3>
-                            </div>
-                            <div>
-                                <h8>text</h8>
-                            </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="searchlist">
-                    <a>
-                        <div>
-                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
-                        </div>
-                        <div>
-                            <div>
-                                <h3>nickname</h3>
-                            </div>
-                            <div>
-                                <h8>text</h8>
-                            </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="searchlist">
-                    <a>
-                        <div>
-                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
-                        </div>
-                        <div>
-                            <div>
-                                <h3>nickname</h3>
-                            </div>
-                            <div>
-                                <h8>text</h8>
-                            </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="searchlist">
-                    <a>
-                        <div>
-                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
-                        </div>
-                        <div>
-                            <div>
-                                <h3>nickname</h3>
-                            </div>
-                            <div>
-                                <h8>text</h8>
-                            </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="searchlist">
-                    <a>
-                        <div>
-                            <img th:src="@{/img/aside_seller_ico.PNG}" alt="">
-                        </div>
-                        <div>
-                            <div>
-                                <h3>nickname</h3>
-                            </div>
-                            <div>
-                                <h8>text</h8>
-                            </div>
-                        </div>
-                        <div>
-                            <button>
-                                <img src="./img/aside_x.PNG" alt="">
-                            </button>
-                        </div>
-                    </a>
-                </div>
-
+                        </a>
+                    </div>
+                </th:block>
             </div>
 
         </div>

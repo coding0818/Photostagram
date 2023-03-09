@@ -145,10 +145,29 @@ public class MainService {
         }
     }
 
-    public List<HashTagVO> selectHashTag(String searchItem){
-        return dao.selectHashTag(searchItem);
+    @Transactional
+    public List<HashTagVO> selectHashTag(SearchListVO vo){
+        List<HashTagVO> result = dao.selectHashTag(vo.getSearchItem());
+        for(HashTagVO r : result){
+            vo.setResult(r.getHashtag());
+            dao.insertSearchItem(vo);
+        }
+        return result;
     }
 
-    public List<MemberVO> selectUser(String searchItem) { return dao.selectUser(searchItem); }
+    @Transactional
+    public List<MemberVO> selectUser(SearchListVO vo) {
+        List<MemberVO> result = dao.selectUser(vo.getSearchItem());
+        for(MemberVO m : result){
+            vo.setResult(m.getUsername());
+            vo.setImg(m.getProfileImg());
+            vo.setText(m.getProfileText());
+            dao.insertSearchItem(vo);
+        }
+        return  result;
+    }
 
+    public List<SearchListVO> selectSearchItemRecent(int user_no){
+        return dao.selectSearchItemRecent(user_no);
+    }
 }
