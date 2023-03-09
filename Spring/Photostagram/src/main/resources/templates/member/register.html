@@ -4,80 +4,6 @@
        layout:decorate="layout/memberLayout">
 
 <th:block layout:fragment="main">
-<script>
-    $(function(){
-
-        // 데이터 검증에 사용하는 정규표현식
-        let regUserName = /^[a-z]+[a-z0-9]{5,19}$/g;
-        let regName  = /^[가-힣]+$/
-        let regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-        let regPassword  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{5,16}$/;
-
-        // validation check
-        let isUserNameOk = false;
-        let isNameOk = false;
-        let isEmailOk = false;
-        let isPasswordOk = false;
-
-        // 아이디 유효성 검증 & 중복체크
-        $('#userName').focusout(function() {
-            let userName = $('input[name=username]').val();
-
-            if(isUserNameOk){
-			    return;
-            }
-
-            if(!userName.match(regUserName)){
-                isUidOk = false;
-                console.log('아이디가 유효하지않음');
-                $('.result-delete').addClass('on');
-			    return;
-		    }
-
-            let jsonData = {"userName" : userName};
-
-            $.ajax({
-                url: '/Photostagram/member/chkUserName',
-                type: 'POST',
-                data: jsonData,
-                dataType: 'json',
-                success: function(data) {
-                    if(data.result == 1) {
-                        console.log('이미 사용중인 아이디');
-                        $('.result-delete').addClass('on');
-                        userNameChk = true;
-                    } else {
-                        console.log('사용 가능한 아이디');
-                        $('.result-delete').removeClass('on');
-                        userNameChk = false;
-                    }
-                }
-            });
-
-        });
-
-        $('#register-btn').click(function(e){
-            e.preventDefault();
-
-            alert('register!!!');
-            let username = $('input[name=username]').val();
-            let name = $('input[name=name]').val();
-            let email = $('input[name=email]').val();
-            let password = $('input[name=password]').val();
-
-            let userData = {
-                "username": username,
-                "name": name,
-                "email": email,
-                "password": password
-            };
-
-            sessionStorage.setItem("user", JSON.stringify(userData));
-            location.href = '/Photostagram/member/birth';
-        });
-
-    });
-</script>
 <main class="member">
     <div class="container">
         <div class="main-container">
@@ -108,14 +34,11 @@
                                             아이디 입력
                                         </span>
                                         <input type="text" name="username" class="able" id="userName">
+                                        <span class="chkImg">
+                                            <img class="result-img id result-check" th:src="@{/img/check-button.png}">
+                                            <img class="result-img id result-delete" th:src="@{/img/delete-button.png}">
+                                        </span>
                                     </div>
-                                    <div class="chkUid">
-
-                                    </div>
-                                    <!--<span class="chkUid">
-                                            <img class="result-img result-check on" th:src="@{/img/check-button.png}">
-                                            <img class="result-img result-delete" th:src="@{/img/delete-button.png}">
-                                        </span>-->
                                 </div>
                                 <div class="form-group">
                                     <div class="animate-input">
@@ -123,6 +46,10 @@
                                             성명
                                         </span>
                                         <input type="text" name="name">
+                                        <span class="chkImg">
+                                            <img class="result-img name result-check" th:src="@{/img/check-button.png}">
+                                            <img class="result-img name result-delete" th:src="@{/img/delete-button.png}">
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -131,6 +58,10 @@
                                             이메일 입력
                                         </span>
                                         <input type="text" name="email" class="able">
+                                        <span class="chkImg">
+                                            <img class="result-img eml result-check" th:src="@{/img/check-button.png}">
+                                            <img class="result-img eml result-delete" th:src="@{/img/delete-button.png}">
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -143,12 +74,16 @@
                                     </div>
                                 </div>
                                 <div class="btn-group">
-                                    <button type="submit" class="btn-login" id="register-btn" disabled>
+                                    <button type="submit" class="btn-login" id="register-next" disabled>
                                         다음
                                     </button>
                                 </div>
                                 <div class="checking">
-                                    <div>이미 가입되어있는 아이디입니다.</div>
+                                    <div class="result-txt unId">유효하지 않은 아이디입니다.</div>
+                                    <div class="result-txt exId">이미 가입되어있는 아이디입니다.</div>
+                                    <div class="result-txt name">유효하지않은 이름입니다.</div>
+                                    <div class="result-txt unEmail">유효하지않은 이메일입니다.</div>
+                                    <div class="result-txt exEmail">이미 존재하는 이메일입니다.</div>
                                 </div>
                             </form>                          
                         </div>

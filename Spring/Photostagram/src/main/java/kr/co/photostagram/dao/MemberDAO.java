@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface MemberDAO {
     public int insertMember(MemberVO vo);
     public int chkUserName(String userName);
+    public int chkEmail(String email);
 }

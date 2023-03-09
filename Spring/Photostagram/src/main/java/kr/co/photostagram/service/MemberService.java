@@ -28,6 +28,9 @@ public class MemberService {
     public int chkUserName(String userName){
         return dao.chkUserName(userName);
     }
+    public int chkEmail(String email) {
+        return dao.chkEmail(email);
+    }
 
 
 }

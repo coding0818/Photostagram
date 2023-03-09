@@ -157,7 +157,7 @@ body {
 }
 
 .animate-input input {
-    width: 100%;
+    width: 84%;
     height: 100%;
     padding: 9px 8px 7px;
     border: 0;
@@ -555,23 +555,28 @@ option {
 .fpmgBt1{background-color: #fff;color:#888}
 .fpmgBt2{background-color: lightsalmon;color: #fff}
 
-.chkUid {
+.chkImg {
     position: relative;
     right : 1px;
 }
 
 /* 회원가입 체크 */
-.chkUid > .result-img {
+.chkImg > .result-img {
     display: none;
     position: relative;
     width: 27px;
     right: 3px;
     top: 4px;
-
-
     float: right;
 }
 
-.chkUid > .result-img.on {
+.chkImg > .result-img.on {
+    display: block;
+}
+/* 회원가입 유효성검사 메세지 */
+.result-txt {
+    display: none;
+}
+.result-txt.on {
     display: block;
 }

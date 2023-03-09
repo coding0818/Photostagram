@@ -45,6 +45,21 @@ public class MemberController {
         return resultMap;
     }
 
+    @ResponseBody
+    @PostMapping("/chkEmail")
+    public Map<String, Integer> chkEmail(String email) {
+        log.info("chkEmail...");
+        System.out.println("email = " + email);
+
+        int result = service.chkEmail(email);
+        System.out.println("result = " + result);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
+
     @GetMapping("/birth")
     public String birth(){
         return "member/birth";

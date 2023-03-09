@@ -1,311 +1,251 @@
-/**
- *  회원가입 JS
- */
+/*
+    이름 : 김진우
+    날짜 : 2023/03/09
+    내용 : 회원가입 유효성검사 Js
+*/
 
-window.onload = function() {
+// register
+$(function(){
+    // 데이터 검증에 사용하는 정규표현식
+    let regUserName = /^[a-z]+[a-z0-9]{5,19}$/g;
+    let regName  = /^[가-힣]+$/
+    let regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    let regPassword  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{5,16}$/;
 
-    /* 변수 선언 Start */
+    // validation check
+    let isUserNameOk = "";
+    let isNameOk = false;
+    let isEmailOk = "";
+    let isPasswordOk = false;
 
-    const uri = new URL(window.location.href); // URL 객체 생성
-    const uriPath = uri.pathname;
-    let type;
+    // 아이디 유효성 검증 & 중복체크
+    $('#userName').focusout(function() {
+        let userName = $(this).val();
 
-    // Validation Check
-    let uidOk = false;
-    let passOk = false;
-    let nameOk = false;
-    let emailOk = false;
-    let emailAuthOk = false;
-
-    // Regex (정규표현식)
-    let reId = /^[a-z0-9_-]{5,20}$/;
-    let rePass = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-    let reName = /^[가-힣]+$/;
-    let reEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    let reEmailCode = /^[0-9]+$/;
-
-    // 이메일 인증 코드
-    let receiveEmailCode = null;
-
-    // Input
-    const inputUid = document.querySelector('input[name=username]');
-    const inputPass = document.querySelector('input[name=password]');
-    const inputName = document.querySelector('input[name=name]');
-    const inputEmail = document.querySelector('input[name=email]');
-    const inputEmailCode = document.querySelector('input[name=emailAuthCode]');
-
-    // Button
-//    const btnEmailAuth = document.getElementById('btnEmailAuth');		// 이메일 인증번호 받기
-//    const btnEmailConfirm = document.getElementById('btnEmailConfirm'); // 이메일 인증코드 확인
-//    const btnSearchAddr = document.getElementById('btnSearchAddr'); // 주소 찾기 버튼
-
-    // Validation Result
-//    const resultUid = document.querySelector('.msgId');
-//    const resultPass = document.querySelector('.msgPass');
-//    const resultConfirmPass = document.querySelector('.msgConfirmPass');
-//    const resultName = document.querySelector('.msgName');
-//    const resultEmail = document.querySelector('.msgEmail');
-//    const resultEmailCode = document.querySelector('.msg_emailAuth');
-//    const resultHp = document.querySelector('.msgHp');
-//    const resultTel = document.querySelector('.msgTel');
-
-    /* 변수 선언 End */
-
-    // 아이디 입력
-    inputUid.addEventListener('focusout', function() {
-        let uid = this.value;
-
-        if (uid == "") {
-            resultUid.innerText = "필수 정보입니다.";
-            resultUid.style.color = "red";
+        // 아이디 유효성 검증
+        if(!userName.match(regUserName)){
+            isUserNameOk = 'unValid';
+            $('.id.result-delete').addClass('on');
+            $('.id.result-check').removeClass('on');
             return;
         }
 
-        if (!reId.test(uid)) {
-            resultUid.innerText = "5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.";
-            resultUid.style.color = "red";
+        // 아이디 중복체크
+        let jsonData = {"userName" : userName};
+
+        $.ajax({
+            url: '/Photostagram/member/chkUserName',
+            type: 'POST',
+            data: jsonData,
+            dataType: 'json',
+            success: function(data) {
+                if(data.result == 1) {
+                    $('.id.result-delete').addClass('on');
+                    $('.id.result-check').removeClass('on');
+                    isUserNameOk = 'exist';
+                    return;
+                } else {
+                    $('.id.result-delete').removeClass('on');
+                    $('.id.result-check').addClass('on');
+                    isUserNameOk = "";
+                }
+            }
+        });
+    });
+
+    // 이름 유효성 체크
+    $('input[name=name]').focusout(function(){
+        let name = $(this).val();
+
+        if(!name.match(regName)){
+            isNameOk = false;
+            $('.name.result-delete').addClass('on');
+            $('.name.result-check').removeClass('on');
+        }else{
+            isNameOk = true;
+            $('.name.result-delete').removeClass('on');
+            $('.name.result-check').addClass('on');
+        }
+    });
+
+    // 이메일 유효성 검사 & 중복 체크
+    $('input[name=email]').focusout(function(){
+        let email = $(this).val();
+
+        // 이메일 유효성 검사
+        if(!email.match(regEmail)){
+            isEmailOk = 'unValid';
+            $('.eml.result-delete').addClass('on');
+            $('.eml.result-check').removeClass('on');
             return;
         }
 
-        const url = "user/register/" + uid + "/checkId";
+        // 이메일 중복검사
+        let jsonData = {"email" : email};
 
-        // AJAX 전송
-        ajaxAPI(url, null, "get").then((response) => {
-            console.log(response);
-            if (response == null)
-                alert('Request fail...');
-
-            else if (response.result == 1) {
-                resultUid.innerText = "이미 사용중인 아이디입니다.";
-                resultUid.style.color = "red";
+        $.ajax({
+            url: '/Photostagram/member/chkEmail',
+            type: 'POST',
+            data: jsonData,
+            dataType: 'json',
+            success: function(data) {
+                if(data.result == 1) {
+                    $('.eml.result-delete').addClass('on');
+                    $('.eml.result-check').removeClass('on');
+                    isEmailOk = 'exist';
+                } else {
+                    $('.eml.result-delete').removeClass('on');
+                    $('.eml.result-check').addClass('on');
+                    isEmailOk = "";
+                }
             }
-
-            else {
-                resultUid.innerText = "사용가능한 아이디입니다.";
-                resultUid.style.color = "green";
-                uidOk = true;
-            }
-
-        }).catch((errorMsg) => {
-            console.log(errorMsg)
-        });
-
-    });
-
-
-    // 패스워드 입력
-    inputPass.addEventListener('focusout', function() {
-        let pass = this.value;	// 비밀번호
-        let confirmPass = inputConfirmPass.value; // 비밀번호 확인
-
-        if (pass == "")
-            resultPass.innerText = "필수 정보입니다.";
-
-        else if (!rePass.test(pass))
-            resultPass.innerText = "8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.";
-
-        else {
-            resultPass.innerText = "";
-            passOk = true;
-
-            if(pass == confirmPass) {
-                confirmPassOk = true;
-                resultConfirmPass.innerText = "";
-            }
-        }
-    });
-
-    // 이름 입력
-    inputName.addEventListener('focusout', function() {
-        let name = this.value;
-
-        if (name == ""){
-            resultName.innerText = "필수 정보입니다.";
-            nameOk = false;
-        }
-
-        else if (!reName.test(name)){
-            resultName.innerText = "한글을 사용하세요. (영문, 특수기호, 공백 사용 불가)";
-            nameOk = false;
-        }
-
-        else {
-            resultName.innerText = "";
-            nameOk = true;
-        }
-
-    });
-
-    if(type == "general"){
-        // 이메일 입력
-            inputEmail.addEventListener('focusout', function() {
-
-                let email = this.value;
-
-                if(emailOk){}
-
-                else if (email == "")
-                    resultEmail.innerText = "필수 정보입니다.";
-
-                else if (!reEmail.test(email))
-                    resultEmail.innerText = "이메일 주소를 다시 확인해주세요.";
-
-                else {
-                    resultEmail.innerText = "";
-                }
-            });
-
-            // 이메일 인증코드 전송
-            btnEmailAuth.addEventListener('click', function() {
-                let email = inputEmail.value;
-
-                if (emailOk == true) {
-                    alert('이미 이메일 전송을 완료했습니다.');
-                    return;
-                }
-
-                if (!reEmail.test(email)) {
-                    resultEmail.innerText = "형식에 맞지 않는 이메일 입니다.";
-                    return;
-                }
-
-                emailOk = true;
-                inputEmail.readOnly = true;
-                resultEmail.innerText = "이메일 전송 중...";
-                resultEmail.style.color = "green";
-
-                const jsonData = {"email": email};
-
-                ajaxAPI("user/register/sendEmail", jsonData, "POST").then((response) => {
-                    console.log(response);
-
-                    if (response == null) {
-                        alert('Request fail...');
-                        inputEmail.readOnly = false;
-                        emailOk = false;
-                    }
-
-                    else if (response.result != 0) {
-                        resultEmail.innerText = "이미 사용중인 이메일입니다.";
-                        resultEmail.style.color = "red";
-                        inputEmail.readOnly = false;
-                        emailOk = false;
-                    }
-
-                    else if (response.status == 0) {
-                        resultEmail.innerText = "이메일 전송에 실패 했습니다. 다시 시도 해주세요.";
-                        resultEmail.style.color = "red";
-                        inputEmail.readOnly = false;
-                        emailOk = false;
-                    }
-
-                    else {
-                        receiveEmailCode = response.code;
-                        resultEmail.innerText = "인증코드를 전송했습니다. 이메일을 확인해주세요.";
-                        resultEmail.style.color = "green";
-
-                        inputEmail.readOnly = true;
-
-                        inputEmailCode.style.backgroundColor = "#f7f7f7";
-                        inputEmailCode.readOnly = false;
-                    }
-
-                }).catch((errorMsg) => {
-                    console.log(errorMsg)
-                });
-            })
-
-            // 이메일 인증 코드 입력
-            inputEmailCode.addEventListener('keyup', function() {
-                let emailCode = this.value;
-
-                if (!reEmailCode.test(emailCode)) {
-                    resultEmailCode.innerText = "숫자만 입력해주세요.";
-                    this.value = emailCode.replace(/[^0-9]/g, ""); // 숫자이외 문자 제외
-                }
-            });
-
-            inputEmailCode.addEventListener('focusout', function() {
-                let emailCode = this.value;
-
-                if(emailCode == ""){
-                    resultEmailCode.innerText = "필수 항목입니다.";
-                }
-
-                else if(emailAuthOk != true){
-                    resultEmailCode.innerText = "인증이 되지 않았습니다.";
-                }
-
-            });
-
-            // 이메일 인증 코드 확인
-            btnEmailConfirm.addEventListener('click', function() {
-                let emilCode = inputEmailCode.value;
-
-                if (emailAuthOk == true) {
-                    alert('이미 인증완료되었습니다.');
-                }
-
-                else if (emilCode.length != 6) {
-                    resultEmailCode.innerText = "인증코드 6자리를 입력해주세요.";
-                }
-
-                else if(emilCode != receiveEmailCode){
-                    resultEmailCode.innerText = "인증코드가 일치하지 않습니다.";
-                }
-                else {
-                    resultEmailCode.innerText = "인증성공";
-                    resultEmailCode.style.color = "green";
-                    inputEmailCode.readOnly = true;
-                    emailAuthOk = true;
-                }
-
-            });
-    }
-
-        // AJAX 전송
-        const url = "user/register/checkHp/" + type + "?hp=" + hp;
-
-        ajaxAPI(url, null, "get").then((response) => {
-
-            if (response == null || response.result == -1)
-                alert('Request fail...');
-
-            else if (response.result == 1) {
-                resultHp.innerText = "이미 사용중인 번호입니다.";
-                resultHp.style.color = "red";
-            }
-
-            else {
-                resultHp.innerText = "";
-                resultHp.style.color = "green";
-                hpOk = true;
-            }
-
-        }).catch((errorMsg) => {
-            console.log(errorMsg)
         });
     });
 
-    // 폼 전송
-    form.addEventListener('submit', function(e) {
-        let inputList = type == "general" ? inputList_general:inputList_seller;
-        let okList;
+    // submit 전송
+    $('#register-next').click(function(e){
+        e.preventDefault();
 
-        for (i of inputList){ i.focus(); }
-
-        if(type == "general")
-            okList = [uidOk, passOk, confirmPassOk, nameOk, emailOk, emailAuthOk, hpOk];
-        else if(type == "seller")
-            okList = [uidOk, passOk, confirmPassOk, telOk, nameOk, hpOk];
-
-        for (i in inputList){
-
-            if(!okList[i]){
-                inputList[i].focus();
-                e.preventDefault();
-                return;
-            }
+        // 아이디 중복 검사
+        if(isUserNameOk=='exist'){
+            $('.result-txt.exId').addClass('on');
+            $('.result-txt.unId').removeClass('on');
+            $('.result-txt.name').removeClass('on');
+            $('.result-txt.exEmail').removeClass('on');
+            $('.result-txt.unEmail').removeClass('on');
+            return false;
         }
+        // 아이디 유효성 검사
+        if(isUserNameOk=='unValid'){
+            $('.result-txt.unId').addClass('on');
+            $('.result-txt.exId').removeClass('on');
+            $('.result-txt.name').removeClass('on');
+            $('.result-txt.exEmail').removeClass('on');
+            $('.result-txt.unEmail').removeClass('on');
+            return false;
+        }
+
+        // 이름 유효성 검사
+        if(!isNameOk){
+            $('.result-txt.name').addClass('on');
+            $('.result-txt.exId').removeClass('on');
+            $('.result-txt.unId').removeClass('on');
+            $('.result-txt.exEmail').removeClass('on');
+            $('.result-txt.unEmail').removeClass('on');
+            return false;
+        }
+
+        // 이메일 중복검사
+        if(isEmailOk=='exist'){
+            $('.result-txt.exEmail').addClass('on');
+            $('.result-txt.exId').removeClass('on');
+            $('.result-txt.unId').removeClass('on');
+            $('.result-txt.name').removeClass('on');
+            $('.result-txt.unEmail').removeClass('on');
+            return false;
+        }
+        // 이메일 유효성검사
+        if(isEmailOk=='unValid'){
+            $('.result-txt.unEmail').addClass('on');
+            $('.result-txt.exId').removeClass('on');
+            $('.result-txt.unId').removeClass('on');
+            $('.result-txt.name').removeClass('on');
+            $('.result-txt.exEmail').removeClass('on');
+            return false;
+        }
+
+        // 값 session에 저장
+        let username = $('input[name=username]').val();
+        let name = $('input[name=name]').val();
+        let email = $('input[name=email]').val();
+        let password = $('input[name=password]').val();
+
+        let userData = {
+            "username": username,
+            "name": name,
+            "email": email,
+            "password": password
+        };
+
+        sessionStorage.setItem("user", JSON.stringify(userData));
+        location.href = '/Photostagram/member/birth';
     });
+});
+
+// birth
+$(function(){
+    $('#birth-next').click(function(e){
+        e.preventDefault();
+
+        let year = $('select[name=year]').val();
+        let month = $('select[name=month]').val();
+        let day = $('select[name=day]').val();
+
+        let userData = sessionStorage.getItem("user");
+        let user = JSON.parse(userData);
+
+        // 1의 자리 수이면 앞에 0 붙이기
+        if(month < 10 && day < 10) {
+            month = '0' + month;
+            day = '0' + day;
+        }
+
+        user.birth = year + '-' + month + '-' + day;
+
+        sessionStorage.setItem("user", JSON.stringify(user));
+        location.href = '/Photostagram/member/email';
+    });
+});
+
+// email
+$(function(){
+    $('#email-next').click(function(e){
+        e.preventDefault();
+        location.href = '/Photostagram/member/terms';
+    });
+});
+
+// 체크박스 모두 선택
+function selectAll(selectAll) {
+    const checkboxes = document.getElementsByName('check');
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked;
+    })
 }
+
+// terms 최종 회원가입
+$(function() {
+    $('#terms-signUp').click(function() {
+        let isCheck1 = $('input[class=terms]').is(':checked');
+        let isCheck2 = $('input[class=data]').is(':checked');
+        let isCheck3 = $('input[class=locate]').is(':checked');
+
+        if(isCheck1 && isCheck2 && isCheck3) {
+            alert('체크 완료!!!');
+            let userData = sessionStorage.getItem("user"); // session에서 가져오기
+            console.log(userData);
+
+            $.ajax({
+                url: '/Photostagram/member/terms',
+                method: 'POST',
+                contentType:'application/json',
+                data: userData,
+                dataType: 'json',
+                success: function(data) {
+                    if(data.result = 1) {
+                        alert('회원가입이 완료되었습니다.');
+                        sessionStorage.clear();
+                        location.replace("/Photostagram/member/login");
+                    } else {
+                        alert('회원가입에 실패하였습니다.');
+                    }
+                }
+            });
+
+        } else {
+            alert('동의 체크를 하셔야 합니다.');
+            return false;
+        }
+    });
+});
