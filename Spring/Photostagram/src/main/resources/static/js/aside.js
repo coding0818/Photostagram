@@ -414,6 +414,39 @@ function uploadFiles(e){
                 dataType:'json',
                 success:function(data){
                     console.log('성공!');
+                    if(data.result){
+                        let r = data.result;
+                        console.log(r);
+                        $('#searchListRecent').hide();
+                        $('.searchListAll').empty();
+                        r.forEach(function(i){
+                            let searchResult = "<div class='searchlist'>";
+                                searchResult += "<a href='/Photostagram/profile?username="+i.username+"'>";
+                                if(i.profileImg != null){
+                                    searchResult += "<div><img src=/Photostagram/thumb/"+i.profileImg+"></div>";
+                                }else{
+                                    searchResult += "<div><img src=./img/44884218_345707102882519_2446069589734326272_n.jpg></div>";
+                                }
+                                searchResult += "<div>";
+                                searchResult += "<div><h3>"+i.username+"</h3></div>";
+                                if(i.profileText != null){
+                                    searchResult += "<div><h8>"+i.profileText+"</h8></div>";
+                                }else{
+                                    searchResult += "<div><h8></h8></div>";
+                                }
+                                searchResult += "</div>";
+                                searchResult += "<div>";
+                                searchResult += "<button><img src=./img/aside_x.PNG></button>";
+                                searchResult += "</div>";
+                                searchResult += "</a>";
+                                searchResult += "</div>";
+
+                            $('.searchListAll').append(searchResult);
+                            $('.searchListAll').trigger("create");
+                        });
+                    }else{
+                        alert("검색 결과가 없습니다.");
+                    }
                 }
             });
         }

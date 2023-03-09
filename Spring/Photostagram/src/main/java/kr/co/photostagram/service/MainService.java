@@ -1,10 +1,7 @@
 package kr.co.photostagram.service;
 
 import kr.co.photostagram.dao.MainDAO;
-import kr.co.photostagram.vo.HashTagVO;
-import kr.co.photostagram.vo.ImageVO;
-import kr.co.photostagram.vo.PostVO;
-import kr.co.photostagram.vo.Post_hashtagVO;
+import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -151,5 +148,7 @@ public class MainService {
     public List<HashTagVO> selectHashTag(String searchItem){
         return dao.selectHashTag(searchItem);
     }
+
+    public List<MemberVO> selectUser(String searchItem) { return dao.selectUser(searchItem); }
 
 }

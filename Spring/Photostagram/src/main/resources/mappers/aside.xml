@@ -29,4 +29,12 @@
     <select id="selectHashTag" resultType="kr.co.photostagram.vo.HashTagVO">
         SELECT * FROM `hashtag` WHERE `hashtag` LIKE CONCAT(#{searchItem},'%');
     </select>
+    <!--검색(유저)-->
+    <select id="selectUser" resultType="kr.co.photostagram.vo.MemberVO">
+        SELECT * FROM `user` WHERE `username` LIKE CONCAT(#{searchItem},'%');
+    </select>
+    <!--검색(검색기록 삽입)-->
+    <insert id="insertSearchItem">
+        insert into `searchList` set `user_no`=#{user_no}, `searchItem`=#{searchItem}, `rdate`=NOW(), `cate`=#{cate}, `result_no`=#{result_no};
+    </insert>
 </mapper>
