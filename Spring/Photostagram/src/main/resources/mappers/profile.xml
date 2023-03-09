@@ -7,6 +7,12 @@
     <insert id="insertMember">
     </insert>
 
+    <insert id="insertFollow">
+        INSERT INTO `follow`
+            SET `follower` = #{follower},
+            `following` = #{following};
+    </insert>
+
     <select id="selectMember" resultType="kr.co.photostagram.vo.MemberVO">
         SELECT * FROM `user` WHERE `username`=#{username};
     </select>
@@ -21,13 +27,18 @@
         SELECT COUNT(*) FROM `follow` WHERE `following`=#{no};
     </select>
 
+    <select id="searchFollowing" resultType="int">
+        SELECT COUNT(*) FROM `follow` WHERE `follower`=#{follower} AND `following`=#{following};
+    </select>
+
     <update id="updateMember">
         UPDATE `user` SET
             `username` = #{username},
             `name` = #{name},
             `email` = #{email},
             `profileText` = #{profileText},
-            `profilePhone` = #{profilePhone}
+            `profilePhone` = #{profilePhone},
+            `gender` = #{gender}
             WHERE `no`=#{no};
     </update>
 
@@ -36,5 +47,11 @@
             `profileImg` = #{newName}
             WHERE `no`=#{no};
     </update>
+
+    <delete id="deleteFollow">
+        DELETE FROM `follow`
+            WHERE `follower` = #{follower}
+            AND `following` = #{following};
+    </delete>
 
 </mapper>

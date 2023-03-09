@@ -17,7 +17,7 @@
                   <div>
                       <input type="file" class="real-addProf" accept="image/*" style="display: none;"/>
                       <span>[[${user.username}]]</span>
-                      <a href="#" class="changeProf">프로필 사진 바꾸기</a>
+                      <a href="#" class="changeProf" id="profilePhoto">프로필 사진 바꾸기</a>
                   </div>
               </div>
               <form th:action="@{/profile/modify}" method="post">
@@ -57,8 +57,8 @@
                                   <span>소개</span>
                               </td>
                               <td>
-                                  <textarea name="profileText">[[${user.profileText}]]</textarea>
-                                  <span>0 / 150</span>
+                                  <textarea name="profileText" maxlength="150" id="textBox" onchange="changeLength()">[[${user.profileText}]]</textarea>
+                                  <span> <span class="textCount">0</span> / 150</span>
                               </td>
                           </tr>
                           <tr>
@@ -90,12 +90,12 @@
                               </td>
                               <th:block th:if="${user.gender} == null">
                                   <td>
-                                      <input type="text" name="gender" value="밝히고 싶지 않음">
+                                      <input type="text" name="gender" value="밝히고 싶지 않음"/>
                                   </td>
                               </th:block>
                               <th:block th:unless="${user.gender} == null">
                                   <td>
-                                      <input type="text" name="gender" th:value="@{user.gender}">
+                                      <input type="text" name="gender" th:value="${user.gender}"/>
                                   </td>
                               </th:block>
                           </tr>
@@ -117,5 +117,9 @@
               <a href="#">일시적으로 내 계정 비활성화하기</a>
           </div>
         </div>
+        <script>
+
+
+        </script>
     </th:block>
 </html>

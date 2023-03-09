@@ -24,6 +24,14 @@ public interface ProfileDAO {
     public int selectCountFollowing(int no);
 
 
+    /*** 팔로워, 팔로잉 ***/
+
+    public int insertFollow (@Param("follower") int follower, @Param("following") int following);
+    public int deleteFollow (@Param("follower") int follower, @Param("following") int following);
+
+    public int searchFollowing (@Param("follower") int follower, @Param("following") int following);
+
+
     /*** 프로필 사진 업로드 ***/
     public int updateProfilePhoto(@Param("newName") String newName, @Param("no") int no);
 

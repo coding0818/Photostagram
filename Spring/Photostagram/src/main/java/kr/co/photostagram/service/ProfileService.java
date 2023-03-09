@@ -37,26 +37,36 @@ public class ProfileService {
     public int selectCountFollowing(int no) {return dao.selectCountFollowing(no);}
 
 
+    /*** 팔로워, 팔로잉 ***/
+
+    public int insertFollowing(int follower, int following) {return dao.insertFollow(follower, following);}
+    public int deleteFollowing(int follower, int following) {return dao.deleteFollow(follower, following);}
+
+    public int searchFollowing(int follower, int following) {return dao.searchFollowing(follower, following);}
+
+
     @Value("${spring.servlet.multipart.location}")
     private String uploadPath;
 
     /*** 프로필 사진 업로드 ***/
     public int uploadProfilePhoto(MultipartFile file, int no){
 
+        // 경로
         String path = new File(uploadPath).getAbsolutePath();
+        
+        String oriName = file.getOriginalFilename();                    // 업로드된 파일의 original name
+        String type = oriName.substring(oriName.lastIndexOf("."));  // 업로드된 파일의 확장자명 찾기
+        String newName = UUID.randomUUID().toString() + type;           // 업로드된 파일명 uuid로 암호화
 
-        String oriName = file.getOriginalFilename();
-        String type = oriName.substring(oriName.lastIndexOf("."));
-        String newName = UUID.randomUUID().toString() + type;
-
+        // 경로 + uuid 암호화된 파일까지 합친 이미지 파일 경로
         File dest = new File(path, newName);
         try {
-            file.transferTo(dest);
+            file.transferTo(dest);  // 경로 내 저장
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        int result = dao.updateProfilePhoto(newName, no);
+        int result = dao.updateProfilePhoto(newName, no);   // DB 업로드
 
         return result;
     }
