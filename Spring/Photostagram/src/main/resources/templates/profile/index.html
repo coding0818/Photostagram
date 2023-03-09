@@ -34,10 +34,10 @@
                           </th:block>
                           <th:block th:unless="${#strings.equals(myName, username)}">
                               <th:block th:if="${result} > 0">
-                                  <a th:href="@{/profile/follow (type=delete, userName=${username}, myName=${myName})}" class="button" id="following">팔로잉</a>
+                                  <a href="#" class="button" id="following">팔로잉</a>
                               </th:block>
                               <th:block th:unless="${result} > 0">
-                                  <a href="#" class="button" id="follow">팔로우</a>
+                                  <a th:href="@{/profile/follow (type=insert, userName=${username}, myName=${myName})}" class="button" id="follow">팔로우</a>
                               </th:block>
                           </th:block>
 
@@ -65,53 +65,20 @@
                   <div><a href="#">릴스</a></div>
                   <div><a href="#">태그됨</a></div>
               </div>
-              <div class="myList">
-                  <div class="pic">
-                      <a href="#">
-                          <img th:src="@{/img/300x300-1.png}">
-                      </a>
+              <th:block th:if="${#maps.isEmpty(sortMap)}">
+                  <div class="myList">
+                    <h1>게시물이 없습니다.</h1>
                   </div>
-                  <div class="pic">
-                      <a href="#">
-                          <img th:src="@{/img/300x300-1.png}">
-                      </a>
+              </th:block>
+              <th:block th:unless="${#maps.isEmpty(sortMap)}">
+                  <div class="myList" th:each="m:${sortMap}">
+                      <div class="pic">
+                          <a th:href="@{/board/post (no=${m.key})}">
+                              <img th:src="|@{/}thumb/${m.value}">
+                          </a>
+                      </div>
                   </div>
-                  <div class="pic">
-                      <a href="#">
-                          <img th:src="@{/img/300x300-1.png}">
-                      </a>
-                  </div>
-                  <div class="pic">
-                      <a href="#">
-                          <img th:src="@{/img/300x300-1.png}">
-                      </a>
-                  </div>
-                  <div class="pic">
-                      <a href="#">
-                          <img th:src="@{/img/300x300-1.png}">
-                      </a>
-                  </div>
-                  <div class="pic">
-                      <a href="#">
-                          <img th:src="@{/img/300x300-1.png}">
-                      </a>
-                  </div>
-                  <div class="pic">
-                      <a href="#">
-                          <img th:src="@{/img/300x300-1.png}">
-                      </a>
-                  </div>
-                  <div class="pic">
-                      <a href="#">
-                          <img th:src="@{/img/300x300-1.png}">
-                      </a>
-                  </div>
-                  <div class="pic">
-                      <a href="#">
-                          <img th:src="@{/img/300x300-1.png}">
-                      </a>
-                  </div>
-              </div>
+              </th:block>
           </section>
             <div id="fCancel" class="fModal">
                 <div class="fContents">
@@ -126,16 +93,6 @@
                         <li><a href="#" class="fClose"><span>일시 차단</span><i class="fa-solid fa-chevron-right"></i></a></li>
                         <li><a href="#" class="fClose"><span>제한</span><i class="fa-solid fa-chevron-right"></i></a></li>
                         <li><a th:href="@{/profile/follow (type=insert, userName=${username}, myName=${myName})}" id="unFollow" class="fClose">팔로우 취소</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div id="followers" class="follower-modal">
-                <div class="fList">
-                    <ul>
-                        <li>
-                            <a href="#"><img src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"/></a>
-                            <a href="#">user</a>
-                        </li>
                     </ul>
                 </div>
             </div>

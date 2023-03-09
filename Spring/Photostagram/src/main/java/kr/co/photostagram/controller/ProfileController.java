@@ -4,6 +4,7 @@ import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.utils.JSFunction;
 import kr.co.photostagram.vo.MemberVO;
+import kr.co.photostagram.vo.PostVO;
 import kr.co.photostagram.vo.SearchListVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.security.Key;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -38,8 +38,9 @@ public class ProfileController {
         MemberVO user =  service.selectMember(username);
         log.info("user_no : "+user.getNo());
 
-        /*** 사용자 이름 (user.username) ***/
+        /*** 사용자 이름, 넘버 ***/
         String myName = principal.getName();
+        int userNo = user.getNo();      // user.no
 
         /*
         if (principal != null){
@@ -48,17 +49,32 @@ public class ProfileController {
             System.out.println("noUser");
         }
          */
+        
+        /*** 사용자 게시물 ***/
+        List<PostVO> posts = service.selectPosts(userNo);
+
+        Map<Integer, String> map = new HashMap<>();
+
+        for (int i=0; i<posts.size(); i++){
+            int postNo = posts.get(i).getNo();
+            String thumb = service.selectThumb(postNo).getThumb();
+            map.put(postNo, thumb);
+        }
 
         /*** 게시물, 팔로워, 팔로잉 ***/
-        int post = service.selectCountPost(user.getNo());
-        int myFollower = service.selectCountFollower(user.getNo());
-        int myFollowing = service.selectCountFollowing(user.getNo());
+        int post = service.selectCountPost(userNo);
+        int myFollower = service.selectCountFollower(userNo);
+        int myFollowing = service.selectCountFollowing(userNo);
 
         /*** 팔로워 팔로잉 버튼 ***/
         int following = service.selectMember(username).getNo();
         int follower = service.selectMember(myName).getNo();
+        int result = service.searchFollowing(follower, following);  // 로그인 사용자가 현재 페이지 사용자를 팔로잉 했는지 여부 (0 = 하지않음, 1 = 함)
 
-        int result = service.searchFollowing(follower, following);
+        /*** 게시물 최신 순으로 정렬 ***/
+        Map<Integer, String> sortMap = new TreeMap<>(Comparator.reverseOrder());
+        sortMap.putAll(map);
+
 
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
@@ -73,6 +89,7 @@ public class ProfileController {
         model.addAttribute("myFollower", myFollower);
         model.addAttribute("myFollowing", myFollowing);
         model.addAttribute("result", result);
+        model.addAttribute("sortMap", sortMap);
         return "profile/index";
     }
 

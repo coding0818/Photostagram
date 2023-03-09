@@ -17,14 +17,24 @@
         SELECT * FROM `user` WHERE `username`=#{username};
     </select>
 
+    <select id="selectPosts" resultType="kr.co.photostagram.vo.PostVO">
+        SELECT * FROM `post` WHERE `user_no`=#{no} ORDER BY `no` DESC;
+    </select>
+
+    <select id="selectThumb" resultType="kr.co.photostagram.vo.ImageVO">
+        SELECT * FROM `image`
+            WHERE `post_no`=#{postNo}
+            ORDER BY `no` ASC LIMIT 1;
+    </select>
+
     <select id="selectCountPost" resultType="int">
         SELECT COUNT(*) FROM `post` WHERE `user_no`=#{no};
     </select>
     <select id="selectCountFollower" resultType="int">
-        SELECT COUNT(*) FROM `follow` WHERE `follower`=#{no};
+        SELECT COUNT(*) FROM `follow` WHERE `following`=#{no};
     </select>
     <select id="selectCountFollowing" resultType="int">
-        SELECT COUNT(*) FROM `follow` WHERE `following`=#{no};
+        SELECT COUNT(*) FROM `follow` WHERE `follower`=#{no};
     </select>
 
     <select id="searchFollowing" resultType="int">
