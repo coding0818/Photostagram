@@ -462,7 +462,7 @@ function uploadFiles(e){
                             console.log(jsonData);
 
                             $.ajax({
-                                url:'/Photostagram/insertSearchUser'
+                                url:'/Photostagram/insertSearchUser',
                                 method:'POST',
                                 data:jsonData,
                                 dataType:'json',
