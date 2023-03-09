@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface IndexDAO {
 
+    public int insertArticleLikeAdd(PostVO vo);
+    public int deleteArticleLike(PostVO vo);
 
     public int insertComment(CommentVO vo);
     public List<PostVO> selectArticles();

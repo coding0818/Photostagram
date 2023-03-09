@@ -123,34 +123,68 @@ $(function () {
     게시글 좋아요 (빈하트 -52px -258px 꽉찬하트 -26px -258px;)
     댓글 좋아요 (빈하트 -323px -274px 꽉찬하트  -323px -287px)
   */
-  $("#articleLike").on("click", function(e){
+  $(document).on("click", "#articleLike", function(e){
     e.preventDefault();
     let article    = $(this).closest('article'); 
-    let post_no = article.attr('data-no'); // 게시글 번호
+    let post_no    = article.attr('data-no'); // 게시글 번호
     let user_no    = $(this).attr('data-no'); // 유저 번호
+    let url        = "/Photostagram/ArticleLikeAdd";
 
     let jsonData = {
-      "post_no":post_no,
+      "no":post_no,
       "user_no":user_no
     };
 
     $.ajax({
-      url:'/Photostagram/ArticleLike',
+      url:url,
       method:'POST',
       data:JSON.stringify(jsonData),
+      contentType: "application/json",
       dataType:'json',
       success: (data)=>{
-
+        if(data.result > 0){
+          if(article.find('#articleLike').hasClass('sprite_heart_icon_outline')){
+      
+            article.find('#articleLike')
+            .removeClass('sprite_heart_icon_outline')
+            .addClass('sprite_full_heart_icon_outline');
+      
+          }
+        }
       }
     })
-    
-    if($(this).hasClass('sprite_heart_icon_outline')){
-      
-      $(this).removeClass('sprite_heart_icon_outline').addClass('sprite_full_heart_icon_outline');
-
-    } else {
-      $(this).removeClass('sprite_full_heart_icon_outline').addClass('sprite_heart_icon_outline');
-    }
-
   })
+
+  $(document).on("click", "#articleLike", function(e){
+      e.preventDefault();
+
+      let article    = $(this).closest('article');
+      let post_no    = article.attr('data-no'); // 게시글 번호
+      let user_no    = $(this).attr('data-no'); // 유저 번호
+      let url        = "/Photostagram/DeleteArticleLike";
+
+      let jsonData = {
+        "no":post_no,
+        "user_no":user_no
+      };
+
+      $.ajax({
+        url:url,
+        method:'POST',
+        data:JSON.stringify(jsonData),
+        contentType: "application/json",
+        dataType:'json',
+        success: (data)=>{
+          if(data.result > 0){
+            if(article.find('#articleLike').hasClass('sprite_full_heart_icon_outline')){
+      
+              article.find('#articleLike')
+              .removeClass('sprite_full_heart_icon_outline')
+              .addClass('sprite_heart_icon_outline');
+        
+            }
+          }
+        }
+      })
+    })
 });

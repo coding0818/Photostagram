@@ -14,6 +14,8 @@ public class IndexService {
     @Autowired
     private IndexDAO dao;
 
+    public int insertArticleLikeAdd(PostVO vo) { return dao.insertArticleLikeAdd(vo); }
+    public int deleteArticleLike(PostVO vo) { return dao.deleteArticleLike(vo); }
     public int insertComment(CommentVO vo){
         return dao.insertComment(vo);
     }
