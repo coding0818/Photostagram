@@ -1,11 +1,15 @@
 package kr.co.photostagram.dao;
 
+import kr.co.photostagram.vo.ImageVO;
 import kr.co.photostagram.vo.MemberVO;
+import kr.co.photostagram.vo.PostVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Mapper
 @Repository
@@ -16,6 +20,10 @@ public interface ProfileDAO {
     public void selectMembers();
     public int updateMember(MemberVO vo);
     public void deleteMember();
+
+    public List<PostVO> selectPosts(int no);
+
+    public ImageVO selectThumb(int postNo);
 
     /*** 게시물, 팔로워, 팔로잉 수 count ***/
 

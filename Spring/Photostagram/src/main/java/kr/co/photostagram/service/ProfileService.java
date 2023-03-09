@@ -1,7 +1,9 @@
 package kr.co.photostagram.service;
 
 import kr.co.photostagram.dao.ProfileDAO;
+import kr.co.photostagram.vo.ImageVO;
 import kr.co.photostagram.vo.MemberVO;
+import kr.co.photostagram.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -29,6 +32,10 @@ public class ProfileService {
 
 
     /*** 추가 서비스 로직 ***/
+
+    public List<PostVO> selectPosts(int no) {return dao.selectPosts(no);}
+
+    public ImageVO selectThumb(int postNo) {return dao.selectThumb(postNo);}
 
     /*** 게시물, 팔로워, 팔로잉 카운트 ***/
 
