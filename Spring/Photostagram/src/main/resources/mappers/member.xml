@@ -14,7 +14,10 @@
     </insert>
 
     <select id="chkUserName" resultType="int">
-        select count(`username`) from `user` where `username` = #{userName}
+        select count(`no`) from `user` where `username` = #{userName}
+    </select>
+    <select id="chkEmail" resultType="int">
+        select count(`no`) from `user` where `email` = #{email}
     </select>
 
 </mapper>
