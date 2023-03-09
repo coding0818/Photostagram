@@ -21,4 +21,5 @@ public interface MainDAO {
     public List<MemberVO> selectUser(String searchItem);
     public int insertSearchItem(SearchListVO vo);
     public List<SearchListVO> selectSearchItemRecent(int user_no);
+    public int selectCountHashTag(int hashtag_no);
 }
