@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.security.Key;
 import java.security.Principal;
 import java.util.*;
 
@@ -34,13 +33,19 @@ public class ProfileController {
     @GetMapping(value = {"profile", "profile/index"})
     public String index(Principal principal, Model model, String username) {
 
-        // modal 팝업창 로그인정보 불러오기
-        MemberVO user =  service.selectMember(username);
-        log.info("user_no : "+user.getNo());
+
 
         /*** 사용자 이름, 넘버 ***/
         String myName = principal.getName();
-        int userNo = user.getNo();      // user.no
+
+
+        // modal 팝업창 로그인정보 불러오기
+        MemberVO member =  service.selectMember(myName);
+        log.info("user_no : "+member.getNo());
+
+        int userNo = member.getNo();      // user.no
+
+        MemberVO user = service.selectMember(username);
 
         /*
         if (principal != null){
@@ -82,6 +87,7 @@ public class ProfileController {
         log.info("user_no : "+user.getNo());
 
         model.addAttribute("user", user);
+        model.addAttribute("member", member);
         model.addAttribute("searchList", searchList);
         model.addAttribute("username", username);
         model.addAttribute("myName", myName);
