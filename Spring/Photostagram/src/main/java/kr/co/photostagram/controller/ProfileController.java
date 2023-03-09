@@ -38,19 +38,27 @@ public class ProfileController {
         MemberVO user =  service.selectMember(username);
         log.info("user_no : "+user.getNo());
 
-        model.addAttribute("user", user);
-
+        /*** 사용자 이름 (user.username) ***/
         String myName = principal.getName();
 
+        /*
         if (principal != null){
             System.out.println("name :"+ principal.getName());
         } else {
             System.out.println("noUser");
         }
+         */
 
+        /*** 게시물, 팔로워, 팔로잉 ***/
         int post = service.selectCountPost(user.getNo());
-        int follower = service.selectCountFollower(user.getNo());
-        int following = service.selectCountFollowing(user.getNo());
+        int myFollower = service.selectCountFollower(user.getNo());
+        int myFollowing = service.selectCountFollowing(user.getNo());
+
+        /*** 팔로워 팔로잉 버튼 ***/
+        int following = service.selectMember(username).getNo();
+        int follower = service.selectMember(myName).getNo();
+
+        int result = service.searchFollowing(follower, following);
 
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
@@ -59,12 +67,12 @@ public class ProfileController {
 
         model.addAttribute("user", user);
         model.addAttribute("searchList", searchList);
-
         model.addAttribute("username", username);
         model.addAttribute("myName", myName);
         model.addAttribute("post", post);
-        model.addAttribute("follower", follower);
-        model.addAttribute("following", following);
+        model.addAttribute("myFollower", myFollower);
+        model.addAttribute("myFollowing", myFollowing);
+        model.addAttribute("result", result);
         return "profile/index";
     }
 
@@ -81,11 +89,17 @@ public class ProfileController {
     @ResponseBody
     @PostMapping("profile/modify")
     public void modify(HttpServletResponse resp, MemberVO vo){
-        log.info("user_no : "+vo.getNo());
+        //log.info("user_no : "+vo.getNo());
+
+        if (vo.getGender().length() > 2){
+            vo.setGender(null);
+        }
+
         service.updateMember(vo);
         JSFunction.alertLocation(resp, "수정이 완료되었습니다.", "/Photostagram/profile/modify");
     }
 
+    /*** 프로필 사진 업로드 ***/
     @ResponseBody
     @PostMapping("profile/upload")
     public Map<String, Integer> upload(@RequestParam("file") MultipartFile file, Principal principal){
@@ -93,16 +107,33 @@ public class ProfileController {
         MemberVO member = service.selectMember(principal.getName());
         int no = member.getNo();
 
+        /*** 이전 사진이 있는 경우 삭제 ***/
         if (member.getProfileImg() != null){
             service.deleteProfilePhoto(member.getProfileImg());
         }
 
+        /*** 사진 업로드 ***/
         int result = service.uploadProfilePhoto(file, no);
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
 
         return resultMap;
-
     }
+
+    @GetMapping("profile/follow")
+    public String follow(String type, String userName, String myName){
+
+        int following = service.selectMember(userName).getNo();
+        int follower = service.selectMember(myName).getNo();
+
+        if (("insert").equals(type)) {
+            service.insertFollowing(follower, following);
+        } else {
+            service.deleteFollowing(follower, following);
+        }
+
+        return "redirect:/profile?username="+userName;
+    }
+
 
 }

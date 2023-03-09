@@ -18,10 +18,13 @@ $(function(){
 
          const real = document.querySelector('.real-addProf');
          const fake = document.querySelector('.addProf');
-         const chan = document.querySelector('.changeProf');
+
+         if ($('#profilePhoto').hasClass('changeProf') == true){
+            const chan = document.querySelector('.changeProf');
+            chan.addEventListener('click', () => real.click());
+         }
 
          fake.addEventListener('click', () => real.click());
-         chan.addEventListener('click', () => real.click());
          real.addEventListener('change', e => {
              getProfile(e.target);
      });

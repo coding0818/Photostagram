@@ -107,8 +107,6 @@ input, textarea {outline: none;}
 #pro > section > .myList > .pic > a > img {max-width: 300px; max-height: 300px;}
 #pro > section > .myList {margin-top: 50px;}
 
-  #following {display: none;}
-
   .fModal {
     display: none;
     position: fixed;
