@@ -27,17 +27,19 @@
           rel="stylesheet"
   />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-  <script th:src="@{/js/aside.js}" th:inline="javascript"></script>
-  <script th:src="@{/js/index.js}"></script>
+
 </head>
 
   <body>
-    <!--  <th:block th:replace="fragments/_header::main_header"></th:block>-->
-        <th:block th:replace="~{fragments/_aside::asideFragment}"></th:block>
-        <th:block layout:fragment="main"></th:block>
-        <th:block th:replace="~{fragments/_footer::main_footer}"></th:block>
+    <th:block th:replace="~{fragments/_aside::asideFragment}"></th:block>
+    <th:block layout:fragment="main"></th:block>
   </body>
+
 <th:block th:replace="~{fragments/_modal::modalFragment}"></th:block>
-<th:block layout:fragment="script"></th:block>
+
+<th:block layout:fragment="script">
+  <script th:src="@{/js/aside.js}"></script>
+  <script th:src="@{/js/index.js}"></script>
+</th:block>
 
 </html>
