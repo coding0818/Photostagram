@@ -483,7 +483,7 @@ html {height: 100%;}
       .searchlist > a > div:nth-child(2) > div:nth-child(1) > h3 {
         width: 252px;
         height: 18px;
-        font-size: 14px;
+        font-size: 16px;
         margin-bottom: 3px;
         margin-top: 5px;
       }
@@ -491,6 +491,7 @@ html {height: 100%;}
       .searchlist > a > div:nth-child(2) > div:nth-child(2) > h8 {
         width: 252px;
         height: 18px;
+        font-size: 14px;
       }
 
       .searchlist > a > div:nth-child(3){

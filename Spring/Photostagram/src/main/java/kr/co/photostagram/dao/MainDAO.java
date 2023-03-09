@@ -1,9 +1,6 @@
 package kr.co.photostagram.dao;
 
-import kr.co.photostagram.vo.HashTagVO;
-import kr.co.photostagram.vo.ImageVO;
-import kr.co.photostagram.vo.PostVO;
-import kr.co.photostagram.vo.Post_hashtagVO;
+import kr.co.photostagram.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -21,4 +18,6 @@ public interface MainDAO {
     public int saveTagAndPost(Post_hashtagVO vo);
     public int selectHashTagNo(String hashtag);
     public List<HashTagVO> selectHashTag(String searchItem);
+    public List<MemberVO> selectUser(String searchItem);
+    
 }

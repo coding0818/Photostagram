@@ -68,4 +68,18 @@ public class MainController {
 
         return resultMap;
     }
+
+    @ResponseBody
+    @PostMapping("searchUser")
+    public Map<String, List<MemberVO>> searchUser(SearchListVO vo){
+        log.info("vo : "+vo);
+
+        List<MemberVO> result = service.selectUser(vo.getSearchItem());
+        log.info("result : "+result.size());
+
+        Map<String, List<MemberVO>> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
 }
