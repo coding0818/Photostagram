@@ -67,24 +67,31 @@ $(function () {
   //  });
 
   // 댓글 작성
-  $(".upload_btn").on("click", () => {
+  $(document).on("click",".upload_btn", function(e) {
+    e.preventDefault();
 
-    let uid = $("input[name=uid]").val();
-    let comment = $("input[name=commentText]").val();
-    let post_no = $("input[name=postNo]").val();
-    let user_no = $("input[name=userNo]").val();
+    let article    = $(this).closest('article')
+    let articleNo  = article.attr('data-no')
+    let art1       = article + 'data-no=' + articleNo;
+    let div        = $(this).parent();
+    let input      = div.children();
+
+    let uid     = input.eq(0).val();
+    let post_no = input.eq(1).val();
+    let user_no = input.eq(2).val();
+    let comment = input.eq(3).val();
     let url = "/Photostagram/CmtRegister";
 
     console.log("uid : " + uid)
-    console.log("comment : " + comment)
     console.log("post_no : " + post_no)
     console.log("user_no : " + user_no)
+    console.log("comment : " + comment)
 
     let jsonData = {
       uid: uid,
-      comment: comment,
       post_no: post_no,
       user_no: user_no,
+      comment: comment
     };
 
     $.ajax({
@@ -95,6 +102,8 @@ $(function () {
       dataType: "json",
       success: (data) => {
         if (data.result > 0) {
+          
+          art1.$(".comment_container").append(str);
 
           let str = "<div class='reply_user'>";
           str += "<span class='reply_nick'>" + uid + "</span>";
@@ -104,7 +113,7 @@ $(function () {
           str += "</span>";
           str += "</div>";
 
-          $(".comment_container").append(str);
+          
         } else {
           alert("작성 실패");
         }

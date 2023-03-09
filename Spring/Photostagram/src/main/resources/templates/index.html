@@ -181,10 +181,10 @@
             <!----- 댓글 작성 폼 ------->
             <div class="comment_field" id="add-comment-post37">
               <input type="hidden" name="uid" th:value="${#authentication.principal.user.username}">
-              <input type="text" name="postNo" th:value="${article.no}">
+              <input type="hidden" name="postNo" th:value="${article.no}">
               <input type="hidden" name="userNo" th:value="${user.no}">
               <input type="text" name="commentText" class="commentText" placeholder="댓글달기..." />
-              <div class="upload_btn m_text">게시</div>
+              <a href="#" class="upload_btn m_text">게시</a>
             </div>
           </article>
           </th:block>
