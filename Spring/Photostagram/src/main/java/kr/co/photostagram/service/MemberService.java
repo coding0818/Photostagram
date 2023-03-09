@@ -23,10 +23,9 @@ public class MemberService {
         // 패스워드 암호화
         vo.setPassword(encoder.encode(vo.getPassword()));
         return dao.insertMember(vo);
-
     }
 
-    public Integer chkUserName(String userName){
+    public int chkUserName(String userName){
         return dao.chkUserName(userName);
     }
 

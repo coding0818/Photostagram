@@ -31,15 +31,17 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping("/chkUserName")
-    public Map<String, Integer> chkUserName(@RequestBody String uid){
+    public Map<String, Integer> chkUserName(String userName){
         log.info("chkUsername...");
-        System.out.println("uid = " + uid);
+        System.out.println("uid = " + userName);
 
-//        Integer result = service.chkUserName(userName);
-//        System.out.println("result = " + result);
+        int result = service.chkUserName(userName);
+
+        System.out.println("result = " + result);
 
         Map<String, Integer> resultMap = new HashMap<>();
-//        resultMap.put("result", result);
+        resultMap.put("result", result);
+        
         return resultMap;
     }
 

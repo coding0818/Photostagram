@@ -7,43 +7,60 @@
 <script>
     $(function(){
 
-        let userNameChk = false;
-        let nameChk = false;
-        let emailChk = false;
-        let passwordChk = false;
+        // 데이터 검증에 사용하는 정규표현식
+        let regUserName = /^[a-z]+[a-z0-9]{5,19}$/g;
+        let regName  = /^[가-힣]+$/
+        let regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+        let regPassword  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{5,16}$/;
 
+        // validation check
+        let isUserNameOk = false;
+        let isNameOk = false;
+        let isEmailOk = false;
+        let isPasswordOk = false;
+
+        // 아이디 유효성 검증 & 중복체크
         $('#userName').focusout(function() {
-            let uid = $('input[name=username]').val();
-            console.log(uid);
+            let userName = $('input[name=username]').val();
 
-            let jsonData = {"uid" : uid};
-            JSON.stringify(jsonData);
+            if(isUserNameOk){
+			    return;
+            }
 
-            console.log("jsonData : ", jsonData);
+            if(!userName.match(regUserName)){
+                isUidOk = false;
+                console.log('아이디가 유효하지않음');
+                $('.result-delete').addClass('on');
+			    return;
+		    }
+
+            let jsonData = {"userName" : userName};
 
             $.ajax({
                 url: '/Photostagram/member/chkUserName',
                 type: 'POST',
-                contentType:'application/json',
                 data: jsonData,
                 dataType: 'json',
                 success: function(data) {
-                    if(data.result != null) {
-                        // alert('이미 사용중인 아이디입니다.');
+                    if(data.result == 1) {
+                        console.log('이미 사용중인 아이디');
+                        $('.result-delete').addClass('on');
                         userNameChk = true;
                     } else {
-                        // alert('사용 가능한 아이디입니다.');
+                        console.log('사용 가능한 아이디');
+                        $('.result-delete').removeClass('on');
                         userNameChk = false;
                     }
                 }
             });
+
         });
 
         $('#register-btn').click(function(e){
             e.preventDefault();
 
             alert('register!!!');
-            //let username = $('input[name=username]').val();
+            let username = $('input[name=username]').val();
             let name = $('input[name=name]').val();
             let email = $('input[name=email]').val();
             let password = $('input[name=password]').val();
@@ -87,16 +104,22 @@
                             <form action="#" method="post">
                                 <div class="form-group">
                                     <div class="animate-input">
-                                        <span>
+                                        <span class="in-out">
                                             아이디 입력
                                         </span>
-                                        <span class="chkUid"></span>
                                         <input type="text" name="username" class="able" id="userName">
                                     </div>
+                                    <div class="chkUid">
+
+                                    </div>
+                                    <!--<span class="chkUid">
+                                            <img class="result-img result-check on" th:src="@{/img/check-button.png}">
+                                            <img class="result-img result-delete" th:src="@{/img/delete-button.png}">
+                                        </span>-->
                                 </div>
                                 <div class="form-group">
                                     <div class="animate-input">
-                                        <span>
+                                        <span class="in-out">
                                             성명
                                         </span>
                                         <input type="text" name="name">
@@ -104,7 +127,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="animate-input">
-                                        <span>
+                                        <span class="in-out">
                                             이메일 입력
                                         </span>
                                         <input type="text" name="email" class="able">
@@ -112,7 +135,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="animate-input">
-                                        <span>
+                                        <span class="in-out">
                                             비밀번호
                                         </span>
                                         <input type="password" name="password" class="able">

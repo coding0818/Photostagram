@@ -144,7 +144,7 @@ body {
     position: relative;
 }
 
-.animate-input span {
+.animate-input .in-out {
     position: absolute;
     left: 8px;
     height: 100%;
@@ -556,5 +556,22 @@ option {
 .fpmgBt2{background-color: lightsalmon;color: #fff}
 
 .chkUid {
+    position: relative;
+    right : 1px;
+}
+
+/* 회원가입 체크 */
+.chkUid > .result-img {
+    display: none;
+    position: relative;
+    width: 27px;
+    right: 3px;
+    top: 4px;
+
+
     float: right;
+}
+
+.chkUid > .result-img.on {
+    display: block;
 }
