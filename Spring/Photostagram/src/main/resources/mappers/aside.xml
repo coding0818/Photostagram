@@ -29,6 +29,9 @@
     <select id="selectHashTag" resultType="kr.co.photostagram.vo.HashTagVO">
         SELECT * FROM `hashtag` WHERE `hashtag` LIKE CONCAT(#{searchItem},'%');
     </select>
+    <select id="selectCountHashTag" resultType="int">
+        select count(`post_no`) from `post_hashtag` where `hashtag_no`=#{hashtag_no};
+    </select>
     <!--검색(유저)-->
     <select id="selectUser" resultType="kr.co.photostagram.vo.MemberVO">
         SELECT * FROM `user` WHERE `username` LIKE CONCAT(#{searchItem},'%');

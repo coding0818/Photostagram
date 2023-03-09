@@ -141,7 +141,7 @@
                     <!--검색결과가 계정일 경우-->
                     <th:block th:if="${list.cate == 1}">
                         <div class="searchlist">
-                            <a>
+                            <a th:href="@{/profile(username=${list.result})}">
                                 <div>
                                     <th:block th:if="${#strings.isEmpty(list.img)}">
                                         <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="">
@@ -164,7 +164,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button>
+                                    <button class="searchDelete">
                                         <img src="./img/aside_x.PNG" alt="">
                                     </button>
                                 </div>
@@ -173,7 +173,7 @@
                     </th:block>
                     <th:block th:unless="${list.cate == 1}">
                         <div class="searchlist">
-                            <a>
+                            <a th:href="@{#}">
                                 <div>
                                     <img th:src="@{/img/hashtag.PNG}" alt="">
                                 </div>
@@ -182,11 +182,11 @@
                                         <h3>[[${list.result}]]</h3>
                                     </div>
                                     <div>
-                                        <h8>게시물 x개</h8>
+                                        <h8>게시물 [[${list.text}]]개</h8>
                                     </div>
                                 </div>
                                 <div>
-                                    <button>
+                                    <button class="searchDelete">
                                         <img src="./img/aside_x.PNG" alt="">
                                     </button>
                                 </div>
