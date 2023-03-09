@@ -35,6 +35,17 @@
     </select>
     <!--검색(검색기록 삽입)-->
     <insert id="insertSearchItem">
-        insert into `searchList` set `user_no`=#{user_no}, `searchItem`=#{searchItem}, `rdate`=NOW(), `cate`=#{cate}, `result_no`=#{result_no};
+        insert into `searchList` set
+        `user_no`=#{user_no},
+        `searchItem`=#{searchItem},
+        `rdate`=NOW(),
+        `cate`=#{cate},
+        `result`=#{result},
+        `img`=#{img},
+        `text`=#{text};
     </insert>
+    <!--검색기록 요청-->
+    <select id="selectSearchItemRecent">
+        select * from `searchList` where `user_no`=#{user_no} order by `rdate` desc;
+    </select>
 </mapper>

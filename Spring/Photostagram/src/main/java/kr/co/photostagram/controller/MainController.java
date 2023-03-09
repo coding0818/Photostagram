@@ -60,7 +60,7 @@ public class MainController {
     public Map<String, List<HashTagVO>> searchHashtag(SearchListVO vo){
         log.info("vo : "+vo);
 
-        List<HashTagVO> result = service.selectHashTag(vo.getSearchItem());
+        List<HashTagVO> result = service.selectHashTag(vo);
         log.info("result : "+result.size());
 
         Map<String, List<HashTagVO>> resultMap = new HashMap<>();
@@ -74,7 +74,7 @@ public class MainController {
     public Map<String, List<MemberVO>> searchUser(SearchListVO vo){
         log.info("vo : "+vo);
 
-        List<MemberVO> result = service.selectUser(vo.getSearchItem());
+        List<MemberVO> result = service.selectUser(vo);
         log.info("result : "+result.size());
 
         Map<String, List<MemberVO>> resultMap = new HashMap<>();

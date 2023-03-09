@@ -1,10 +1,12 @@
 package kr.co.photostagram.controller;
 
 import kr.co.photostagram.service.IndexService;
+import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.vo.CommentVO;
 import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
+import kr.co.photostagram.vo.SearchListVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,9 @@ public class IndexController {
     @Autowired
     private ProfileService profileService;
 
+    @Autowired
+    private MainService mainService;
+
     @GetMapping(value = {"/", "index"})
     public String index(Model model, Principal principal){
 
@@ -36,9 +41,13 @@ public class IndexController {
         List<CommentVO> comments = service.selectComment();
         MemberVO user =  profileService.selectMember(principal.getName());
 
+        // 검색기록 요청
+        List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
+
         log.info("user_no : "+user.getNo());
 
         model.addAttribute("user", user);
+        model.addAttribute("searchList", searchList);
 
         log.info("articles : " + articles);
         log.info("comments : " + comments);
