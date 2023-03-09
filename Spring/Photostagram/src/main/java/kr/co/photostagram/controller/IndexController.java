@@ -58,7 +58,7 @@ public class IndexController {
         return "index";
     }
 
-    // 댓글 작성
+    // (조광호) 댓글 작성
     @PostMapping("CmtRegister")
     @ResponseBody
     public Map cmtRegister(@RequestBody CommentVO vo){
@@ -71,5 +71,9 @@ public class IndexController {
         map.put("result", result);
 
         return map;
+    }
+    @PostMapping("ArticleLike")
+    public void ArticleLike(){
+        
     }
 }

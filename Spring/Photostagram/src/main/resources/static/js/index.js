@@ -71,8 +71,6 @@ $(function () {
     e.preventDefault();
 
     let article    = $(this).closest('article')
-    let articleNo  = article.attr('data-no')
-    let art1       = article + 'data-no=' + articleNo;
     let div        = $(this).parent();
     let input      = div.children();
 
@@ -103,8 +101,6 @@ $(function () {
       success: (data) => {
         if (data.result > 0) {
           
-          art1.$(".comment_container").append(str);
-
           let str = "<div class='reply_user'>";
           str += "<span class='reply_nick'>" + uid + "</span>";
           str += "<span class='reply_content' style='margin-left:2px;'>" + comment + "</span>";
@@ -113,7 +109,9 @@ $(function () {
           str += "</span>";
           str += "</div>";
 
-          
+          article.find('.comment_container').append(str);
+          article.find('.commentText').val('');
+          //$(".comment_container").append(str);
         } else {
           alert("작성 실패");
         }
@@ -125,4 +123,34 @@ $(function () {
     게시글 좋아요 (빈하트 -52px -258px 꽉찬하트 -26px -258px;)
     댓글 좋아요 (빈하트 -323px -274px 꽉찬하트  -323px -287px)
   */
+  $("#articleLike").on("click", function(e){
+    e.preventDefault();
+    let article    = $(this).closest('article'); 
+    let post_no = article.attr('data-no'); // 게시글 번호
+    let user_no    = $(this).attr('data-no'); // 유저 번호
+
+    let jsonData = {
+      "post_no":post_no,
+      "user_no":user_no
+    };
+
+    $.ajax({
+      url:'/Photostagram/ArticleLike',
+      method:'POST',
+      data:JSON.stringify(jsonData),
+      dataType:'json',
+      success: (data)=>{
+
+      }
+    })
+    
+    if($(this).hasClass('sprite_heart_icon_outline')){
+      
+      $(this).removeClass('sprite_heart_icon_outline').addClass('sprite_full_heart_icon_outline');
+
+    } else {
+      $(this).removeClass('sprite_full_heart_icon_outline').addClass('sprite_heart_icon_outline');
+    }
+
+  })
 });
