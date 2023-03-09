@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MemberDAO {
     public int insertMember(MemberVO vo);
-    public int chkUserName(String userName);
+    public Integer chkUserName(String userName);
 }

@@ -12,19 +12,27 @@
         let emailChk = false;
         let passwordChk = false;
 
-        $('#userName').keyup(function() {
-            let username = $('input[name=username]').val();
+        $('#userName').focusout(function() {
+            let uid = $('input[name=username]').val();
+            console.log(uid);
+
+            let jsonData = {"uid" : uid};
+            JSON.stringify(jsonData);
+
+            console.log("jsonData : ", jsonData);
 
             $.ajax({
                 url: '/Photostagram/member/chkUserName',
                 type: 'POST',
-                data: {username : username},
+                contentType:'application/json',
+                data: jsonData,
+                dataType: 'json',
                 success: function(data) {
-                    if(data.result = 1) {
-                        alert('이미 사용중인 아이디입니다.');
+                    if(data.result != null) {
+                        // alert('이미 사용중인 아이디입니다.');
                         userNameChk = true;
                     } else {
-                        alert('사용 가능한 아이디입니다.');
+                        // alert('사용 가능한 아이디입니다.');
                         userNameChk = false;
                     }
                 }
@@ -35,7 +43,7 @@
             e.preventDefault();
 
             alert('register!!!');
-            let username = $('input[name=username]').val();
+            //let username = $('input[name=username]').val();
             let name = $('input[name=name]').val();
             let email = $('input[name=email]').val();
             let password = $('input[name=password]').val();
@@ -50,6 +58,7 @@
             sessionStorage.setItem("user", JSON.stringify(userData));
             location.href = '/Photostagram/member/birth';
         });
+
     });
 </script>
 <main class="member">
