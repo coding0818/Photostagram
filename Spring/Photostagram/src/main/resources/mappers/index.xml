@@ -10,6 +10,10 @@
             `rdate`= NOW();
     </insert>
 
+    <insert id="insertLike">
+
+    </insert>
+
     <select id="selectComment" resultType="kr.co.photostagram.vo.CommentVO">
         SELECT a.*,b.username FROM `comment` AS a
         JOIN `user` AS b

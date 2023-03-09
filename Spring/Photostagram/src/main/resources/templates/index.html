@@ -1,3 +1,8 @@
+<!--/*
+  날짜 : 2023 / 02 / 27
+  이름 : 조광호
+*/-->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -78,7 +83,7 @@
         <div class="contents_box">
           <!-- 메인콘텐츠 -->
           <th:block th:each="article, i : ${articles}">
-          <article th:class="contents" th:value="${article.no}">
+          <article th:class="contents" th:data-no="${article.no}">
             <header class="top">
               <div class="user_container">
                 <!-- 상단 게시자 정보 div -->
@@ -117,7 +122,7 @@
                 <div>
 
                   <!------------- 게시글 사진입니다 --------------------->
-                  <img src="./img/img_section/img01.jpg" alt="visual01" />
+                  <img th:src="|@{/}thumb/${article.imageVO.thumb}" alt="visual01" />
 
                 </div>
               </div>
@@ -126,12 +131,14 @@
             <!--좋아요, 댓글리스트, 공유, 북마크-->
             <div class="bottom_icons">
               <div class="left_icons">
-                <div class="heart_btn">
-                  <div class="sprite_heart_icon_outline"></div>
-                </div>
+                <!-- 좋아요 버튼 -->
+                <div id="articleLike" class="sprite_heart_icon_outline" th:data-no="${user.no}"></div>
+                <!-- 댓글 리스트 버튼 -->
                 <div class="sprite_bubble_icon"></div>
+
+                <!-- 공유하기 버튼 -->
                 <div class="sprite_dm_icon" data-name="share">
-                  <img src="./img/DM-image.png" alt="" />
+                  <img th:src="@{/img/DM-image.png}" alt="" />
                 </div>
               </div>
               <div class="right_icon">
@@ -143,7 +150,7 @@
             </div>
 
             <div class="likes m_text">
-              좋아요 <span id="like-count-39">2,346</span>개
+              좋아요 <span id="like-count">2,346</span>개
             </div>
 
             <!-- 게시글 내용 div -->
@@ -163,13 +170,15 @@
                   </div>
                 </div>
               </div>
+              <!-- 댓글 div -->
               <th:block th:each="comment : ${comments}" th:if="${#strings.equals(comment.post_no,article.no)}">
                 <div class="reply_user">
+                  <!------- /* 댓글 아이디, 댓글 내용 */------->
                   <span class="reply_nick" th:text="${comment.username}">j_hlli</span>
                   <span class="reply_content" th:text="${comment.comment}">강아지가 너무 귀여워요!</span>
                   <span class="small_heart">
                   <div class="sprite_small_heart_icon_outline" ></div>
-                </span>
+                  </span>
                 </div>
               </th:block>
 
