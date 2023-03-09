@@ -1,12 +1,12 @@
 package kr.co.photostagram.controller;
 
+import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.utils.JSFunction;
 import kr.co.photostagram.vo.MemberVO;
+import kr.co.photostagram.vo.SearchListVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -27,6 +27,9 @@ public class ProfileController {
 
     @Autowired
     private ProfileService service;
+
+    @Autowired
+    private MainService mainService;
 
     @GetMapping(value = {"profile", "profile/index"})
     public String index(Principal principal, Model model, String username) {
@@ -57,7 +60,13 @@ public class ProfileController {
 
         int result = service.searchFollowing(follower, following);
 
+        // 검색기록 요청
+        List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
+
+        log.info("user_no : "+user.getNo());
+
         model.addAttribute("user", user);
+        model.addAttribute("searchList", searchList);
         model.addAttribute("username", username);
         model.addAttribute("myName", myName);
         model.addAttribute("post", post);
