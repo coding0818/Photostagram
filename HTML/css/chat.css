@@ -416,3 +416,32 @@ li > img{
     vertical-align: baseline;
     white-space: pre;
 }
+
+.new-wrap{
+    background-color:rgba(0,0,0,.3);
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0; 
+    display: flex;
+    padding: 15px;
+}
+
+.new-head{
+    width: 400px;
+    height: 42px;
+}
+
+.new-close{
+    width: 52px;
+    height: 100%;
+    float: left;
+}
+
+.new-close img{
+    width: 18px;
+    height: 18px;
+}
