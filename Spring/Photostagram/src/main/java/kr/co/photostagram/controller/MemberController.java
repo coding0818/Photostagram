@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,14 +31,15 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping("/chkUserName")
-    public Map<String, Integer> chkUserName(@RequestBody String userName){
+    public Map<String, Integer> chkUserName(@RequestBody String uid){
         log.info("chkUsername...");
-        System.out.println("userName = " + userName);
+        System.out.println("uid = " + uid);
 
-        int result = service.chkUserName(userName);
-        
+//        Integer result = service.chkUserName(userName);
+//        System.out.println("result = " + result);
+
         Map<String, Integer> resultMap = new HashMap<>();
-        resultMap.put("result", result);
+//        resultMap.put("result", result);
         return resultMap;
     }
 

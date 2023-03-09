@@ -13,7 +13,7 @@
                 `birth` = #{birth}
     </insert>
 
-    <select id="chkUserName">
+    <select id="chkUserName" resultType="kr.co.photostagram.vo.MemberVO">
         select `username` from `user` where `username` = #{userName};
     </select>
 

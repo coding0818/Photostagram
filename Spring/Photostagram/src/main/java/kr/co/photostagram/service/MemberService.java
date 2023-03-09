@@ -26,7 +26,7 @@ public class MemberService {
 
     }
 
-    public int chkUserName(String userName){
+    public Integer chkUserName(String userName){
         return dao.chkUserName(userName);
     }
 
