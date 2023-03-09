@@ -137,7 +137,7 @@
             </div>
 
             <div class="searchListAll">
-                <th:block th:each="list:${searchList}">
+                <th:block th:if="${not #lists.isEmpty(searchList)}" th:each="list:${searchList}">
                     <!--검색결과가 계정일 경우-->
                     <th:block th:if="${list.cate == 1}">
                         <div class="searchlist">
@@ -171,28 +171,31 @@
                             </a>
                         </div>
                     </th:block>
+                    <th:block th:unless="${list.cate == 1}">
+                        <div class="searchlist">
+                            <a>
+                                <div>
+                                    <img th:src="@{/img/hashtag.PNG}" alt="">
+                                </div>
+                                <div>
+                                    <div>
+                                        <h3>[[${list.result}]]</h3>
+                                    </div>
+                                    <div>
+                                        <h8>게시물 x개</h8>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button>
+                                        <img src="./img/aside_x.PNG" alt="">
+                                    </button>
+                                </div>
+                            </a>
+                        </div>
+                    </th:block>
                 </th:block>
-                <th:block th:if="${list.cate == 2}">
-                    <div class="searchlist">
-                        <a>
-                            <div>
-                                <img th:src="@{/img/hashtag.PNG}" alt="">
-                            </div>
-                            <div>
-                                <div>
-                                    <h3>[[${list.result}]]</h3>
-                                </div>
-                                <div>
-                                    <h8>게시물 x개</h8>
-                                </div>
-                            </div>
-                            <div>
-                                <button>
-                                    <img src="./img/aside_x.PNG" alt="">
-                                </button>
-                            </div>
-                        </a>
-                    </div>
+                <th:block th:unless="${not #lists.isEmpty(searchList)}">
+                    <div>검색기록이 없습니다.</div>
                 </th:block>
             </div>
 

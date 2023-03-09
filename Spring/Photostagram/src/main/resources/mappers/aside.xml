@@ -45,7 +45,7 @@
         `text`=#{text};
     </insert>
     <!--검색기록 요청-->
-    <select id="selectSearchItemRecent">
+    <select id="selectSearchItemRecent" resultType="kr.co.photostagram.vo.SearchListVO">
         select * from `searchList` where `user_no`=#{user_no} order by `rdate` desc;
     </select>
 </mapper>
