@@ -32,17 +32,14 @@ public class ProfileController {
 
     @GetMapping(value = {"profile", "profile/index"})
     public String index(Principal principal, Model model, String username) {
-
-        /*** 사용자 이름, 넘버 ***/
+        
+        /*** 사용자, 프로필 페이지 사용자 ***/
         String myName = principal.getName();
-
-        // modal 팝업창 로그인정보 불러오기
-        MemberVO user =  service.selectMember(username);
-        log.info("user_no : "+user.getNo());
-
-        MemberVO member = service.selectMember(myName);
-        int myNo = member.getNo();      // 현재 로그인 된 사용자 번호
-        int pageNo = user.getNo();      // 프로필 페이지 사용자 번호
+        MemberVO member =  service.selectMember(username);
+        MemberVO user = service.selectMember(myName);
+        
+        int myNo = user.getNo();          // 현재 로그인 된 사용자 번호
+        int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
 
         /*
         if (principal != null){

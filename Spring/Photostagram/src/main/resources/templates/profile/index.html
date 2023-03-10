@@ -19,7 +19,7 @@
                       </th:block>
                       <th:block th:unless="${#strings.equals(myName, username)}"></th:block>
                           <th:block th:if="${not #strings.isEmpty(member.profileImg)}">
-                              <img th:src="|@{/}thumb/${user.profileImg}" alt="profile" id="profilePhoto"/>
+                              <img th:src="|@{/}thumb/${member.profileImg}" alt="profile" id="profilePhoto"/>
                           </th:block>
                           <th:block th:unless="${not #strings.isEmpty(member.profileImg)}">
                               <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile" id="profilePhoto"/>
@@ -47,10 +47,10 @@
                               게시물<span>[[${post}]]</span>
                           </li>
                           <li>
-                              <a id="followModal">팔로워<span>[[${myFollowing}]]</span></a>
+                              <a id="followModal">팔로워<span>[[${myFollower}]]</span></a>
                           </li>
                           <li>
-                              <a id="followingModal">팔로잉<span>[[${myFollower}]]</span></a>
+                              <a id="followingModal">팔로잉<span>[[${myFollowing}]]</span></a>
                           </li>
                       </ul>
                       <p class="pAbout">
