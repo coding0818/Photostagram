@@ -77,3 +77,57 @@
         }
       }
     });
+
+    /*** 팔로워 모달창 ***/
+
+    $(function(){
+      var modal = document.getElementById("followerModalWindow");
+      var btn = document.getElementById("followerModal");
+      var span = document.getElementsByClassName("closeFollow")[0];
+
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+
+     $('#followerModal').click(function(e){
+        e.preventDefault();
+     });
+
+    });
+
+    /*** 팔로잉 모달창 ***/
+
+    $(function(){
+      var modal = document.getElementById("followingModalWindow");
+      var btn = document.getElementById("followingModal");
+      var span = document.getElementsByClassName("closeFollowing")[0];
+
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+
+     $('#followingModal').click(function(e){
+        e.preventDefault();
+     });
+
+    });

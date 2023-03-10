@@ -47,10 +47,10 @@
                               게시물<span>[[${post}]]</span>
                           </li>
                           <li>
-                              <a id="followModal">팔로워<span>[[${myFollower}]]</span></a>
+                              <a href="#" id="followerModal">팔로워<span>[[${myFollower}]]</span></a>
                           </li>
                           <li>
-                              <a id="followingModal">팔로잉<span>[[${myFollowing}]]</span></a>
+                              <a href="#" id="followingModal">팔로잉<span>[[${myFollowing}]]</span></a>
                           </li>
                       </ul>
                       <p class="pAbout">
@@ -93,6 +93,56 @@
                         <li><a href="#" class="fClose"><span>일시 차단</span><i class="fa-solid fa-chevron-right"></i></a></li>
                         <li><a href="#" class="fClose"><span>제한</span><i class="fa-solid fa-chevron-right"></i></a></li>
                         <li><a th:href="@{/profile/follow (type=delete, userName=${username}, myName=${myName})}" id="unFollow" class="fClose">팔로우 취소</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="followerModalWindow" class="fModal">
+                <div class="peopleFollow">
+                    <div>
+                        팔로워
+                        <span class="closeFollow">&times;</span>
+                    </div>
+                    <ul class="fList">
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="followingModalWindow" class="fModal">
+                <div class="peopleFollow">
+                    <div>
+                        팔로잉
+                        <span class="closeFollowing">&times;</span>
+                    </div>
+                    <ul class="fList">
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
                     </ul>
                 </div>
             </div>
