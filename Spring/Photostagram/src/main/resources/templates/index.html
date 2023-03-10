@@ -82,7 +82,7 @@
 
         <div class="contents_box">
           <!-- 메인콘텐츠 -->
-          <th:block th:each="article, i : ${articles}">
+          <th:block th:each="article : ${articles}">
           <article th:class="contents" th:data-no="${article.no}">
             <header class="top">
               <div class="user_container">
@@ -132,7 +132,7 @@
             <div class="bottom_icons">
               <div class="left_icons">
                 <!-- 좋아요 버튼 -->
-                <div id="articleLike" class="artLike sprite_heart_icon_outline" th:data-no="${user.no}"></div>
+                <div class="artLike sprite_heart_icon_outline" th:data-no="${user.no}"></div>
 
                 <!-- 댓글 리스트 버튼 -->
                 <div class="sprite_bubble_icon"></div>

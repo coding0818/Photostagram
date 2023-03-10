@@ -3,10 +3,7 @@ package kr.co.photostagram.controller;
 import kr.co.photostagram.service.IndexService;
 import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
-import kr.co.photostagram.vo.CommentVO;
-import kr.co.photostagram.vo.MemberVO;
-import kr.co.photostagram.vo.PostVO;
-import kr.co.photostagram.vo.SearchListVO;
+import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +38,7 @@ public class IndexController {
         List<CommentVO> comments = service.selectComment();
         MemberVO user =  profileService.selectMember(principal.getName());
         // 좋아요 확인용
-        List<PostVO> likes = service.selectLikeConfirm();
+        List<Post_likeVO> likes = service.selectLikeConfirm();
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
 
@@ -51,8 +48,10 @@ public class IndexController {
         model.addAttribute("user", user);
         model.addAttribute("searchList", searchList);
 
-        log.info("articles : " + articles);
-        log.info("comments : " + comments);
+//        log.info("articles : " + articles);
+//        log.info("comments : " + comments);
+        log.info("likes : " + likes);
+
         model.addAttribute("likes", likes);
         model.addAttribute("articles", articles);
         model.addAttribute("comments", comments);

@@ -22,20 +22,8 @@
         ON a.user_no = b.no;
     </select>
 
-    <select id="selectLikeConfirm" resultMap="selectArticleResultMap">
-        SELECT a.*,
-        b.username,
-        c.user_no AS Like_user,
-        d.`rdate`,`comment`
-        FROM
-        `post` AS a
-        JOIN `user` AS b
-            ON a.user_no = b.no
-        JOIN `post_like` AS c
-            ON a.no = c.post_no
-        JOIN `comment` AS d
-            ON a.no = d.post_no
-        ORDER BY `no` DESC;
+    <select id="selectLikeConfirm" resultType="kr.co.photostagram.vo.Post_likeVO">
+        SELECT * FROM `post_like`;
     </select>
 
     <select id="selectArticles" resultMap="selectArticleResultMap">
@@ -83,6 +71,16 @@
             <result column="user_no" property="user_no"/>
             <result column="parent" property="parent"/>
             <result column="rdate" property="rdate"/>
+        </association>
+        <association property="comment_likeVO" javaType="kr.co.photostagram.vo.Comment_likeVO">
+            <id column="no" property="no"/>
+            <result column="user_no" property="user_no"/>
+            <result column="comment_no" property="comment_no"/>
+        </association>
+        <association property="post_likeVO" javaType="kr.co.photostagram.vo.Post_likeVO">
+            <id column="no" property="no"/>
+            <result column="post_no" property="post_no"/>
+            <result column="user_no" property="user_no"/>
         </association>
     </resultMap>
 
