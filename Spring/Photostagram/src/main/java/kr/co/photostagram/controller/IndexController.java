@@ -40,7 +40,8 @@ public class IndexController {
         List<PostVO> articles = service.selectArticles();
         List<CommentVO> comments = service.selectComment();
         MemberVO user =  profileService.selectMember(principal.getName());
-
+        // 좋아요 확인용
+        List<PostVO> likes = service.selectLikeConfirm();
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
 
@@ -52,7 +53,7 @@ public class IndexController {
 
         log.info("articles : " + articles);
         log.info("comments : " + comments);
-
+        model.addAttribute("likes", likes);
         model.addAttribute("articles", articles);
         model.addAttribute("comments", comments);
         return "index";
@@ -79,9 +80,11 @@ public class IndexController {
     public Map ArticleLike(@RequestBody PostVO vo){
         int result = 0;
         result = service.insertArticleLikeAdd(vo);
+
         log.info(" =============================== ");
         log.info("     좋아요 result : " + result);
         log.info(" =============================== ");
+
         Map map = new HashMap();
         map.put("result", result);
 

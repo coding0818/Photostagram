@@ -22,6 +22,22 @@
         ON a.user_no = b.no;
     </select>
 
+    <select id="selectLikeConfirm" resultMap="selectArticleResultMap">
+        SELECT a.*,
+        b.username,
+        c.user_no AS Like_user,
+        d.`rdate`,`comment`
+        FROM
+        `post` AS a
+        JOIN `user` AS b
+            ON a.user_no = b.no
+        JOIN `post_like` AS c
+            ON a.no = c.post_no
+        JOIN `comment` AS d
+            ON a.no = d.post_no
+        ORDER BY `no` DESC;
+    </select>
+
     <select id="selectArticles" resultMap="selectArticleResultMap">
         SELECT a.* , b.thumb , c.username  FROM `post` AS a
         JOIN `image` AS b
