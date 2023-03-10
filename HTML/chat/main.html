@@ -60,20 +60,44 @@
         }
       });
       });
+      
+      
     </script>
     <script>
-     $(function(){
-      $("#confirm").click(function(){
-        $("#overlay").css('display', 'flex').hide().fadeIn();
-      });
-      $(document).on("click", function(e){  
+      
+      $(function(){
+  $("#confirm").click(function(){
+      modalClose();
+      //컨펌 이벤트 처리
+  });
+  $("#modal-open").click(function(){
+    $("#overlay").css('display','flex').hide().fadeIn();
+  });
+ 
+  function modalClose(){
+    $("#overlay").fadeOut();
+  }
+});
+
+$(function(){
+  $("#lay").click(function(){
+    $("#overlay").css('display','flex').hide().fadeIn();
+  });
+ 
+  function modalClose(){
+    $("#overlay").fadeOut();
+  }
+});
+
+
+
+$(document).on("click", function(e){  
         if( $("#overlay").is(e.target)) {
          $("#overlay").css({ visibility:"hidden", 
                                      opacity:0 });
     }
   });
-     });
-     
+  
     </script>
 </head>
 <body>
@@ -672,7 +696,7 @@
                 <p>sdfa123</p>
             </div>
             <div class="src2">
-                <img src="./img/free-icon-writing-6570264.png" alt="">
+                <img id="lay" src="./img/free-icon-writing-6570264.png" alt="">
             </div>
         </div>
         <div class="dir2">
@@ -810,7 +834,7 @@
         <img src="./img/free-icon-send-3482493.png" alt="보내기">
         <span class="mydir">내 메시지</span>
         <div class="fgbsm">친구나 그룹에 비공개 사진과 메시지를 보내세요.</div>
-        <button class="mes" id="confirm" type="button">메세지 보내기</button>
+        <button class="mes" id="modal-open" type="button">메세지 보내기</button>
       </div>
     </div>
   </div>
@@ -820,7 +844,7 @@
   <div class="new-content">
     <div class="new-head">
       <div class="new-head-close">
-        <img src="./img/free-icon-close-4013407.png" alt="닫기">
+        <img id="confirm" src="./img/free-icon-close-4013407.png" alt="닫기">
       </div>
       <div class="new-head-mesg">
         새로운 메시지
