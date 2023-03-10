@@ -15,6 +15,7 @@ public class SearchListVO {
     private String searchItem;
     private String rdate;
     private int cate;
+    private int searchResult;
     private String result;
     private String img;
     private String text;

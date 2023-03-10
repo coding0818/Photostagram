@@ -63,6 +63,8 @@ public class MainController {
         List<HashTagVO> result = service.selectHashTag(vo);
         log.info("result : "+result.size());
 
+
+
         Map<String, List<HashTagVO>> resultMap = new HashMap<>();
         resultMap.put("result", result);
 
@@ -78,6 +80,19 @@ public class MainController {
         log.info("result : "+result.size());
 
         Map<String, List<MemberVO>> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
+
+    @ResponseBody
+    @PostMapping("insertSearchResult")
+    public Map<String, Integer> insertSearchResult(SearchListVO vo){
+        int result = service.insertSearchResult(vo);
+
+        log.info("insertSearchUser : "+result);
+
+        Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
 
         return resultMap;

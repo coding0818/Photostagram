@@ -148,6 +148,13 @@ public class MainService {
     @Transactional
     public List<HashTagVO> selectHashTag(SearchListVO vo){
         List<HashTagVO> result = dao.selectHashTag(vo.getSearchItem());
+        if(!result.isEmpty()){
+            // 해시태그 값이 있을 때 포스트 개수 찾기
+            for(HashTagVO ht : result){
+                int hashtagcount = dao.selectCountHashTag(ht.getNo());
+                ht.setCountPost(hashtagcount);
+            }
+        }
         return result;
     }
 
@@ -161,7 +168,13 @@ public class MainService {
         return dao.selectSearchItemRecent(user_no);
     }
 
-    public int insertSearchUser(){
-        return 1;
+    @Transactional
+    public int insertSearchResult(SearchListVO vo){
+        int countResult = dao.selectSearchResult(vo.getCate(),vo.getSearchResult());
+        if(countResult > 0){
+            return 0;
+        }else{
+            return dao.insertSearchItem(vo);
+        }
     }
 }

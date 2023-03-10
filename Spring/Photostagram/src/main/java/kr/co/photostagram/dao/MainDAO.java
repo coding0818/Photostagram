@@ -2,6 +2,7 @@ package kr.co.photostagram.dao;
 
 import kr.co.photostagram.vo.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +23,5 @@ public interface MainDAO {
     public int insertSearchItem(SearchListVO vo);
     public List<SearchListVO> selectSearchItemRecent(int user_no);
     public int selectCountHashTag(int hashtag_no);
+    public int selectSearchResult(@Param("cate") int cate, @Param("searchResult") int searchResult);
 }
