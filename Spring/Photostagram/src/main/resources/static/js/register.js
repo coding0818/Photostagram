@@ -23,13 +23,14 @@ $(function(){
         let userName = $(this).val();
 
         // 아이디 유효성 검증
+        /*
         if(!userName.match(regUserName)){
             isUserNameOk = 'unValid';
             $('.id.result-delete').addClass('on');
             $('.id.result-check').removeClass('on');
             return;
         }
-
+        */
         // 아이디 중복체크
         let jsonData = {"userName" : userName};
 
@@ -56,7 +57,8 @@ $(function(){
     // 이름 유효성 체크
     $('input[name=name]').focusout(function(){
         let name = $(this).val();
-
+        isNameOk = true;
+        /*
         if(!name.match(regName)){
             isNameOk = false;
             $('.name.result-delete').addClass('on');
@@ -66,6 +68,7 @@ $(function(){
             $('.name.result-delete').removeClass('on');
             $('.name.result-check').addClass('on');
         }
+        */
     });
 
     // 이메일 유효성 검사 & 중복 체크
@@ -73,12 +76,14 @@ $(function(){
         let email = $(this).val();
 
         // 이메일 유효성 검사
+        /*
         if(!email.match(regEmail)){
             isEmailOk = 'unValid';
             $('.eml.result-delete').addClass('on');
             $('.eml.result-check').removeClass('on');
             return;
         }
+        */
 
         // 이메일 중복검사
         let jsonData = {"email" : email};
@@ -105,7 +110,7 @@ $(function(){
     // 비밀번호 유효성 검사
     $('input[name=password]').focusout(function(){
         let password = $('input[name="password"]').val();
-
+        /*
         if(!password.match(regPassword)){
             isPasswordOk = false;
             return;
@@ -113,6 +118,7 @@ $(function(){
             isPasswordOk = true;
             return;
         }
+        */
     });
 
 
@@ -121,6 +127,7 @@ $(function(){
         e.preventDefault();
 
         // 아이디 중복 검사
+        /*
         if(isUserNameOk=='exist'){
             $('.result-txt.exId').addClass('on');
             $('.result-txt.unId').removeClass('on');
@@ -183,6 +190,7 @@ $(function(){
             $('.result-txt.unEmail').removeClass('on');
             return false;
         }
+        */
 
         // 값 session에 저장
         let username = $('input[name=username]').val();
@@ -254,7 +262,7 @@ $(function() {
         if(isCheck1 && isCheck2 && isCheck3) {
             alert('체크 완료!!!');
             let userData = sessionStorage.getItem("user"); // session에서 가져오기
-            console.log(userData);
+//            console.log(userData);
 
             $.ajax({
                 url: '/Photostagram/member/terms',
@@ -267,8 +275,10 @@ $(function() {
                         alert('회원가입이 완료되었습니다.');
                         sessionStorage.clear();
                         location.replace("/Photostagram/member/login");
-                    } else {
-                        alert('회원가입에 실패하였습니다.');
+                    } else { // 서버측 유효성 검사 만족하지 않을 때
+                        alert('서버측에서의 유효성 검사를 통과하지 못했습니다. \n 다시 회원가입 해주시기 바랍니다.');
+                        sessionStorage.clear();
+                        location.replace("/Photostagram/error/register");
                     }
                 }
             });
