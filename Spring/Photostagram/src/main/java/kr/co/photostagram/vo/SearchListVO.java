@@ -25,4 +25,5 @@ public class SearchListVO {
     private String profileImg;
     private String profileText;
     private String hashtag;
+    private int hashtag_post_count;
 }
