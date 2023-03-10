@@ -49,10 +49,11 @@
         `searchResult`=#{searchResult};
     </insert>
     <!--검색기록 요청-->
-    <select id="selectSearchCate" resultType="kr.co.photostagram.vo.SearchListVO">
-        select * from `searchList` where `user_no`=#{user_no} order by `rdate` desc;
-    </select>
     <select id="selectSearchItemRecentUser" resultType="kr.co.photostagram.vo.SearchListVO">
-        select * from `searchList` as a join `user` AS b on a.searchResult = b.`no` where `user_no`=#{user_no} AND `cate`=1;
+        SELECT a.*, b.username, b.profileImg, b.profileText, c.hashtag
+        FROM `searchList` AS a
+        JOIN `user` AS b ON a.searchResult=b.`no`
+        JOIN `hashtag` AS c ON a.searchResult=c.`no`
+        WHERE `user_no`=#{user_no};
     </select>
 </mapper>

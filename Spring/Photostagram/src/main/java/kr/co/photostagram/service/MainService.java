@@ -164,13 +164,12 @@ public class MainService {
     }
 
     public List<SearchListVO> selectSearchItemRecent(int user_no){
-        List<SearchListVO> searchList = dao.selectSearchCate(user_no);
+        List<SearchListVO> searchList = dao.selectSearchItemRecentUser(user_no);
         for(SearchListVO sl : searchList){
-            if(sl.getCate() == 1){
-                // 검색 항목이 계정일 때
-
-            }else{
-                // 검색 항목이 해시태그일 때
+            if(sl.getCate() == 2){
+                // 검색 항목이 hashtag일 때
+                int countHashtag = dao.selectCountHashTag(sl.getSearchResult());
+                sl.setHashtag_post_count(countHashtag);
             }
         }
         return searchList;
