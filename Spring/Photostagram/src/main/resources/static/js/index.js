@@ -143,9 +143,9 @@ $(function () {
       dataType:'json',
       success: (data)=>{
         if(data.result > 0){
-          if(article.find('#articleLike').hasClass('sprite_heart_icon_outline')){
+          if(article.find('.artLike').hasClass('sprite_heart_icon_outline')){
       
-            article.find('#articleLike')
+            article.find('.artLike')
             .removeClass('sprite_heart_icon_outline')
             .addClass('sprite_full_heart_icon_outline');
       
@@ -176,9 +176,9 @@ $(function () {
         dataType:'json',
         success: (data)=>{
           if(data.result > 0){
-            if(article.find('#articleLike').hasClass('sprite_full_heart_icon_outline')){
+            if(article.find('.artLike').hasClass('sprite_full_heart_icon_outline')){
       
-              article.find('#articleLike')
+              article.find('.artLike')
               .removeClass('sprite_full_heart_icon_outline')
               .addClass('sprite_heart_icon_outline');
         
