@@ -5,6 +5,7 @@ import kr.co.photostagram.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -78,9 +79,10 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping("/terms")
-    public Map<String, Integer> terms(@Valid @RequestBody MemberVO vo){
+    public Map<String, Integer> terms(@Valid @RequestBody MemberVO vo, BindingResult bindingResult){
         log.info("TermsController...");
         System.out.println("vo = " + vo);
+
         int result = service.insertMember(vo);
 
         Map<String, Integer> resultMap = new HashMap<>();
