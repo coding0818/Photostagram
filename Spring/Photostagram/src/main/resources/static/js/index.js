@@ -123,7 +123,7 @@ $(function () {
     게시글 좋아요 (빈하트 -52px -258px 꽉찬하트 -26px -258px;)
     댓글 좋아요 (빈하트 -323px -274px 꽉찬하트  -323px -287px)
   */
-  $(document).on("click", "#articleLike", function(e){
+  $(document).on("click", ".sprite_heart_icon_outline", function(e){
     e.preventDefault();
     let article    = $(this).closest('article'); 
     let post_no    = article.attr('data-no'); // 게시글 번호
@@ -155,7 +155,7 @@ $(function () {
     })
   })
 
-  $(document).on("click", "#articleLike", function(e){
+  $(document).on("click", ".sprite_full_heart_icon_outline", function(e){
       e.preventDefault();
 
       let article    = $(this).closest('article');
