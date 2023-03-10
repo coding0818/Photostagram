@@ -8,9 +8,9 @@
 $(function(){
     // 데이터 검증에 사용하는 정규표현식
     let regUserName = /^[a-z]+[a-z0-9]{5,19}$/g;
-    let regName  = /^[가-힣]+$/
+    let regName  = /^[가-힣]{2,15}$/;
     let regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    let regPassword  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{5,16}$/;
+    let regPassword  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/; // 8자 이상, 영문, 숫자, 특수문자
 
     // validation check
     let isUserNameOk = "";
@@ -102,6 +102,20 @@ $(function(){
         });
     });
 
+    // 비밀번호 유효성 검사
+    $('input[name=password]').focusout(function(){
+        let password = $('input[name="password"]').val();
+
+        if(!password.match(regPassword)){
+            isPasswordOk = false;
+            return;
+        } else {
+            isPasswordOk = true;
+            return;
+        }
+    });
+
+
     // submit 전송
     $('#register-next').click(function(e){
         e.preventDefault();
@@ -113,6 +127,7 @@ $(function(){
             $('.result-txt.name').removeClass('on');
             $('.result-txt.exEmail').removeClass('on');
             $('.result-txt.unEmail').removeClass('on');
+            $('.result-txt.pass').removeClass('on');
             return false;
         }
         // 아이디 유효성 검사
@@ -122,6 +137,7 @@ $(function(){
             $('.result-txt.name').removeClass('on');
             $('.result-txt.exEmail').removeClass('on');
             $('.result-txt.unEmail').removeClass('on');
+            $('.result-txt.pass').removeClass('on');
             return false;
         }
 
@@ -132,6 +148,7 @@ $(function(){
             $('.result-txt.unId').removeClass('on');
             $('.result-txt.exEmail').removeClass('on');
             $('.result-txt.unEmail').removeClass('on');
+            $('.result-txt.pass').removeClass('on');
             return false;
         }
 
@@ -142,6 +159,7 @@ $(function(){
             $('.result-txt.unId').removeClass('on');
             $('.result-txt.name').removeClass('on');
             $('.result-txt.unEmail').removeClass('on');
+            $('.result-txt.pass').removeClass('on');
             return false;
         }
         // 이메일 유효성검사
@@ -151,6 +169,18 @@ $(function(){
             $('.result-txt.unId').removeClass('on');
             $('.result-txt.name').removeClass('on');
             $('.result-txt.exEmail').removeClass('on');
+            $('.result-txt.pass').removeClass('on');
+            return false;
+        }
+
+        // 비밀번호 유효성 검사
+        if(!isPasswordOk) {
+            $('.result-txt.pass').addClass('on');
+            $('.result-txt.exId').removeClass('on');
+            $('.result-txt.unId').removeClass('on');
+            $('.result-txt.name').removeClass('on');
+            $('.result-txt.exEmail').removeClass('on');
+            $('.result-txt.unEmail').removeClass('on');
             return false;
         }
 
