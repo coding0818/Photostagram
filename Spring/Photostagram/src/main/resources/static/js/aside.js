@@ -321,6 +321,7 @@ function uploadFiles(e){
       });
     });
 
+    // 게시물 업로드
     $('#button_write_feed_drop').on('click', function(){
         let content = $('#input_content_drop').val();
         let user_id = $('#input_user_id_drop').data('no');
@@ -375,7 +376,7 @@ function uploadFiles(e){
                 data:jsonData,
                 dataType:'json',
                 success:function(data){
-                    if(data.result){
+                    if(data.result.length > 0){
                         let r = data.result;
                         console.log(r);
                         $('#searchListRecent').hide();
@@ -442,7 +443,7 @@ function uploadFiles(e){
                 dataType:'json',
                 success:function(data){
                     console.log('성공!');
-                    if(data.result){
+                    if(data.result.length > 0){
                         let r = data.result;
                         console.log(r);
                         $('#searchListRecent').hide();

@@ -19,4 +19,10 @@ public class SearchListVO {
     private String result;
     private String img;
     private String text;
+
+    // 추가 필드(검색 결과 요청시)
+    private String username;
+    private String profileImg;
+    private String profileText;
+    private String hashtag;
 }

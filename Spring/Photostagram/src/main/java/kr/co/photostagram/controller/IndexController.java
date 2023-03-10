@@ -45,10 +45,8 @@ public class IndexController {
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
 
         log.info("user_no : "+user.getNo());
-        log.info("searchList : "+searchList);
 
         model.addAttribute("user", user);
-        model.addAttribute("searchList", searchList);
 
         log.info("articles : " + articles);
         log.info("comments : " + comments);
