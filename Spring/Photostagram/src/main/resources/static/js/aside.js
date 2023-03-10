@@ -365,6 +365,7 @@ function uploadFiles(e){
             console.log('true');
             let cate = 2;
             let content = searchItem.substring(1);
+            console.log(content);
 
             let jsonData = {"user_no":user_no, "searchItem":content, "cate":cate};
 
@@ -380,12 +381,12 @@ function uploadFiles(e){
                         $('#searchListRecent').hide();
                         $('.searchListAll').empty();
                         r.forEach(function(i){
-                            let searchResult = "<div class='searchlist'>";
+                            let searchResult = "<div class='searchlist' data-no='"+i.no+"'>";
                                 searchResult += "<a>";
                                 searchResult += "<div><img src=./img/hashtag.PNG></div>";
                                 searchResult += "<div>";
                                 searchResult += "<div><h3>#"+i.hashtag+"</h3></div>";
-                                searchResult += "<div><h8>게시물x개</h8></div>";
+                                searchResult += "<div><h8>게시물"+i.countPost+"개</h8></div>";
                                 searchResult += "</div>";
                                 searchResult += "<div>";
                                 searchResult += "<button><img src=./img/aside_x.PNG></button>";
@@ -396,8 +397,35 @@ function uploadFiles(e){
                             $('.searchListAll').append(searchResult);
                             $('.searchListAll').trigger("create");
                         });
+
+                        $('.searchlist > a').on('click', function(e){
+                            e.preventDefault();
+                            let list = $(this).closest('div');
+                            let dataNo = list.attr('data-no');
+                            console.log('dataNo : '+dataNo);
+
+                            let jsonData = {
+                                "user_no":user_no,
+                                "searchItem":content,
+                                "cate":cate,
+                                "searchResult":dataNo
+                            };
+
+                            console.log(jsonData);
+
+                            $.ajax({
+                                url:'/Photostagram/insertSearchResult',
+                                method:'POST',
+                                data:jsonData,
+                                dataType:'json',
+                                success:function(data){
+                                    alert('입력성공!');
+                                }
+                            });
+                        });
                     }else{
                         alert("검색 결과가 없습니다.");
+                        return;
                     }
                 }
             });
@@ -420,7 +448,7 @@ function uploadFiles(e){
                         $('#searchListRecent').hide();
                         $('.searchListAll').empty();
                         r.forEach(function(i){
-                            let searchResult = "<div class='searchlist' data-result='"+i+"' data-no='"+i.no+"'>";
+                            let searchResult = "<div class='searchlist' data-username='"+i.username+"' data-no='"+i.no+"'>";
                                 searchResult += "<a href='/Photostagram/profile?username="+i.username+"'>";
                                 if(i.profileImg != null){
                                     searchResult += "<div><img src=/Photostagram/thumb/"+i.profileImg+"></div>";
@@ -441,7 +469,6 @@ function uploadFiles(e){
                                 searchResult += "</a>";
                                 searchResult += "</div>";
 
-                            console.log('i : '+i);
                             $('.searchListAll').append(searchResult);
                             $('.searchListAll').trigger("create");
                         });
@@ -450,29 +477,32 @@ function uploadFiles(e){
                             e.preventDefault();
                             let list = $(this).closest('div');
                             let dataNo = list.attr('data-no');
+                            let username = list.attr('data-username');
                             console.log('dataNo : '+dataNo);
 
                             let jsonData = {
                                 "user_no":user_no,
                                 "searchItem":searchItem,
                                 "cate":cate,
-                                "dataNo":dataNo,
+                                "searchResult":dataNo
                             };
 
                             console.log(jsonData);
 
                             $.ajax({
-                                url:'/Photostagram/insertSearchUser',
+                                url:'/Photostagram/insertSearchResult',
                                 method:'POST',
                                 data:jsonData,
                                 dataType:'json',
                                 success:function(data){
-                                    alert('입력성공!');
+                                    //alert('입력성공!');
+                                    location.href='/Photostagram/profile?username='+username;
                                 }
                             });
                         });
                     }else{
                         alert("검색 결과가 없습니다.");
+                        return;
                     }
                 }
             });
