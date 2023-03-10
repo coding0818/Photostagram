@@ -35,11 +35,8 @@ public class MemberController {
     @PostMapping("/chkUserName")
     public Map<String, Integer> chkUserName(String userName){
         log.info("chkUsername...");
-        System.out.println("uid = " + userName);
 
         int result = service.chkUserName(userName);
-
-        System.out.println("result = " + result);
 
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
@@ -51,10 +48,8 @@ public class MemberController {
     @PostMapping("/chkEmail")
     public Map<String, Integer> chkEmail(String email) {
         log.info("chkEmail...");
-        System.out.println("email = " + email);
 
         int result = service.chkEmail(email);
-        System.out.println("result = " + result);
 
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
@@ -77,18 +72,35 @@ public class MemberController {
         return "member/terms";
     }
 
+
     @ResponseBody
     @PostMapping("/terms")
-    public Map<String, Integer> terms(@Valid @RequestBody MemberVO vo, BindingResult bindingResult){
+    public Map<String, Integer> terms(@Valid @RequestBody MemberVO vo, BindingResult error){
         log.info("TermsController...");
         System.out.println("vo = " + vo);
+        System.out.println("error = " + error.hasErrors());
 
-        int result = service.insertMember(vo);
+        int result = 0;
+
+        if(!error.hasErrors()){ // false면 에러가 없다.
+            log.info("No errors");
+            result = service.insertMember(vo);
+        }else{
+            log.info("errors occurred");
+        }
 
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
-
         return resultMap;
+    }
+
+    @PostMapping("/testTerms")
+    public String testTerms(@Valid @RequestBody MemberVO vo, BindingResult error){
+        log.info("testTe!!!");
+        System.out.println("vo = " + vo);
+        System.out.println("error = " + error.hasErrors());
+
+        return "member/login";
     }
 
     @GetMapping("/checkId")
