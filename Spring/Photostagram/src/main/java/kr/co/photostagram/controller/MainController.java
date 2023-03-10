@@ -97,4 +97,23 @@ public class MainController {
 
         return resultMap;
     }
+
+    @ResponseBody
+    @PostMapping("deleteSearch")
+    public Map<String, Integer> deleteSearch(int searchNo){
+        int result = service.deleteSearch(searchNo);
+        log.info("result : "+result);
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+        return resultMap;
+    }
+
+    @ResponseBody
+    @PostMapping("deleteSearchAll")
+    public Map<String, Integer> deleteSearchAll(int user_no){
+        int result = service.deleteSearchAll(user_no);
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+        return resultMap;
+    }
 }

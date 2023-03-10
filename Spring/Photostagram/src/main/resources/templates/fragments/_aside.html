@@ -11,7 +11,7 @@
             <nav>
 
                 <button>
-                    <a href="">
+                    <a th:href="@{/index}">
                         <i class="uil uil-estate"></i>
                         <span>홈</span>
                     </a>
@@ -53,10 +53,15 @@
                 </button>
 
                 <button>
-              <span>
-                <img src="https://raw.githubusercontent.com/zouraiz523/Instagram-Sidebar-/b2750eba8fa31cde49364428bf28fbb41b3a02f0/Instagram%20Sidebar%20Coding/Profile.svg" />
-                <span>프로필</span>
-              </span>
+                    <a th:href="@{/profile(username=${user.username})}">
+                        <th:block th:if="${#strings.isEmpty(user.profileImg)}">
+                            <img th:src=@{/img/44884218_345707102882519_2446069589734326272_n.jpg}/>
+                        </th:block>
+                        <th:block th:unless="${#strings.isEmpty(user.profileImg)}">
+                            <img th:src=@{/thumb/img(img=${user.profileImg})}/>
+                        </th:block>
+                      <span>프로필</span>
+                    </a>
                 </button>
 
                 <button id="more_view">
@@ -76,7 +81,7 @@
             <nav>
 
                 <button>
-                    <a href="">
+                    <a th:href="@{/index}">
                         <i class="uil uil-estate"></i>
                     </a>
                 </button>
@@ -112,15 +117,22 @@
                 </button>
 
                 <button>
-              <span>
-                <img src="https://raw.githubusercontent.com/zouraiz523/Instagram-Sidebar-/b2750eba8fa31cde49364428bf28fbb41b3a02f0/Instagram%20Sidebar%20Coding/Profile.svg" />
-              </span>
+                    <a th:href="@{/profile(username=${user.username})}">
+                        <span>
+                            <th:block th:if="${#strings.isEmpty(user.profileImg)}">
+                                <img th:src=@{/img/44884218_345707102882519_2446069589734326272_n.jpg}/>
+                            </th:block>
+                            <th:block th:unless="${#strings.isEmpty(user.profileImg)}">
+                                <img th:src=@{/thumb/img(img=${user.profileImg})}/>
+                            </th:block>
+                        </span>
+                    </a>
                 </button>
 
                 <button>
-              <span>
-                <i class="uil uil-bars"> </i>
-              </span>
+                  <span>
+                    <i class="uil uil-bars"> </i>
+                  </span>
                 </button>
             </nav>
         </aside>
@@ -133,7 +145,7 @@
                 <button id="searchBtn"><img src="./img/search.png" alt=""></button>
             </div>
             <div id="searchListRecent">
-                <h3>최근 검색 항목 <button>모두 지우기</button></h3>
+                <h3>최근 검색 항목 <button id="deleteSearchAll">모두 지우기</button></h3>
             </div>
 
             <div class="searchListAll">
@@ -141,34 +153,34 @@
                     <!--검색결과가 계정일 경우-->
                     <th:block th:if="${list.cate == 1}">
                         <div class="searchlist">
-                            <a th:href="@{/profile(username=${list.result})}">
+                            <a th:href="@{/profile(username=${list.username})}">
                                 <div>
-                                    <th:block th:if="${#strings.isEmpty(list.img)}">
+                                    <th:block th:if="${#strings.isEmpty(list.profileImg)}">
                                         <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="">
                                     </th:block>
-                                    <th:block th:unless="${#strings.isEmpty(list.img)}">
-                                        <img th:src="@{/thumb/{img}(img=${list.img})}" alt="">
+                                    <th:block th:unless="${#strings.isEmpty(list.profileImg)}">
+                                        <img th:src="@{/thumb/{img}(img=${list.profileImg})}" alt="">
                                     </th:block>
                                 </div>
                                 <div>
                                     <div>
-                                        <h3>[[${list.result}]]</h3>
+                                        <h3>[[${list.username}]]</h3>
                                     </div>
                                     <div>
-                                        <th:block th:if="${#strings.isEmpty(list.text)}">
+                                        <th:block th:if="${#strings.isEmpty(list.profileText)}">
                                             <h8></h8>
                                         </th:block>
-                                        <th:block th:unless="${#strings.isEmpty(list.text)}">
-                                            <h8>[[${list.text}]]</h8>
+                                        <th:block th:unless="${#strings.isEmpty(list.profileText)}">
+                                            <h8>[[${list.profileText}]]</h8>
                                         </th:block>
                                     </div>
                                 </div>
-                                <div>
-                                    <button class="searchDelete">
-                                        <img src="./img/aside_x.PNG" alt="">
-                                    </button>
-                                </div>
                             </a>
+                            <div th:data-searchNo="${list.no}">
+                                <button class="searchDelete">
+                                    <img src="./img/aside_x.PNG" alt="">
+                                </button>
+                            </div>
                         </div>
                     </th:block>
                     <th:block th:unless="${list.cate == 1}">
@@ -179,18 +191,18 @@
                                 </div>
                                 <div>
                                     <div>
-                                        <h3>[[${list.result}]]</h3>
+                                        <h3>#[[${list.hashtag}]]</h3>
                                     </div>
                                     <div>
-                                        <h8>게시물 [[${list.text}]]개</h8>
+                                        <h8>게시물 [[${list.hashtag_post_count}]]개</h8>
                                     </div>
                                 </div>
-                                <div>
-                                    <button class="searchDelete">
-                                        <img src="./img/aside_x.PNG" alt="">
-                                    </button>
-                                </div>
                             </a>
+                            <div th:data-searchNo="${list.no}">
+                                <button class="searchDelete">
+                                    <img src="./img/aside_x.PNG" alt="">
+                                </button>
+                            </div>
                         </div>
                     </th:block>
                 </th:block>

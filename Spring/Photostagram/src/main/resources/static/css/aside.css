@@ -135,13 +135,17 @@ html {height: 100%;}
         }
       }
 
+      .sidebar button > a > span > span{
+        text-align: center;
+      }
+
       .sidebar button i {
         position: relative;
         font-size: 28px;
         transition: 0.2s;
       }
 
-      .sidebar button img {
+      .sidebar button > a img {
         width: 28px;
         height: 28px;
         transition: 0.2s;
@@ -502,12 +506,12 @@ html {height: 100%;}
           white-space:nowrap;
       }
 
-      .searchlist > a > div:nth-child(3){
+      .searchlist > div {
         position: absolute;
-        right: 0;
+        right: 30px;
       }
 
-      .searchlist > a > div:nth-child(3) > button{
+      .searchlist > div > button{
         margin-top: 5px;
         background: none;
         border: none;
