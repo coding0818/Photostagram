@@ -10,18 +10,18 @@
                       <div>
                       <th:block th:if="${#strings.equals(myName, username)}">
                         <input type="file" class="real-addProf" accept="image/*" style="display: none;"/>
-                          <th:block th:if="${not #strings.isEmpty(user.profileImg)}">
-                              <img th:src="|@{/}thumb/${user.profileImg}" alt="profile" class="addProf" id="profilePhoto"/>
+                          <th:block th:if="${not #strings.isEmpty(member.profileImg)}">
+                              <img th:src="|@{/}thumb/${member.profileImg}" alt="profile" class="addProf" id="profilePhoto"/>
                           </th:block>
-                          <th:block th:unless="${not #strings.isEmpty(user.profileImg)}">
+                          <th:block th:unless="${not #strings.isEmpty(member.profileImg)}">
                               <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile" class="addProf" id="profilePhoto"/>
                           </th:block>
                       </th:block>
                       <th:block th:unless="${#strings.equals(myName, username)}"></th:block>
-                          <th:block th:if="${not #strings.isEmpty(user.profileImg)}">
+                          <th:block th:if="${not #strings.isEmpty(member.profileImg)}">
                               <img th:src="|@{/}thumb/${user.profileImg}" alt="profile" id="profilePhoto"/>
                           </th:block>
-                          <th:block th:unless="${not #strings.isEmpty(user.profileImg)}">
+                          <th:block th:unless="${not #strings.isEmpty(member.profileImg)}">
                               <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile" id="profilePhoto"/>
                           </th:block>
                       </div>
@@ -47,15 +47,15 @@
                               게시물<span>[[${post}]]</span>
                           </li>
                           <li>
-                              <a id="followModal">팔로워<span>[[${myFollower}]]</span></a>
+                              <a id="followModal">팔로워<span>[[${myFollowing}]]</span></a>
                           </li>
                           <li>
-                              <a id="followingModal">팔로잉<span>[[${myFollowing}]]</span></a>
+                              <a id="followingModal">팔로잉<span>[[${myFollower}]]</span></a>
                           </li>
                       </ul>
                       <p class="pAbout">
                           <span class="notice">
-                              [[${user.profileText}]]
+                              [[${member.profileText}]]
                           </span>
                       </p>
                   </div>
@@ -92,7 +92,7 @@
                         <li><a href="#" class="fClose"><span>즐겨찾기에 추가</span><i class="fa-regular fa-star"></i></a></li>
                         <li><a href="#" class="fClose"><span>일시 차단</span><i class="fa-solid fa-chevron-right"></i></a></li>
                         <li><a href="#" class="fClose"><span>제한</span><i class="fa-solid fa-chevron-right"></i></a></li>
-                        <li><a th:href="@{/profile/follow (type=insert, userName=${username}, myName=${myName})}" id="unFollow" class="fClose">팔로우 취소</a></li>
+                        <li><a th:href="@{/profile/follow (type=delete, userName=${username}, myName=${myName})}" id="unFollow" class="fClose">팔로우 취소</a></li>
                     </ul>
                 </div>
             </div>

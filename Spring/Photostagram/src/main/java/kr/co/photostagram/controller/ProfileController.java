@@ -33,19 +33,16 @@ public class ProfileController {
     @GetMapping(value = {"profile", "profile/index"})
     public String index(Principal principal, Model model, String username) {
 
-
-
         /*** 사용자 이름, 넘버 ***/
         String myName = principal.getName();
 
-
         // modal 팝업창 로그인정보 불러오기
-        MemberVO member =  service.selectMember(myName);
-        log.info("user_no : "+member.getNo());
+        MemberVO user =  service.selectMember(username);
+        log.info("user_no : "+user.getNo());
 
-        int userNo = member.getNo();      // user.no
-
-        MemberVO user = service.selectMember(username);
+        MemberVO member = service.selectMember(myName);
+        int myNo = member.getNo();      // 현재 로그인 된 사용자 번호
+        int pageNo = user.getNo();      // 프로필 페이지 사용자 번호
 
         /*
         if (principal != null){
@@ -56,7 +53,7 @@ public class ProfileController {
          */
         
         /*** 사용자 게시물 ***/
-        List<PostVO> posts = service.selectPosts(userNo);
+        List<PostVO> posts = service.selectPosts(pageNo);
 
         Map<Integer, String> map = new HashMap<>();
 
@@ -67,9 +64,9 @@ public class ProfileController {
         }
 
         /*** 게시물, 팔로워, 팔로잉 ***/
-        int post = service.selectCountPost(userNo);
-        int myFollower = service.selectCountFollower(userNo);
-        int myFollowing = service.selectCountFollowing(userNo);
+        int post = service.selectCountPost(pageNo);
+        int myFollower = service.selectCountFollower(pageNo);
+        int myFollowing = service.selectCountFollowing(pageNo);
 
         /*** 팔로워 팔로잉 버튼 ***/
         int following = service.selectMember(username).getNo();
