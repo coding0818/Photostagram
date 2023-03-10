@@ -158,14 +158,22 @@ public class MainService {
         return result;
     }
 
-    @Transactional
     public List<MemberVO> selectUser(SearchListVO vo) {
         List<MemberVO> result = dao.selectUser(vo.getSearchItem());
         return  result;
     }
 
     public List<SearchListVO> selectSearchItemRecent(int user_no){
-        return dao.selectSearchItemRecent(user_no);
+        List<SearchListVO> searchList = dao.selectSearchCate(user_no);
+        for(SearchListVO sl : searchList){
+            if(sl.getCate() == 1){
+                // 검색 항목이 계정일 때
+
+            }else{
+                // 검색 항목이 해시태그일 때
+            }
+        }
+        return searchList;
     }
 
     @Transactional
