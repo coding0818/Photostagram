@@ -25,7 +25,7 @@
     <select id="selectArticles" resultMap="selectArticleResultMap">
         SELECT a.* , b.thumb , c.username  FROM `post` AS a
         JOIN `image` AS b
-            ON b.no = a.no
+            ON b.post_no = a.no
         JOIN `user`  AS c
             ON c.no = a.user_no
         ORDER BY `no` DESC;
