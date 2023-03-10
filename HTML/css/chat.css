@@ -449,3 +449,167 @@ li > img{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+/* 채팅 내역 화면 구현 */
+.right-1{
+    width: 520px;
+    height: 100%;
+    display: flex;
+    float: right;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #dbdbdb;
+}
+
+.chat-head{
+    align-items: stretch;
+    border: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    font: inherit;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    vertical-align: baseline;
+    width: 519px;
+}
+
+.chat-head-1{
+    background-color: rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(219, 219, 219);
+    border-right: 1px solid rgb(219, 219, 219);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: 16px;
+    font-weight: 600;
+    height: 60px;
+    padding: 0 20px;
+    width: 100%;
+    z-index: 2;
+}
+
+.chat-head-2{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: inherit;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.chat-head-3{
+    display: flex;
+    flex-direction: row;
+    margin-right: 8px;
+    flex-basis: 0px;
+}
+
+.chat-head-4{
+    text-align: left;
+    color: rgb(38, 38, 38);
+    display: inline-block;
+    flex-basis: 0px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chat-head-5{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.chat-head-6{
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 0 0 auto;
+    margin-left: 8px;
+    box-sizing: border-box;
+}
+
+.chat-head-7{
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-color: rgb(250, 250, 250);
+    flex-shrink: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    box-sizing: border-box;
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%
+}
+
+.chat-head-8{
+    width: 100%;
+    height: 100%;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    border: 0 0 0 0;
+    vertical-align: baseline;
+}
+
+.chat-head-name{
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 0 1 auto;
+    margin-left: 12px;
+    min-width: 0px;
+    box-sizing: border-box;
+}
+
+.chat-head-name-1{
+    display: flex;
+    height: 40px;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.chat-head-name-2{
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+}
+
+.chat-head-name-3{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgb(38, 38, 38);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    margin: -6px 0 -6px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
