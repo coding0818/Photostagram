@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.Map;
@@ -77,7 +78,7 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping("/terms")
-    public Map<String, Integer> terms(@RequestBody MemberVO vo){
+    public Map<String, Integer> terms(@Valid @RequestBody MemberVO vo){
         log.info("TermsController...");
         System.out.println("vo = " + vo);
         int result = service.insertMember(vo);
