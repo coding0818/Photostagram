@@ -75,7 +75,6 @@ public class IndexController {
     // 좋아요 클릭 시
     @PostMapping("ArticleLikeAdd")
     @ResponseBody
-    @Transactional
     public Map ArticleLike(@RequestBody PostVO vo){
         int result = 0;
         result = service.insertArticleLikeAdd(vo);
@@ -91,7 +90,6 @@ public class IndexController {
     // 좋아요 취소 시
     @PostMapping("DeleteArticleLike")
     @ResponseBody
-    @Transactional
     public Map deleteArticleLike(@RequestBody PostVO vo){
         int result = 0;
         result = service.deleteArticleLike(vo);
