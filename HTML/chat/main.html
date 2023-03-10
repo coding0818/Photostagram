@@ -62,9 +62,18 @@
       });
     </script>
     <script>
-      $(function(){
-        
+     $(function(){
+      $("#confirm").click(function(){
+        $("#overlay").css('display', 'flex').hide().fadeIn();
       });
+      $(document).on("click", function(e){  
+        if( $("#overlay").is(e.target)) {
+         $("#overlay").css({ visibility:"hidden", 
+                                     opacity:0 });
+    }
+  });
+     });
+     
     </script>
 </head>
 <body>
@@ -807,7 +816,7 @@
   </div>
 
   <!--메시지 보내기 모달-->
-<div class="new-wrap">
+<div id="overlay" class="new-wrap">
   <div class="new-content">
     <div class="new-head">
       <div class="new-head-close">
