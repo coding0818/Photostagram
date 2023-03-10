@@ -184,4 +184,12 @@ public class MainService {
             return dao.insertSearchItem(vo);
         }
     }
+
+    public int deleteSearch(int no){
+        return dao.deleteSearch(no);
+    }
+
+    public int deleteSearchAll(int user_no){
+        return dao.deleteSearchAll(user_no);
+    }
 }

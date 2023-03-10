@@ -24,4 +24,6 @@ public interface MainDAO {
     public int selectCountHashTag(int hashtag_no);
     public int selectSearchResult(@Param("cate") int cate, @Param("searchResult") int searchResult);
     public List<SearchListVO> selectSearchItemRecentUser(int user_no);
+    public int deleteSearch(int no);
+    public int deleteSearchAll(int user_no);
 }

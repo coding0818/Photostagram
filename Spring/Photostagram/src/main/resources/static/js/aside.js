@@ -389,9 +389,6 @@ function uploadFiles(e){
                                 searchResult += "<div><h3>#"+i.hashtag+"</h3></div>";
                                 searchResult += "<div><h8>게시물"+i.countPost+"개</h8></div>";
                                 searchResult += "</div>";
-                                searchResult += "<div>";
-                                searchResult += "<button><img src=./img/aside_x.PNG></button>";
-                                searchResult += "</div>";
                                 searchResult += "</a>";
                                 searchResult += "</div>";
 
@@ -464,9 +461,6 @@ function uploadFiles(e){
                                     searchResult += "<div><h8></h8></div>";
                                 }
                                 searchResult += "</div>";
-                                searchResult += "<div>";
-                                searchResult += "<button><img src=./img/aside_x.PNG></button>";
-                                searchResult += "</div>";
                                 searchResult += "</a>";
                                 searchResult += "</div>";
 
@@ -512,6 +506,40 @@ function uploadFiles(e){
 
     // 검색 삭제 버튼 클릭시
     $('.searchDelete').on('click', function(){
+        let searchNoDiv = $(this).closest('div');
+        let searchNo = searchNoDiv.attr('data-searchNo');
+        let searchList = $(this).parent().parent();
+        console.log('searchNo : '+searchNo);
 
+        let jsonData = {"searchNo":searchNo};
+
+        $.ajax({
+            url:'/Photostagram/deleteSearch',
+            method:'POST',
+            data:jsonData,
+            dataType:'json',
+            success:function(data){
+                if(data.result > 0){
+                    console.log(searchList);
+                    searchList.remove();
+                }
+            }
+        });
+    });
+
+    $('#deleteSearchAll').on('click', function(){
+        let user_no = $('input[name=user_no]').val();
+
+        let jsonData = {"user_no":user_no};
+
+        $.ajax({
+            url:'/Photostagram/deleteSearchAll',
+            method:'POST',
+            data:jsonData,
+            dataType:'json',
+            success:function(data){
+                $('.searchListAll').hide();
+            }
+        });
     });
   });

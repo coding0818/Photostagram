@@ -52,8 +52,17 @@
     <select id="selectSearchItemRecentUser" resultType="kr.co.photostagram.vo.SearchListVO">
         SELECT a.*, b.username, b.profileImg, b.profileText, c.hashtag
         FROM `searchList` AS a
-        JOIN `user` AS b ON a.searchResult=b.`no`
-        JOIN `hashtag` AS c ON a.searchResult=c.`no`
-        WHERE `user_no`=#{user_no};
+        left JOIN `user` AS b ON a.searchResult=b.`no`
+        left JOIN `hashtag` AS c ON a.searchResult=c.`no`
+        WHERE `user_no`=#{user_no}
+        ORDER BY `rdate` DESC;
     </select>
+    <!--검색기록 삭제-->
+    <delete id="deleteSearch">
+        delete from `searchList` where `no`=#{no};
+    </delete>
+    <!--검색기록 모두 삭제-->
+    <delete id="deleteSearchAll">
+        delete from `searchList` where `user_no`=#{user_no};
+    </delete>
 </mapper>
