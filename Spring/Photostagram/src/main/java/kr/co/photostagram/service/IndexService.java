@@ -20,6 +20,7 @@ public class IndexService {
         return dao.insertComment(vo);
     }
 
+    public List<PostVO> selectLikeConfirm() {return dao.selectLikeConfirm(); }
     public List<PostVO> selectArticles(){
         return dao.selectArticles();
     }

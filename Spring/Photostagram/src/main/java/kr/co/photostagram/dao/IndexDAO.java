@@ -15,6 +15,7 @@ public interface IndexDAO {
     public int deleteArticleLike(PostVO vo);
 
     public int insertComment(CommentVO vo);
+    public List<PostVO>selectLikeConfirm();
     public List<PostVO> selectArticles();
     public List<CommentVO> selectComment();
 
