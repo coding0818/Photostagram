@@ -37,6 +37,9 @@ public class ProfileService {
 
     public ImageVO selectThumb(int postNo) {return dao.selectThumb(postNo);}
 
+    public List<MemberVO> selectFollowers(int no) {return dao.selectFollowers(no);}
+    public List<MemberVO> selectFollowings(int no) {return dao.selectFollowings(no);}
+
     /*** 게시물, 팔로워, 팔로잉 카운트 ***/
 
     public int selectCountPost(int no) {return dao.selectCountPost(no);}

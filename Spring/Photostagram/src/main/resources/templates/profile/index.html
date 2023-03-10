@@ -103,21 +103,21 @@
                         <span class="closeFollow">&times;</span>
                     </div>
                     <ul class="fList">
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <th:block th:each="follower:${myFollowers}">
+                            <li>
+                                <a th:href="@{/profile (username=${follower.username})}">
+                                    <div>
+                                        <th:block th:if="${not #strings.isEmpty(follower.profileImg)}">
+                                            <img th:src="|@{/}thumb/${follower.profileImg}" alt="profile">
+                                        </th:block>
+                                        <th:block th:unless="${not #strings.isEmpty(follower.profileImg)}">
+                                            <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile">
+                                        </th:block>
+                                    </div>
+                                    <h1>[[${follower.username}]]</h1>
+                                </a>
+                            </li>
+                        </th:block>
                     </ul>
                 </div>
             </div>
@@ -128,21 +128,33 @@
                         <span class="closeFollowing">&times;</span>
                     </div>
                     <ul class="fList">
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
-                        <li><a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"><h1>username</h1></a></li>
+                        <th:block th:each="map:${followingMap}">
+                            <th:block th:each="following:${map.key}">
+                                <li>
+                                    <a th:href="@{/profile (username=${following.username})}">
+                                        <div>
+                                            <th:block th:if="${not #strings.isEmpty(following.profileImg)}">
+                                                <img th:src="|@{/}thumb/${following.profileImg}" alt="profile">
+                                            </th:block>
+                                            <th:block th:unless="${not #strings.isEmpty(following.profileImg)}">
+                                                <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile">
+                                            </th:block>
+                                        </div>
+                                        <h1>[[${following.username}]]</h1>
+                                    </a>
+                                    <th:block th:if="${map.value == 0}">
+                                        <a href="#" class="aFloatRight">
+                                            팔로워
+                                        </a>
+                                    </th:block>
+                                    <th:block th:unless="${map.value == 0}">
+                                        <a href="#" class="aFloatRight">
+                                            팔로잉
+                                        </a>
+                                    </th:block>
+                                </li>
+                            </th:block>
+                        </th:block>
                     </ul>
                 </div>
             </div>

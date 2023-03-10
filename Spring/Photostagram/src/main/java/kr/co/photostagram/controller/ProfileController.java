@@ -41,38 +41,62 @@ public class ProfileController {
         int myNo = user.getNo();          // 현재 로그인 된 사용자 번호
         int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
 
-        /*
-        if (principal != null){
-            System.out.println("name :"+ principal.getName());
-        } else {
-            System.out.println("noUser");
-        }
-         */
-        
         /*** 사용자 게시물 ***/
-        List<PostVO> posts = service.selectPosts(pageNo);
+        List<PostVO> posts = service.selectPosts(pageNo);           // 게시물 목록
+        Map<Integer, String> map = new HashMap<>();                 // 맵 생성
 
-        Map<Integer, String> map = new HashMap<>();
-
-        for (int i=0; i<posts.size(); i++){
-            int postNo = posts.get(i).getNo();
-            String thumb = service.selectThumb(postNo).getThumb();
-            map.put(postNo, thumb);
+        for (int i=0; i<posts.size(); i++){                         // 게시물 갯수만큼 반복
+            int postNo = posts.get(i).getNo();                      // 게시물 번호
+            String thumb = service.selectThumb(postNo).getThumb();  // 게시물 당 첫번째 사진 불러오기 (`image` 내에서 같은 `post_no` 중 가장 작은 `no`값의 `thumb`)
+            map.put(postNo, thumb);                                 // 게시물 번호(key) + 게시물 썸네일 (value)로 맵에 전달
         }
-
-        /*** 게시물, 팔로워, 팔로잉 ***/
-        int post = service.selectCountPost(pageNo);
-        int myFollower = service.selectCountFollower(pageNo);
-        int myFollowing = service.selectCountFollowing(pageNo);
-
-        /*** 팔로워 팔로잉 버튼 ***/
-        int following = service.selectMember(username).getNo();
-        int follower = service.selectMember(myName).getNo();
-        int result = service.searchFollowing(follower, following);  // 로그인 사용자가 현재 페이지 사용자를 팔로잉 했는지 여부 (0 = 하지않음, 1 = 함)
 
         /*** 게시물 최신 순으로 정렬 ***/
-        Map<Integer, String> sortMap = new TreeMap<>(Comparator.reverseOrder());
-        sortMap.putAll(map);
+        Map<Integer, String> sortMap = new TreeMap<>(Comparator.reverseOrder());    // 게시물 번호(key) 기준으로 역순 정렬
+        sortMap.putAll(map);                                                        // 새로운 맵에 put
+
+        /*** 게시물, 팔로워, 팔로잉 ***/
+        int post = service.selectCountPost(pageNo);                 // 게시물 갯수
+        int myFollower = service.selectCountFollower(pageNo);       // 팔로워 수
+        int myFollowing = service.selectCountFollowing(pageNo);     // 팔로잉 하는 수
+
+        List<MemberVO> myFollowers = service.selectFollowers(pageNo);   // 팔로워 목록
+        List<MemberVO> myFollowings = service.selectFollowings(pageNo); // 팔로잉 목록
+
+        /*** 팔로잉 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
+        int[] followingArray = new int [myFollowings.size()];
+        Map<MemberVO, Integer> followingMap = new HashMap<>();
+
+        for (int i=0; i<myFollowings.size(); i++){
+            MemberVO currentUser = service.selectMember(myFollowings.get(i).getUsername());
+            followingArray[i] = currentUser.getNo();
+            int j = service.searchFollowing(myNo, followingArray[i]);
+
+            followingMap.put(currentUser, j);
+            //System.out.println("service1 : "+ j);
+            //System.out.println("array1 : "+ followingArray[i]);
+        }
+
+
+
+        /*** 현재 페이지 사용자와 로그인 사용자가 다른 경우에만 수행 ***/
+
+        int result = 0;
+
+        /*** 팔로워 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
+        if (!username.equals(myName)){
+            int[] followerArray = new int[myFollowers.size()];
+            for (int i=0; i<myFollowers.size(); i++){
+                followerArray[i] = service.selectMember(myFollowers.get(i).getUsername()).getNo();
+                int j = service.searchFollowing(myNo, followerArray[i]);
+                System.out.println("service2 : "+ j);
+            }
+            System.out.println("array2 : "+ followerArray);
+
+            /*** 팔로워 팔로잉 버튼 ***/
+            result = service.searchFollowing(myNo, pageNo);  // 로그인 사용자가 현재 페이지 사용자를 팔로잉 했는지 여부 (0 = 하지않음, 1 = 함)
+        }
+
 
 
         // 검색기록 요청
@@ -87,9 +111,12 @@ public class ProfileController {
         model.addAttribute("myName", myName);
         model.addAttribute("post", post);
         model.addAttribute("myFollower", myFollower);
+        model.addAttribute("myFollowers", myFollowers);
         model.addAttribute("myFollowing", myFollowing);
+        model.addAttribute("myFollowings", myFollowings);
         model.addAttribute("result", result);
         model.addAttribute("sortMap", sortMap);
+        model.addAttribute("followingMap", followingMap);
         return "profile/index";
     }
 

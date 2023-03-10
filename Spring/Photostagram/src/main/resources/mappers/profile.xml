@@ -27,6 +27,19 @@
             ORDER BY `no` ASC LIMIT 1;
     </select>
 
+    <select id="selectFollowers" resultType="kr.co.photostagram.vo.MemberVO">
+        SELECT * FROM `follow` AS a
+            JOIN `user` AS b
+            ON a.`follower` = b.`no`
+            WHERE `following`=#{no};
+    </select>
+    <select id="selectFollowings" resultType="kr.co.photostagram.vo.MemberVO">
+        SELECT * FROM `follow` AS a
+            JOIN `user` AS b
+            ON a.`following` = b.`no`
+            WHERE `follower`=#{no};
+    </select>
+
     <select id="selectCountPost" resultType="int">
         SELECT COUNT(*) FROM `post` WHERE `user_no`=#{no};
     </select>
