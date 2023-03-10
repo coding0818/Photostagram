@@ -10,6 +10,7 @@ import kr.co.photostagram.vo.SearchListVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,15 +64,44 @@ public class IndexController {
         int result = 0;
         result = service.insertComment(vo);
 
-        log.info(" result =====================> " + result);
+        log.info(" 댓글 result =====================> " + result);
 
         Map map = new HashMap();
         map.put("result", result);
 
         return map;
     }
-    @PostMapping("ArticleLike")
-    public void ArticleLike(){
-        
+
+    // 좋아요 클릭 시
+    @PostMapping("ArticleLikeAdd")
+    @ResponseBody
+    @Transactional
+    public Map ArticleLike(@RequestBody PostVO vo){
+        int result = 0;
+        result = service.insertArticleLikeAdd(vo);
+        log.info(" =============================== ");
+        log.info("     좋아요 result : " + result);
+        log.info(" =============================== ");
+        Map map = new HashMap();
+        map.put("result", result);
+
+        return map;
+    }
+
+    // 좋아요 취소 시
+    @PostMapping("DeleteArticleLike")
+    @ResponseBody
+    @Transactional
+    public Map deleteArticleLike(@RequestBody PostVO vo){
+        int result = 0;
+        result = service.deleteArticleLike(vo);
+
+        log.info(" =============================== ");
+        log.info("     좋아요 취소 : " + result);
+        log.info(" =============================== ");
+        Map map = new HashMap();
+        map.put("result", result);
+
+        return map;
     }
 }

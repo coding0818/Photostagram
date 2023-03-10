@@ -10,8 +10,10 @@
             `rdate`= NOW();
     </insert>
 
-    <insert id="insertLike">
-
+    <insert id="insertArticleLikeAdd">
+        INSERT INTO `post_like` SET
+            `post_no` = #{no},
+            `user_no` = #{user_no};
     </insert>
 
     <select id="selectComment" resultType="kr.co.photostagram.vo.CommentVO">
@@ -28,6 +30,13 @@
             ON c.no = a.user_no
         ORDER BY `no` DESC;
     </select>
+
+    <delete id="deleteArticleLike">
+        DELETE FROM `post_like`
+        WHERE
+        `post_no` = #{no} AND
+        `user_no` = #{user_no};
+    </delete>
 
     <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">
         <id column="no" property="no"/>
