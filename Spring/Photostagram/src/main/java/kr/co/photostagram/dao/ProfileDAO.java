@@ -25,6 +25,9 @@ public interface ProfileDAO {
 
     public ImageVO selectThumb(int postNo);
 
+    public List<MemberVO> selectFollowers (int no);
+    public List<MemberVO> selectFollowings (int no);
+
     /*** 게시물, 팔로워, 팔로잉 수 count ***/
 
     public int selectCountPost(int no);
