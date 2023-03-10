@@ -15,14 +15,14 @@
                 </div>
                 <div class="detail">
                     <div class="pTop">
-                        <div class="userName">#서면네일</div>
+                        <div class="userName">#[[${hashtagName}]]</div>
                     </div>
                     <ul class="pMiddle">
                         <li>
-                            게시물<span>1</span>
+                            게시물<span>[[${countHashTag}]]</span>개
                         </li>
                     </ul>
-                    <input type="button" class="followBtn" value="팔로우">
+                    <!--<input type="button" class="followBtn" value="팔로우">-->
                 </div>
             </div>
 
@@ -81,51 +81,18 @@
                 <div>최근 사진</div>
             </div>
             <div class="myList">
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
+                <th:block th:if="${#lists.isEmpty(posts)}">
+                    <div class="pic">
+                        게시물이 없습니다.
+                    </div>
+                </th:block>
+                <th:block th:unless="${#lists.isEmpty(posts)}" th:each="post:${posts}">
+                    <div class="pic">
+                        <a href="#">
+                            <img th:src="@{/img/300x300-1.png}">
+                        </a>
+                    </div>
+                </th:block>
             </div>
         </section>
     </div>
