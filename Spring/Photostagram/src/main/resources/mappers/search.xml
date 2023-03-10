@@ -3,6 +3,50 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.photostagram.dao.SearchDAO">
+    <!--해시태그-포스트 개수-->
+    <select id="selectPostNums" resultType="int">
+        select `post_no` from `post_hashtag` where `hashtag_no`=#{hashtag_no};
+    </select>
+    <!--해시태그가 있는 포스트 모두 조회-->
+    <select id="selectPostsByHashTag" resultMap="selectPostsResultMap">
+        SELECT * FROM `post` AS a
+        JOIN `image` AS b ON a.`no`=b.post_no
+        WHERE a.`no`=#{no};
+    </select>
 
+    <resultMap id="selectPostsResultMap" type="kr.co.photostagram.vo.PostVO">
+        <id column="no" property="no"></id>
+        <result column="content" property="content"></result>
+        <result column="user_no" property="user_no"></result>
+        <result column="rdate" property="rdate"></result>
 
+        <association property="imageVO" javaType="kr.co.photostagram.vo.ImageVO">
+            <id column="no" property="no"></id>
+            <result column="thumb" property="thumb"></result>
+            <result column="post_no" property="post_no"></result>
+        </association>
+        <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">
+            <id column="no" property="no"/>
+            <result column="username" property="username"/>
+            <result column="name" property="name"/>
+            <result column="password" property="password"/>
+            <result column="email" property="email"/>
+            <result column="profileImg" property="profileImg"/>
+            <result column="profileText" property="profileText"/>
+            <result column="gender" property="gender"/>
+            <result column="birth" property="birth"/>
+        </association>
+        <association property="commentVO" javaType="kr.co.photostagram.vo.CommentVO">
+            <id column="no" property="no"/>
+            <result column="comment" property="comment"/>
+            <result column="post_no" property="post_no"/>
+            <result column="user_no" property="user_no"/>
+            <result column="parent" property="parent"/>
+            <result column="rdate" property="rdate"/>
+        </association>
+    </resultMap>
+    <!--해시태그가 이름 조회-->
+    <select id="selectHashTagName" resultType="string">
+        select `hashtag` from `hashtag` where `no`=#{no};
+    </select>
 </mapper>
