@@ -77,8 +77,8 @@ public class MemberController {
     @PostMapping("/terms")
     public Map<String, Integer> terms(@Valid @RequestBody MemberVO vo, BindingResult error){
         log.info("TermsController...");
-        System.out.println("vo = " + vo);
-        System.out.println("error = " + error.hasErrors());
+//        System.out.println("vo = " + vo);
+//        System.out.println("error = " + error.hasErrors());
 
         int result = 0;
 
@@ -88,19 +88,11 @@ public class MemberController {
         }else{
             log.info("errors occurred");
         }
+//        System.out.println("result = " + result);
 
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
         return resultMap;
-    }
-
-    @PostMapping("/testTerms")
-    public String testTerms(@Valid @RequestBody MemberVO vo, BindingResult error){
-        log.info("testTe!!!");
-        System.out.println("vo = " + vo);
-        System.out.println("error = " + error.hasErrors());
-
-        return "member/login";
     }
 
     @GetMapping("/checkId")
