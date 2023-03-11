@@ -4,6 +4,21 @@
        layout:decorate="layout/memberLayout">
 <th:block layout:fragment="main">
 <main class="member">
+    <script>
+        window.onload = pageLoad;
+        function pageLoad(){
+            // alert("hi email!!!");
+            let userData = sessionStorage.getItem("user");
+            let user = JSON.parse(userData);
+            console.log(user);
+
+            let email = user.email;
+            console.log(email);
+
+            
+
+        }
+    </script>
     <div class="container">
         <div class="main-container">
             <div class="main-content">
