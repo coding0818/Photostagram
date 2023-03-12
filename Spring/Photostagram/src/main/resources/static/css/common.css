@@ -37,13 +37,6 @@ body {
   height: 22px;
 }
 
-.sprite_full_heart_icon_outline {
-  display: inline-block;
-  background: url("../img/background01.png") no-repeat -26px -261px;
-  width: 24px;
-  height: 22px;
-}
-
 .sprite_small_search_icon {
   display: inline-block;
   background: url("../img/background01.png") no-repeat -337px -246px;
@@ -101,6 +94,15 @@ body {
   float: right;
 }
 
+.sprite_full_small_heart_icon_outline {
+  display: inline-block;
+  background: url(../img/background01.png) no-repeat -323px -287px;
+  width: 12px;
+  height: 11px;
+  cursor: pointer;
+  float: right;
+}
+
 .sprite_camera_icon {
   display: inline-block;
   background: url("../img/background01.png") no-repeat -271px -104px;
@@ -136,7 +138,7 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 5;
+  z-index: 9999;
   border-bottom: 1px solid rgba(0, 0, 0, 0.0975);
   background: #fff;
   display: flex;
