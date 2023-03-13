@@ -67,56 +67,38 @@
         `comment_no` = #{comment_no};
     </delete>
 
-<!--    <resultMap type="kr.co.photostagram.vo.PostVO" id="joinVO">-->
-<!--        <result column="" property="no"/>-->
-<!--        <result column="" property="content"/>-->
-<!--        <result column="" property="rdate"/>-->
-<!--        <result column="" property="files"/>-->
-<!--        <result column="" property="urls"/>-->
-<!--        <collection resultMap="" property=""/>-->
-<!--    </resultMap>-->
+    <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">
+        <id column="no" property="no"></id>
+        <result column="content" property="content"></result>
+        <result column="user_no" property="user_no"></result>
+        <result column="like" property="like"></result>
+        <result column="rdate" property="rdate"></result>
 
-<!--    <resultMap type="kr.co.photostagram.vo.MemberVO" id="member">-->
-<!--        <result column="" property="no"/>-->
-<!--        <result column="" property="username"/>-->
-<!--        <result column="" property="name"/>-->
-<!--        <result column="" property="password"/>-->
-<!--        <result column="" property="email"/>-->
-<!--        <result column="" property="profileImg"/>-->
-<!--        <result column="" property="profileText"/>-->
-<!--        <result column="" property="profilePhone"/>-->
-<!--        <result column="" property="gender"/>-->
-<!--        <result column="" property="birth"/>-->
-<!--        <result column="" property="profile_img"/>-->
-<!--        <result column="" property="profile_phone"/>-->
-<!--    </resultMap>-->
-
-<!--    <resultMap type="kr.co.photostagram.vo.ImageVO" id="img">-->
-<!--        <result column="" property="no"/>-->
-<!--        <result column="" property="thumb"/>-->
-<!--        <result column="" property="post_no"/>-->
-<!--    </resultMap>-->
-
-<!--    <resultMap type="kr.co.photostagram.vo.CommentVO" id="comment">-->
-<!--        <result column="no" property="no"/>-->
-<!--        <result column="comment" property="comment"/>-->
-<!--        <result column="post_no" property="post_no"/>-->
-<!--        <result column="user_no" property="user_no"/>-->
-<!--        <result column="parent" property="parent"/>-->
-<!--        <result column="rdate" property="rdate"/>-->
-<!--    </resultMap>-->
-
-<!--    <resultMap type="kr.co.photostagram.vo.Comment_likeVO" id="commentlike">-->
-<!--        <result column="no" property="no"/>-->
-<!--        <result column="user_no" property="user_no"/>-->
-<!--        <result column="comment_no" property="comment_no"/>-->
-<!--    </resultMap>-->
-
-<!--    <resultMap type="kr.co.photostagram.vo.Post_likeVO" id="postlike">-->
-<!--        <result column="no" property="no"/>-->
-<!--        <result column="post_no" property="post_no"/>-->
-<!--        <result column="user_no" property="user_no"/>-->
-<!--    </resultMap>-->
+        <association property="imageVO" javaType="kr.co.photostagram.vo.ImageVO">
+            <id column="no" property="no"></id>
+            <result column="thumb" property="thumb"></result>
+            <result column="post_no" property="post_no"></result>
+        </association>
+        <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">
+            <id column="no" property="no"/>
+            <result column="username" property="username"/>
+            <result column="name" property="name"/>
+            <result column="password" property="password"/>
+            <result column="email" property="email"/>
+            <result column="profileImg" property="profileImg"/>
+            <result column="profileText" property="profileText"/>
+            <result column="gender" property="gender"/>
+            <result column="birth" property="birth"/>
+        </association>
+        <association property="commentVO" javaType="kr.co.photostagram.vo.CommentVO">
+            <id column="no" property="no"/>
+            <result column="comment" property="comment"/>
+            <result column="post_no" property="post_no"/>
+            <result column="user_no" property="user_no"/>
+            <result column="parent" property="parent"/>
+            <result column="rdate" property="rdate"/>
+        </association>
+    </resultMap>
 
     <!--
     <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">
@@ -163,7 +145,8 @@
             <result column="post_no" property="post_no"/>
             <result column="user_no" property="user_no"/>
         </collection>
-        -->
+
     </resultMap>
+    -->
 
 </mapper>
