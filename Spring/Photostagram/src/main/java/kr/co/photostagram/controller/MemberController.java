@@ -1,5 +1,6 @@
 package kr.co.photostagram.controller;
 
+import kr.co.photostagram.service.MailService;
 import kr.co.photostagram.service.MemberService;
 import kr.co.photostagram.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,9 @@ public class MemberController {
 
     @Autowired
     public MemberService service;
+
+    @Autowired
+    public MailService mailService;
 
     @GetMapping("/login")
     public String login(){
@@ -65,6 +69,28 @@ public class MemberController {
     @GetMapping("/email")
     public String email(){
         return "member/email";
+    }
+
+    @ResponseBody
+    @PostMapping("/sendEmail")
+    public Map<String, Integer> sendEmail(@RequestParam String email) throws Exception{
+        log.info("Email Auth...");
+        System.out.println("email = " + email);
+        int result = 0;
+
+        int confirm = mailService.sendEmail(email);
+        System.out.println("confirm = " + confirm);
+
+        if(confirm != 0){
+            result = 1;
+        }
+        System.out.println("result = " + result);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+        resultMap.put("confirm", confirm);
+
+        return resultMap;
     }
 
     @GetMapping("/terms")
