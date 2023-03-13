@@ -179,5 +179,19 @@ public class ProfileController {
         return "redirect:/profile?username="+userName;
     }
 
+    @GetMapping("profile/modal/follow")
+    public String modalFollow(String type, String pageName, String userName, String myName){
+        int following = service.selectMember(userName).getNo();
+        int follower = service.selectMember(myName).getNo();
+
+        if (("insert").equals(type)) {
+            service.insertFollowing(follower, following);
+        } else {
+            service.deleteFollowing(follower, following);
+        }
+
+        return "redirect:/profile?username="+pageName;
+    }
+
 
 }

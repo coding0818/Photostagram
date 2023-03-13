@@ -129,7 +129,7 @@
                     </div>
                     <ul class="fList">
                         <th:block th:each="map:${followingMap}">
-                            <th:block th:each="following:${map.key}">
+                            <th:block th:each="following,index:${map.key}">
                                 <li>
                                     <a th:href="@{/profile (username=${following.username})}">
                                         <div>
@@ -143,12 +143,12 @@
                                         <h1>[[${following.username}]]</h1>
                                     </a>
                                     <th:block th:if="${map.value == 0}">
-                                        <a href="#" class="aFloatRight">
-                                            팔로워
+                                        <a th:href="@{/profile/modal/follow (type=insert, pageName=${username}, userName=${following.username}, myName=${myName})}" class="aFloatRight userFollow">
+                                            팔로우
                                         </a>
                                     </th:block>
                                     <th:block th:unless="${map.value == 0}">
-                                        <a href="#" class="aFloatRight">
+                                        <a th:href="@{/profile/modal/follow (type=delete, pageName=${username}, userName=${following.username}, myName=${myName})}" class="aFloatRight userFollowing">
                                             팔로잉
                                         </a>
                                     </th:block>
