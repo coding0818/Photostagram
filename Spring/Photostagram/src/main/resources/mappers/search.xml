@@ -16,13 +16,20 @@
     </select>
     <!--해시태그가 있는 포스트 중 인기게시물 9개-->
     <select id="selectPostsByLike" resultMap="selectPostsResultMap">
-
+        SELECT * FROM `post` AS a
+        JOIN `post_hashtag` AS b ON a.`no` = b.post_no
+        JOIN `hashtag` AS c ON b.hashtag_no = c.`no`
+        JOIN `image` AS d ON a.`no`=d.post_no
+        WHERE c.`no`=#{no}
+        ORDER BY a.`like` DESC
+        LIMIT 9;
     </select>
 
     <resultMap id="selectPostsResultMap" type="kr.co.photostagram.vo.PostVO">
         <id column="no" property="no"></id>
         <result column="content" property="content"></result>
         <result column="user_no" property="user_no"></result>
+        <result column="like" property="like"></result>
         <result column="rdate" property="rdate"></result>
 
         <association property="imageVO" javaType="kr.co.photostagram.vo.ImageVO">

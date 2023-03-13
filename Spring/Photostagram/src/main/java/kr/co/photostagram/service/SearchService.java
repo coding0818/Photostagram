@@ -37,4 +37,8 @@ public class SearchService {
     public String selectHashTagName(int no){
         return dao.selectHashTagName(no);
     }
+
+    public List<PostVO> selectPostsByLike(int no){
+        return dao.selectPostsByLike(no);
+    }
 }
