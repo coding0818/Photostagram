@@ -89,7 +89,7 @@
                 <th:block th:unless="${#lists.isEmpty(posts)}" th:each="post:${posts}">
                     <div class="pic">
                         <a href="#">
-                            <img th:src="@{/img/300x300-1.png}">
+                            <img th:src="@{/thumb/{img}(img=${post.imageVO.thumb})}">
                         </a>
                     </div>
                 </th:block>

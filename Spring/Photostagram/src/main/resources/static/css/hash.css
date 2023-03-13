@@ -112,7 +112,7 @@ input, textarea {outline: none;}
     overflow: hidden;
 }
 #hash > section > .myList > .pic > a {display: block;}
-#hash > section > .myList > .pic > a > img {max-width: 300px; max-height: 300px;}
+#hash > section > .myList > .pic > a > img {width: 300px; height: 300px;}
 
 
   #following {display: none;}
