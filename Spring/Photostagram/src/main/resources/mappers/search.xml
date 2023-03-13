@@ -11,7 +11,12 @@
     <select id="selectPostsByHashTag" resultMap="selectPostsResultMap">
         SELECT * FROM `post` AS a
         JOIN `image` AS b ON a.`no`=b.post_no
-        WHERE a.`no`=#{no};
+        WHERE a.`no`=#{no}
+        ORDER BY a.`rdate`;
+    </select>
+    <!--해시태그가 있는 포스트 중 인기게시물 9개-->
+    <select id="selectPostsByLike" resultMap="selectPostsResultMap">
+
     </select>
 
     <resultMap id="selectPostsResultMap" type="kr.co.photostagram.vo.PostVO">

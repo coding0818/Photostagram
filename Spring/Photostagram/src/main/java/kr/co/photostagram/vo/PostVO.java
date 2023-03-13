@@ -21,6 +21,8 @@ public class PostVO {
     private List<MultipartFile> files;
     private String urls[];
 
+    private int count;
+
     private ImageVO imageVO;
     private MemberVO memberVO;
     private CommentVO commentVO;
