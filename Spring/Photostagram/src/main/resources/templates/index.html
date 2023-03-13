@@ -175,11 +175,10 @@
               <th:block th:each="comment : ${comments}" th:if="${#strings.equals(comment.post_no,article.no)}">
                 <div class="reply_user">
                   <!------- /* 댓글 아이디, 댓글 내용 */------->
+                  <input type="hidden" class="reply_no" th:value="${comment.no}">
                   <span class="reply_nick" th:text="${comment.username}">j_hlli</span>
                   <span class="reply_content" th:text="${comment.comment}">강아지가 너무 귀여워요!</span>
-                  <span class="small_heart">
-                  <div class="sprite_small_heart_icon_outline" ></div>
-                  </span>
+                  <div class="comLike sprite_small_heart_icon_outline" th:data-no="${user.no}"></div>
                 </div>
               </th:block>
 

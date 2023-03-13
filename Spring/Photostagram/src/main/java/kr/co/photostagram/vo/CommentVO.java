@@ -17,7 +17,5 @@ public class CommentVO {
     private int parent;
     private String rdate;
 
-    //추가필드
-    private String username;
 
 }

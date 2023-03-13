@@ -37,8 +37,6 @@ public class IndexController {
         List<PostVO> articles = service.selectArticles();
         List<CommentVO> comments = service.selectComment();
         MemberVO user =  profileService.selectMember(principal.getName());
-        // 좋아요 확인용
-        List<Post_likeVO> likes = service.selectLikeConfirm();
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
 
@@ -48,11 +46,9 @@ public class IndexController {
         model.addAttribute("user", user);
         model.addAttribute("searchList", searchList);
 
-//        log.info("articles : " + articles);
+        log.info("articles : " + articles);
 //        log.info("comments : " + comments);
-        log.info("likes : " + likes);
 
-        model.addAttribute("likes", likes);
         model.addAttribute("articles", articles);
         model.addAttribute("comments", comments);
         return "index";
@@ -73,7 +69,7 @@ public class IndexController {
         return map;
     }
 
-    // 좋아요 클릭 시
+    // 게시글 좋아요 클릭 시
     @PostMapping("ArticleLikeAdd")
     @ResponseBody
     public Map ArticleLike(@RequestBody PostVO vo){
@@ -90,7 +86,7 @@ public class IndexController {
         return map;
     }
 
-    // 좋아요 취소 시
+    // 게시글 좋아요 취소 시
     @PostMapping("DeleteArticleLike")
     @ResponseBody
     public Map deleteArticleLike(@RequestBody PostVO vo){
@@ -100,6 +96,40 @@ public class IndexController {
         log.info(" =============================== ");
         log.info("     좋아요 취소 : " + result);
         log.info(" =============================== ");
+        Map map = new HashMap();
+        map.put("result", result);
+
+        return map;
+    }
+
+    // 댓글 좋아요 클릭 시
+    @PostMapping("CommentLikeAdd")
+    @ResponseBody
+    public Map CommentLike(@RequestBody Comment_likeVO vo){
+        int result = 0;
+        result = service.insertCommentLikeAdd(vo);
+
+        log.info(" =============================== ");
+        log.info("     댓글 좋아요 : " + result);
+        log.info(" =============================== ");
+
+        Map map = new HashMap();
+        map.put("result", result);
+
+        return map;
+    }
+
+    // 댓글 좋아요 취소 시
+    @PostMapping("CommentLikeDel")
+    @ResponseBody
+    public Map CommentLikeDel(@RequestBody Comment_likeVO vo){
+        int result = 0;
+        result = service.deleteCommentLike(vo);
+
+        log.info(" =============================== ");
+        log.info("     댓글 좋아요 : " + result);
+        log.info(" =============================== ");
+
         Map map = new HashMap();
         map.put("result", result);
 

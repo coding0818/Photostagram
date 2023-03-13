@@ -187,4 +187,79 @@ $(function () {
         }
       })
     })
+
+  $(document).on("click", ".sprite_small_heart_icon_outline", function(e){
+    e.preventDefault();
+
+    let article    = $(this).closest('article'); 
+    let user_no    = $(this).attr('data-no'); // 유저 번호
+    let comment_no = article.find('.reply_no').val(); // 댓글번호
+    let url        = "/Photostagram/CommentLikeAdd";
+
+    console.log("user_no : " + user_no);
+    console.log("comment_no : " + comment_no);
+
+    let jsonData = {
+      "user_no":user_no,
+      "comment_no":comment_no
+    };
+
+    $.ajax({
+      url:url,
+      method:'POST',
+      data:JSON.stringify(jsonData),
+      contentType: "application/json",
+      dataType:'json',
+      success: (data)=>{
+        if(data.result > 0){
+          if(article.find('.comLike').hasClass('sprite_small_heart_icon_outline')){
+      
+            article.find('.comLike')
+            .removeClass('sprite_small_heart_icon_outline')
+            .addClass('sprite_full_small_heart_icon_outline');
+      
+          }
+        }
+      }
+    })  
+
+  })
+  
+  $(document).on("click", ".sprite_full_small_heart_icon_outline", function(e){
+    e.preventDefault();
+
+    let article    = $(this).closest('article'); 
+    let user_no    = $(this).attr('data-no'); // 유저 번호
+    let comment_no = article.find('.reply_no').val(); // 댓글번호
+    let url        = "/Photostagram/CommentLikeDel";
+
+    console.log("user_no : " + user_no);
+    console.log("comment_no : " + comment_no);
+
+    let jsonData = {
+      "user_no":user_no,
+      "comment_no":comment_no
+    };
+
+    $.ajax({
+      url:url,
+      method:'POST',
+      data:JSON.stringify(jsonData),
+      contentType: "application/json",
+      dataType:'json',
+      success: (data)=>{
+        if(data.result > 0){
+          if(article.find('.comLike').hasClass('sprite_full_small_heart_icon_outline')){
+      
+            article.find('.comLike')
+            .removeClass('sprite_full_small_heart_icon_outline')
+            .addClass('sprite_small_heart_icon_outline');
+      
+          }
+        }
+      }
+    })  
+
+  })
+
 });
