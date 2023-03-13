@@ -192,4 +192,8 @@ public class MainService {
     public int deleteSearchAll(int user_no){
         return dao.deleteSearchAll(user_no);
     }
+
+    public List<PostVO> selectWhoLikeMe(int user_no){
+        return dao.selectWhoLikeMe(user_no);
+    }
 }

@@ -16,14 +16,14 @@ public class PostVO {
     private String content;
     private int user_no;
     private String rdate;
+    private int like;
     private List<MultipartFile> files;
-    private String urls[];
 
     private int count;
 
-    private ImageVO imageVO;
+    private List<ImageVO> imageVO;
     private MemberVO memberVO;
-    private CommentVO commentVO;
-    private Comment_likeVO comment_likeVO;
-    private Post_likeVO post_likeVO;
+    private List<CommentVO> commentVO;
+    private List<Comment_likeVO> comment_likeVO;
+    private List<Post_likeVO> post_likeVO;
 }
