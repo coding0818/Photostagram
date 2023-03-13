@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/profileLayout}">
-    <th:block layout:fragment="main">
+<th:block layout:fragment="main">
         <div id="pro">
           <section>
               <div class="myProfile">
@@ -103,7 +103,8 @@
                         <span class="closeFollow">&times;</span>
                     </div>
                     <ul class="fList">
-                        <th:block th:each="follower:${myFollowers}">
+                        <th:block th:each="map:${followerMap}">
+                            <th:block th:each="follower,index:${map.key}">
                             <li>
                                 <a th:href="@{/profile (username=${follower.username})}">
                                     <div>
@@ -116,7 +117,37 @@
                                     </div>
                                     <h1>[[${follower.username}]]</h1>
                                 </a>
+                                <th:block th:if="${#strings.equals(myName, username)}">
+                                    <a href="#" class="aFloatRight" th:data-value="${follower.username}">
+                                        <span>선택</span>
+                                    </a>
+                                </th:block>
+                                <th:block th:unless="${#strings.equals(myName, follower.username)}">
+                                    <th:block th:if="${map.value == 0}">
+                                        <a href="#" class="aFloatRight userFollow" th:data-value="${follower.username}">
+                                            <!--<img th:src="@{/img/GIF/spinner.gif}" alt="spinner"/>-->
+                                            <span>팔로우</span>
+                                            <span class="spinner"></span>
+                                        </a>
+                                        <a href="#" class="aFloatRight userFollowing" th:data-value="${follower.username}" style="display:none;">
+                                            <span>팔로잉</span>
+                                            <span class="spinner"></span>
+                                        </a>
+                                    </th:block>
+                                    <th:block th:unless="${map.value == 0}">
+                                        <a href="#" class="aFloatRight userFollow" th:data-value="${follower.username}" style="display:none;">
+                                            <!--<img th:src="@{/img/GIF/spinner.gif}" alt="spinner"/>-->
+                                            <span>팔로우</span>
+                                            <span class="spinner"></span>
+                                        </a>
+                                        <a href="#" class="aFloatRight userFollowing" th:data-value="${follower.username}">
+                                            <span>팔로잉</span>
+                                            <span class="spinner"></span>
+                                        </a>
+                                    </th:block>
+                                </th:block>
                             </li>
+                            </th:block>
                         </th:block>
                     </ul>
                 </div>
@@ -129,7 +160,7 @@
                     </div>
                     <ul class="fList">
                         <th:block th:each="map:${followingMap}">
-                            <th:block th:each="following:${map.key}">
+                            <th:block th:each="following,index:${map.key}">
                                 <li>
                                     <a th:href="@{/profile (username=${following.username})}">
                                         <div>
@@ -142,15 +173,31 @@
                                         </div>
                                         <h1>[[${following.username}]]</h1>
                                     </a>
-                                    <th:block th:if="${map.value == 0}">
-                                        <a href="#" class="aFloatRight">
-                                            팔로워
-                                        </a>
+                                    <th:block th:if="${#strings.equals(myName, following.username)}">
                                     </th:block>
-                                    <th:block th:unless="${map.value == 0}">
-                                        <a href="#" class="aFloatRight">
-                                            팔로잉
-                                        </a>
+                                    <th:block th:unless="${#strings.equals(myName, following.username)}">
+                                        <th:block th:if="${map.value == 0}">
+                                            <a href="#" class="aFloatRight userFollow" th:data-value="${following.username}">
+                                                <!--<img th:src="@{/img/GIF/spinner.gif}" alt="spinner"/>-->
+                                                <span>팔로우</span>
+                                                <span class="spinner"></span>
+                                            </a>
+                                            <a href="#" class="aFloatRight userFollowing" th:data-value="${following.username}" style="display:none;">
+                                                <span>팔로잉</span>
+                                                <span class="spinner"></span>
+                                            </a>
+                                        </th:block>
+                                        <th:block th:unless="${map.value == 0}">
+                                            <a href="#" class="aFloatRight userFollow" th:data-value="${following.username}" style="display:none;">
+                                                <!--<img th:src="@{/img/GIF/spinner.gif}" alt="spinner"/>-->
+                                                <span>팔로우</span>
+                                                <span class="spinner"></span>
+                                            </a>
+                                            <a href="#" class="aFloatRight userFollowing" th:data-value="${following.username}">
+                                                <span>팔로잉</span>
+                                                <span class="spinner"></span>
+                                            </a>
+                                        </th:block>
                                     </th:block>
                                 </li>
                             </th:block>
@@ -161,3 +208,66 @@
         </div>
     </th:block>
 </html>
+<script>
+    $(function(){
+
+        $('.userFollow').click(function(e){
+            e.preventDefault();
+            let tag = $(this);
+
+            tag.children('.spinner').show();
+
+            let userName = $(this).attr('data-value');
+
+            setTimeout(function(){
+                $.ajax({
+                    url: '/Photostagram/profile/follow',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {'userName':userName, 'type':'insert'},
+                    success: function(data){
+                        console.log('here1');
+                        if(data.result > 0){
+                            console.log('here2');
+                            tag.parent().children('.userFollow').hide();
+                            tag.children('.spinner').hide();
+                            tag.parent().children('.userFollowing').show();
+                        }
+                    }
+                });
+            }, 1000);
+
+        });
+
+        $('.userFollowing').click(function(e){
+            e.preventDefault();
+            let tag = $(this);
+
+            tag.children('.spinner').show();
+
+            let userName = $(this).attr('data-value');
+
+            setTimeout(function(){
+                $.ajax({
+                    url: '/Photostagram/profile/follow',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {'userName':userName, 'type':'delete'},
+                    success: function(data){
+                        console.log('here1');
+                        if(data.result > 0){
+                            console.log('here2');
+                            tag.parent().children('.userFollowing').hide();
+                            tag.children('.spinner').hide();
+                            tag.parent().children('.userFollow').show();
+                        }
+                    }
+                });
+            }, 1000);
+        });
+
+
+    });
+
+
+</script>

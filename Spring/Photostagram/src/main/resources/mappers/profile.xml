@@ -10,7 +10,8 @@
     <insert id="insertFollow">
         INSERT INTO `follow`
             SET `follower` = #{follower},
-            `following` = #{following};
+            `following` = #{following},
+            `rdate` = NOW();
     </insert>
 
     <select id="selectMember" resultType="kr.co.photostagram.vo.MemberVO">

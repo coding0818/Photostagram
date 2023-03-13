@@ -65,4 +65,44 @@
     <delete id="deleteSearchAll">
         delete from `searchList` where `user_no`=#{user_no};
     </delete>
+    <!--좋아요 누른 사람 조회-->
+    <select id="selectWhoLikeMe" resultMap="selectWhoLike">
+        SELECT * FROM `post` AS a
+        JOIN `post_like` AS b ON a.`no`=b.post_no
+        JOIN `user` AS c ON b.user_no=c.`no`
+        JOIN `image` AS d ON a.`no`=d.post_no
+        WHERE a.user_no=#{user_no};
+    </select>
+    <!--팔로우 한 사람-->
+    <!--댓글 남긴 사람-->
+
+    <resultMap id="selectWhoLike" type="kr.co.photostagram.vo.PostVO">
+        <id column="no" property="no"></id>
+        <result column="content" property="content"></result>
+        <result column="user_no" property="user_no"></result>
+        <result column="like" property="like"></result>
+        <result column="rdate" property="rdate"></result>
+
+        <association property="imageVO" javaType="kr.co.photostagram.vo.ImageVO">
+            <id column="no" property="no"></id>
+            <result column="thumb" property="thumb"></result>
+            <result column="post_no" property="post_no"></result>
+        </association>
+        <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">
+            <id column="no" property="no"/>
+            <result column="username" property="username"/>
+            <result column="name" property="name"/>
+            <result column="password" property="password"/>
+            <result column="email" property="email"/>
+            <result column="profileImg" property="profileImg"/>
+            <result column="profileText" property="profileText"/>
+            <result column="gender" property="gender"/>
+            <result column="birth" property="birth"/>
+        </association>
+        <association property="post_likeVO" javaType="kr.co.photostagram.vo.Post_likeVO">
+            <id column="no" property="no"/>
+            <result column="post_no" property="post_no"/>
+            <result column="user_no" property="user_no"/>
+        </association>
+    </resultMap>
 </mapper>

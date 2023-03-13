@@ -30,51 +30,18 @@
                 <div>인기 게시물</div>
             </div>
             <div class="myList">
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
-                <div class="pic">
-                    <a href="#">
-                        <img th:src="@{/img/300x300-1.png}">
-                    </a>
-                </div>
+                <th:block th:if="${#lists.isEmpty(postLikeList)}">
+                    <div class="pic">
+                        인기 게시물이 없습니다.
+                    </div>
+                </th:block>
+                <th:block th:unless="${#lists.isEmpty(postLikeList)}" th:each="like:${postLikeList}">
+                    <div class="pic">
+                        <a href="#">
+                            <img th:src="@{/thumb/{img}(img=${like.imageVO.thumb})}">
+                        </a>
+                    </div>
+                </th:block>
             </div>
 
             <div class="myNav">

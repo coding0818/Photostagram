@@ -39,6 +39,8 @@
         f.* FROM `post` AS a
         JOIN `user` AS b
             ON a.user_no = b.no
+
+        <!--
         JOIN `image` AS c
             ON a.no = c.post_no
         LEFT JOIN `post_like` AS d
@@ -47,7 +49,7 @@
             ON a.no = e.post_no
         LEFT JOIN `comment_like` AS f
             ON e.no = f.comment_no
-
+        -->
         ORDER BY a.`no` DESC;
     </select>
 
@@ -104,5 +106,54 @@
         </association>
     </resultMap>
 
+    <!--
+    <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">
+        <id column="no" property="no"/>
+        <result column="content" property="content"/>
+        <result column="user_no" property="user_no"/>
+        <result column="rdate" property="rdate"/>
+        <result column="like" property="like"/>
+        <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">
+            <id column="no" property="no"/>
+            <result column="username" property="username"/>
+            <result column="name" property="name"/>
+            <result column="password" property="password"/>
+            <result column="email" property="email"/>
+            <result column="profileImg" property="profileImg"/>
+            <result column="profileText" property="profileText"/>
+            <result column="gender" property="gender"/>
+            <result column="birth" property="birth"/>
+        </association>
+
+
+        <collection property="imageVO" ofType="kr.co.photostagram.vo.ImageVO">
+            <id column="no" property="no"/>
+            <result column="thumb" property="thumb"/>
+            <result column="post_no" property="post_no"/>
+        </collection>
+
+        <collection property="commentVO" ofType="kr.co.photostagram.vo.CommentVO">
+            <result column="no" property="no"/>
+            <result column="comment" property="comment"/>
+            <result column="post_no" property="post_no"/>
+            <result column="user_no" property="user_no"/>
+            <result column="parent" property="parent"/>
+            <result column="rdate" property="rdate"/>
+        </collection>
+        <collection property="comment_likeVO" ofType="kr.co.photostagram.vo.Comment_likeVO">
+            <id column="no" property="no"/>
+            <result column="user_no" property="user_no"/>
+            <result column="comment_no" property="comment_no"/>
+        </collection>
+
+        <collection property="post_likeVO" ofType="kr.co.photostagram.vo.Post_likeVO">
+            <result column="no" property="no"/>
+            <result column="post_no" property="post_no"/>
+            <result column="user_no" property="user_no"/>
+        </collection>
+
+
+    </resultMap>
+    -->
 
 </mapper>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.*;
@@ -82,14 +83,18 @@ public class ProfileController {
         /*** 현재 페이지 사용자와 로그인 사용자가 다른 경우에만 수행 ***/
 
         int result = 0;
+        Map<MemberVO, Integer> followerMap = new HashMap<>();
 
         /*** 팔로워 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
         if (!username.equals(myName)){
             int[] followerArray = new int[myFollowers.size()];
             for (int i=0; i<myFollowers.size(); i++){
-                followerArray[i] = service.selectMember(myFollowers.get(i).getUsername()).getNo();
+                MemberVO currentUser = service.selectMember(myFollowers.get(i).getUsername());
+                followerArray[i] = currentUser.getNo();
                 int j = service.searchFollowing(myNo, followerArray[i]);
-                System.out.println("service2 : "+ j);
+
+                followerMap.put(currentUser, j);
+                //System.out.println("service2 : "+ j);
             }
             System.out.println("array2 : "+ followerArray);
 
@@ -117,6 +122,7 @@ public class ProfileController {
         model.addAttribute("result", result);
         model.addAttribute("sortMap", sortMap);
         model.addAttribute("followingMap", followingMap);
+        model.addAttribute("followerMap", followerMap);
         return "profile/index";
     }
 
@@ -177,6 +183,32 @@ public class ProfileController {
         }
 
         return "redirect:/profile?username="+userName;
+    }
+
+    @ResponseBody
+    @PostMapping("profile/follow")
+    public Map<String, Integer> follow(Principal principal, @RequestParam("type") String type, @RequestParam("userName") String userName){
+
+        System.out.println("userName : "+userName);
+        System.out.println("type : "+type);
+
+
+        String myName = principal.getName();
+        int following = service.selectMember(userName).getNo();
+        int follower = service.selectMember(myName).getNo();
+        int result = 0;
+
+        if (("insert").equals(type)){
+            result = service.insertFollowing(follower, following);
+        } else {
+            result = service.deleteFollowing(follower, following);
+        }
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+        System.out.println("result : "+ result);
+
+        return resultMap;
     }
 
 

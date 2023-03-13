@@ -26,4 +26,6 @@ public interface MainDAO {
     public List<SearchListVO> selectSearchItemRecentUser(int user_no);
     public int deleteSearch(int no);
     public int deleteSearchAll(int user_no);
+
+    public List<PostVO> selectWhoLikeMe(int user_no);
 }

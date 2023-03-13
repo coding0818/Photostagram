@@ -47,6 +47,13 @@ public class IndexController {
         model.addAttribute("user", user);
         model.addAttribute("searchList", searchList);
 
+        // 좋아요 누른 사람 알림
+        List<PostVO> whoLikeMe = mainService.selectWhoLikeMe(user.getNo());
+
+        log.info("whoLikeMe : "+whoLikeMe);
+
+        model.addAttribute("whoLikeMe", whoLikeMe);
+
         log.info("articles : " + articles);
 //        log.info("comments : " + comments);
 

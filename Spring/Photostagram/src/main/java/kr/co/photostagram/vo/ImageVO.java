@@ -8,7 +8,6 @@ import lombok.*;
 @Builder
 @ToString
 public class ImageVO {
-
     private int no;
     private String thumb;
     private int post_no;
