@@ -15,11 +15,11 @@ public class PostVO {
     private int no;
     private String content;
     private int user_no;
+    private int like;
     private String rdate;
     private int like;
     private List<MultipartFile> files;
 
-    private int count;
 
     private List<ImageVO> imageVO;
     private MemberVO memberVO;

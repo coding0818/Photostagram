@@ -15,6 +15,7 @@ public interface IndexDAO {
 
     // 게시글 좋아요, 좋아요 삭제
     public int insertArticleLikeAdd(PostVO vo);
+    public void postLikeAddUpdate(PostVO vo);
     public int deleteArticleLike(PostVO vo);
 
     // 댓글 좋아요, 좋아요 삭제

@@ -1,9 +1,6 @@
 package kr.co.photostagram.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
@@ -11,6 +8,7 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class MemberVO {
 
     private int no;

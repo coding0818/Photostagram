@@ -7,6 +7,7 @@ import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -79,13 +80,19 @@ public class IndexController {
     // 게시글 좋아요 클릭 시
     @PostMapping("ArticleLikeAdd")
     @ResponseBody
+    @Transactional
     public Map ArticleLike(@RequestBody PostVO vo){
         int result = 0;
         result = service.insertArticleLikeAdd(vo);
 
+
         log.info(" =============================== ");
         log.info("     좋아요 result : " + result);
         log.info(" =============================== ");
+
+        if(result > 0){
+            service.postLikeAddUpdate(vo);
+        }
 
         Map map = new HashMap();
         map.put("result", result);
