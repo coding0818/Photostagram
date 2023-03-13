@@ -62,7 +62,7 @@ public class IndexController {
         return "index";
     }
 
-    // (조광호) 댓글 작성
+    // 댓글 작성
     @PostMapping("CmtRegister")
     @ResponseBody
     public Map cmtRegister(@RequestBody CommentVO vo){
@@ -83,13 +83,14 @@ public class IndexController {
     @Transactional
     public Map ArticleLike(@RequestBody PostVO vo){
         int result = 0;
+        // post_like : Insert
         result = service.insertArticleLikeAdd(vo);
-
 
         log.info(" =============================== ");
         log.info("     좋아요 result : " + result);
         log.info(" =============================== ");
 
+        // Table : `post` , Column : like 업데이트
         if(result > 0){
             service.postLikeAddUpdate(vo);
         }
@@ -110,6 +111,10 @@ public class IndexController {
         log.info(" =============================== ");
         log.info("     좋아요 취소 : " + result);
         log.info(" =============================== ");
+        if(result > 0){
+            service.postLikeDelUpdate(vo);
+        }
+
         Map map = new HashMap();
         map.put("result", result);
 

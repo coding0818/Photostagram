@@ -19,10 +19,10 @@ public class PostVO {
     private String rdate;
     private List<MultipartFile> files;
 
-
+    private Post_likeVO post_likeVO;
     private ImageVO imageVO;
     private MemberVO memberVO;
     private CommentVO commentVO;
     private Comment_likeVO comment_likeVO;
-    private Post_likeVO post_likeVO;
+
 }

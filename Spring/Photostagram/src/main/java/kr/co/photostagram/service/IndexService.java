@@ -16,18 +16,23 @@ public class IndexService {
     @Autowired
     private IndexDAO dao;
 
+    // 게시글 좋아요 , 좋아요 삭제
     public int insertArticleLikeAdd(PostVO vo) { return dao.insertArticleLikeAdd(vo); }
-    public void postLikeAddUpdate(PostVO vo) { dao.postLikeAddUpdate(vo); }
     public int deleteArticleLike(PostVO vo) { return dao.deleteArticleLike(vo); }
 
+    // Post-like Update
+    public void postLikeAddUpdate(PostVO vo) { dao.postLikeAddUpdate(vo); }
+    public void postLikeDelUpdate(PostVO vo) { dao.postLikeDelUpdate(vo);}
+
+    // 댓글 좋아요 , 좋아요 삭제
     public int insertCommentLikeAdd(Comment_likeVO vo){
         return dao.insertCommentLikeAdd(vo);
     };
-
     public int deleteCommentLike(Comment_likeVO vo){
         return dao.deleteCommentLike(vo);
     }
 
+    // 댓글 작성
     public int insertComment(CommentVO vo){
         return dao.insertComment(vo);
     }
