@@ -149,6 +149,10 @@ $(function () {
             .removeClass('sprite_heart_icon_outline')
             .addClass('sprite_full_heart_icon_outline');
       
+            let textCount = article.find('#like-count').text();
+            let count = parseInt(textCount);
+
+            article.find('#like-count').text(count+1);
           }
         }
       }
@@ -181,7 +185,11 @@ $(function () {
               article.find('.artLike')
               .removeClass('sprite_full_heart_icon_outline')
               .addClass('sprite_heart_icon_outline');
-        
+
+              let textCount = article.find('#like-count').text();
+              let count = parseInt(textCount);
+
+              article.find('#like-count').text(count-1);
             }
           }
         }

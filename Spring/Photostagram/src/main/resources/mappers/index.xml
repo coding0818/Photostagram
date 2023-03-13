@@ -13,13 +13,15 @@
     <insert id="insertArticleLikeAdd">
         INSERT INTO `post_like` SET
             `post_no` = #{no},
-            `user_no` = #{user_no};
+            `user_no` = #{user_no},
+            `rdate`=NOW();
     </insert>
 
     <insert id="insertCommentLikeAdd">
         INSERT INTO `comment_like` SET
             `user_no`    = #{user_no},
-            `comment_no` = #{comment_no};
+            `comment_no` = #{comment_no},
+            `rdate`=NOW();
     </insert>
 
     <select id="selectComment" resultType="kr.co.photostagram.vo.CommentVO">
@@ -27,8 +29,6 @@
         JOIN `user` AS b
         ON a.user_no = b.no;
     </select>
-
-
 
     <select id="selectArticles" resultMap="selectArticleResultMap">
         SELECT a.*,
@@ -50,6 +50,12 @@
 
         ORDER BY a.`no` DESC;
     </select>
+
+    <update id="postLikeAddUpdate">
+        UPDATE `post` SET
+        `like` = `like`+1
+        WHERE `no` = #{no};
+    </update>
 
     <delete id="deleteArticleLike">
         DELETE FROM `post_like`
@@ -116,16 +122,62 @@
 <!--        <result column="user_no" property="user_no"/>-->
 <!--    </resultMap>-->
 
+<!--    <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">-->
+<!--        <id column="no" property="no"/>-->
+<!--        <result column="content" property="content"/>-->
+<!--        <result column="user_no" property="user_no"/>-->
+<!--        <result column="like" property="like"/>-->
+<!--        <result column="rdate" property="rdate"/>-->
+
+<!--        <association property="imageVO" javaType="kr.co.photostagram.vo.ImageVO">-->
+<!--            <id column="no" property="no"/>-->
+<!--            <result column="thumb" property="thumb"/>-->
+<!--            <result column="post_no" property="post_no"/>-->
+<!--        </association>-->
+<!--        <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">-->
+<!--            <id column="no" property="no"/>-->
+<!--            <result column="username" property="username"/>-->
+<!--            <result column="name" property="name"/>-->
+<!--            <result column="password" property="password"/>-->
+<!--            <result column="email" property="email"/>-->
+<!--            <result column="profileImg" property="profileImg"/>-->
+<!--            <result column="profileText" property="profileText"/>-->
+<!--            <result column="gender" property="gender"/>-->
+<!--            <result column="birth" property="birth"/>-->
+<!--        </association>-->
+<!--        <association property="commentVO" javaType="kr.co.photostagram.vo.CommentVO">-->
+<!--            <id column="no" property="no"/>-->
+<!--            <result column="comment" property="comment"/>-->
+<!--            <result column="post_no" property="post_no"/>-->
+<!--            <result column="user_no" property="user_no"/>-->
+<!--            <result column="parent" property="parent"/>-->
+<!--            <result column="rdate" property="rdate"/>-->
+<!--        </association>-->
+<!--        <association property="comment_likeVO" javaType="kr.co.photostagram.vo.Comment_likeVO">-->
+<!--            <id column="no" property="no"/>-->
+<!--            <result column="user_no" property="user_no"/>-->
+<!--            <result column="comment_no" property="comment_no"/>-->
+<!--            <result column="rdate" property="rdate"/>-->
+<!--        </association>-->
+<!--        <association property="post_likeVO" javaType="kr.co.photostagram.vo.Post_likeVO">-->
+<!--            <id column="no" property="no"/>-->
+<!--            <result column="post_no" property="post_no"/>-->
+<!--            <result column="user_no" property="user_no"/>-->
+<!--            <result column="rdate" property="rdate"/>-->
+<!--        </association>-->
+<!--    </resultMap>-->
+
     <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">
-        <id column="no" property="no"/>
-        <result column="content" property="content"/>
-        <result column="user_no" property="user_no"/>
-        <result column="rdate" property="rdate"/>
+        <id column="no" property="no"></id>
+        <result column="content" property="content"></result>
+        <result column="user_no" property="user_no"></result>
+        <result column="like" property="like"></result>
+        <result column="rdate" property="rdate"></result>
 
         <association property="imageVO" javaType="kr.co.photostagram.vo.ImageVO">
-            <id column="no" property="no"/>
-            <result column="thumb" property="thumb"/>
-            <result column="post_no" property="post_no"/>
+            <id column="no" property="no"></id>
+            <result column="thumb" property="thumb"></result>
+            <result column="post_no" property="post_no"></result>
         </association>
         <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">
             <id column="no" property="no"/>
@@ -145,16 +197,6 @@
             <result column="user_no" property="user_no"/>
             <result column="parent" property="parent"/>
             <result column="rdate" property="rdate"/>
-        </association>
-        <association property="comment_likeVO" javaType="kr.co.photostagram.vo.Comment_likeVO">
-            <id column="no" property="no"/>
-            <result column="user_no" property="user_no"/>
-            <result column="comment_no" property="comment_no"/>
-        </association>
-        <association property="post_likeVO" javaType="kr.co.photostagram.vo.Post_likeVO">
-            <id column="no" property="no"/>
-            <result column="post_no" property="post_no"/>
-            <result column="user_no" property="user_no"/>
         </association>
     </resultMap>
 
