@@ -17,5 +17,6 @@ public class CommentVO {
     private int parent;
     private String rdate;
 
+    private String username;
 
 }
