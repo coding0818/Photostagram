@@ -4,32 +4,6 @@
        layout:decorate="layout/memberLayout">
 <th:block layout:fragment="main">
 <main class="member">
-    <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            let userData = sessionStorage.getItem("user");
-            let user = JSON.parse(userData);
-            console.log(user);
-
-            let email = user.email;
-            let jsonData = {"email" : email};
-            console.log(jsonData);
-
-            $.ajax({
-                url: '/Photostagram/member/sendEmail',
-                method: 'POST',
-                data: jsonData,
-                dataType: 'json',
-                success: function(data) {
-                    if (data.result == 1) {
-                        alert('이메일 코드 전송 성공!')
-                        console.log(data.confirm);
-                    } else {
-                        alert('이메일 코드 전송 실패!')
-                    }
-                }
-            });
-        })
-    </script>
     <div class="container">
         <div class="main-container">
             <div class="main-content">
@@ -84,5 +58,7 @@
                 </div>
             </div>
         </div>
+        <script th:src="@{/js/emailAuth.js}"></script>
 </th:block>
+
 </html>
