@@ -23,34 +23,53 @@
             `comment_no` = #{comment_no},
             `rdate`=NOW();
     </insert>
+<!--    <collection property="post_hashtagVO" ofType="kr.co.photostagram.vo.Post_hashtagVO">-->
+<!--        <result column="hashPost" property="post_no"/>-->
+<!--        <result column="hashtag_no" property="hashtag_no"/>-->
+<!--    </collection>-->
+<!--    <collection property="hashTagVO" ofType="kr.co.photostagram.vo.HashTagVO">-->
+<!--        <result column="no" property="no"/>-->
+<!--        <result column="hashtag" property="hashtag"/>-->
+<!--    </collection>-->
 
-    <select id="selectComment" resultType="kr.co.photostagram.vo.CommentVO">
-        SELECT a.*,b.username FROM `comment` AS a
-        JOIN `user` AS b
-        ON a.user_no = b.no;
-    </select>
-
-    <select id="selectArticles"  resultMap="selectArticleResultMap1">
+    <select id="selectArticles"  resultMap="selectArticleResultMap">
         SELECT
-            a.no, a.content, a.user_no, a.like, a.rdate,
-            b.username, b.name, b.profileImg, b.profileText,
-            c.thumb,
-            d.post_no, d.user_no, d.rdate,
-            e.comment, e.post_no, e.user_no, e.parent, e.rdate,
-            f.user_no, f.comment_no, f.rdate
-                FROM `post` AS a
-                    JOIN `user` AS b
-                        ON a.user_no = b.no
-                    JOIN `image` AS c
-                        ON a.no = c.post_no
-                    LEFT JOIN `post_like` AS d
-                        ON a.no = d.post_no
-                    LEFT JOIN `comment` AS e
-                        ON a.no = e.post_no
-                    LEFT JOIN `comment_like` AS f
-                        ON e.no = f.comment_no
-                    ORDER BY a.`no` DESC;
+        a.no, a.content, a.user_no AS post_user_no, a.like, a.rdate AS post_rdate,
+        b.username, b.name, b.profileImg, b.profileText,
+        c.thumb,
+        d.post_no AS postlike_no, d.user_no AS postlike_user_no, d.rdate AS postlike_rdate
+
+        FROM `post` AS a
+        JOIN `user` AS b
+        ON a.user_no = b.no
+        JOIN `image` AS c
+        ON a.no = c.post_no
+        LEFT JOIN `post_like` AS d
+        ON a.no = d.post_no
+
+        ORDER BY a.`no` DESC;
     </select>
+
+    <select id="selectComment" resultMap="selectCommentResultMap">
+        SELECT a.no,
+        a.comment,
+        a.post_no,
+        a.user_no AS commentUser,
+        a.parent,
+        a.rdate AS commentRdate,
+        b.username,
+        c.user_no AS commentLikeUser,
+        c.comment_no,
+        c.rdate AS commentLikeRdate
+
+        FROM `comment` AS a
+            JOIN `user` AS b
+        ON a.user_no = b.no
+            LEFT JOIN `comment_like` AS c
+        ON a.no = c.comment_no;
+    </select>
+
+
 
     <update id="postLikeAddUpdate">
         UPDATE `post` SET
@@ -63,7 +82,6 @@
         `like` = `like`-1
         WHERE `no` = #{no};
     </update>
-
 
     <delete id="deleteArticleLike">
         DELETE FROM `post_like`
@@ -79,57 +97,11 @@
         `comment_no` = #{comment_no};
     </delete>
 
-    <resultMap id="selectArticleResultMap1" type="kr.co.photostagram.vo.PostVO">
-        <id column="no" property="no"/>
-        <result column="content" property="content"/>
-        <result column="user_no" property="user_no"/>
-        <result column="like" property="like"/>
-        <result column="rdate" property="rdate"/>
-
-        <association property="imageVO" javaType="kr.co.photostagram.vo.ImageVO">
-            <id column="no" property="no"/>
-            <result column="thumb" property="thumb"/>
-            <result column="post_no" property="post_no"/>
-        </association>
-        <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">
-            <id column="no" property="no"/>
-            <result column="username" property="username"/>
-            <result column="name" property="name"/>
-            <result column="password" property="password"/>
-            <result column="email" property="email"/>
-            <result column="profileImg" property="profileImg"/>
-            <result column="profileText" property="profileText"/>
-            <result column="gender" property="gender"/>
-            <result column="birth" property="birth"/>
-        </association>
-        <association property="commentVO" javaType="kr.co.photostagram.vo.CommentVO">
-            <id column="no" property="no"/>
-            <result column="comment" property="comment"/>
-            <result column="post_no" property="post_no"/>
-            <result column="user_no" property="user_no"/>
-            <result column="parent" property="parent"/>
-            <result column="rdate" property="rdate"/>
-        </association>
-        <association property="comment_likeVO" javaType="kr.co.photostagram.vo.Comment_likeVO">
-            <id column="no" property="no"/>
-            <result column="user_no" property="user_no"/>
-            <result column="comment_no" property="comment_no"/>
-            <result column="rdate" property="rdate"/>
-        </association>
-        <association property="post_likeVO" javaType="kr.co.photostagram.vo.Post_likeVO">
-            <id column="no" property="no"/>
-            <result column="post_no" property="post_no"/>
-            <result column="user_no" property="user_no"/>
-            <result column="rdate" property="rdate"/>
-        </association>
-    </resultMap>
-
-    <!--
     <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">
         <id column="no" property="no"/>
         <result column="content" property="content"/>
-        <result column="user_no" property="user_no"/>
-        <result column="rdate" property="rdate"/>
+        <result column="post_user_no" property="user_no"/>
+        <result column="post_rdate" property="rdate"/>
         <result column="like" property="like"/>
         <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">
             <id column="no" property="no"/>
@@ -149,27 +121,31 @@
             <result column="post_no" property="post_no"/>
         </collection>
 
-        <collection property="commentVO" ofType="kr.co.photostagram.vo.CommentVO">
+        <collection property="post_likeVO" ofType="kr.co.photostagram.vo.Post_likeVO">
             <result column="no" property="no"/>
-            <result column="comment" property="comment"/>
-            <result column="post_no" property="post_no"/>
-            <result column="user_no" property="user_no"/>
-            <result column="parent" property="parent"/>
-            <result column="rdate" property="rdate"/>
+            <result column="postlike_no" property="post_no"/>
+            <result column="postlike_user_no" property="user_no"/>
+            <result column="postlike_rdate" property="rdate"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="selectCommentResultMap" type="kr.co.photostagram.vo.CommentVO">
+        <id column="no" property="no"/>
+        <result column="comment" property="comment"/>
+        <result column="post_no" property="post_no"/>
+        <result column="commentUser" property="user_no"/>
+        <result column="parent" property="parent"/>
+        <result column="commentRdate" property="rdate"/>
+        <result column="username" property="username"/>
+
+        <collection property="memberVO" ofType="kr.co.photostagram.vo.MemberVO">
+            <result column="username" property="username"/>
         </collection>
         <collection property="comment_likeVO" ofType="kr.co.photostagram.vo.Comment_likeVO">
             <id column="no" property="no"/>
-            <result column="user_no" property="user_no"/>
+            <result column="commentLikeUser" property="user_no"/>
             <result column="comment_no" property="comment_no"/>
+            <result column="commentLikeRdate" property="rdate"/>
         </collection>
-
-        <collection property="post_likeVO" ofType="kr.co.photostagram.vo.Post_likeVO">
-            <result column="no" property="no"/>
-            <result column="post_no" property="post_no"/>
-            <result column="user_no" property="user_no"/>
-        </collection>
-
-
     </resultMap>
-    -->
 </mapper>

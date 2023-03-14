@@ -54,8 +54,8 @@ public class IndexController {
 
         model.addAttribute("whoLikeMe", whoLikeMe);
 
-        log.info("articles : " + articles);
-//        log.info("comments : " + comments);
+//        log.info("articles : " + articles);
+        log.info("comments : " + comments);
 
         model.addAttribute("articles", articles);
         model.addAttribute("comments", comments);

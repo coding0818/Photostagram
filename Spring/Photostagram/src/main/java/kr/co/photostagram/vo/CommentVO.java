@@ -15,6 +15,9 @@ public class CommentVO {
     private int parent;
     private String rdate;
 
+    private MemberVO memberVO;
+    private Comment_likeVO comment_likeVO;
+
     // 추가필드
     private String username;
 

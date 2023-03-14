@@ -132,7 +132,14 @@
             <div class="bottom_icons">
               <div class="left_icons">
                 <!-- 좋아요 버튼 -->
-                <div class="artLike sprite_heart_icon_outline" th:data-no="${user.no}"></div>
+                <th:block th:if="${#strings.equals(user.no,article.post_likeVO.user_no)}">
+                  <div class="artLike sprite_full_heart_icon_outline" th:data-no="${user.no}"></div>
+                </th:block>
+                <th:block th:unless="${#strings.equals(user.no,article.post_likeVO.user_no)}">
+                  <div class="artLike sprite_heart_icon_outline" th:data-no="${user.no}"></div>
+                </th:block>
+
+
 
                 <!-- 댓글 리스트 버튼 -->
                 <div class="sprite_bubble_icon"></div>
@@ -173,12 +180,18 @@
               </div>
               <!-- 댓글 div -->
               <th:block th:each="comment : ${comments}" th:if="${#strings.equals(comment.post_no,article.no)}">
-                <div class="reply_user">
+                <div class="reply_user" th:data-no="${comment.no}">
                   <!------- /* 댓글 아이디, 댓글 내용 */------->
                   <input type="hidden" class="reply_no" th:value="${comment.no}">
                   <span class="reply_nick" th:text="${comment.username}">j_hlli</span>
                   <span class="reply_content" th:text="${comment.comment}">강아지가 너무 귀여워요!</span>
-                  <div class="comLike sprite_small_heart_icon_outline" th:data-no="${user.no}"></div>
+                  <th:block th:if="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
+                    <div class="comLike sprite_full_small_heart_icon_outline" th:data-no="${user.no}"></div>
+                  </th:block>
+                  <th:block th:unless="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
+                    <div class="comLike sprite_small_heart_icon_outline" th:data-no="${user.no}"></div>
+                  </th:block>
+
                 </div>
               </th:block>
 
