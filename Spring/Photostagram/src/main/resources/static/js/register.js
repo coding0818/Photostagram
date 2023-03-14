@@ -17,7 +17,6 @@ $(function(){
     let isNameOk = false;
     let isEmailOk = "";
     let isPasswordOk = false;
-    let isEmailAuthOk = false;
 
     // 아이디 유효성 검증 & 중복체크
     $('#userName').focusout(function() {
@@ -179,8 +178,6 @@ $(function(){
     });
 });
 
-
-
 // birth
 $(function(){
     $('#birth-next').click(function(e){
@@ -198,10 +195,10 @@ $(function(){
             month = '0' + month;
             day = '0' + day;
         }
-
         user.birth = year + '-' + month + '-' + day;
-
         sessionStorage.setItem("user", JSON.stringify(user));
+
+        location.href = '/Photostagram/member/email';
     });
 });
 
