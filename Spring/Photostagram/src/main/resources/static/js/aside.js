@@ -316,6 +316,7 @@ function uploadFiles(e){
           if(data.result > 0){
             alert('업로드되었습니다.');
             $('#modal_add_feed_content').css({display : 'none'});
+            $('#input_content').val('');
           }
         }
       });
