@@ -418,7 +418,8 @@ function uploadFiles(e){
                                 data:jsonData,
                                 dataType:'json',
                                 success:function(data){
-                                    alert('입력성공!');
+                                    //alert('입력성공!');
+                                    location.href='/Photostagram/search?no='+dataNo;
                                 }
                             });
                         });
@@ -545,48 +546,60 @@ function uploadFiles(e){
     });
 
     $('.followBtn').on('click', function(){
+        let btn = $(this);
         let div = $(this).closest('div');
         let user_no = div.attr('data-userNO');
         let my_no = div.attr('data-myNo');
         let status = div.attr('data-status');
+
+        btn.children('.snipper').show();
 
         let jsonData = {"user_no":user_no, "my_no":my_no};
         console.log(jsonData);
 
         if(status == '0'){
-            $.ajax({
-                url:'/Photostagram/insertFollow',
-                method:'POST',
-                data:jsonData,
-                dataType:'json',
-                success:function(data){
-                    $(this).hide();
-                    $('.followingBtn').show();
-                }
-            });
+            setTimeout(function(){
+                $.ajax({
+                    url:'/Photostagram/insertFollow',
+                    method:'POST',
+                    data:jsonData,
+                    dataType:'json',
+                    success:function(data){
+                        btn.css({display : 'none'});
+                        btn.children('.snipper').hide();
+                        btn.parent().children('.followingBtn').show();
+                    }
+                });
+            }, 1000);
         }
     });
 
     $('.followingBtn').on('click', function(){
+        let btn = $(this);
         let div = $(this).closest('div');
         let user_no = div.attr('data-userNO');
         let my_no = div.attr('data-myNo');
         let status = div.attr('data-status');
 
+        btn.children('.snipper').show();
+
         let jsonData = {"user_no":user_no, "my_no":my_no};
         console.log(jsonData);
 
         if(status == '1'){
-            $.ajax({
-                url:'/Photostagram/deleteFollow',
-                method:'POST',
-                data:jsonData,
-                dataType:'json',
-                success:function(data){
-                    $(this).hide();
-                    $('.followBtn').show();
-                }
-            });
+            setTimeout(function(){
+                $.ajax({
+                    url:'/Photostagram/deleteFollow',
+                    method:'POST',
+                    data:jsonData,
+                    dataType:'json',
+                    success:function(data){
+                        btn.css({display : 'none'});
+                        btn.children('.snipper').hide();
+                        btn.parent().children('.followBtn').show();
+                    }
+                });
+            }, 1000);
         }
     });
   });
