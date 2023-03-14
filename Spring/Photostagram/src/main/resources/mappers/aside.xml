@@ -65,44 +65,93 @@
     <delete id="deleteSearchAll">
         delete from `searchList` where `user_no`=#{user_no};
     </delete>
-    <!--좋아요 누른 사람 조회-->
-    <select id="selectWhoLikeMe" resultMap="selectWhoLike">
-        SELECT * FROM `post` AS a
-        JOIN `post_like` AS b ON a.`no`=b.post_no
-        JOIN `user` AS c ON b.user_no=c.`no`
-        JOIN `image` AS d ON a.`no`=d.post_no
-        WHERE a.user_no=#{user_no};
+    <!--알림 조회-->
+    <select id="selectNotices" resultType="kr.co.photostagram.vo.NoticeVO">
+        (SELECT
+        t2.`post_no` AS content_no,
+        t1.`user_no` AS user_no,
+        t2.user_no AS my_no,
+        t2.`comment` AS content,
+        t1.`rdate` AS rdate,
+        t3.`username` AS username,
+        t3.`profileImg` AS profileImg,
+        t5.thumb AS thumb,
+        '1' AS type
+        FROM `comment_like` AS t1
+        JOIN `comment` AS t2 ON t1.`comment_no` = t2.`no`
+        JOIN `user`    AS t3 ON t1.`user_no` = t3.`no`
+        JOIN `post` AS t4 ON t2.post_no=t4.`no`
+        JOIN `image` AS t5 ON t4.`no`=t5.post_no
+        WHERE t2.user_no=#{user_no}
+        AND t1.rdate > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        GROUP BY content_no
+        )
+        UNION ALL
+        (SELECT
+        t1.`post_no` AS content_no,
+        t1.`user_no` AS user_no,
+        t2.user_no AS my_no,
+        t2.`content` AS content,
+        t1.`rdate` AS rdate,
+        t3.`username` AS username,
+        t3.`profileImg` AS profileImg,
+        t4.thumb AS thumb,
+        '2' AS type
+        FROM `post_like` AS t1
+        JOIN `post` AS t2 ON t1.`post_no` = t2.`no`
+        JOIN `user` AS t3 ON t1.`user_no` = t3.`no`
+        JOIN `image` AS t4 ON t2.`no`=t4.post_no
+        WHERE t2.user_no=#{user_no}
+        AND t1.rdate > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        GROUP BY content_no
+        )
+        UNION ALL
+        (SELECT
+        NULL AS content_no,
+        `follower` AS user_no,
+        `following` AS my_no,
+        NULL AS content,
+        t1.`rdate` AS rdate,
+        t2.`username` AS username,
+        t2.`profileImg` AS profileImg,
+        NULL AS thumb,
+        '3' AS type
+        FROM `follow` AS t1
+        JOIN `user`   AS t2 ON t1.`follower` = t2.`no`
+        WHERE `following`=#{user_no}
+        AND t1.rdate > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        )
+        UNION ALL
+        (SELECT
+        t2.`no` AS content_no,
+        t1.`user_no` AS user_no,
+        t2.`user_no` AS my_no,
+        t1.`comment` AS content,
+        t1.`rdate` AS rdate,
+        t3.`username` AS username,
+        t3.`profileImg` AS profileImg,
+        t4.thumb AS thumb,
+        '4' AS type
+        FROM `comment` AS t1
+        JOIN `post` AS t2 ON t1.`post_no`=t2.`no`
+        JOIN `user` AS t3 ON t3.`no`=t1.user_no
+        JOIN `image` AS t4 ON t2.`no`=t4.post_no
+        WHERE t2.`user_no`=#{user_no}
+        AND t1.rdate > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        GROUP BY content_no
+        )
+        ORDER BY rdate DESC;
     </select>
-    <!--팔로우 한 사람-->
-    <!--댓글 남긴 사람-->
-
-    <resultMap id="selectWhoLike" type="kr.co.photostagram.vo.PostVO">
-        <id column="no" property="no"></id>
-        <result column="content" property="content"></result>
-        <result column="user_no" property="user_no"></result>
-        <result column="like" property="like"></result>
-        <result column="rdate" property="rdate"></result>
-
-        <association property="imageVO" javaType="kr.co.photostagram.vo.ImageVO">
-            <id column="no" property="no"></id>
-            <result column="thumb" property="thumb"></result>
-            <result column="post_no" property="post_no"></result>
-        </association>
-        <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">
-            <id column="no" property="no"/>
-            <result column="username" property="username"/>
-            <result column="name" property="name"/>
-            <result column="password" property="password"/>
-            <result column="email" property="email"/>
-            <result column="profileImg" property="profileImg"/>
-            <result column="profileText" property="profileText"/>
-            <result column="gender" property="gender"/>
-            <result column="birth" property="birth"/>
-        </association>
-        <association property="post_likeVO" javaType="kr.co.photostagram.vo.Post_likeVO">
-            <id column="no" property="no"/>
-            <result column="post_no" property="post_no"/>
-            <result column="user_no" property="user_no"/>
-        </association>
-    </resultMap>
+    <!--알림창에서 팔로우 팔로잉 상태값구하기-->
+    <select id="selectFollowingStatus" resultType="int">
+        SELECT COUNT(`no`) FROM `follow` WHERE `follower`=#{my_no} AND `following`=#{user_no};
+    </select>
+    <!--팔로잉-->
+    <insert id="insertFollow">
+        insert into `follow` set `follower`=#{my_no}, `following`=#{user_no}, `rdate`=NOW();
+    </insert>
+    <!--팔로잉 취소-->
+    <delete id="deleteFollow">
+        delete from `follow` where `follower`=#{my_no} and `following`=#{user_no};
+    </delete>
 </mapper>

@@ -560,6 +560,7 @@ html {height: 100%;}
         top: 50px;
         margin-left: 0;
         height: 800px;
+        width: 370px;
       }
 
       .alarmListAll > div{
@@ -573,7 +574,7 @@ html {height: 100%;}
         float: left;
       }
 
-      .alarmlist > div:nth-child(1) > img{
+      .alarmlist > div:nth-child(1) > a >  img{
         width: 50px;
         height: 50px;
       }
@@ -581,20 +582,37 @@ html {height: 100%;}
       .alarmlist > div:nth-child(2) {
         float: left;
         margin-left: 5px;
+        width: 220px;
       }
 
-      .alarmlist > div:nth-child(2) > h3{
+      .alarmlist > div:nth-child(2) > a >  h3{
         font-size: 14px;
       }
 
       .alarmlist > div:nth-child(3){
         float: right;
-        margin-top: 10px;
+
         background: none;
         border: none;
       }
       .alarmlist > div:nth-child(3) > img{
         float: right;
+        width: 48px;
+        height: 48px;
+      }
+
+      .followBtn{
+        border: none;
+        background: #0095f6;
+        color: #ffffff;
+        height: 25px;
+      }
+
+      .followingBtn{
+        border: none;
+        background: #efefef;
+        color: #262626;
+        height: 25px;
       }
 
 

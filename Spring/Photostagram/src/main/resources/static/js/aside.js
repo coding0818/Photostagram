@@ -542,4 +542,50 @@ function uploadFiles(e){
             }
         });
     });
+
+    $('.followBtn').on('click', function(){
+        let div = $(this).closest('div');
+        let user_no = div.attr('data-userNO');
+        let my_no = div.attr('data-myNo');
+        let status = div.attr('data-status');
+
+        let jsonData = {"user_no":user_no, "my_no":my_no};
+        console.log(jsonData);
+
+        if(status == '0'){
+            $.ajax({
+                url:'/Photostagram/insertFollow',
+                method:'POST',
+                data:jsonData,
+                dataType:'json',
+                success:function(data){
+                    $(this).hide();
+                    $('.followingBtn').show();
+                }
+            });
+        }
+    });
+
+    $('.followingBtn').on('click', function(){
+        let div = $(this).closest('div');
+        let user_no = div.attr('data-userNO');
+        let my_no = div.attr('data-myNo');
+        let status = div.attr('data-status');
+
+        let jsonData = {"user_no":user_no, "my_no":my_no};
+        console.log(jsonData);
+
+        if(status == '1'){
+            $.ajax({
+                url:'/Photostagram/deleteFollow',
+                method:'POST',
+                data:jsonData,
+                dataType:'json',
+                success:function(data){
+                    $(this).hide();
+                    $('.followBtn').show();
+                }
+            });
+        }
+    });
   });

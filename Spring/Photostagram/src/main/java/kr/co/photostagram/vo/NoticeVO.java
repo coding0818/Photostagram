@@ -10,15 +10,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class NoticeVO {
-    private int no;
-    private int myuser_no;
+    private int content_no;
     private int user_no;
-    private int table_no;
-    private int cate;
+    private int my_no;
+    private String content;
     private String rdate;
-    private String thumb;
-    private int post_no;
-    private int comment_no;
-    private String profileImg;
     private String username;
+    private String profileImg;
+    private String type;
+    private String thumb;
+    private int count;
 }
