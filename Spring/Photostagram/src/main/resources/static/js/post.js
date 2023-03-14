@@ -42,3 +42,22 @@
     });
 
   });
+
+
+
+    /*** 게시물 팔로잉 클릭 시 뜨는 모달 창 ***/
+
+    $(function(){
+      var modal = document.getElementById("pCancel");
+      var btn = document.getElementById("postFollowing");
+
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    });

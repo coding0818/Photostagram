@@ -46,4 +46,6 @@ public interface ProfileDAO {
     /*** 프로필 사진 업로드 ***/
     public int updateProfilePhoto(@Param("newName") String newName, @Param("no") int no);
 
+    public int deleteProfilePhoto(int no);
+
 }

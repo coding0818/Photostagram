@@ -59,24 +59,34 @@ public class ProfileService {
     private String uploadPath;
 
     /*** 프로필 사진 업로드 ***/
-    public int uploadProfilePhoto(MultipartFile file, int no){
+    public int uploadProfilePhoto(String type, MultipartFile file, int no){
 
-        // 경로
-        String path = new File(uploadPath).getAbsolutePath();
-        
-        String oriName = file.getOriginalFilename();                    // 업로드된 파일의 original name
-        String type = oriName.substring(oriName.lastIndexOf("."));  // 업로드된 파일의 확장자명 찾기
-        String newName = UUID.randomUUID().toString() + type;           // 업로드된 파일명 uuid로 암호화
+        int result = 0;
 
-        // 경로 + uuid 암호화된 파일까지 합친 이미지 파일 경로
-        File dest = new File(path, newName);
-        try {
-            file.transferTo(dest);  // 경로 내 저장
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if ("delete".equals(type)){
+
+            result = dao.deleteProfilePhoto(no);
+
+        } else {
+
+            // 경로
+            String path = new File(uploadPath).getAbsolutePath();
+
+            String oriName = file.getOriginalFilename();                    // 업로드된 파일의 original name
+            String ext = oriName.substring(oriName.lastIndexOf("."));  // 업로드된 파일의 확장자명 찾기
+            String newName = UUID.randomUUID().toString() + ext;           // 업로드된 파일명 uuid로 암호화
+
+            // 경로 + uuid 암호화된 파일까지 합친 이미지 파일 경로
+            File dest = new File(path, newName);
+            try {
+                file.transferTo(dest);  // 경로 내 저장
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            result = dao.updateProfilePhoto(newName, no);   // DB 업로드
+
         }
-
-        int result = dao.updateProfilePhoto(newName, no);   // DB 업로드
 
         return result;
     }
@@ -84,7 +94,7 @@ public class ProfileService {
 
     /*** 수정 전 프로필 사진 삭제 ***/
 
-    public void deleteProfilePhoto(String name){
+    public void deleteProfilePhotoFile(String name){
         String path = new File(uploadPath).getAbsolutePath();
         String deletePath = path + "/" + name;
 
