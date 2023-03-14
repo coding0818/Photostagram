@@ -47,12 +47,12 @@ public class IndexController {
         model.addAttribute("user", user);
         model.addAttribute("searchList", searchList);
 
-        // 좋아요 누른 사람 알림
-        List<PostVO> whoLikeMe = mainService.selectWhoLikeMe(user.getNo());
+        // 알림
+        List<NoticeVO> notices = mainService.selectNotices(user.getNo());
 
-        log.info("whoLikeMe : "+whoLikeMe);
+        log.info("notices : "+notices);
 
-        model.addAttribute("whoLikeMe", whoLikeMe);
+        model.addAttribute("notices", notices);
 
         log.info("articles : " + articles);
 //        log.info("comments : " + comments);

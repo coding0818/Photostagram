@@ -116,4 +116,22 @@ public class MainController {
         resultMap.put("result", result);
         return resultMap;
     }
+
+    @ResponseBody
+    @PostMapping("insertFollow")
+    public Map<String, Integer> insertFollow(int user_no, int my_no){
+        int result = service.insertFollow(my_no, user_no);
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+        return resultMap;
+    }
+
+    @ResponseBody
+    @PostMapping("deleteFollow")
+    public Map<String, Integer> deleteFollow(int user_no, int my_no){
+        int result = service.deleteFollow(my_no, user_no);
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+        return resultMap;
+    }
 }

@@ -193,7 +193,24 @@ public class MainService {
         return dao.deleteSearchAll(user_no);
     }
 
-    public List<PostVO> selectWhoLikeMe(int user_no){
-        return dao.selectWhoLikeMe(user_no);
+    @Transactional
+    public List<NoticeVO> selectNotices(int user_no){
+        List<NoticeVO> notices = dao.selectNotices(user_no);
+        for(NoticeVO vo: notices){
+            if(vo.getType().equals("3")){
+                int count = dao.selectFollowingStatus(vo.getMy_no(), vo.getUser_no());
+                log.info("following status : "+count);
+                vo.setCount(count);
+            }
+        }
+        return notices;
+    }
+
+    public int insertFollow(int my_no, int user_no){
+        return dao.insertFollow(my_no, user_no);
+    }
+
+    public int deleteFollow(int my_no, int user_no){
+        return dao.deleteFollow(my_no, user_no);
     }
 }

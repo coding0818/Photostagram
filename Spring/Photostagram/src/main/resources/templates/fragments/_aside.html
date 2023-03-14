@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
     <th:block th:fragment="asideFragment">
         <!--sidebar 기본-->
         <aside class="sidebar">
@@ -219,116 +218,110 @@
                 <h2>알림</h2>
             </div>
             <div class="alarmListAll">
-                <div class="alarmlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
+                <th:block th:if="${not #lists.isEmpty(notices)}" th:each="notice:${notices}">
+                    <th:block th:if="${notice.type == '1'}">
+                        <div class="alarmlist">
+                            <div>
+                                <a th:href="@{/profile(username=${notice.username})}">
+                                    <th:block th:if="${#strings.isEmpty(notice.profileImg)}">
+                                        <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="">
+                                    </th:block>
+                                    <th:block th:unless="${#strings.isEmpty(notice.profileImg)}">
+                                        <img th:src="@{/thumb/{img}(img=${notice.profileImg})}" alt="">
+                                    </th:block>
+                                </a>
+                            </div>
+                            <div>
+                                <a>
+                                    <h3>[[${notice.username}]]님이 회원님의 댓글을 좋아합니다.</h3>
+                                </a>
+                            </div>
+                            <div>
+                                <img th:src="@{/thumb/{img}(img=${notice.thumb})}" alt="">
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${notice.type == '2'}">
+                        <div class="alarmlist">
+                            <div>
+                                <a th:href="@{/profile(username=${notice.username})}">
+                                    <th:block th:if="${#strings.isEmpty(notice.profileImg)}">
+                                        <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="">
+                                    </th:block>
+                                    <th:block th:unless="${#strings.isEmpty(notice.profileImg)}">
+                                        <img th:src="@{/thumb/{img}(img=${notice.profileImg})}" alt="">
+                                    </th:block>
+                                </a>
+                            </div>
+                            <div>
+                                <a>
+                                    <h3>[[${notice.username}]]님이 회원님의 사진을 좋아합니다.</h3>
+                                </a>
+                            </div>
+                            <div>
+                                <img th:src="@{/thumb/{img}(img=${notice.thumb})}" alt="">
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${notice.type == '3'}">
+                        <div class="alarmlist">
+                            <div>
+                                <a th:href="@{/profile(username=${notice.username})}">
+                                    <th:block th:if="${#strings.isEmpty(notice.profileImg)}">
+                                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="">
+                                    </th:block>
+                                    <th:block th:unless="${#strings.isEmpty(notice.profileImg)}">
+                                        <img th:src="@{/thumb/{img}(img=${notice.profileImg})}" alt="">
+                                    </th:block>
+                                </a>
+                            </div>
+                            <div>
+                                <a th:href="@{/profile(username=${notice.username})}">
+                                    <h3>[[${notice.username}]]님이 회원님을 팔로우하기 시작했습니다.</h3>
+                                </a>
+                            </div>
+                            <div th:data-userNo="${notice.user_no}" th:data-myNo="${notice.my_no}" th:data-status="${notice.count}">
+                                <th:block th:if="${notice.count == 0}">
+                                    <button class="followBtn">
+                                        <h5 class="followingStatus">팔로우</h5>
+                                    </button>
+                                </th:block>
+                                <th:block th:unless="${notice.count == 0}">
+                                    <button class="followingBtn">
+                                        <h5 class="followingStatus">팔로잉</h5>
+                                    </button>
+                                </th:block>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${notice.type == '4'}">
+                        <div class="alarmlist">
+                            <div>
+                                <a th:href="@{#}">
+                                    <th:block th:if="${#strings.isEmpty(notice.profileImg)}">
+                                        <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="">
+                                    </th:block>
+                                    <th:block th:unless="${#strings.isEmpty(notice.profileImg)}">
+                                        <img th:src="@{/thumb/{img}(img=${notice.profileImg})}" alt="">
+                                    </th:block>
+                                </a>
+                            </div>
+                            <div>
+                                <a th:href="@{#}">
+                                    <h3>[[${notice.username}]]님이 댓글을 남겼습니다.:[[${notice.content}]]</h3>
+                                </a>
+                            </div>
+                            <div>
+                                <img th:src="@{/thumb/{img}(img=${notice.thumb})}" alt="">
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
+                <th:block th:unless="${not #lists.isEmpty(notices)}">
+                    <div class="alarmlist">
+                        알림 내용이 없습니다.
                     </div>
-                    <div>
-                        <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-                    </div>
-                    <div>
-                        <img src="./img/aside_x.PNG" alt="">
-                    </div>
-                </div>
-                <div class="alarmlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-                    </div>
-                    <div>
-                        <img src="./img/aside_x.PNG" alt="">
-                    </div>
-                </div>
-                <div class="alarmlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-                    </div>
-                    <div>
-                        <img src="./img/aside_x.PNG" alt="">
-                    </div>
-                </div>
-                <div class="alarmlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-                    </div>
-                    <div>
-                        <img src="./img/aside_x.PNG" alt="">
-                    </div>
-                </div>
-                <div class="alarmlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-                    </div>
-                    <div>
-                        <img src="./img/aside_x.PNG" alt="">
-                    </div>
-                </div>
-                <div class="alarmlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-                    </div>
-                    <div>
-                        <img src="./img/aside_x.PNG" alt="">
-                    </div>
-                </div>
-                <div class="alarmlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-                    </div>
-                    <div>
-                        <img src="./img/aside_x.PNG" alt="">
-                    </div>
-                </div>
-                <div class="alarmlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-                    </div>
-                    <div>
-                        <img src="./img/aside_x.PNG" alt="">
-                    </div>
-                </div>
-                <div class="alarmlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-                    </div>
-                    <div>
-                        <img src="./img/aside_x.PNG" alt="">
-                    </div>
-                </div>
-                <div class="alarmlist">
-                    <div>
-                        <img src="./img/aside_seller_ico.PNG" alt="">
-                    </div>
-                    <div>
-                        <h3>seller님이 회원님의 사진을 좋아합니다.</h3>
-                    </div>
-                    <div>
-                        <img src="./img/aside_x.PNG" alt="">
-                    </div>
-                </div>
+                </th:block>
             </div>
         </div>
 
