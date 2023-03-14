@@ -48,14 +48,6 @@
             <result column="gender" property="gender"/>
             <result column="birth" property="birth"/>
         </association>
-        <association property="commentVO" javaType="kr.co.photostagram.vo.CommentVO">
-            <id column="no" property="no"/>
-            <result column="comment" property="comment"/>
-            <result column="post_no" property="post_no"/>
-            <result column="user_no" property="user_no"/>
-            <result column="parent" property="parent"/>
-            <result column="rdate" property="rdate"/>
-        </association>
     </resultMap>
     <!--해시태그가 이름 조회-->
     <select id="selectHashTagName" resultType="string">

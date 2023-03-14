@@ -40,7 +40,12 @@
                     <div class="modal_content_write">
                         <div class="feed_name">
                             <div class="profile_box">
-                                <img id="input_profile_image" class="profile_img" src="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/s1080x2048/165180104_277246477102900_6106347261862438192_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=730e14&_nc_ohc=1sN4d8i7rn8AX-7aKYN&_nc_ht=scontent-ssn1-1.xx&oh=5049b7cd176848e330b0f5ea95f28172&oe=615A08D1">
+                                <th:block th:if="${#strings.isEmpty(user.profileImg)}">
+                                    <img id="input_profile_image" class="profile_img" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}">
+                                </th:block>
+                                <th:block th:unless="${#strings.isEmpty(user.profileImg)}">
+                                    <img id="input_profile_image_o" class="profile_img" th:src="@{/thumb/{img}(img=${user.profileImg})}">
+                                </th:block>
                             </div>
                             <span id="input_user_id" class="feed_name_txt" th:data-no="${user.no}">[[${#authentication.principal.username}]]</span>
                         </div>
@@ -74,7 +79,12 @@
                     <div class="modal_content_write">
                         <div class="feed_name">
                             <div class="profile_box">
-                                <img id="input_profile_image_drop" class="profile_img" src="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/s1080x2048/165180104_277246477102900_6106347261862438192_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=730e14&_nc_ohc=1sN4d8i7rn8AX-7aKYN&_nc_ht=scontent-ssn1-1.xx&oh=5049b7cd176848e330b0f5ea95f28172&oe=615A08D1">
+                                <th:block th:if="${#strings.isEmpty(user.profileImg)}">
+                                    <img id="input_profile_image_drop" class="profile_img" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}">
+                                </th:block>
+                                <th:block th:unless="${#strings.isEmpty(user.profileImg)}">
+                                    <img id="input_profile_image_drop_o" class="profile_img" th:src="@{/thumb/{img}(img=${user.profileImg})}">
+                                </th:block>
                             </div>
                             <span id="input_user_id_drop" class="feed_name_txt" th:data-no="${user.no}">[[${#authentication.principal.username}]]</span>
                         </div>

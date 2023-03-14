@@ -4,6 +4,7 @@ import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.utils.JSFunction;
 import kr.co.photostagram.vo.MemberVO;
+import kr.co.photostagram.vo.NoticeVO;
 import kr.co.photostagram.vo.PostVO;
 import kr.co.photostagram.vo.SearchListVO;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.*;
@@ -117,6 +117,13 @@ public class ProfileController {
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
 
         log.info("user_no : "+user.getNo());
+
+        // 알림
+        List<NoticeVO> notices = mainService.selectNotices(user.getNo());
+
+        log.info("notices : "+notices);
+
+        model.addAttribute("notices", notices);
 
         model.addAttribute("user", user);
         model.addAttribute("member", member);

@@ -17,10 +17,10 @@
                 </button>
 
                 <button id="search">
-              <span>
-                  <i class="uil uil-search"></i>
-                  <span>검색</span>
-              </span>
+                  <span>
+                      <i class="uil uil-search"></i>
+                      <span>검색</span>
+                  </span>
                 </button>
 
                 <button>
@@ -31,7 +31,7 @@
                 </button>
 
                 <button>
-                    <a href="">
+                    <a th:href="@{/chat/index}">
                         <i class="uil uil-location-arrow"></i>
                         <span>메시지</span>
                     </a>
@@ -98,7 +98,7 @@
                 </button>
 
                 <button>
-                    <a href="">
+                    <a th:href="@{/chat/index}">
                         <i class="uil uil-location-arrow"></i>
                     </a>
                 </button>
@@ -284,11 +284,21 @@
                                 <th:block th:if="${notice.count == 0}">
                                     <button class="followBtn">
                                         <h5 class="followingStatus">팔로우</h5>
+                                        <span class="spinner"></span>
+                                    </button>
+                                    <button class="followingBtn" style="display:none">
+                                        <h5 class="followingStatus">팔로잉</h5>
+                                        <span class="spinner"></span>
                                     </button>
                                 </th:block>
                                 <th:block th:unless="${notice.count == 0}">
+                                    <button class="followBtn" style="display:none">
+                                        <h5 class="followingStatus">팔로우</h5>
+                                        <span class="spinner"></span>
+                                    </button>
                                     <button class="followingBtn">
                                         <h5 class="followingStatus">팔로잉</h5>
+                                        <span class="spinner"></span>
                                     </button>
                                 </th:block>
                             </div>
