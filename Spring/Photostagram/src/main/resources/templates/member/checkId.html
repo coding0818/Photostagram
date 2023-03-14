@@ -19,25 +19,29 @@
                             </div>
                                 <div class="form-group">
                                     <div class="animate-input">
-                                        <span>
+                                        <span class="in-out">
                                             성명 입력
                                         </span>
-                                        <input type="text">
+                                        <input type="text" name="chkName" class="checkId name">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="animate-input">
-                                        <span>
+                                        <span class="in-out">
                                             이메일 입력
                                         </span>
-                                        <input type="text">
+                                        <input type="text" name="chkEmail" class="checkId email">
                                     </div>
                                 </div>
                                 <div class="checking">
-                                    <div>존재하지 않는 회원입니다.</div>
-                                </div>     
+                                    <div class="check-txt nEx">존재하지 않는 회원입니다.</div>
+                                    <div class="check-txt email">이메일 형식이 올바르지않습니다.</div>
+                                    <div class="check-txt name">이름 형식이 올바르지않습니다.</div>
+                                    <div class="check-txt nName">이름을 입력하여주세요.</div>
+                                    <div class="check-txt nEmail">이메일을 입력하여주세요.</div>
+                                </div>
                                 <div class="code">
-                                    <button type="submit" class="btn-code" >
+                                    <button type="submit" class="btn-code" id="checkIdCode">
                                         코드 보내기
                                     </button>
                                 </div>

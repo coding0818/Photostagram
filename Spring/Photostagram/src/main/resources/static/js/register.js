@@ -4,6 +4,7 @@
     내용 : 회원가입 유효성검사 Js
 */
 
+
 // register
 $(function(){
     // 데이터 검증에 사용하는 정규표현식
@@ -125,42 +126,29 @@ $(function(){
             $('.result-txt').removeClass('on');
             $('.result-txt.exId').addClass('on');
             return false;
-        }
-        // 아이디 유효성 검사
-        if(isUserNameOk=='unValid'){
+        } else if(isUserNameOk=='unValid'){ // 아이디 유효성 검사
             $('.result-txt').removeClass('on');
             $('.result-txt.unId').addClass('on');
             return false;
-        }
-
-        // 이름 유효성 검사
-        if(!isNameOk){
+        } else if(!isNameOk){ // 이름 유효성 검사
             $('.result-txt').removeClass('on');
             $('.result-txt.name').addClass('on');
             return false;
-        }
-
-        // 이메일 중복검사
-        if(isEmailOk=='exist'){
+        } else if(isEmailOk=='exist'){ // 이메일 중복검사
             $('.result-txt').removeClass('on');
             $('.result-txt.exEmail').addClass('on');
             return false;
-        }
-        // 이메일 유효성검사
-        if(isEmailOk=='unValid'){
+        }else if(isEmailOk=='unValid'){ // 이메일 유효성검사
             $('.result-txt').removeClass('on');
             $('.result-txt.unEmail').addClass('on');
             return false;
-        }
-
-        // 비밀번호 유효성 검사
-        if(!isPasswordOk) {
+        }else if(!isPasswordOk) { // 비밀번호 유효성 검사
             $('.result-txt').removeClass('on');
             $('.result-txt.pass').addClass('on');
             return false;
         }
 
-        // 값 session에 저장
+        // 유효성 검사
         let username = $('input[name=username]').val();
         let name = $('input[name=name]').val();
         let email = $('input[name=email]').val();
@@ -173,6 +161,7 @@ $(function(){
             "password": password
         };
 
+        // session에 저장
         sessionStorage.setItem("user", JSON.stringify(userData));
         location.href = '/Photostagram/member/birth';
     });
@@ -187,6 +176,11 @@ $(function(){
         let month = $('select[name=month]').val();
         let day = $('select[name=day]').val();
 
+        if(year == null || month == null || day == null) {
+            alert('생년월일을 선택하여주세요.');
+            return false;
+        }
+
         let userData = sessionStorage.getItem("user");
         let user = JSON.parse(userData);
 
@@ -199,14 +193,6 @@ $(function(){
         sessionStorage.setItem("user", JSON.stringify(user));
 
         location.href = '/Photostagram/member/email';
-    });
-});
-
-// email
-$(function(){
-    $('#email-next').click(function(e){
-        e.preventDefault();
-        location.href = '/Photostagram/member/terms';
     });
 });
 

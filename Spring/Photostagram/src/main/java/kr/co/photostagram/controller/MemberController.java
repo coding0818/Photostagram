@@ -33,6 +33,7 @@ public class MemberController {
     @GetMapping("/register")
     public String register(){
         return "member/register";
+        //return "member/registerLayout";
     }
 
     @ResponseBody
@@ -75,16 +76,15 @@ public class MemberController {
     @PostMapping("/sendEmail")
     public Map<String, Integer> sendEmail(@RequestParam String email) throws Exception{
         log.info("Email Auth...");
-        System.out.println("email = " + email);
+//        System.out.println("email = " + email);
         int result = 0;
 
         int confirm = mailService.sendEmail(email);
-        System.out.println("confirm = " + confirm);
-
+//        System.out.println("confirm = " + confirm);
         if(confirm != 0){
             result = 1;
         }
-        System.out.println("result = " + result);
+//        System.out.println("result = " + result);
 
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
@@ -125,6 +125,11 @@ public class MemberController {
     public String checkId(){
         return "member/checkId";
     }
+
+//    @PostMapping
+//    public String checkId() {
+//        return null;
+//    }
 
     @GetMapping("/checkPass")
     public String checkPass(){

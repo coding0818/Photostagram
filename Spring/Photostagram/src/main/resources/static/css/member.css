@@ -580,3 +580,10 @@ option {
 .result-txt.on {
     display: block;
 }
+
+.check-txt {
+    display: none;
+}
+.check-txt.on {
+    display: block;
+}
