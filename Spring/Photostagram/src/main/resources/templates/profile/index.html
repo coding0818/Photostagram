@@ -11,19 +11,21 @@
                       <th:block th:if="${#strings.equals(myName, username)}">
                         <input type="file" class="real-addProf" accept="image/*" style="display: none;"/>
                           <th:block th:if="${not #strings.isEmpty(member.profileImg)}">
-                              <img th:src="|@{/}thumb/${member.profileImg}" alt="profile" class="addProf" id="profilePhoto"/>
+                              <img th:src="|@{/}thumb/${member.profileImg}" alt="profile" class="addNewProf" id="profilePhoto"/>
                           </th:block>
                           <th:block th:unless="${not #strings.isEmpty(member.profileImg)}">
                               <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile" class="addProf" id="profilePhoto"/>
                           </th:block>
                       </th:block>
-                      <th:block th:unless="${#strings.equals(myName, username)}"></th:block>
+                      <th:block th:unless="${#strings.equals(myName, username)}">
                           <th:block th:if="${not #strings.isEmpty(member.profileImg)}">
                               <img th:src="|@{/}thumb/${member.profileImg}" alt="profile" id="profilePhoto"/>
                           </th:block>
                           <th:block th:unless="${not #strings.isEmpty(member.profileImg)}">
                               <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile" id="profilePhoto"/>
                           </th:block>
+                      </th:block>
+                          <span class="profileSpinner"></span>
                       </div>
                   </div>
                   <div class="detail">
@@ -118,30 +120,31 @@
                                     <h1>[[${follower.username}]]</h1>
                                 </a>
                                 <th:block th:if="${#strings.equals(myName, username)}">
-                                    <a href="#" class="aFloatRight" th:data-value="${follower.username}">
-                                        <span>선택</span>
+                                    <a href="#" class="aFloatRight userSelect" th:data-value="${follower.username}">
+                                        <span>삭제</span>
+                                        <span class="spinner"></span>
                                     </a>
                                 </th:block>
-                                <th:block th:unless="${#strings.equals(myName, follower.username)}">
+                                <th:block th:unless="${#strings.equals(myName, username)}">
                                     <th:block th:if="${map.value == 0}">
+                                        <a href="#" class="aFloatRight userFollowing" th:data-value="${follower.username}" style="display:none;">
+                                            <span>팔로잉</span>
+                                            <span class="spinner"></span>
+                                        </a>
                                         <a href="#" class="aFloatRight userFollow" th:data-value="${follower.username}">
                                             <!--<img th:src="@{/img/GIF/spinner.gif}" alt="spinner"/>-->
                                             <span>팔로우</span>
                                             <span class="spinner"></span>
                                         </a>
-                                        <a href="#" class="aFloatRight userFollowing" th:data-value="${follower.username}" style="display:none;">
+                                    </th:block>
+                                    <th:block th:unless="${map.value == 0}">
+                                        <a href="#" class="aFloatRight userFollowing" th:data-value="${follower.username}">
                                             <span>팔로잉</span>
                                             <span class="spinner"></span>
                                         </a>
-                                    </th:block>
-                                    <th:block th:unless="${map.value == 0}">
                                         <a href="#" class="aFloatRight userFollow" th:data-value="${follower.username}" style="display:none;">
                                             <!--<img th:src="@{/img/GIF/spinner.gif}" alt="spinner"/>-->
                                             <span>팔로우</span>
-                                            <span class="spinner"></span>
-                                        </a>
-                                        <a href="#" class="aFloatRight userFollowing" th:data-value="${follower.username}">
-                                            <span>팔로잉</span>
                                             <span class="spinner"></span>
                                         </a>
                                     </th:block>
@@ -205,69 +208,88 @@
                     </ul>
                 </div>
             </div>
+            <div id="photoModal" class="photoModal">
+                <div class="photoContents">
+                    <div id="photoTop">
+                        <span>프로필 사진 바꾸기</span>
+                    </div>
+                    <ul id="photoBottom">
+                        <li class="addProf">사진 업로드</li>
+                        <li class="deleteProf">현재 사진 삭제</li>
+                        <li class="photoClose">취소</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="followerDelete" class="secondModalFrame">
+                <div class="secondModal">
+                    <div>
+                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}">
+                        <h1>
+                            팔로워를 삭제하시겠어요?<br/>
+                            <span id="modalDeleteName">name</span>님은 회원님의 팔로워 리스트에서 삭제된 사실을 알 수 없습니다.</h1>
+                    </div>
+                    <ul>
+                        <li><a href="#" class="pClose followerDelete">삭제</a></li>
+                        <li><a href="#" class="pClose">취소</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="followingCancel" class="pModal">
+                <div class="pContents">
+                    <div>
+                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}">
+                        <h1><span>gildong</span>님의 팔로우를 취소하시겠어요?</h1>
+                    </div>
+                    <ul>
+                        <li><a href="#" class="pClose followingCancel">팔로우 취소</a></li>
+                        <li><a href="#" class="pClose">취소</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </th:block>
 </html>
 <script>
-    $(function(){
+     $(function(){
+      let modal = $('#followerDelete');
+      let btn = $('.userSelect');
 
-        $('.userFollow').click(function(e){
+      btn.click(function(e){
+        modal.show();
+        let tag = $(this);
+        let userName = tag.attr('data-value');
+        let deleteName = $("#modalDeleteName");
+        deleteName.html(userName);
+
+        $('.followerDelete').click(function(e){
             e.preventDefault();
-            let tag = $(this);
-
             tag.children('.spinner').show();
-
-            let userName = $(this).attr('data-value');
+            modal.hide();
 
             setTimeout(function(){
                 $.ajax({
                     url: '/Photostagram/profile/follow',
                     type: 'post',
                     dataType: 'json',
-                    data: {'userName':userName, 'type':'insert'},
+                    data: {'userName':userName, 'type':'myDelete'},
                     success: function(data){
                         console.log('here1');
                         if(data.result > 0){
                             console.log('here2');
-                            tag.parent().children('.userFollow').hide();
                             tag.children('.spinner').hide();
-                            tag.parent().children('.userFollowing').show();
+                            tag.text('삭제됨').css('font-weight', 'bold');
                         }
                     }
                 });
             }, 1000);
 
         });
+      });
 
-        $('.userFollowing').click(function(e){
-            e.preventDefault();
-            let tag = $(this);
-
-            tag.children('.spinner').show();
-
-            let userName = $(this).attr('data-value');
-
-            setTimeout(function(){
-                $.ajax({
-                    url: '/Photostagram/profile/follow',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {'userName':userName, 'type':'delete'},
-                    success: function(data){
-                        console.log('here1');
-                        if(data.result > 0){
-                            console.log('here2');
-                            tag.parent().children('.userFollowing').hide();
-                            tag.children('.spinner').hide();
-                            tag.parent().children('.userFollow').show();
-                        }
-                    }
-                });
-            }, 1000);
-        });
-
-
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
     });
-
-
 </script>

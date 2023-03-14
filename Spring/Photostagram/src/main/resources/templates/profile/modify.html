@@ -17,7 +17,12 @@
                   <div>
                       <input type="file" class="real-addProf" accept="image/*" style="display: none;"/>
                       <span>[[${user.username}]]</span>
-                      <a href="#" class="changeProf" id="profilePhoto">프로필 사진 바꾸기</a>
+                      <th:block th:if="${not #strings.isEmpty(user.profileImg)}">
+                        <a href="#" class="addNewProf" id="profilePhoto">프로필 사진 바꾸기</a>
+                      </th:block>
+                      <th:block th:unless="${not #strings.isEmpty(user.profileImg)}">
+                        <a href="#" class="changeProf" id="profilePhoto">프로필 사진 바꾸기</a>
+                      </th:block>
                   </div>
               </div>
               <form th:action="@{/profile/modify}" method="post">
@@ -117,9 +122,17 @@
               <a href="#">일시적으로 내 계정 비활성화하기</a>
           </div>
         </div>
-        <script>
-
-
-        </script>
+        <div id="photoModal" class="photoModal">
+            <div class="photoContents">
+                <div id="photoTop">
+                    <span>프로필 사진 바꾸기</span>
+                </div>
+                <ul id="photoBottom">
+                    <li class="addProf">사진 업로드</li>
+                    <li class="deleteProf">현재 사진 삭제</li>
+                    <li class="photoClose">취소</li>
+                </ul>
+            </div>
+        </div>
     </th:block>
 </html>

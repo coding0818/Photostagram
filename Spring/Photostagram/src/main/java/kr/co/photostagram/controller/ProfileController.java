@@ -80,12 +80,12 @@ public class ProfileController {
 
 
 
-        /*** 현재 페이지 사용자와 로그인 사용자가 다른 경우에만 수행 ***/
-
         int result = 0;
         Map<MemberVO, Integer> followerMap = new HashMap<>();
 
         /*** 팔로워 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
+
+        /*** 현재 페이지 사용자와 로그인 사용자가 다른 경우에만 수행 ***/
         if (!username.equals(myName)){
             int[] followerArray = new int[myFollowers.size()];
             for (int i=0; i<myFollowers.size(); i++){
@@ -100,6 +100,15 @@ public class ProfileController {
 
             /*** 팔로워 팔로잉 버튼 ***/
             result = service.searchFollowing(myNo, pageNo);  // 로그인 사용자가 현재 페이지 사용자를 팔로잉 했는지 여부 (0 = 하지않음, 1 = 함)
+            
+        /*** 현재 페이지 사용자와 로그인 사용자가 같은 경우 팔로워 목록만 저장 ***/
+        } else {
+            int[] followerArray = new int[myFollowers.size()];
+            for (int i=0; i<myFollowers.size(); i++){
+                MemberVO currentUser = service.selectMember(myFollowers.get(i).getUsername());
+                followerArray[i] = currentUser.getNo();
+                followerMap.put(currentUser, 1);
+            }
         }
 
 
@@ -149,6 +158,21 @@ public class ProfileController {
         JSFunction.alertLocation(resp, "수정이 완료되었습니다.", "/Photostagram/profile/modify");
     }
 
+    @ResponseBody
+    @GetMapping("profile/upload")
+    public Map<String, Integer> upload(Principal principal, String type){
+        Map<String, Integer> resultMap = new HashMap<>();
+        String userName = principal.getName();
+        int no = service.selectMember(userName).getNo();
+        String photo = service.selectMember(userName).getProfileImg();
+
+        int result = service.uploadProfilePhoto(type, null, no);
+        service.deleteProfilePhotoFile(photo);
+
+        resultMap.put("result", result);
+        return resultMap;
+    }
+
     /*** 프로필 사진 업로드 ***/
     @ResponseBody
     @PostMapping("profile/upload")
@@ -159,11 +183,11 @@ public class ProfileController {
 
         /*** 이전 사진이 있는 경우 삭제 ***/
         if (member.getProfileImg() != null){
-            service.deleteProfilePhoto(member.getProfileImg());
+            service.deleteProfilePhotoFile(member.getProfileImg());
         }
 
         /*** 사진 업로드 ***/
-        int result = service.uploadProfilePhoto(file, no);
+        int result = service.uploadProfilePhoto("insert", file, no);
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
 
@@ -200,8 +224,10 @@ public class ProfileController {
 
         if (("insert").equals(type)){
             result = service.insertFollowing(follower, following);
-        } else {
+        } else if (("delete").equals(type)) {
             result = service.deleteFollowing(follower, following);
+        } else if (("myDelete").equals(type)){
+            result = service.deleteFollowing(following, follower);
         }
 
         Map<String, Integer> resultMap = new HashMap<>();

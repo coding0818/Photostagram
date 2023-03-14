@@ -72,6 +72,12 @@
             WHERE `no`=#{no};
     </update>
 
+    <update id="deleteProfilePhoto">
+        UPDATE `user` SET
+        `profileImg` = NULL
+        WHERE `no`=#{no};
+    </update>
+
     <delete id="deleteFollow">
         DELETE FROM `follow`
             WHERE `follower` = #{follower}
