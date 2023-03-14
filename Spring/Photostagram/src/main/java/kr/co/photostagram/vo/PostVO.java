@@ -22,7 +22,4 @@ public class PostVO {
     private Post_likeVO post_likeVO;
     private ImageVO imageVO;
     private MemberVO memberVO;
-    private CommentVO commentVO;
-    private Comment_likeVO comment_likeVO;
-
 }

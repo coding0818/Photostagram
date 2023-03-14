@@ -199,7 +199,7 @@ $(function () {
   $(document).on("click", ".sprite_small_heart_icon_outline", function(e){
     e.preventDefault();
 
-    let article    = $(this).closest('article'); 
+    let article    = $(this).closest('article');
     let user_no    = $(this).attr('data-no'); // 유저 번호
     let comment_no = article.find('.reply_no').val(); // 댓글번호
     let url        = "/Photostagram/CommentLikeAdd";
@@ -225,7 +225,7 @@ $(function () {
             article.find('.comLike')
             .removeClass('sprite_small_heart_icon_outline')
             .addClass('sprite_full_small_heart_icon_outline');
-      
+
           }
         }
       }
