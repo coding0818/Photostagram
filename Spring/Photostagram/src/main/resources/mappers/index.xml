@@ -69,7 +69,7 @@
         ON a.no = c.comment_no;
     </select>
 
-    <select id="selectCommentCount">
+    <select id="selectCommentCount" resultType="int">
         SELECT COUNT(*) FROM `comment` WHERE `post_no` = #{post_no};
     </select>
 

@@ -29,5 +29,6 @@ public interface IndexDAO {
 
     public List<PostVO> selectArticles();
     public List<CommentVO> selectComment();
+    public int selectCommentCount(int post_no);
 
 }

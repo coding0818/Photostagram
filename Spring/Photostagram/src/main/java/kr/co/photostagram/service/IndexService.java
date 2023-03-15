@@ -38,8 +38,16 @@ public class IndexService {
     }
 
     public List<PostVO> selectArticles(){
-        return dao.selectArticles();
+        List<PostVO> posts = dao.selectArticles();
+
+        for(PostVO vo : posts){
+            dao.selectCommentCount(vo.getNo());
+        }
+
+        return posts;
     }
 
     public List<CommentVO> selectComment(){ return dao.selectComment();}
+
+
 }
