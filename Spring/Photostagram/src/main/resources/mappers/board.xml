@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.photostagram.dao.BoardDAO">
-    <select id="selectThumb" resultType="kr.co.photostagram.vo.ImageVO">
-        SELECT * FROM `image`
-        WHERE `post_no`=#{postNo}
-        ORDER BY `no` ASC LIMIT 1;
-    </select>
-
     <select id="selectMember" resultType="kr.co.photostagram.vo.MemberVO">
         SELECT * FROM `user` WHERE `username`=#{username};
-    </select>
-
-    <select id="selectPosts" resultType="kr.co.photostagram.vo.PostVO">
-        SELECT * FROM `post` WHERE `user_no`=#{no} ORDER BY `no` DESC;
     </select>
 </mapper>
