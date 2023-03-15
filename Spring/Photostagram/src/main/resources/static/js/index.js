@@ -198,8 +198,8 @@ $(function () {
 
   $(document).on("click", ".sprite_small_heart_icon_outline", function(e){
     e.preventDefault();
-
     let article    = $(this).closest('article');
+    let div        = $(this).closest('div');
     let user_no    = $(this).attr('data-no'); // 유저 번호
     let comment_no = article.find('.reply_no').val(); // 댓글번호
     let url        = "/Photostagram/CommentLikeAdd";
@@ -220,11 +220,12 @@ $(function () {
       dataType:'json',
       success: (data)=>{
         if(data.result > 0){
-          if(article.find('.comLike').hasClass('sprite_small_heart_icon_outline')){
+          if(article.find('.reply_user .comLike').hasClass('sprite_small_heart_icon_outline')){
       
-            article.find('.comLike')
+            article.find('.reply_user .comLike')
             .removeClass('sprite_small_heart_icon_outline')
             .addClass('sprite_full_small_heart_icon_outline');
+
 
           }
         }
