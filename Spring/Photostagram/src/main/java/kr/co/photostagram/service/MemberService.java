@@ -3,6 +3,7 @@ package kr.co.photostagram.service;
 import kr.co.photostagram.dao.MemberDAO;
 import kr.co.photostagram.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -29,12 +30,16 @@ public class MemberService {
         vo.setPassword(encoder.encode(vo.getPassword()));
         return dao.insertMember(vo);
     }
-
     public int chkUserName(String userName){
         return dao.chkUserName(userName);
     }
     public int chkEmail(String email) {
         return dao.chkEmail(email);
+    }
+
+    public String searchId(String name, String email) {
+        log.info("searchIdService...");
+        return dao.searchId(name, email);
     }
 
 }

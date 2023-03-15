@@ -4,6 +4,7 @@ import kr.co.photostagram.service.MailService;
 import kr.co.photostagram.service.MemberService;
 import kr.co.photostagram.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -32,8 +33,14 @@ public class MemberController {
 
     @GetMapping("/register")
     public String register(){
+        //return "member/register";
+        return "member/registerLayout";
+    }
+
+    @GetMapping("/registerForm")
+    public String registerForm(){
+        //return "member/register";
         return "member/register";
-        //return "member/registerLayout";
     }
 
     @ResponseBody
@@ -76,15 +83,12 @@ public class MemberController {
     @PostMapping("/sendEmail")
     public Map<String, Integer> sendEmail(@RequestParam String email) throws Exception{
         log.info("Email Auth...");
-//        System.out.println("email = " + email);
         int result = 0;
 
         int confirm = mailService.sendEmail(email);
-//        System.out.println("confirm = " + confirm);
         if(confirm != 0){
             result = 1;
         }
-//        System.out.println("result = " + result);
 
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
@@ -103,8 +107,6 @@ public class MemberController {
     @PostMapping("/terms")
     public Map<String, Integer> terms(@Valid @RequestBody MemberVO vo, BindingResult error){
         log.info("TermsController...");
-//        System.out.println("vo = " + vo);
-//        System.out.println("error = " + error.hasErrors());
 
         int result = 0;
 
@@ -114,7 +116,6 @@ public class MemberController {
         }else{
             log.info("errors occurred");
         }
-//        System.out.println("result = " + result);
 
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
@@ -122,17 +123,37 @@ public class MemberController {
     }
 
     @GetMapping("/checkId")
-    public String checkId(){
+    public String checkId() {
+        return "member/checkIdLayout";
+    }
+
+    @GetMapping("/checkIdForm")
+    public String checkIdForm() {
         return "member/checkId";
     }
 
-//    @PostMapping
-//    public String checkId() {
-//        return null;
-//    }
+    @ResponseBody
+    @PostMapping("/searchId")
+    public Map searchId(String name, String email) {
+        log.info("searchId...");
+        System.out.println("name = " + name);
+        System.out.println("email = " + email);
+
+        String userName = service.searchId(name, email);
+        System.out.println("userName = " + userName);
+
+        Map resultMap = new HashMap<>();
+        resultMap.put("userName", userName);
+        return resultMap;
+    }
 
     @GetMapping("/checkPass")
-    public String checkPass(){
+    public String checkPass() {
+        return "member/checkPassLayout";
+    }
+
+    @GetMapping("/checkPassForm")
+    public String checkPassForm() {
         return "member/checkPass";
     }
 

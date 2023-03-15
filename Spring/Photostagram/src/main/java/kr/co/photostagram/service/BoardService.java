@@ -21,8 +21,5 @@ public class BoardService {
     @Autowired
     private BoardDAO dao;
 
-    public ImageVO selectImg(int postNo) {return dao.selectImg(postNo);}
     public MemberVO selectMember(String username){return dao.selectMember(username);}
-    public List<PostVO> selectPosts(int no) {return dao.selectPosts(no);}
-    public ImageVO selectThumb(int postNo) {return dao.selectThumb(postNo);}
 }
