@@ -587,3 +587,15 @@ option {
 .check-txt.on {
     display: block;
 }
+.codeDiv {
+    display: none;
+}
+.codeDiv.on {
+    display: block;
+}
+.emailDiv {
+    display: block;
+}
+.emailDiv.on {
+    display: none;
+}
