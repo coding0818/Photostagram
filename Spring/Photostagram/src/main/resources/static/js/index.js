@@ -67,8 +67,9 @@ $(function () {
   //  });
 
   // 댓글 작성
-  $(document).on("click",".upload_btn", function(e) {
+  $(document).on("keydown",".commentText", function(e) {
     e.preventDefault();
+    $(this).attr("disabled", true);
 
     let article    = $(this).closest('article')
     let div        = $(this).parent();
