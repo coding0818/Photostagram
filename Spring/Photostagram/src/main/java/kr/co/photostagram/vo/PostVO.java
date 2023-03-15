@@ -19,6 +19,8 @@ public class PostVO {
     private String rdate;
     private List<MultipartFile> files;
 
+    private int CommentCount;
+
     private Post_likeVO post_likeVO;
     private ImageVO imageVO;
     private MemberVO memberVO;

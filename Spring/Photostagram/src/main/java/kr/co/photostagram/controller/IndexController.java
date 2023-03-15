@@ -34,9 +34,11 @@ public class IndexController {
 
     @GetMapping(value = {"/", "index"})
     public String index(Model model, Principal principal){
-
+        // 전체 게시물 조회
         List<PostVO> articles = service.selectArticles();
+        // 댓글 조회
         List<CommentVO> comments = service.selectComment();
+
         MemberVO user =  profileService.selectMember(principal.getName());
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
@@ -54,9 +56,7 @@ public class IndexController {
 
         model.addAttribute("notices", notices);
 
-//        log.info("articles : " + articles);
-        log.info("comments : " + comments);
-
+        log.info("articles : " + articles);
         model.addAttribute("articles", articles);
         model.addAttribute("comments", comments);
         return "index";
@@ -65,14 +65,14 @@ public class IndexController {
     // 댓글 작성
     @PostMapping("CmtRegister")
     @ResponseBody
-    public Map cmtRegister(@RequestBody CommentVO vo){
-        int result = 0;
-        result = service.insertComment(vo);
+    public Map<String, Object> cmtRegister(@RequestBody CommentVO vo){
 
-        log.info(" 댓글 result =====================> " + result);
+        service.insertComment(vo);
+        Map<String, Object> map = new HashMap<>();
 
-        Map map = new HashMap();
-        map.put("result", result);
+        map.put("result", 1);
+        map.put("no",vo.getNo());
+        map.put("user_no", vo.getUser_no());
 
         return map;
     }

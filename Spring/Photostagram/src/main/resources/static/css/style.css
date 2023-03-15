@@ -70,7 +70,7 @@ body {
 }
 
 .contents .top .profile_img img {
-  width: 100%;
+  height: 100%;
 }
 
 .contents .top .user_container {
@@ -171,9 +171,7 @@ body {
 .contents .comment_container {
   width: 100%;
   display: inline-block;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 13px;
+  padding: 0px 13px;
 }
 .contents .comment_container .comment {
   display: inline-block;
@@ -222,25 +220,22 @@ body {
 }
 
 .contents .commentMore {
-  letter-spacing: 0.2px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
-  padding: 5px 13px;
-  margin-left: 1px;
-}
-
-.contents .commentMore > input {
+  position: absolute;
   font-size: 14px;
   border: 0;
-  left: 10px;
   background-color: white;
   color: gray;
   cursor: pointer;
+  letter-spacing: 0.2px;
+  padding: 5px 10px;
+  margin-left: 1px;
 }
 
 .contents .comment_field {
-  min-height: 56px;
-  padding: 0 20px;
+  height: 49px;
+  padding: 0 9px;
   position: relative;
+  margin-top: 11px;
 }
 
 .contents .comment_field input {
@@ -251,6 +246,10 @@ body {
   background: transparent;
 }
 
+.contents .comment_field input:nth-child(4){
+
+}
+
 .contents .comment_field input:focus ~ .upload_btn {
   pointer-events: initial;
   opacity: 1;
@@ -259,7 +258,7 @@ body {
 .contents .comment_field .upload_btn {
   color: #3897f0;
   position: absolute;
-  right: 20px;
+  right: 6px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;

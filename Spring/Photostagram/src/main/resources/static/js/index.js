@@ -9,7 +9,7 @@ $(function () {
   /**
    * 댓글 모두보기 누를 경우 Post-Modal 뜸.
    */
-  $(".commentAll").on("click", function () {
+  $(".commentMore").on("click", function () {
     modalPost.css("display", "flex");
     $("body").css("overflow-y", "hidden");
   });
@@ -99,14 +99,15 @@ $(function () {
       contentType: "application/json",
       dataType: "json",
       success: (data) => {
+        console.log(data);
+
         if (data.result > 0) {
-          
-          let str = "<div class='reply_user'>";
+
+          let str = "<div class='reply_user' data-no='"+data.no+"'>";
+          str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
           str += "<span class='reply_nick'>" + uid + "</span>";
-          str += "<span class='reply_content' style='margin-left:2px;'>" + comment + "</span>";
-          str += "<span class='small_heart'>";
-          str += "<div class='comLike sprite_small_heart_icon_outline'></div>";
-          str += "</span>";
+          str += "<span class='reply_content'>" + comment + "</span>";
+          str += "<div class='comLike sprite_small_heart_icon_outline' data-no='"+data.user_no+"'></div>";
           str += "</div>";
 
           article.find('.comment_container').append(str);

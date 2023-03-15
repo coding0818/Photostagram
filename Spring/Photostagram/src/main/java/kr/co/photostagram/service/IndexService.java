@@ -33,8 +33,8 @@ public class IndexService {
     }
 
     // 댓글 작성
-    public int insertComment(CommentVO vo){
-        return dao.insertComment(vo);
+    public void insertComment(CommentVO vo){
+        dao.insertComment(vo);
     }
 
     public List<PostVO> selectArticles(){
