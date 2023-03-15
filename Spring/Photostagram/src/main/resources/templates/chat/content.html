@@ -43,10 +43,10 @@ $(document).on("click", function(e){
     <div class="left">
         <div class="up">
             <div class="src1">
-                <p>[[${user.username}]]</p>
+                <p>sdfa123</p>
             </div>
             <div class="src2">
-                <img id="lay" th:src="@{/img/free-icon-writing-6570264.png}" alt="">
+                <img id="lay" src="./img/free-icon-writing-6570264.png" alt="">
             </div>
         </div>
         <div class="dir2">
@@ -176,16 +176,84 @@ $(document).on("click", function(e){
                 </div>
             </li>
           </ul>
-
         </div>
     </div>
-    <div class="right">
-      <div class="newdir1">
-        <img th:src="@{/img/free-icon-send-3482493.png}" alt="보내기">
-        <span class="mydir">내 메시지</span>
-        <div class="fgbsm">친구나 그룹에 비공개 사진과 메시지를 보내세요.</div>
-        <button class="mes" id="modal-open" type="button">메세지 보내기</button>
+    <div class="right-1">
+      <div class="chat-head">
+        <div class="chat-head-1">
+            <div class="chat-head-2">
+                <div class="chat-head-3"></div>
+                <div class="chat-head-4">
+                    <div class="chat-head-5">
+                        <div class="chat-head-6">
+                            <span class="chat-head-7">
+                                <img class="chat-head-8" src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="계정 사진">
+                            </span>
+                        </div>
+                        <div class="chat-head-name">
+                            <div class="chat-head-name-1">
+                                <div class="chat-head-name-2">
+                                    <div class="chat-head-name-3">
+                                        아무ro</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-head-add">
+                    <div class="chat-head-add-0">
+                        <img src="./img/free-icon-telephone-4544272.png" alt="음성 통화">
+                    </div>
+                    <div class="chat-head-add-1">
+                      <img src="./img/free-icon-videos-4353992.png" alt="영상 통화">
+                    </div>
+                    <div class="chat-head-add-2">
+                      <img src="./img/free-icon-info-5258991.png" alt="상세정보">
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
+      <div class="wrap">
+        <div class="chat ch1">
+            <div class="icon"><img class="" src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="계정사진"></div>
+            <div class="textbox">안녕하세요.</div>
+        </div>
+        <div class="chat ch2">
+            <div class="textbox">안녕하세요. 반갑습니다.</div>
+        </div>
+        <div class="chat ch1">
+            <div class="icon"><img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="계정사진"></div>
+            <div class="textbox">반갑습니다</div>
+        </div>
+        <div class="chat ch2">
+            <div class="textbox">....</div>
+        </div>
+    </div>
+    <div class="chatbox">
+      <div class="chatboxem-1">
+        <div class="chatboxem-2">
+          <div class="mj">
+            <div class="chatboxem-3">
+              <img src="./img/free-icon-smiling-emoticon-square-face-42877.png" alt="이모티콘">
+            </div>
+          </div>
+          <div class="chatbox-box">
+            <textarea placeholder="메시지 입력..." class="chatbox-box-1"></textarea>
+          </div>
+          <div class="chatg">
+            <div class="chatg-1">
+              <img src="./img/free-icon-gallery-4348117.png" alt="갤러리">
+            </div>
+          </div>
+          <div class="chath">
+            <div class="chath-1">
+              <img src="./img/free-icon-heart-shape-3717486.png" alt="좋아요">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -194,7 +262,7 @@ $(document).on("click", function(e){
   <div class="new-content">
     <div class="new-head">
       <div class="new-head-close">
-        <img id="confirm" th:src="@{/img/free-icon-close-4013407.png}" alt="닫기">
+        <img id="confirm" src="./img/free-icon-close-4013407.png" alt="닫기">
       </div>
       <div class="new-head-mesg">
         새로운 메시지
@@ -222,7 +290,7 @@ $(document).on("click", function(e){
         <div class="reco-list-main">
           <div class="reco-list-img">
             <span class="reco-list-img-1">
-              <img class="reco-list-img-real" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="계정사진">
+              <img class="reco-list-img-real" src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="계정사진">
             </span>
           </div>
           <div class="reco-id">
