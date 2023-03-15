@@ -39,7 +39,22 @@ function uploadFiles(e){
         $('#modal_add_feed').css({
             display: 'none'
         })
-    }else{
+    }else if(images[0].type.match(/video.*/)){
+       $('#modal_add_feed_content').css({
+           display : 'flex'
+       });
+       $('.modal_image_upload_content').css({
+         //"background-image": "url(./img/play.png)",
+         "outline": "none",
+         "background-size": "contain",
+         "background-repeat" : "no-repeat",
+         "background-position" : "center"
+       });
+       $('video').attr('src', window.URL.createObjectURL(images[0]));
+       $('#modal_add_feed').css({
+           display: 'none'
+       });
+   }else{
         alert('이미지가 아닙니다.');
         return;
     }
@@ -134,12 +149,13 @@ function uploadFiles(e){
                   display : 'flex'
               });
               $('.modal_image_upload_content').css({
-                "background-image": "url(" + window.URL.createObjectURL(images[0]) + ")",
+                //"background-image": "url(./img/play.png)",
                 "outline": "none",
                 "background-size": "contain",
                 "background-repeat" : "no-repeat",
                 "background-position" : "center"
               });
+              $('video').attr('src', window.URL.createObjectURL(images[0]));
               $('#modal_add_feed').css({
                   display: 'none'
               });
