@@ -101,6 +101,7 @@
 
       del.onclick = function() {
         modal.style.display = "none";
+        let profile = $('#profilePhoto');
         let spinner = $('.profileSpinner');
 
         spinner.show();
@@ -114,7 +115,7 @@
                     if(data.result > 0){
                         spinner.hide();
                         alert('프로필 삭제가 완료되었습니다.');
-                        location.reload();
+                        profile.attr('src', 'Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg');
                     }
                 }
             });
