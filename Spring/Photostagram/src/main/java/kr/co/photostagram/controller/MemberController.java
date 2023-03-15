@@ -32,9 +32,16 @@ public class MemberController {
 
     @GetMapping("/register")
     public String register(){
-        return "member/register";
-        //return "member/registerLayout";
+        //return "member/register";
+        return "member/registerLayout";
     }
+
+    @GetMapping("/registerForm")
+    public String registerForm(){
+        //return "member/register";
+        return "member/register";
+    }
+
 
     @ResponseBody
     @PostMapping("/chkUserName")

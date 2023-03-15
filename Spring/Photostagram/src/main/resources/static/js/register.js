@@ -4,11 +4,10 @@
     내용 : 회원가입 유효성검사 Js
 */
 
-
 // register
 $(function(){
     // 데이터 검증에 사용하는 정규표현식
-    let regUserName = /^(?=.*[a-z0-9])[a-z0-9]{5,19}$/; // 영어 소문자또는 숫자 하나 이상 포함.
+    let regUserName = /^(?=.*[a-z0-9])[a-z0-9]{5,19}$/; // 영어 소문자 또는 숫자 하나 이상 포함.
     let regName  = /^[가-힣]{2,15}$/; // 한글
     let regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; // 이메일
     let regPassword  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/; // 8자 이상, 영문, 숫자, 특수문자
@@ -148,7 +147,6 @@ $(function(){
             return false;
         }
 
-        // 유효성 검사
         let username = $('input[name=username]').val();
         let name = $('input[name=name]').val();
         let email = $('input[name=email]').val();
@@ -163,7 +161,10 @@ $(function(){
 
         // session에 저장
         sessionStorage.setItem("user", JSON.stringify(userData));
-        location.href = '/Photostagram/member/birth';
+
+        $('.main-content').load('/Photostagram/member/birth', function(){
+            //alert('birth load!!!');
+        });
     });
 });
 
@@ -192,7 +193,35 @@ $(function(){
         user.birth = year + '-' + month + '-' + day;
         sessionStorage.setItem("user", JSON.stringify(user));
 
-        location.href = '/Photostagram/member/email';
+        $('.main-content').load('/Photostagram/member/email', function(){
+
+            // 이메일 보내기
+            let userData = sessionStorage.getItem("user");
+            let user = JSON.parse(userData);
+//            console.log(user);
+
+            let email = user.email;
+
+            let jsonData = {"email" : email};
+//            console.log(jsonData);
+
+            $.ajax({
+                url: '/Photostagram/member/sendEmail',
+                method: 'POST',
+                async: false, // 비동기방식을 끈다. (ajax를 수행 후 다음 함수가 실행)
+                data: jsonData,
+                dataType: 'json',
+                success: function(data) {
+                    if (data.result == 1) {
+                        emailCode = data.confirm;
+                        console.log("emailCode = " + emailCode);
+                    } else {
+                        alert('이메일 코드 전송 실패!')
+                        return false;
+                    }
+                }
+            });
+        });
     });
 });
 
@@ -207,15 +236,15 @@ function selectAll(selectAll) {
 
 // terms 최종 회원가입
 $(function() {
-    $('#terms-signUp').click(function() {
+    $('#terms-signUp').click(function(e) {
+        e.preventDefault();
+
         let isCheck1 = $('input[class=terms]').is(':checked');
         let isCheck2 = $('input[class=data]').is(':checked');
         let isCheck3 = $('input[class=locate]').is(':checked');
 
         if(isCheck1 && isCheck2 && isCheck3) {
-//            alert('체크 완료!!!');
             let userData = sessionStorage.getItem("user"); // session에서 가져오기
-//            console.log(userData);
 
             $.ajax({
                 url: '/Photostagram/member/terms',
