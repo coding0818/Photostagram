@@ -20,4 +20,8 @@
         select count(`no`) from `user` where `email` = #{email}
     </select>
 
+    <select id="searchId" resultType="String">
+        select `username` from `user` where `name` = #{name} and `email` = #{email}
+    </select>
+
 </mapper>

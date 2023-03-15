@@ -1,23 +1,28 @@
 /*
     이름 : 김진우
-    날짜 : 2023/03/14
-    내용 : 아이디, 비밀번호 찾기 js
+    날짜 : 2023/03/15
+    내용 : 비밀번호 찾기 js
 */
 
 $(function(){
+    let regUserName = /^(?=.*[a-z0-9])[a-z0-9]{5,19}$/; // 영어 소문자 또는 숫자 하나 이상 포함.
     let regName  = /^[가-힣]{2,15}$/; // 한글
-    let regPassword  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/; // 8자 이상, 영문, 숫자, 특수문자
+    let regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; // 이메일
 
-    $('#checkIdCode').click(function(e){
+    $('.checkPass-next').click(function(e){
         e.preventDefault();
 
-//        alert('here!!!');
-        let name = $('.checkId.name').val();
-        let email = $('.checkId.email').val();
-//        console.log('name = ' + name);
-//        console.log('email = ' + email);
+        let userName = $('input[name=userName]').val();
+        let name = $('input[name=name]').val();
+        let email = $('input[name=email]').val();
 
-        // 유효성 검사
+        if(userName == "") { // 아이디가 공백일 때
+            $('.check-txt').removeClass('on');
+            $('.check-txt.nName').addClass('on');
+            return false;
+        }
+
+
         if(name == "") {
             $('.check-txt').removeClass('on');
             $('.check-txt.nName').addClass('on');
@@ -30,16 +35,12 @@ $(function(){
             $('.check-txt').removeClass('on');
             $('.check-txt.name').addClass('on');
             return false;
-        }else if (!name.match(regName)) {
+        }else if (!email.match(regEmail)) {
             $('.check-txt').removeClass('on');
             $('.check-txt.email').addClass('on');
             return false;
         }
 
-        $.ajax({
-            url: '/Photostagram/member/',
-        });
-
-
     });
+
 });
