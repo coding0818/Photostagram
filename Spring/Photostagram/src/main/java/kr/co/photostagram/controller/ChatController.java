@@ -1,5 +1,6 @@
 package kr.co.photostagram.controller;
 
+import kr.co.photostagram.service.ChatService;
 import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.vo.MemberVO;
@@ -10,9 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -23,6 +28,9 @@ public class ChatController {
 
     @Autowired
     private MainService mainService;
+
+    @Autowired
+    private ChatService service;
 
     @GetMapping(value={"chat", "chat/index"})
     public String chat(Principal principal, Model model){
@@ -64,5 +72,16 @@ public class ChatController {
 
         model.addAttribute("notices", notices);
         return "chat/content";
+    }
+
+    @ResponseBody
+    @PostMapping("findAllUsers")
+    public Map<String, List<MemberVO>> findAllUsers(String keyword){
+        List<MemberVO> users = service.findAllUsers(keyword);
+
+        Map<String, List<MemberVO>> resultMap = new HashMap<>();
+        resultMap.put("users", users);
+
+        return resultMap;
     }
 }
