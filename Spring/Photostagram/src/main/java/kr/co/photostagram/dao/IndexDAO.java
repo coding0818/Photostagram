@@ -24,10 +24,11 @@ public interface IndexDAO {
     public int deleteCommentLike(Comment_likeVO vo);
 
     // 댓글 등록
-    public int insertComment(CommentVO vo);
+    public void insertComment(CommentVO vo);
 
     public List<PostVO> selectArticles();
     public List<CommentVO> selectComment();
+    public int selectCommentCount(int post_no);
 
     // 댓글 개수
     public int selectCommentCountNum(int post_no);

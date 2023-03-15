@@ -19,6 +19,7 @@ public class PostVO {
     private String rdate;
     private List<MultipartFile> files;
 
+
     // 추가필드
     private int commentCount;
 

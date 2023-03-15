@@ -33,19 +33,23 @@ public class IndexService {
     }
 
     // 댓글 작성
-    public int insertComment(CommentVO vo){
-        return dao.insertComment(vo);
+    public void insertComment(CommentVO vo){
+        dao.insertComment(vo);
     }
 
     @Transactional
     public List<PostVO> selectArticles(){
         List<PostVO> posts = dao.selectArticles();
+
         for(PostVO vo : posts){
             int count = dao.selectCommentCountNum(vo.getNo());
             vo.setCommentCount(count);
         }
+
         return posts;
     }
 
     public List<CommentVO> selectComment(){ return dao.selectComment();}
+
+
 }

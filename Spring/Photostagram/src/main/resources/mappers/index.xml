@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.photostagram.dao.IndexDAO">
 
-    <insert id="insertComment" parameterType="kr.co.photostagram.vo.CommentVO">
+    <insert id="insertComment" useGeneratedKeys="true" keyColumn="no" keyProperty="no" parameterType="kr.co.photostagram.vo.CommentVO">
         INSERT INTO `comment` SET
             `comment` = #{comment},
             `post_no` = #{post_no},
@@ -69,6 +69,9 @@
         ON a.no = c.comment_no;
     </select>
 
+    <select id="selectCommentCount" resultType="int">
+        SELECT COUNT(*) FROM `comment` WHERE `post_no` = #{post_no};
+    </select>
 
 
     <update id="postLikeAddUpdate">
