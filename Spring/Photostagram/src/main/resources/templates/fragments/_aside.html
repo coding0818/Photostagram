@@ -15,7 +15,7 @@
                // 비교시간
                 let notices = [[${notices}]];
                 let h = 0;
-                notices.forEach(function(notice){
+                notices.forEach(function(notice, index){
                     let rdate = notice.rdate;
                     console.log("rdate : "+rdate);
                     rdate = rdate.split(" ");
@@ -48,20 +48,22 @@
                     h = Math.round(h);
 
                     console.log("h시간 : "+h);
+                    console.log(index);
 
                     if(h == 24){
-                        $('.noticeTime').append('1일');
+                        $('.noticeTime')[index].append('1일');
                         return;
                     }else if(h < 24){
-                        $('.noticeTime').append(h+'시간');
+                        $('.noticeTime')[index].append(h+'시간');
                         return;
                     }else{
                         h = Math.floor(h / 24);
                         if(h < 7){
-                            $('.noticeTime').append(h+'일');
+                            $('.noticeTime')[index].append(h+'일');
                             return;
                         }else{
-
+                            h = Math.floor(h / 7);
+                            $('.noticeTime')[index].append(h+'주');
                         }
                     }
                 });
@@ -299,7 +301,7 @@
                             </div>
                             <div>
                                 <a>
-                                    <h3>[[${notice.username}]]님이 회원님의 댓글을 좋아합니다.<span class="noticeTime" th:data-i="${i}"></span></h3>
+                                    <h3>[[${notice.username}]]님이 회원님의 댓글을 좋아합니다.&nbsp;&nbsp;<span class="noticeTime"></span></h3>
                                 </a>
                             </div>
                             <div>
@@ -321,7 +323,7 @@
                             </div>
                             <div>
                                 <a>
-                                    <h3>[[${notice.username}]]님이 회원님의 사진을 좋아합니다.<span class="noticeTime" th:data-i="${i}"></span></h3>
+                                    <h3>[[${notice.username}]]님이 회원님의 사진을 좋아합니다.&nbsp;&nbsp;<span class="noticeTime"></span></h3>
                                 </a>
                             </div>
                             <div>
@@ -343,7 +345,7 @@
                             </div>
                             <div>
                                 <a th:href="@{/profile(username=${notice.username})}">
-                                    <h3>[[${notice.username}]]님이 회원님을 팔로우하기 시작했습니다.<span class="noticeTime" th:data-i="${i}"></span></h3>
+                                    <h3>[[${notice.username}]]님이 회원님을 팔로우하기 시작했습니다.&nbsp;&nbsp;<span class="noticeTime"></span></h3>
                                 </a>
                             </div>
                             <div th:data-userNo="${notice.user_no}" th:data-myNo="${notice.my_no}" th:data-status="${notice.count}">
@@ -384,7 +386,7 @@
                             </div>
                             <div>
                                 <a th:href="@{#}">
-                                    <h3>[[${notice.username}]]님이 댓글을 남겼습니다.:[[${notice.content}]]<span class="noticeTime" th:data-i="${i}"></span></h3>
+                                    <h3>[[${notice.username}]]님이 댓글을 남겼습니다.:[[${notice.content}]]&nbsp;&nbsp;<span class="noticeTime"></span></h3>
                                 </a>
                             </div>
                             <div>
