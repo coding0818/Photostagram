@@ -3,7 +3,6 @@ package kr.co.photostagram.dao;
 import kr.co.photostagram.vo.CommentVO;
 import kr.co.photostagram.vo.Comment_likeVO;
 import kr.co.photostagram.vo.PostVO;
-import kr.co.photostagram.vo.Post_likeVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -29,5 +28,8 @@ public interface IndexDAO {
 
     public List<PostVO> selectArticles();
     public List<CommentVO> selectComment();
+
+    // 댓글 개수
+    public int selectCommentCountNum(int post_no);
 
 }
