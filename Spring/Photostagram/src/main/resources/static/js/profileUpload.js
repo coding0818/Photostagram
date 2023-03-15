@@ -38,6 +38,7 @@ $(function(){
 $(function(){
 
     $('.real-addProf').change(function(){
+        let photo = $('#profilePhoto');
         var file = $(this)[0].files[0];
         var formData = new FormData();
         formData.append("file", file);
@@ -52,7 +53,8 @@ $(function(){
             success: function(data){
                 if (data.result > 0) {
                     alert ('프로필 업로드가 완료되었습니다.');
-                    location.reload();
+                    photo.removeClass('addProf');
+                    photo.addClass('addNewProf');
                 }
             }
         });
