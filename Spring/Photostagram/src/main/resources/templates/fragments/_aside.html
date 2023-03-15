@@ -1,6 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="asideFragment">
+        <script th:inline="javascript">
+            let now = new Date();
+
+            // 현재시간
+            let year = now.getFullYear();
+            let month = now.getMonth();
+            let day = now.getDate();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+
+            $(function(){
+               // 비교시간
+                let notices = [[${notices}]];
+                let h = 0;
+                notices.forEach(function(notice){
+                    let rdate = notice.rdate;
+                    console.log("rdate : "+rdate);
+                    rdate = rdate.split(" ");
+
+                    let date = rdate[0].split("-");
+                    let sttYear = date[0];
+                    let sttMonth = date[1];
+                    sttMonth = parseInt(sttMonth)-1;
+                    let sttDay = date[2];
+                    console.log('sttYear : '+sttYear);
+                    console.log('sttMonth : '+sttMonth);
+                    console.log('sttDay : '+sttDay);
+
+                    let time = rdate[1].split(":");
+                    let sttHours = time[0];
+                    let sttMinutes = time[1];
+                    console.log("sttHours : "+sttHours);
+                    console.log("sttMinutes : "+sttMinutes);
+
+                    let calDate1 = new Date(year, month, day, hours, minutes);
+                    let calDate2 = new Date(sttYear, sttMonth, sttDay, sttHours, sttMinutes);
+
+                    console.log("Date1 : "+calDate1);
+                    console.log("Date2 : "+calDate2);
+
+                    let MSec = calDate1.getTime() - calDate2.getTime();
+                    let Min = MSec / 1000 / 60;
+                    Min = parseInt(Min);
+                    let h = Min / 60;
+                    h = Math.round(h);
+
+                    console.log("h시간 : "+h);
+
+                    if(h == 24){
+                        $('.noticeTime').append('1일');
+                        return;
+                    }else if(h < 24){
+                        $('.noticeTime').append(h+'시간');
+                        return;
+                    }else{
+                        h = Math.floor(h / 24);
+                        if(h < 7){
+                            $('.noticeTime').append(h+'일');
+                            return;
+                        }else{
+
+                        }
+                    }
+                });
+            });
+        </script>
         <!--sidebar 기본-->
         <aside class="sidebar">
             <header class="sidebar-header">
@@ -218,7 +284,7 @@
                 <h2>알림</h2>
             </div>
             <div class="alarmListAll">
-                <th:block th:if="${not #lists.isEmpty(notices)}" th:each="notice:${notices}">
+                <th:block th:if="${not #lists.isEmpty(notices)}" th:each="notice, i:${notices}">
                     <th:block th:if="${notice.type == '1'}">
                         <div class="alarmlist">
                             <div>
@@ -233,7 +299,7 @@
                             </div>
                             <div>
                                 <a>
-                                    <h3>[[${notice.username}]]님이 회원님의 댓글을 좋아합니다.</h3>
+                                    <h3>[[${notice.username}]]님이 회원님의 댓글을 좋아합니다.<span class="noticeTime" th:data-i="${i}"></span></h3>
                                 </a>
                             </div>
                             <div>
@@ -255,7 +321,7 @@
                             </div>
                             <div>
                                 <a>
-                                    <h3>[[${notice.username}]]님이 회원님의 사진을 좋아합니다.</h3>
+                                    <h3>[[${notice.username}]]님이 회원님의 사진을 좋아합니다.<span class="noticeTime" th:data-i="${i}"></span></h3>
                                 </a>
                             </div>
                             <div>
@@ -277,7 +343,7 @@
                             </div>
                             <div>
                                 <a th:href="@{/profile(username=${notice.username})}">
-                                    <h3>[[${notice.username}]]님이 회원님을 팔로우하기 시작했습니다.</h3>
+                                    <h3>[[${notice.username}]]님이 회원님을 팔로우하기 시작했습니다.<span class="noticeTime" th:data-i="${i}"></span></h3>
                                 </a>
                             </div>
                             <div th:data-userNo="${notice.user_no}" th:data-myNo="${notice.my_no}" th:data-status="${notice.count}">
@@ -318,7 +384,7 @@
                             </div>
                             <div>
                                 <a th:href="@{#}">
-                                    <h3>[[${notice.username}]]님이 댓글을 남겼습니다.:[[${notice.content}]]</h3>
+                                    <h3>[[${notice.username}]]님이 댓글을 남겼습니다.:[[${notice.content}]]<span class="noticeTime" th:data-i="${i}"></span></h3>
                                 </a>
                             </div>
                             <div>
