@@ -35,5 +35,11 @@ $(function(){
             $('.check-txt.email').addClass('on');
             return false;
         }
+
+        $.ajax({
+            url: '/Photostagram/member/',
+        });
+
+
     });
 });
