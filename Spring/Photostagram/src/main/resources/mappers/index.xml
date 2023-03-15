@@ -73,7 +73,15 @@
         SELECT COUNT(*) FROM `comment` WHERE `post_no` = #{post_no};
     </select>
 
+<!--    <select id="selectHashTag" resultMap="">-->
+<!--        SELECT * FROM `post` AS a-->
+<!--        JOIN `post_hashtag` AS b-->
+<!--        ON a.no = b.post_no-->
+<!--        JOIN `hashtag` AS c-->
+<!--        ON b.hashtag_no = c.`no`-->
 
+<!--        order by a.no DESC;-->
+<!--    </select>-->
     <update id="postLikeAddUpdate">
         UPDATE `post` SET
         `like` = `like`+1
