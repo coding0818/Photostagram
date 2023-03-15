@@ -2,6 +2,7 @@ package kr.co.photostagram.service;
 
 import kr.co.photostagram.dao.BoardDAO;
 import kr.co.photostagram.dao.ProfileDAO;
+import kr.co.photostagram.vo.BoardVO;
 import kr.co.photostagram.vo.ImageVO;
 import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
@@ -22,4 +23,11 @@ public class BoardService {
     private BoardDAO dao;
 
     public MemberVO selectMember(String username){return dao.selectMember(username);}
+
+    public BoardVO selectPost(int no) {return dao.selectPost(no);}
+    /*public BoardVO selectComment(int no) {return dao.selectComment(no);}*/
+
+
+
+
 }

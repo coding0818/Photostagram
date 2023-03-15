@@ -10,5 +10,8 @@ import java.util.List;
 @Repository
 public interface BoardDAO {
    public MemberVO selectMember(String username);
+   public BoardVO selectPost(int no);
+   /*public BoardVO selectComment(int no);*/
+
 
 }

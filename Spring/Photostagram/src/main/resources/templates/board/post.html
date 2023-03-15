@@ -5,13 +5,13 @@
 <th:block layout:fragment="main">
     <div id="wrapper">
         <article id="post">
-            <section class="picture" ><img th:src="|@{/}thumb/${article.imageVO.thumb}" alt="picture"></section>
+            <section class="picture" ><img th:src="@{/img/700x700.png}" alt="picture"></section>
             <section class="contents">
                 <nav>
                     <div id="profile">
                         <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                         <p class="postTop">
-                            <span id="nick">gildong</span>
+                            <span id="nick">[[${user.username}]]</span>
                             ·
                             <a id="postFollowing" href="#">팔로잉</a>
                             <a id="postFollow" href="#">팔로우</a>
@@ -23,7 +23,7 @@
                     <li>
                         <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                         <div class="reply">
-                            <h1><span>gildong</span>댓글 내용12312321321321312321312321321321321321321321211111111111111111111111111111111111111111111113</h1>
+                            <h1><span>[[${user.username}]]</span>댓글 내용12312321321321312321312321321321321321321321211111111111111111111111111111111111111111111113</h1>
                             <a href="#">#해시태그</a>
                             <div>
                                 5주 &nbsp;&nbsp;

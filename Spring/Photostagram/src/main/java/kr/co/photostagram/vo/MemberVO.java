@@ -38,4 +38,5 @@ public class MemberVO {
     private String profile_img;
     private String profile_phone;
 
+
 }
