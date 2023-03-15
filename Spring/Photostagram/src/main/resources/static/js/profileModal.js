@@ -85,9 +85,29 @@
       const close = document.querySelector(".photoClose");
       const del = document.querySelector(".deleteProf");
 
+
+        $('#profilePhoto').click(function(){
+
+            let classValue = $(this).attr('class');
+
+            if(classValue == 'addNewProf'){
+                //alert('addNewProf!!!');
+                $('#photoModal').show();
+            }else if(classValue == 'addProf'){
+                //alert('addProf!!!');
+                $('.real-addProf').trigger('click');
+            }else{
+                return 0;
+            }
+
+        });
+
+
+        /*
       btn.onclick = function() {
         modal.style.display = "block";
       }
+      */
 
       close.onclick = function() {
         modal.style.display = "none";
@@ -115,11 +135,11 @@
                     if(data.result > 0){
                         spinner.hide();
                         alert('프로필 삭제가 완료되었습니다.');
-                        profile.attr('src', 'Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg');
+                        profile.attr('src', 'img/44884218_345707102882519_2446069589734326272_n.jpg');
                     }
                 }
             });
-        });
+        }, 1000);
 
 
       }
@@ -129,3 +149,55 @@
 
     /*** 내 팔로워 중 삭제를 클릭하면 뜨는 모달 창 ***/
 
+    $(function(){
+          let modal = $('#followerDelete');
+          let btn = $('.userSelect');
+          let close = $('.pClose');
+
+          btn.click(function(e){
+            modal.show();
+            let tag = $(this);
+            let userName = tag.attr('data-value');
+            let deleteName = $("#modalDeleteName");
+            deleteName.html(userName);
+
+            $('.followerDelete').click(function(e){
+                e.preventDefault();
+                tag.children('.spinner').show();
+                modal.hide();
+
+                setTimeout(function(){
+                    $.ajax({
+                        url: '/Photostagram/profile/follow',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {'userName':userName, 'type':'myDelete'},
+                        success: function(data){
+                            console.log('here1');
+                            if(data.result > 0){
+                                console.log('here2');
+                                tag.children('.spinner').hide();
+                                tag.text('삭제됨').css('font-weight', 'bold');
+                            }
+                        }
+                    });
+                }, 1000);
+
+            });
+          });
+
+          window.onclick = function(event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          }
+
+          close.click (function(e){
+            modal.hide();
+          });
+
+        });
+
+
+
+    /*** 팔로잉 목록 내 팔로잉, 팔로워 버튼 눌러 언팔로우 하는 모달 ***/

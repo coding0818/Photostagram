@@ -28,8 +28,10 @@ $(function(){
             }, 1000);
 
         });
+        
 
         /*** 팔로잉 ***/
+        /*
         $('.userFollowing').click(function(e){
             e.preventDefault();
             let tag = $(this);
@@ -56,7 +58,7 @@ $(function(){
                 });
             }, 1000);
         });
-
+        */
 
     });
 
