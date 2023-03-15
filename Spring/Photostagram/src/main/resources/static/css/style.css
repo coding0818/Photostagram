@@ -177,7 +177,7 @@ body {
 }
 .contents .comment_container .comment {
   display: inline-block;
-  flex-direction: column;
+  margin-bottom: 10px;
   font-size: 14px;
 }
 

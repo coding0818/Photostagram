@@ -105,7 +105,7 @@ $(function () {
           str += "<span class='reply_nick'>" + uid + "</span>";
           str += "<span class='reply_content' style='margin-left:2px;'>" + comment + "</span>";
           str += "<span class='small_heart'>";
-          str += "<div class=sprite_small_heart_icon_outline></div>";
+          str += "<div class='comLike sprite_small_heart_icon_outline'></div>";
           str += "</span>";
           str += "</div>";
 
@@ -198,10 +198,10 @@ $(function () {
 
   $(document).on("click", ".sprite_small_heart_icon_outline", function(e){
     e.preventDefault();
+
     let article    = $(this).closest('article');
-    let div        = $(this).closest('div');
     let user_no    = $(this).attr('data-no'); // 유저 번호
-    let comment_no = article.find('.reply_no').val(); // 댓글번호
+    let comment_no = article.find($(this).parent()).attr('data-no'); // 댓글번호
     let url        = "/Photostagram/CommentLikeAdd";
 
     console.log("user_no : " + user_no);
@@ -220,9 +220,9 @@ $(function () {
       dataType:'json',
       success: (data)=>{
         if(data.result > 0){
-          if(article.find('.reply_user .comLike').hasClass('sprite_small_heart_icon_outline')){
+          if(article.find($(this)).hasClass('sprite_small_heart_icon_outline')){
       
-            article.find('.reply_user .comLike')
+            article.find($(this))
             .removeClass('sprite_small_heart_icon_outline')
             .addClass('sprite_full_small_heart_icon_outline');
 
