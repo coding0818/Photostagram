@@ -129,6 +129,20 @@ function uploadFiles(e){
                   display: 'none'
               });
 
+          }else if(images[0].type.match(/video.*/)){
+              $('#modal_add_feed_content').css({
+                  display : 'flex'
+              });
+              $('.modal_image_upload_content').css({
+                "background-image": "url(" + window.URL.createObjectURL(images[0]) + ")",
+                "outline": "none",
+                "background-size": "contain",
+                "background-repeat" : "no-repeat",
+                "background-position" : "center"
+              });
+              $('#modal_add_feed').css({
+                  display: 'none'
+              });
           }else{
               alert('이미지가 아닙니다.');
               return;
