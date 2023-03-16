@@ -82,20 +82,31 @@
                   <div><a href="#">릴스</a></div>
                   <div><a href="#">태그됨</a></div>
               </div>
-              <th:block th:if="${#maps.isEmpty(sortMap)}">
-                  <div class="myList">
-                    <h1>게시물이 없습니다.</h1>
-                  </div>
-              </th:block>
-              <th:block th:unless="${#maps.isEmpty(sortMap)}">
-                  <div class="myList" th:each="m:${sortMap}">
-                      <div class="pic">
-                          <a th:href="@{/board/post (no=${m.key})}">
-                              <img th:src="|@{/}thumb/${m.value}">
-                          </a>
-                      </div>
-                  </div>
-              </th:block>
+              <div class="myList">
+                  <th:block th:if="${#maps.isEmpty(sortMap)}">
+                      <h1>게시물이 없습니다.</h1>
+                  </th:block>
+                  <th:block th:unless="${#maps.isEmpty(sortMap)}">
+                      <th:block th:each="m:${sortMap}">
+                          <div class="pic">
+                              <a th:href="@{/board/post (no=${m.key})}">
+                              <th:block th:if="${#strings.endsWith(m.value.firstThumb, '.mp4')} == true">
+                                  <video th:src="|@{/}thumb/${m.value.firstThumb}"></video>
+                                  <i class="fa-solid fa-film fa-2x faIcons"></i>
+                              </th:block>
+                              <th:block th:unless="${#strings.endsWith(m.value.firstThumb, '.mp4')} == true">
+                                  <img th:src="|@{/}thumb/${m.value.firstThumb}">
+                                  <th:block th:if="${m.value.thumbs > 1}">
+                                      <i class="fa-solid fa-images fa-2x faIcons"></i>
+                                  </th:block>
+                                  <th:block th:unless="${m.value.thumbs > 1}">
+                                  </th:block>
+                              </th:block>
+                              </a>
+                          </div>
+                      </th:block>
+                  </th:block>
+              </div>
           </section>
             <div id="fCancel" class="fModal">
                 <div class="fContents">
@@ -274,7 +285,7 @@
             <div id="sModal" class="settingModalFrame">
                 <div class="settingModal">
                     <ul>
-                        <li><a th:href="@{/profile/passChange}">비밀번호 변경</a></li>
+                        <li><a th:href="@{/profile/changePass}">비밀번호 변경</a></li>
                         <li><a th:href="@{/member/logout}">로그아웃</a></li>
                         <li><a href="#" class="pClose">취소</a></li>
                     </ul>
