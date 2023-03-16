@@ -12,4 +12,6 @@ public interface MemberDAO {
     public int chkUserName(String userName);
     public int chkEmail(String email);
     public String searchId(@Param("name") String name, @Param("email") String email);
+    public String searchPass(@Param("userName") String userName, @Param("email") String email);
+    public int changePass(@Param("userName") String userName, @Param("pass") String pass);
 }
