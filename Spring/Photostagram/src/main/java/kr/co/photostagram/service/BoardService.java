@@ -25,7 +25,7 @@ public class BoardService {
     public MemberVO selectMember(String username){return dao.selectMember(username);}
 
     public BoardVO selectPost(int no) {return dao.selectPost(no);}
-    /*public BoardVO selectComment(int no) {return dao.selectComment(no);}*/
+    public BoardVO selectContent(int no) {return dao.selectContent(no);}
 
 
 

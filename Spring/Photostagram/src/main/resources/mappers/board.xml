@@ -13,6 +13,11 @@
             WHERE a.`no`=#{no};
     </select>
 
-
+    <select id="selectContent" resultType="kr.co.photostagram.vo.BoardVO">
+        SELECT * FROM `post` as a
+        JOIN `user` as b
+        ON a.`user_no` = b.`no`
+        WHERE a.`no`=#{no};
+    </select>
 
 </mapper>

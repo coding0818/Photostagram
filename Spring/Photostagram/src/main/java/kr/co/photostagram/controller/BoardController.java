@@ -28,12 +28,13 @@ public class BoardController {
 
         BoardVO post = service.selectPost(no);
 
-        /*BoardVO comment = service.selectComment(no);*/
+        BoardVO content = service.selectContent(no);
 
         log.info("post : " + post);
 
         model.addAttribute("user", user);
         model.addAttribute("post", post);
+        model.addAttribute("content", content);
 
         return "board/post";
     }
