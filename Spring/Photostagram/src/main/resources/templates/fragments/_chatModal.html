@@ -49,21 +49,39 @@
                                         member += "</div>";
                                         member += "</div>";
                                         member += "<div class='reco-btn' data-userno='"+user.no+"'>";
-                                        member += "<input type='checkbox' id='userCheck' name='userCheck'>";
-                                        member += "<label for='userCheck'>";
+                                        member += "<label>";
+                                        member += "<input type='checkbox' class='userCheck' name='userCheck'>";
+                                        member += "</label>";
                                         member += "</div>";
                                         member += "</div>";
 
                                    $('.reco-list-wrap').append(member);
                                 });
 
-                                $('label').on('click', function(){
+                                $('input[name=userCheck]').on('change', function(){
                                     let div = $(this).closest('div');
                                     let userCheck  = div.children('input[name=userCheck]');
+                                    let label = userCheck.next('label');
+
+                                    if(userCheck.is(':checked')){
+                                         label.css({
+                                            "content":"none"
+                                        });
+                                    }else{
+                                         label.css({
+                                            "content":"✔",
+                                            "font-size": "15px",
+                                            "width": "18px",
+                                            "height": "18px",
+                                            "text-align": "center",
+                                            "position": "absolute"
+                                        });
+                                    }
+
 
                                     if($('input[type=checkBox]:checked').length == 0){
                                         $('.btn-next').attr("disabled", true);
-                                        $('.btn-next').css("color", "#4db5f9");
+                                        $('.btn-next').css("color", "#0000ff");
                                     }else{
                                         $('.btn-next').attr("disabled", false);
                                         $('.btn-next').css("color", "#0095f6");
