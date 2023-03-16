@@ -12,6 +12,7 @@ public interface BoardDAO {
    public MemberVO selectMember(String username);
    public BoardVO selectPost(int no);
    public BoardVO selectContent(int no);
-
+   public List<Board1VO> selectPostHashTag(int no);
+   public List<CommentVO> selectcomments(int no);
 
 }
