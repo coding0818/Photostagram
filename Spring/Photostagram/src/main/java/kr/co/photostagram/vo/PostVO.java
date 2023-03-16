@@ -18,7 +18,6 @@ public class PostVO {
     private int like;
     private String rdate;
     private List<MultipartFile> files;
-
     // 추가필드
     private int commentCount;
 
@@ -26,9 +25,9 @@ public class PostVO {
 
     private int thumbs;
 
-
     private Post_likeVO post_likeVO;
-    private ImageVO imageVO;
+    private List<ImageVO> imageVO;
     private MemberVO memberVO;
+    private List<HashTagVO> hashTagVO;
 
 }

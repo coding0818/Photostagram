@@ -37,15 +37,15 @@
         a.no, a.content, a.user_no AS post_user_no, a.like, a.rdate AS post_rdate,
         b.username, b.name, b.profileImg, b.profileText,
         c.thumb,
-        d.post_no AS postlike_no, d.user_no AS postlike_user_no, d.rdate AS postlike_rdate
-
+        d.post_no AS postlike_no, d.user_no AS postlike_user_no, d.rdate AS postlike_rdate,
+        f.`hashtag`
         FROM `post` AS a
-        JOIN `user` AS b
-        ON a.user_no = b.no
-        JOIN `image` AS c
-        ON a.no = c.post_no
-        LEFT JOIN `post_like` AS d
-        ON a.no = d.post_no
+
+        JOIN `user` AS b ON a.user_no = b.no
+        JOIN `image` AS c ON a.no = c.post_no
+        LEFT JOIN `post_like` AS d ON a.no = d.post_no
+        LEFT JOIN `post_hashtag` AS e ON a.no = e.post_no
+        LEFT JOIN `hashtag` AS f ON e.hashtag_no = f.`no`
 
         ORDER BY a.`no` DESC;
     </select>
@@ -113,34 +113,29 @@
     </delete>
 
     <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">
-        <id column="no" property="no"/>
+        <result column="no" property="no"/>
         <result column="content" property="content"/>
         <result column="post_user_no" property="user_no"/>
         <result column="post_rdate" property="rdate"/>
         <result column="like" property="like"/>
         <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">
-            <id column="no" property="no"/>
             <result column="username" property="username"/>
             <result column="name" property="name"/>
-            <result column="password" property="password"/>
-            <result column="email" property="email"/>
             <result column="profileImg" property="profileImg"/>
             <result column="profileText" property="profileText"/>
-            <result column="gender" property="gender"/>
-            <result column="birth" property="birth"/>
         </association>
-
-        <collection property="imageVO" ofType="kr.co.photostagram.vo.ImageVO">
-            <id column="no" property="no"/>
-            <result column="thumb" property="thumb"/>
-            <result column="post_no" property="post_no"/>
-        </collection>
-
-        <collection property="post_likeVO" ofType="kr.co.photostagram.vo.Post_likeVO">
+        <association property="post_likeVO" javaType="kr.co.photostagram.vo.Post_likeVO">
             <result column="no" property="no"/>
             <result column="postlike_no" property="post_no"/>
             <result column="postlike_user_no" property="user_no"/>
             <result column="postlike_rdate" property="rdate"/>
+        </association>
+        <collection property="imageVO" ofType="kr.co.photostagram.vo.ImageVO">
+            <result column="thumb" property="thumb"/>
+            <result column="post_no" property="post_no"/>
+        </collection>
+        <collection property="hashTagVO" ofType="kr.co.photostagram.vo.HashTagVO">
+            <result column="hashtag" property="hashtag"/>
         </collection>
     </resultMap>
 

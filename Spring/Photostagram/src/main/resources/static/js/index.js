@@ -36,41 +36,44 @@ $(function () {
   //메인콘텐츠 더보기 누를 경우
   $(".contents").each(function () {
     let article = $(this).closest('article');
-    let wordArticle = article.find('.commentWord');
-    let word = wordArticle.text().trim(); // 게시하면서 작성자가 남긴 문구 불러오기
-    let word_short = word.substring(0, 10) + "...";
+    let mainContent = article.find('.mainContent');
+    let wordlength = mainContent.text().trim(); // 작성자가 쓴 내용 + 해시태그 길이
+
+    let commentWord = article.find('.commentWord'); // 작성자가 쓴 내용
+    let hashtag_text = article.find('.hashtag_text'); // 해시태그
+    let word_short = wordlength.substring(0, 20) + "...";
     let btnMore = $(
       '<a href="javascript:void(0)" class="ContentsMore">더보기</a>'
     );
-    
+    let hap = commentWord.text() + hashtag_text
     article.find('.comment').append(btnMore);
     // $(this).children(".comment_container").children(".comment").append(btnMore);
 
-    // 남긴 글이 10글자 이상인 경우
-    if (word.length >= 10) {
-      // 10글자만 남긴다
-      wordArticle.html(word_short);
+    // 남긴 글이 20글자 이상인 경우
+    if (wordlength.length >= 20) {
+      // 20글자만 남긴다
+       mainContent.html(word_short);
     } else {
       btnMore.hide();
     }
 
     btnMore.click(toggle_content);
 
-    function toggle_content() {
-      if (article.find('.ContentsMore').hasClass("short")) {
-        // 접기 상태
-        article.find('.ContentsMore').html("더보기");
-        wordArticle.html(word_short);
-        article.find('.ContentsMore').removeClass("short");
-      } else {
-        // 더보기 상태
-        article.find('.ContentsMore').html("접기");
-        wordArticle.html(word);
-        article.find('.ContentsMore').addClass("short");
-      }
-    }
+    // function toggle_content() {
+    //   if (article.find('.ContentsMore').hasClass("short")) {
+    //     // 접기 상태
+    //     article.find('.ContentsMore').html("더보기");
+    //     mainContent.html(word_short);
+    //     article.find('.ContentsMore').removeClass("short");
+    //   } else {
+    //     // 더보기 상태
+    //     article.find('.ContentsMore').html("접기");
+    //     mainContent.html(hap);
+    //     article.find('.ContentsMore').addClass("short");
+    //   }
+    // }
 
-    article.find('.img_section').bxSlider({});
+    $(".bx_slider").bxSlider();
   });
 
 
@@ -102,6 +105,10 @@ $(function () {
     };
 
     
+    if(comment == ""){
+        alert('댓글을 입력하세요.')
+        return false;
+    }
 
     $.ajax({
       url: url,
@@ -113,9 +120,7 @@ $(function () {
 
         if (data.result > 0) {
 
-          if(comment == ""){
-            return false;
-          }
+
 
           let str = "<div class='reply_user' data-no='"+data.no+"'>";
           str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";

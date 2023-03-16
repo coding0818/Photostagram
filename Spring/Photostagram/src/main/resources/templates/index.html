@@ -119,11 +119,11 @@
 
             <!-- 게시글 사진 div -->
             <div class="img_section">
-              <div class="trans_inner">
-                <div>
-                  <!------------- 게시글 사진입니다 --------------------->
-                  <img th:src="|@{/}thumb/${article.imageVO.thumb}" alt="visual01" />
-                </div>
+              <div class="bx_slider">
+                <!------------- 게시글 사진입니다 --------------------->
+                <th:block th:each="thumbImage : ${article.imageVO}">
+                  <img th:src="|@{/}thumb/${thumbImage.thumb}" alt="visual01" />
+                </th:block>
               </div>
             </div>
 
@@ -164,7 +164,14 @@
                     <a href="#" th:text="${article.memberVO.username}"></a>
                   </div>
                   <!------------- 게시글 내용 입니다 ----------------->
-                  <div class="commentWord" th:text="${article.content}"></div>
+                  <div class="mainContent" style="display: inline-block;">
+                    <div class="commentWord" th:text="${article.content}" style="color: #262626;"></div>
+                    <th:block th:each="hashtag : ${article.hashTagVO}">
+                      <a href="#" class="hashtag_text" style="color: #00376B;">
+                        #[[${hashtag.hashtag}]]
+                      </a>
+                    </th:block>
+                  </div>
                 </div>
               </div>
 

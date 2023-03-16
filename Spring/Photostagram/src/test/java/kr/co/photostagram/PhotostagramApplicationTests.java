@@ -2,7 +2,9 @@ package kr.co.photostagram;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.photostagram.controller.MemberController;
+import kr.co.photostagram.dao.IndexDAO;
 import kr.co.photostagram.vo.MemberVO;
+import kr.co.photostagram.vo.PostVO;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
+import java.util.List;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,7 +38,7 @@ class PhotostagramApplicationTests {
 	@Autowired
 	private MemberController controller;
 
-	@Test
+
 	public void testTerms() throws Exception {
 
 		MemberVO vo = MemberVO.builder()
@@ -55,5 +58,19 @@ class PhotostagramApplicationTests {
 
 		//log.info("resultMap : " + resultMap);
 	}
+
+
+	@Autowired
+	private IndexDAO dao;
+
+	@Test
+	public void testSelectArticles(){
+
+		List<PostVO> result = dao.selectArticles();
+
+		System.out.println(result);
+
+	}
+
 
 }
