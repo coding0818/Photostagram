@@ -165,6 +165,14 @@ public class ProfileController {
         JSFunction.alertLocation(resp, "수정이 완료되었습니다.", "/Photostagram/profile/modify");
     }
 
+    @GetMapping("profile/passChange")
+    public String passChange(Principal principal, Model model) {
+        MemberVO user = service.selectMember(principal.getName());
+
+        model.addAttribute("user", user);
+        return "profile/passChange";
+    }
+
     @ResponseBody
     @GetMapping("profile/upload")
     public Map<String, Integer> upload(Principal principal, String type){
