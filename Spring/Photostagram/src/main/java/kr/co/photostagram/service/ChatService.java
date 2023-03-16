@@ -16,4 +16,8 @@ public class ChatService {
     public List<MemberVO> findAllUsers(String keyword){
         return dao.findAllUsers(keyword);
     }
+
+    public int insertChatRoom(int my_no, int user_no){
+        return dao.insertChatRoom(my_no, user_no);
+    }
 }

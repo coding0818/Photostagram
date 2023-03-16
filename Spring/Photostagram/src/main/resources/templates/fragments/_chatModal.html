@@ -48,50 +48,94 @@
                                         }
                                         member += "</div>";
                                         member += "</div>";
-                                        member += "<div class='reco-btn' data-userno='"+user.no+"'>";
-                                        member += "<label>";
-                                        member += "<input type='checkbox' class='userCheck' name='userCheck'>";
-                                        member += "</label>";
+                                        member += "<div class='reco-btn' data-username='"+user.username+"' data-no='"+user.no+"'>";
+                                        if($('h5').hasClass(user.username)){
+                                            member += "<input type='checkbox' name='userCheck' checked>";
+                                        }else{
+                                            member += "<input type='checkbox' name='userCheck'>";
+                                        }
                                         member += "</div>";
                                         member += "</div>";
 
                                    $('.reco-list-wrap').append(member);
                                 });
 
-                                $('input[name=userCheck]').on('change', function(){
-                                    let div = $(this).closest('div');
+                                $('input[name=userCheck]').click(function(){
+
+                                    //alert('here1');
+
+                                    let div = $(this).parent('div');
                                     let userCheck  = div.children('input[name=userCheck]');
-                                    let label = userCheck.next('label');
+
+                                    let length = $('input:checkbox[name=userCheck]:checked').length;
+                                    console.log('here1 : '+length);
+
+                                    let username = div.attr('data-username');
+                                    let no = div.attr('data-no');
 
                                     if(userCheck.is(':checked')){
-                                         label.css({
-                                            "content":"none"
-                                        });
-                                    }else{
-                                         label.css({
-                                            "content":"✔",
-                                            "font-size": "15px",
-                                            "width": "18px",
-                                            "height": "18px",
-                                            "text-align": "center",
-                                            "position": "absolute"
-                                        });
-                                    }
+                                        console.log('checked!');
+                                        $('.sendingUser').append('<h5 class='+username+' data-num='+no+'>'+username+'&nbsp;&nbsp;</h5>');
+                                        $('.new-body2-1').val('');
+                                        $('.recommend').show();
+                                        $('.reco-list-main').remove();
 
-
-                                    if($('input[type=checkBox]:checked').length == 0){
-                                        $('.btn-next').attr("disabled", true);
-                                        $('.btn-next').css("color", "#0000ff");
+                                        if($('.sendingUser').children().length > 0){
+                                            $('.btn-next').attr("disabled", false);
+                                            $('.btn-next').css("color", "#0000ff");
+                                        }
                                     }else{
-                                        $('.btn-next').attr("disabled", false);
-                                        $('.btn-next').css("color", "#0095f6");
+                                        console.log('not checked!');
+                                        $('.'+username+'').remove();
+                                        $('.new-body2-1').val('');
+                                        $('.recommend').show();
+                                        $('.reco-list-main').remove();
+
+                                        console.log('h5 length : '+$('h5').length);
+
+                                        if($('.sendingUser').children().length == 0){
+                                            $('.btn-next').attr("disabled", true);
+                                            $('.btn-next').css("color", "#4db5f9");
+                                        }
                                     }
 
                                 });
+
+
                             }
                         }
                     });
                 }
+            });
+
+            $('.btn-next').on('click', function(){
+                var checkBoxArr = [];
+
+                $('.sendingUser').children().each(function(){
+                    let no = $(this).attr('data-num');
+                    checkBoxArr.push(no);
+                    console.log(checkBoxArr);
+                });
+                console.log('checkBoxArr : '+checkBoxArr);
+
+                let my_no = [[${user.no}]];
+                console.log('my_no : '+my_no);
+
+                let jsonData = {"user_no":checkBoxArr, "my_no":my_no};
+                console.log('jsonData : '+JSON.stringify(jsonData));
+
+
+                $.ajax({
+                    url:'/Photostagram/goChattingRoom',
+                    method:'POST',
+                    traditional: true,
+                    data:jsonData,
+                    dataType:'json',
+                    success:function(data){
+                        console.log('메시지창으로 이동!');
+                        location.href='/Photostagram/chat/content';
+                    }
+                });
             });
         });
     </script>
@@ -115,8 +159,8 @@
                     <h4 class="new-body1-3">받는 사람: </h4>
                 </div>
                 <div class="new-body2">
+                    <div class="sendingUser"></div>
                     <input class="new-body2-1" autocomplete="off" name="queryBox" placeholder="검색..." spellcheck="false" type="text">
-                    <div></div>
                 </div>
             </div>
         </div>
