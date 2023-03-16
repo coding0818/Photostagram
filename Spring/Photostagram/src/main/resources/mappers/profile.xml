@@ -19,14 +19,30 @@
     </select>
 
     <select id="selectPosts" resultType="kr.co.photostagram.vo.PostVO">
-        SELECT * FROM `post` WHERE `user_no`=#{no} ORDER BY `no` DESC;
+        SELECT *,COUNT(`thumb`) AS 'thumbs'
+            FROM `post` AS a
+            JOIN `image` AS b
+            ON a.`no`=b.`post_no`
+            WHERE a.`user_no`=#{no}
+            GROUP BY a.`no`;
     </select>
 
+    <select id="selectThumb" resultType="kr.co.photostagram.vo.PostVO">
+        SELECT a.`no`, `thumb` AS `firstThumb`, COUNT(`thumb`) AS 'thumbs'
+            FROM `post` AS a
+            JOIN `image` AS b
+            ON a.`no`=b.`post_no`
+            WHERE a.`user_no`=#{pageNo} AND b.`post_no`=#{postNo}
+            GROUP BY a.`no`;
+    </select>
+
+    <!--
     <select id="selectThumb" resultType="kr.co.photostagram.vo.ImageVO">
         SELECT * FROM `image`
             WHERE `post_no`=#{postNo}
             ORDER BY `no` ASC LIMIT 1;
     </select>
+    -->
 
     <select id="selectFollowers" resultType="kr.co.photostagram.vo.MemberVO">
         SELECT * FROM `follow` AS a
@@ -63,6 +79,12 @@
             `profileText` = #{profileText},
             `profilePhone` = #{profilePhone},
             `gender` = #{gender}
+            WHERE `no`=#{no};
+    </update>
+
+    <update id="updatePassword">
+        UPDATE `user` SET
+            `password` = #{newPass}
             WHERE `no`=#{no};
     </update>
 

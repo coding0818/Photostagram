@@ -21,9 +21,11 @@ public interface ProfileDAO {
     public int updateMember(MemberVO vo);
     public void deleteMember();
 
+    public int updatePassword(@Param("newPass") String newPass, @Param("no") int no);
+
     public List<PostVO> selectPosts(int no);
 
-    public ImageVO selectThumb(int postNo);
+    public PostVO selectThumb(@Param("pageNo") int pageNo, @Param("postNo") int postNo);
 
     public List<MemberVO> selectFollowers (int no);
     public List<MemberVO> selectFollowings (int no);

@@ -9,6 +9,7 @@ import kr.co.photostagram.vo.PostVO;
 import kr.co.photostagram.vo.SearchListVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Member;
 import java.security.Principal;
 import java.util.*;
 
@@ -43,17 +45,17 @@ public class ProfileController {
         int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
 
         /*** 사용자 게시물 ***/
-        List<PostVO> posts = service.selectPosts(pageNo);           // 게시물 목록
-        Map<Integer, String> map = new HashMap<>();                 // 맵 생성
+        List<PostVO> posts = service.selectPosts(pageNo);             // 게시물 목록
+        Map<Integer, PostVO> map = new HashMap<>();                   // 맵 생성
 
-        for (int i=0; i<posts.size(); i++){                         // 게시물 갯수만큼 반복
-            int postNo = posts.get(i).getNo();                      // 게시물 번호
-            String thumb = service.selectThumb(postNo).getThumb();  // 게시물 당 첫번째 사진 불러오기 (`image` 내에서 같은 `post_no` 중 가장 작은 `no`값의 `thumb`)
-            map.put(postNo, thumb);                                 // 게시물 번호(key) + 게시물 썸네일 (value)로 맵에 전달
+        for (int i=0; i<posts.size(); i++){                           // 게시물 갯수만큼 반복
+            int postNo = posts.get(i).getNo();                        // 게시물 번호
+            PostVO article = service.selectThumb(pageNo, postNo);     // 게시물 당 첫번째 사진과 사진 갯수 불러오기 (`image` 내에서 같은 `post_no` 중 가장 작은 `no` 값의 `thumb`)
+            map.put(postNo, article);                                 // 게시물 번호(key) + 게시물 썸네일 (value)로 맵에 전달
         }
 
         /*** 게시물 최신 순으로 정렬 ***/
-        Map<Integer, String> sortMap = new TreeMap<>(Comparator.reverseOrder());    // 게시물 번호(key) 기준으로 역순 정렬
+        Map<Integer, PostVO> sortMap = new TreeMap<>(Comparator.reverseOrder());    // 게시물 번호(key) 기준으로 역순 정렬
         sortMap.putAll(map);                                                        // 새로운 맵에 put
 
         /*** 게시물, 팔로워, 팔로잉 ***/
@@ -111,8 +113,6 @@ public class ProfileController {
             }
         }
 
-
-
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
 
@@ -124,7 +124,6 @@ public class ProfileController {
         log.info("notices : "+notices);
 
         model.addAttribute("notices", notices);
-
         model.addAttribute("user", user);
         model.addAttribute("member", member);
         model.addAttribute("searchList", searchList);
@@ -165,13 +164,72 @@ public class ProfileController {
         JSFunction.alertLocation(resp, "수정이 완료되었습니다.", "/Photostagram/profile/modify");
     }
 
-    @GetMapping("profile/passChange")
-    public String passChange(Principal principal, Model model) {
+    @GetMapping("profile/changePass")
+    public String changePass(Principal principal, Model model) {
         MemberVO user = service.selectMember(principal.getName());
 
         model.addAttribute("user", user);
-        return "profile/passChange";
+        return "profile/changePass";
     }
+
+    @ResponseBody
+    @PostMapping("profile/changePass")
+    public void changePass(HttpServletResponse resp, Principal principal, String prePass, String pass1, String pass2){
+        
+        //String result = null;
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String dbPass = service.selectMember(principal.getName()).getPassword();
+        int no = service.selectMember(principal.getName()).getNo();
+        //System.out.println("prePass : "+ prePass);
+        //System.out.println("dbUser Password : "+ dbUser.getPassword());
+
+        /*** 입력한 이전 비밀번호가 맞는지 확인 ***/
+        if(encoder.matches(prePass, dbPass)){
+            //result = "pwConfirmOk";
+
+            /*** 새 비밀번호가 새 비밀번호 확인과 같은지 확인 ***/
+            if (pass1.equals(pass2)){
+                String newPass = encoder.encode(pass1);
+                int result = service.updatePassword(newPass, no);
+
+                /*** 비밀번호 변경에 성공했을 시 로그아웃 ***/
+                if (result > 0){
+                    JSFunction.alertLocation(resp, "비밀번호 변경이 완료되었습니다. 다시 로그인해주세요.", "/Photostagram/member/logout");
+                }
+
+            } else {
+                System.out.println("no");
+            }
+
+        } else {
+            //result = "pwConfirmNo";
+        }
+
+        //System.out.println(result);
+        //System.out.println("pass1 : "+ pass1);
+        //System.out.println("pass2 : "+ pass2);
+    }
+
+    @ResponseBody
+    @PostMapping("profile/prePass")
+    public Map<String, Integer> prePass(Principal principal, String prePass) {
+        Map<String, Integer> resultMap = new HashMap<>();
+
+        int result = 0;
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String dbPass = service.selectMember(principal.getName()).getPassword();
+
+        if(encoder.matches(prePass, dbPass)){
+            result = 1;
+
+        } else {
+           result = 0;
+        }
+
+        resultMap.put("result", result);
+        return resultMap;
+    }
+
 
     @ResponseBody
     @GetMapping("profile/upload")

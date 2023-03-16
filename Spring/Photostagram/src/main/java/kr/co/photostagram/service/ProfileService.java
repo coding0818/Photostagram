@@ -33,9 +33,11 @@ public class ProfileService {
 
     /*** 추가 서비스 로직 ***/
 
+    public int updatePassword (String newPass, int no) {return dao.updatePassword(newPass, no);}
+
     public List<PostVO> selectPosts(int no) {return dao.selectPosts(no);}
 
-    public ImageVO selectThumb(int postNo) {return dao.selectThumb(postNo);}
+    public PostVO selectThumb(int pageNo, int postNo) {return dao.selectThumb(pageNo, postNo);}
 
     public List<MemberVO> selectFollowers(int no) {return dao.selectFollowers(no);}
     public List<MemberVO> selectFollowings(int no) {return dao.selectFollowings(no);}
