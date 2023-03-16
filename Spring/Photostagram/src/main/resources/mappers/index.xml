@@ -47,6 +47,7 @@
         LEFT JOIN `post_like` AS d
         ON a.no = d.post_no
 
+        where a.no = 67
         ORDER BY a.`no` DESC;
     </select>
 
@@ -130,11 +131,16 @@
             <result column="birth" property="birth"/>
         </association>
 
-        <collection property="imageVO" ofType="kr.co.photostagram.vo.ImageVO">
+        <association property="imageVO" javaType="kr.co.photostagram.vo.ImageVO">
             <id column="no" property="no"/>
             <result column="thumb" property="thumb"/>
             <result column="post_no" property="post_no"/>
-        </collection>
+            <collection property="imageVOS" javaType="List" ofType="kr.co.photostagram.vo.ImageVO">
+                <id column="no" property="no"/>
+                <result column="thumb" property="thumb"/>
+                <result column="post_no" property="post_no"/>
+            </collection>
+        </association>
 
         <collection property="post_likeVO" ofType="kr.co.photostagram.vo.Post_likeVO">
             <result column="no" property="no"/>

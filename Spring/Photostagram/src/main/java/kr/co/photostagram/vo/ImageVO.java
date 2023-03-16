@@ -14,4 +14,5 @@ public class ImageVO {
     private String thumb;
     private int post_no;
 
+    private List<ImageVO> imageVOS;
 }

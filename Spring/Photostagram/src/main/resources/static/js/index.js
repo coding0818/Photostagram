@@ -102,6 +102,10 @@ $(function () {
     };
 
     
+    if(comment == ""){
+        alert('댓글을 입력하세요.')
+        return false;
+    }
 
     $.ajax({
       url: url,
@@ -113,9 +117,7 @@ $(function () {
 
         if (data.result > 0) {
 
-          if(comment == ""){
-            return false;
-          }
+
 
           let str = "<div class='reply_user' data-no='"+data.no+"'>";
           str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
