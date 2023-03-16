@@ -881,6 +881,8 @@ html {height: 100%;}
         transition: all .15s ease-in-out;
         width:500px;
         height: 548px;
+        overflow: hidden;
+        position: relative;
     }
 
     .modal_image_content{
@@ -913,6 +915,14 @@ html {height: 100%;}
       right: 305px;
       background: none;
       border: none;
+    }
+
+    video{
+        width: 499px;
+        height: 547px;
+        position: absolute;
+        left:0;
+        top:0;
     }
 
     /*modal drop*/
