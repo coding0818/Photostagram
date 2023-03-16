@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Post_hashtagVO {
-    private int hashtag_no;
-    private int post_no;
-
-
+public class ChatroomVO {
+    private int no;
+    private int me;
+    private int other;
 }

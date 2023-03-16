@@ -38,8 +38,16 @@ public class MemberService {
     }
 
     public String searchId(String name, String email) {
-        log.info("searchIdService...");
         return dao.searchId(name, email);
+    }
+    public String searchPass(String userName, String email) {
+        return dao.searchPass(userName, email);
+    }
+
+    public int changePass(String userName, String pass) {
+        pass = encoder.encode(pass);
+//        System.out.println("pass = " + pass);
+        return dao.changePass(userName, pass);
     }
 
 }

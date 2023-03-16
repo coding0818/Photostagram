@@ -21,6 +21,10 @@ public class PostVO {
     // 추가필드
     private int commentCount;
 
+    private String firstThumb;
+
+    private int thumbs;
+
     private Post_likeVO post_likeVO;
     private List<ImageVO> imageVO;
     private MemberVO memberVO;

@@ -22,6 +22,7 @@ public class BoardController {
     public String post(Principal principal, Model model, int no) {
         /*** 사용자, 프로필 페이지 사용자 ***/
         String myName = principal.getName();
+        log.info("myName : " + myName);
 
 
         MemberVO user = service.selectMember(myName);
@@ -32,9 +33,17 @@ public class BoardController {
 
         log.info("post : " + post);
 
+        List<Board1VO> hashes = service.selectPostHashTag(no);
+
+        log.info("hashes : " + hashes);
+
+        List<CommentVO> comments = service.selectcomments(no);
+
         model.addAttribute("user", user);
         model.addAttribute("post", post);
         model.addAttribute("content", content);
+        model.addAttribute("hashes", hashes);
+        model.addAttribute("comments", comments);
 
         return "board/post";
     }

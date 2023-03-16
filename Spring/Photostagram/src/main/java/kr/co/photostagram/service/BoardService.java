@@ -2,10 +2,7 @@ package kr.co.photostagram.service;
 
 import kr.co.photostagram.dao.BoardDAO;
 import kr.co.photostagram.dao.ProfileDAO;
-import kr.co.photostagram.vo.BoardVO;
-import kr.co.photostagram.vo.ImageVO;
-import kr.co.photostagram.vo.MemberVO;
-import kr.co.photostagram.vo.PostVO;
+import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +23,8 @@ public class BoardService {
 
     public BoardVO selectPost(int no) {return dao.selectPost(no);}
     public BoardVO selectContent(int no) {return dao.selectContent(no);}
-
+    public List<Board1VO> selectPostHashTag(int no) {return dao.selectPostHashTag(no);}
+    public List<CommentVO> selectcomments(int no) {return dao.selectcomments(no);}
 
 
 

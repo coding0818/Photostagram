@@ -1,17 +1,23 @@
 package kr.co.photostagram.controller;
 
+import kr.co.photostagram.service.MailPassService;
 import kr.co.photostagram.service.MailService;
 import kr.co.photostagram.service.MemberService;
 import kr.co.photostagram.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.lang.reflect.Member;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,9 +32,19 @@ public class MemberController {
     @Autowired
     public MailService mailService;
 
+    @Autowired
+    public MailPassService mailPassService;
+
     @GetMapping("/login")
     public String login(){
-        return "member/login";
+
+        // 로그인 후 뒤로가기 방지
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) { // 로그인 하지 않았다면
+            return "member/login";
+        }else{  // 로그인 했다면
+            return "redirect:/index";
+        }
     }
 
     @GetMapping("/register")
@@ -43,6 +59,11 @@ public class MemberController {
         return "member/register";
     }
 
+    /**
+     * 아이디 존재 여부 확인
+     * @param userName
+     * @return 존재 여부 결과값 0, 1
+     */
     @ResponseBody
     @PostMapping("/chkUserName")
     public Map<String, Integer> chkUserName(String userName){
@@ -56,6 +77,11 @@ public class MemberController {
         return resultMap;
     }
 
+    /**
+     * 이메일 존재 여부 확인
+     * @param email
+     * @return 존재 여부 결과값 0, 1
+     */
     @ResponseBody
     @PostMapping("/chkEmail")
     public Map<String, Integer> chkEmail(String email) {
@@ -79,6 +105,12 @@ public class MemberController {
         return "member/email";
     }
 
+    /**
+     * 이메일 코드 보내기
+     * @param email
+     * @return 이메일 발송 결과 result 0, 1
+     * @throws Exception
+     */
     @ResponseBody
     @PostMapping("/sendEmail")
     public Map<String, Integer> sendEmail(@RequestParam String email) throws Exception{
@@ -102,7 +134,12 @@ public class MemberController {
         return "member/terms";
     }
 
-
+    /**
+     * 유효성 검사 후 회원 등록하기
+     * @param vo
+     * @param error
+     * @return 회원등록 결과값 0, 1
+     */
     @ResponseBody
     @PostMapping("/terms")
     public Map<String, Integer> terms(@Valid @RequestBody MemberVO vo, BindingResult error){
@@ -132,15 +169,18 @@ public class MemberController {
         return "member/checkId";
     }
 
+    /**
+     * 아이디 찾기
+     * @param name
+     * @param email
+     * @return 아이디
+     */
     @ResponseBody
     @PostMapping("/searchId")
-    public Map searchId(String name, String email) {
+    public Map searchId(@Param("name") String name, @Param("email") String email) {
         log.info("searchId...");
-        System.out.println("name = " + name);
-        System.out.println("email = " + email);
 
         String userName = service.searchId(name, email);
-        System.out.println("userName = " + userName);
 
         Map resultMap = new HashMap<>();
         resultMap.put("userName", userName);
@@ -155,6 +195,46 @@ public class MemberController {
     @GetMapping("/checkPassForm")
     public String checkPassForm() {
         return "member/checkPass";
+    }
+
+    /**
+     * 비밀번호 찾기
+     * @param userName
+     * @param email
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/searchPass")
+    public Map searchPass(@Param("userName") String userName, @Param("email") String email) {
+        log.info("searchPass...");
+
+//        System.out.println("userName = " + userName);
+//        System.out.println("email = " + email);
+        
+        String name = service.searchPass(userName, email);
+
+        Map resultMap = new HashMap<>();
+        resultMap.put("name", name);
+        return resultMap;
+    }
+
+    /**
+     * 임시 비밀번호 이메일로 보내기, db값 변경하기
+     * @param email
+     * @return 보낸 여부 결과값 0, 1
+     */
+    @Transactional
+    @ResponseBody
+    @PostMapping("/sendEmailPass")
+    public Map<String, Integer> sendEmailPass( @RequestParam String userName, @RequestParam String email) throws Exception {
+        log.info("sendEmailPass...");
+
+        String pass = mailPassService.sendPassEmail(email);
+        int result = service.changePass(userName, pass);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+        return resultMap;
     }
 
     @GetMapping("/resultId")

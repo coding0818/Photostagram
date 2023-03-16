@@ -24,4 +24,12 @@
         select `username` from `user` where `name` = #{name} and `email` = #{email}
     </select>
 
+    <select id="searchPass" resultType="String">
+        select `name` from `user` where `username` = #{userName} and `email` = #{email}
+    </select>
+
+    <update id="changePass">
+        update `user` set password = #{pass} where `username` = #{userName}
+    </update>
+
 </mapper>
