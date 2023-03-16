@@ -69,8 +69,12 @@
         ON a.no = c.comment_no;
     </select>
 
-    <select id="selectCommentCount" resultType="int">
-        SELECT COUNT(*) FROM `comment` WHERE `post_no` = #{post_no};
+    <select id="selectCommentCountNum" resultType="int">
+        SELECT COUNT(`no`) FROM `comment` WHERE `post_no`=#{post_no};
+    </select>
+
+    <select id="selectArticleImg" resultType="kr.co.photostagram.vo.PostVO">
+        SELECT * FROM `image` WHERE post_no = #{post_no};
     </select>
 
 <!--    <select id="selectHashTag" resultMap="">-->
@@ -159,7 +163,5 @@
             <result column="commentLikeRdate" property="rdate"/>
         </collection>
     </resultMap>
-    <select id="selectCommentCountNum" resultType="int">
-        SELECT COUNT(`no`) FROM `comment` WHERE `post_no`=#{post_no};
-    </select>
+
 </mapper>
