@@ -13,6 +13,10 @@ $(function () {
     modalPost.css("display", "flex");
     $("body").css("overflow-y", "hidden");
   });
+  $(".sprite_bubble_icon").on("click", function () {
+    modalPost.css("display", "flex");
+    $("body").css("overflow-y", "hidden");
+  });
 
   $(".post-close").on("click", function () {
     modalPost.css("display", "none");
@@ -29,42 +33,46 @@ $(function () {
     $("body").css("overflow-y", "visible");
   });
 
-  // 메인콘텐츠 더보기 누를 경우
-  //  $(".contents").each(function () {
-  //    let wordArticle = $(".commentWord");
-  //    let word = wordArticle.text().trim(); // 게시하면서 작성자가 남긴 문구 불러오기
-  //    let word_short = word.substring(0, 10) + "...";
-  //    let btnMore = $(
-  //      '<a href="javascript:void(0)" class="ContentsMore">더보기</a>'
-  //    );
-  //
-  //    $(this).children(".comment_container").children(".comment").append(btnMore);
-  //
-  //    // 남긴 글이 10글자 이상인 경우
-  //    if (word.length >= 10) {
-  //      // 10글자만 남긴다
-  //      wordArticle.html(word_short);
-  //    } else {
-  //      btnMore.hide();
-  //    }
-  //
-  //    btnMore.click(toggle_content);
-  //
-  //    function toggle_content() {
-  //      if ($(".ContentsMore").hasClass("short")) {
-  //        // 접기 상태
-  //        $(".ContentsMore").html("더보기");
-  //        wordArticle.html(word_short);
-  //        $(".ContentsMore").removeClass("short");
-  //      } else {
-  //        // 더보기 상태
-  //        $(".ContentsMore").html("접기");
-  //        wordArticle.html(word);
-  //        $(".ContentsMore").addClass("short");
-  //      }
-  //    }
-  //
-  //  });
+  //메인콘텐츠 더보기 누를 경우
+  $(".contents").each(function () {
+    let article = $(this).closest('article');
+    let wordArticle = article.find('.commentWord');
+    let word = wordArticle.text().trim(); // 게시하면서 작성자가 남긴 문구 불러오기
+    let word_short = word.substring(0, 10) + "...";
+    let btnMore = $(
+      '<a href="javascript:void(0)" class="ContentsMore">더보기</a>'
+    );
+    
+    article.find('.comment').append(btnMore);
+    // $(this).children(".comment_container").children(".comment").append(btnMore);
+
+    // 남긴 글이 10글자 이상인 경우
+    if (word.length >= 10) {
+      // 10글자만 남긴다
+      wordArticle.html(word_short);
+    } else {
+      btnMore.hide();
+    }
+
+    btnMore.click(toggle_content);
+
+    function toggle_content() {
+      if (article.find('.ContentsMore').hasClass("short")) {
+        // 접기 상태
+        article.find('.ContentsMore').html("더보기");
+        wordArticle.html(word_short);
+        article.find('.ContentsMore').removeClass("short");
+      } else {
+        // 더보기 상태
+        article.find('.ContentsMore').html("접기");
+        wordArticle.html(word);
+        article.find('.ContentsMore').addClass("short");
+      }
+    }
+
+    article.find('.img_section').bxSlider({});
+  });
+
 
   // 댓글 작성
   $(document).on("click",".upload_btn", function(e) {
@@ -85,12 +93,15 @@ $(function () {
     console.log("user_no : " + user_no)
     console.log("comment : " + comment)
 
+
     let jsonData = {
       uid: uid,
       post_no: post_no,
       user_no: user_no,
       comment: comment
     };
+
+    
 
     $.ajax({
       url: url,
@@ -99,20 +110,28 @@ $(function () {
       contentType: "application/json",
       dataType: "json",
       success: (data) => {
-        console.log(data);
 
         if (data.result > 0) {
+
+          if(comment == ""){
+            return false;
+          }
 
           let str = "<div class='reply_user' data-no='"+data.no+"'>";
           str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
           str += "<span class='reply_nick'>" + uid + "</span>";
-          str += "<span class='reply_content'>" + comment + "</span>";
+          str += "<span class='reply_content' style='margin-left:4px;'>" + comment + "</span>";
           str += "<div class='comLike sprite_small_heart_icon_outline' data-no='"+data.user_no+"'></div>";
           str += "</div>";
 
           article.find('.comment_container').append(str);
           article.find('.commentText').val('');
-          //$(".comment_container").append(str);
+
+          let count = article.find('#comment-count').text(); // 현재 태그사이 텍스트받고
+          let commentCount = parseInt(count); // 문자열이라 더하기가 안되기때문에 parseInt
+
+          article.find('#comment-count').text(commentCount+1); // 해당 텍스트에 +1
+
         } else {
           alert("작성 실패");
         }

@@ -69,11 +69,23 @@
         ON a.no = c.comment_no;
     </select>
 
-    <select id="selectCommentCount" resultType="int">
-        SELECT COUNT(*) FROM `comment` WHERE `post_no` = #{post_no};
+    <select id="selectCommentCountNum" resultType="int">
+        SELECT COUNT(`no`) FROM `comment` WHERE `post_no`=#{post_no};
     </select>
 
+    <select id="selectArticleImg" resultType="kr.co.photostagram.vo.PostVO">
+        SELECT * FROM `image` WHERE post_no = #{post_no};
+    </select>
 
+<!--    <select id="selectHashTag" resultMap="">-->
+<!--        SELECT * FROM `post` AS a-->
+<!--        JOIN `post_hashtag` AS b-->
+<!--        ON a.no = b.post_no-->
+<!--        JOIN `hashtag` AS c-->
+<!--        ON b.hashtag_no = c.`no`-->
+
+<!--        order by a.no DESC;-->
+<!--    </select>-->
     <update id="postLikeAddUpdate">
         UPDATE `post` SET
         `like` = `like`+1
@@ -151,7 +163,5 @@
             <result column="commentLikeRdate" property="rdate"/>
         </collection>
     </resultMap>
-    <select id="selectCommentCountNum" resultType="int">
-        SELECT COUNT(`no`) FROM `comment` WHERE `post_no`=#{post_no};
-    </select>
+
 </mapper>
