@@ -20,4 +20,17 @@
         WHERE a.`no`=#{no};
     </select>
 
+    <select id="selectPostHashTag" resultType="kr.co.photostagram.vo.Board1VO">
+        SELECT
+        a.*,
+        b.`hashtag`
+        FROM `post_hashtag` AS a
+        JOIN `hashtag` AS b ON a.`hashtag_no` = b.`no`
+        WHERE a.`post_no`=#{no};
+    </select>
+
+    <select id="selectcomments" resultType="kr.co.photostagram.vo.CommentVO">
+       select `comment` from `comment` where post_no=#{no};
+    </select>
+
 </mapper>
