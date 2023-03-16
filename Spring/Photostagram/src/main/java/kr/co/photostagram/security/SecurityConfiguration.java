@@ -41,21 +41,26 @@ public class SecurityConfiguration {
 		// 로그아웃 설정
 		http.logout()
 		.invalidateHttpSession(true)
+		.clearAuthentication(true)
 		.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")).deleteCookies("JSESSIONID", "autoUid")
 		.logoutSuccessUrl("/member/login?success=200");
-		
+
+		// 캐시 비활성화
+		http.headers().cacheControl().disable();
+
 		// 사용자 인증 처리 컴포넌트 서비스 등록
 		http.userDetailsService(service);
 
-		/*
+
 		// 로그인 유지
 		http.rememberMe()
-		.rememberMeParameter("rememberMe")		// html checkbox name에 해당하는 값 (default: remember-me)
-		.tokenValiditySeconds(86400*30)			// 한 달 (default: 14일)
-		.alwaysRemember(false)					// 체크 박스 항상 실행 -> (default: false)
-		.userDetailsService(service)			// 사용자 계정 조회 처리 설정 api
-		.tokenRepository(tokenRepository());
-		*/
+				.key("key")
+				.rememberMeParameter("remember-me")		// html checkbox name에 해당하는 값 (default: remember-me)
+				.tokenValiditySeconds(86400*30)			// 한 달 (default: 14일)
+		//		.alwaysRemember(false)					// 체크 박스 항상 실행 -> (default: false)
+				.userDetailsService(service);			// 사용자 계정 조회 처리 설정 api
+//				.tokenRepository(tokenRepository());
+
 
 		return http.build();
 
