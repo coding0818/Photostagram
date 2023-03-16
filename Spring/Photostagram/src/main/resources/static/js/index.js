@@ -4,6 +4,8 @@
  */
 
 $(function () {
+  $(".bx_slider").bxSlider();
+
   let modalPost = $(".modal-post");
   let PostMenu = $(".post-menu");
   /**
@@ -36,51 +38,48 @@ $(function () {
   //메인콘텐츠 더보기 누를 경우
   $(".contents").each(function () {
     let article = $(this).closest('article');
-    let mainContent = article.find('.mainContent');
-    let wordlength = mainContent.text().trim(); // 작성자가 쓴 내용 + 해시태그 길이
 
-    let commentWord = article.find('.commentWord'); // 작성자가 쓴 내용
-    let hashtag_text = article.find('.hashtag_text'); // 해시태그
-    let word_short = wordlength.substring(0, 20) + "...";
+    let divCommentWord = article.find('.commentWord'); // 작성자가 쓴 내용
+    let comment = divCommentWord.text().trim();
+
+    let a_hashtag_text = article.find('.hashtag_text'); // 해시태그
+
+    let comment_short = comment.substring(0, 10) + "...";
     let btnMore = $(
       '<a href="javascript:void(0)" class="ContentsMore">더보기</a>'
     );
-    let hap = commentWord.text() + hashtag_text
-    article.find('.comment').append(btnMore);
-    // $(this).children(".comment_container").children(".comment").append(btnMore);
 
-    // 남긴 글이 20글자 이상인 경우
-    if (wordlength.length >= 20) {
-      // 20글자만 남긴다
-       mainContent.html(word_short);
-    } else {
+    article.find('.comment').append(btnMore);
+
+    if(comment.length >= 10){
+      divCommentWord.html(comment_short);
+      a_hashtag_text.hide();
+    }else{
       btnMore.hide();
     }
 
     btnMore.click(toggle_content);
 
-    // function toggle_content() {
-    //   if (article.find('.ContentsMore').hasClass("short")) {
-    //     // 접기 상태
-    //     article.find('.ContentsMore').html("더보기");
-    //     mainContent.html(word_short);
-    //     article.find('.ContentsMore').removeClass("short");
-    //   } else {
-    //     // 더보기 상태
-    //     article.find('.ContentsMore').html("접기");
-    //     mainContent.html(hap);
-    //     article.find('.ContentsMore').addClass("short");
-    //   }
-    // }
-
-    $(".bx_slider").bxSlider();
+    function toggle_content(){
+      if(article.find('.ContentsMore').hasClass("short")){
+        // 접혀있는 상태(평상 시)
+        article.find('.ContentsMore').html("더보기");
+        divCommentWord.html(comment_short);
+        a_hashtag_text.hide();
+        article.find('.ContentsMore').removeClass("short");
+      }else{
+        article.find('.ContentsMore').html("접기");
+        divCommentWord.html(comment);
+        a_hashtag_text.show();
+        article.find('.ContentsMore').addClass("short")
+      }
+    }
   });
-
 
   // 댓글 작성
   $(document).on("click",".upload_btn", function(e) {
     e.preventDefault();
-
+    
     let article    = $(this).closest('article')
     let div        = $(this).parent();
     let input      = div.children();
@@ -221,6 +220,7 @@ $(function () {
       })
     })
 
+  // 댓글 좋아요
   $(document).on("click", ".sprite_small_heart_icon_outline", function(e){
     e.preventDefault();
 
@@ -296,4 +296,7 @@ $(function () {
 
   })
 
+  /*
+    북마크 (default : -237px -286px, click : -159px -286px)
+  */
 });

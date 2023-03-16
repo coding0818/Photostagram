@@ -90,11 +90,13 @@ function uploadFiles(e){
           modal.css('top', $(window).scrollTop()+'px');
           modal.css('display', 'flex');
           $('body').css('overflow-y', 'hidden');
+          $('.bx-controls-direction').css('display', 'none');
       });
 
       $('#close_modal').on('click', function(){
         modal.css('display', 'none');
         $('body').css('overflow-y', 'visible');
+        $('.bx-controls-direction').css('display', 'flex');
       });
 
       $('#close_modal_feed').on('click', function(){
