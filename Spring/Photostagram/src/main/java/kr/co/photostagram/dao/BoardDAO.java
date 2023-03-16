@@ -11,7 +11,7 @@ import java.util.List;
 public interface BoardDAO {
    public MemberVO selectMember(String username);
    public BoardVO selectPost(int no);
-   /*public BoardVO selectComment(int no);*/
+   public BoardVO selectContent(int no);
 
 
 }
