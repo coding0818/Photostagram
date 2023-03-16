@@ -5,4 +5,8 @@
     <select id="findAllUsers" resultType="kr.co.photostagram.vo.MemberVO">
         select * from `user` where `username` like concat(#{keyword},'%');
     </select>
+    <!--채팅룸에 정보 입력-->
+    <insert id="insertChatRoom">
+        insert into `chatroom` set `me`=#{my_no}, `other`=#{user_no};
+    </insert>
 </mapper>
