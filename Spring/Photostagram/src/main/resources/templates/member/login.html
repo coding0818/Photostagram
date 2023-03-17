@@ -46,11 +46,11 @@
                                     <label for="rememberMe">로그인 상태 유지</label>
                                     <input type="checkbox" name="remember-me" id="rememberMe">
                                 </div>
-                                <!--
-                                <div class="checking">
-                                    <div>존재하지 않는 회원입니다.</div>
-                                </div>
-                                -->
+                                <th:block th:if="${success == '111'}">
+                                    <div class="checking">
+                                        <div>존재하지 않는 회원입니다.</div>
+                                    </div>
+                                </th:block>
                                 <div class="btn-group">
                                     <button type="submit" class="btn-login" id="signin-btn" disabled>
                                         로그인

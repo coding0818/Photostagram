@@ -19,7 +19,8 @@ public interface ProfileDAO {
     public MemberVO selectMember(String username);
     public void selectMembers();
     public int updateMember(MemberVO vo);
-    public void deleteMember();
+    public int deleteMember(int no);
+    public int deleteMemberData(int no);
 
     public int updatePassword(@Param("newPass") String newPass, @Param("no") int no);
 

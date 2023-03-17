@@ -3,9 +3,7 @@ package kr.co.photostagram.controller;
 import kr.co.photostagram.service.ChatService;
 import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
-import kr.co.photostagram.vo.MemberVO;
-import kr.co.photostagram.vo.NoticeVO;
-import kr.co.photostagram.vo.SearchListVO;
+import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,11 +50,17 @@ public class ChatController {
         log.info("notices : "+notices);
 
         model.addAttribute("notices", notices);
+
+        // 채팅방 조회
+        List<RoomVO> rooms = service.selectChatRoomList(user.getNo());
+        log.info("rooms : "+rooms);
+
+        model.addAttribute("rooms", rooms);
         return "chat/main";
     }
 
     @GetMapping("chat/content")
-    public String content(Principal principal, Model model){
+    public String content(Principal principal, Model model, int room_no){
         MemberVO user =  profileService.selectMember(principal.getName());
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
@@ -73,6 +77,24 @@ public class ChatController {
         log.info("notices : "+notices);
 
         model.addAttribute("notices", notices);
+
+        // 채팅방 조회
+        List<RoomVO> rooms = service.selectChatRoomList(user.getNo());
+        log.info("rooms : "+rooms);
+
+        model.addAttribute("rooms", rooms);
+
+        // 현재 채팅방 조회
+        List<RoomVO> roomsNow = service.selectNowRoom(room_no);
+        log.info("roomNow : "+roomsNow);
+
+        model.addAttribute("roomsNow", roomsNow);
+
+        // 현재 채팅방 채팅내역 조회
+        List<ChattingVO> chats = service.selectMessages(room_no);
+        log.info("chats : "+chats);
+
+        model.addAttribute("chats", chats);
         return "chat/content";
     }
 
@@ -92,11 +114,19 @@ public class ChatController {
     public Map<String, Integer> goChattingRoom(@RequestParam(value="user_no") ArrayList<Integer> user_no, int my_no){
         log.info("goChattingRoom...0"+user_no);
         log.info("goChattingRoom...1"+my_no);
-        int result = 0;
-        for(int user:user_no){
-            log.info("goChattingRoom...2...for문");
-            result = service.insertChatRoom(my_no, user);
-        }
+        int result = service.insertChatRoom(user_no, my_no);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+        log.info("goChattingRoom...3...for끝");
+        return resultMap;
+    }
+
+    @ResponseBody
+    @PostMapping("insertMessage")
+    public Map<String, Integer> insertMessage(ChattingVO vo){
+        int result = service.insertMessages(vo);
+
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
         log.info("goChattingRoom...3...for끝");

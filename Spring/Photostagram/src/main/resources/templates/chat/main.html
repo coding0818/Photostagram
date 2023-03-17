@@ -3,39 +3,46 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/chatLayout}">
 <th:block layout:fragment="main">
-    <script>
+    <script th:inline="javascript">
       
       $(function(){
-  $("#confirm").click(function(){
-      modalClose();
-      //컨펌 이벤트 처리
-  });
-  $("#modal-open").click(function(){
-    $("#overlay").css('display','flex').hide().fadeIn();
-  });
- 
-  function modalClose(){
-    $("#overlay").fadeOut();
-  }
-});
+            $("#confirm").click(function(){
+              modalClose();
+              //컨펌 이벤트 처리
+            });
+            $("#modal-open").click(function(){
+            $("#overlay").css('display','flex').hide().fadeIn();
+            });
 
-$(function(){
-  $("#lay").click(function(){
-    $("#overlay").css('display','flex').hide().fadeIn();
-  });
- 
-  function modalClose(){
-    $("#overlay").fadeOut();
-  }
-});
+            function modalClose(){
+            $("#overlay").fadeOut();
+            }
+            });
+
+            $(function(){
+            $("#lay").click(function(){
+            $("#overlay").css('display','flex').hide().fadeIn();
+            });
+
+            function modalClose(){
+            $("#overlay").fadeOut();
+            }
+            });
 
 
 
-$(document).on("click", function(e){  
-        if( $("#overlay").is(e.target)) {
-         $("#overlay").css({ visibility:"hidden", 
-                                     opacity:0 });
-    }
+            $(document).on("click", function(e){
+                if( $("#overlay").is(e.target)) {
+                 $("#overlay").css({ visibility:"hidden",
+                                             opacity:0 });
+            }
+
+            $('.chatMember').on('click', function(){
+                let ul = $(this).parent('ul');
+                let room_no =ul.children('input').val();
+
+                location.href='/Photostagram/chat/content?room_no='+room_no;
+            });
   });
   
     </script>
@@ -50,132 +57,24 @@ $(document).on("click", function(e){
             </div>
         </div>
         <div class="dir2">
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
+            <th:block th:if="${not #lists.isEmpty(rooms)}" th:each="room:${rooms}">
+                <ul>
+                    <input type="hidden" th:value="${room.no}" name="user_no"/>
+                    <li class="chatMember" >
+                        <th:block th:if="${#strings.isEmpty(room.members[0].profileImg)}">
+                            <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필사진">
+                        </th:block>
+                        <th:block th:unless="${#strings.isEmpty(room.members[0].profileImg)}">
+                            <img th:src="@{/thumb/{img}(img=${room.members[0].profileImg})}" alt="프로필사진">
+                        </th:block>
+                        <div class="profile">
+                            <p><span th:each="member:${room.members}">[[${member.username}]]&nbsp;</span></p>
+                            <p></p>
+                        </div>
+                    </li>
+                </ul>
+            </th:block>
+
 
         </div>
     </div>

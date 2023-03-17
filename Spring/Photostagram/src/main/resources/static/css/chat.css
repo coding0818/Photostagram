@@ -610,6 +610,11 @@ input[type='checkbox']:checked::before {
     border-bottom-left-radius: 50%
 }
 
+.chat-head-7 > img{
+    width:24px;
+    height:24px;
+}
+
 .chat-head-8{
     width: 100%;
     height: 100%;

@@ -11,14 +11,14 @@
               <div>
                   <a th:href="@{/profile/modify}">프로필 변경</a>
               </div>
-              <div class="currentMenu">
-                  <a th:href="@{/profile/changePass}" class="currentSet">비밀번호 변경</a>
-              </div>
               <div>
-                  <a th:href="@{/profile/deleteUser}">탈퇴하기</a>
+                  <a th:href="@{/profile/changePass}">비밀번호 변경</a>
+              </div>
+              <div class="currentMenu">
+                  <a th:href="@{/profile/deleteUser}" class="currentSet">탈퇴하기</a>
               </div>
           </div>
-          <div id="myPass">
+          <div id="myDelete">
               <div>
                   <div>
                       <th:block th:if="${not #strings.isEmpty(user.profileImg)}">
@@ -33,45 +33,23 @@
                   </div>
 
               </div>
-              <form th:action="@{/profile/changePass}" method="post" id="passForm">
+              <form th:action="@{/profile/deleteUser}" method="post">
                   <input type="hidden" name="no" th:value="${user.no}"/>
                   <table>
                       <tbody>
-                      <tr>
-                          <td>
-                              <span>이전 비밀번호</span>
-                          </td>
-                          <td>
-                              <input type="password" name="prePass"/>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <span>새 비밀번호</span>
-                          </td>
-                          <td>
-                              <input type="password" name="pass1"/>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <span>새 비밀번호 확인</span>
-                          </td>
-                          <td>
-                              <input type="password" name="pass2"/>
-                          </td>
-                      </tr>
+                          <tr>
+                              <td>
+                                  <span>비밀번호 입력</span>
+                              </td>
+                              <td>
+                                  <input type="password" name="password"/>
+                              </td>
+                          </tr>
                       </tbody>
                   </table>
                   <input id="passChange" type="submit" value="비밀번호 변경">
               </form>
-              <a th:href="@{/member/checkPass}">비밀번호를 잊으셨나요?</a>
           </div>
         </div>
     </th:block>
 </html>
-<script>
-
-
-
-</script>
