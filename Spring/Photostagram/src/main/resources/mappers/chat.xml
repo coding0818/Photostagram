@@ -6,11 +6,45 @@
         select * from `user` where `username` like concat(#{keyword},'%');
     </select>
     <!--채팅룸에 정보 입력-->
-    <insert id="insertChatRoom">
-        insert into `chatroom` set `me`=#{my_no}, `other`=#{user_no};
+    <insert id="insertChatRoom" useGeneratedKeys="true" keyProperty="no" parameterType="kr.co.photostagram.vo.RoomVO">
+        insert into `room` set `me`=#{me}, `rdate`=NOW();
+    </insert>
+    <insert id="insertChatRoomMember">
+        insert into `room_member` set `room`=#{room}, `user`=#{user_no}, `rdate`=NOW();
     </insert>
     <!--채팅룸 정보 조회-->
-    <select id="selectChatRoomList" resultType="kr.co.photostagram.vo.ChatroomVO">
-        
+    <select id="selectChatRoomList" resultMap="selectChatRooms">
+        SELECT a.*,b.`user`, c.username, c.profileImg from `room` as a
+        join `room_member` as b on a.no=b.room
+        JOIN `user` AS c ON b.`user`=c.`no`
+        where a.me=#{me};
+    </select>
+    <resultMap id="selectChatRooms" type="kr.co.photostagram.vo.RoomVO">
+        <id column="no" property="no"></id>
+        <result column="rdate" property="rdate"/>
+        <result column="me" property="me"/>
+        <collection property="members" ofType="kr.co.photostagram.vo.MemberVO">
+            <result column="username" property="username"/>
+            <result column="profileImg" property="profileImg"/>
+        </collection>
+        <collection property="room_members" ofType="kr.co.photostagram.vo.Room_MemberVO">
+            <result column="user" property="user"/>
+        </collection>
+    </resultMap>
+
+    <!--현재 채팅방 정보 조회-->
+    <select id="selectNowRoom" resultMap="selectChatRooms">
+        select a.*,b.`user`, c.username, c.profileImg from `room` as a
+        join `room_member` as b on a.no=b.room
+        join `user` as c on b.`user`=c.`no`
+        where a.no=#{room_no};
+    </select>
+    <!--메시지 입력-->
+    <insert id="insertMessages">
+        insert into `chatting` set `rdate`=NOW(), `message`=#{message}, `user_no`=#{user_no}, `room`=#{room};
+    </insert>
+    <!--채팅 메시지 조회-->
+    <select id="selectMessages" resultType="kr.co.photostagram.vo.ChattingVO">
+        select * from `chatting` where `room`=#{room};
     </select>
 </mapper>
