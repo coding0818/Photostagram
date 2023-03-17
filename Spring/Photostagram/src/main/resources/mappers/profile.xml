@@ -96,14 +96,64 @@
 
     <update id="deleteProfilePhoto">
         UPDATE `user` SET
-        `profileImg` = NULL
-        WHERE `no`=#{no};
+            `profileImg` = NULL
+            WHERE `no`=#{no};
+    </update>
+
+    <update id="deleteMember">
+        UPDATE `user` SET
+            `name` = 'NULL',
+            `password` = 'NULL',
+            `email` = 'NULL',
+            `profileImg` = NULL,
+            `profileText` = NULL,
+            `profilePhone` = NULL,
+            `gender` = NULL,
+            `birth` = 'NULL'
+            WHERE `no`=#{no};
     </update>
 
     <delete id="deleteFollow">
         DELETE FROM `follow`
             WHERE `follower` = #{follower}
             AND `following` = #{following};
+    </delete>
+
+    <delete id="deleteMemberData">
+        <!-- 팔로우 기록 삭제 -->
+        DELETE FROM `follow`
+            WHERE `follower` = #{no}
+            OR `following` = #{no};
+        <!-- 작성 게시물 해시태그 삭제 -->
+        DELETE a
+            FROM `post_hashtag` AS a
+            JOIN `post` AS b
+            ON a.`post_no`=b.`no`
+            WHERE b.`user_no`=#{no};
+        <!-- 작성 게시물 좋아요 삭제 -->
+        DELETE a
+            FROM `post_like` AS a
+            JOIN `post` AS b
+            ON a.`post_no`=b.`no`
+            WHERE b.`user_no`=#{no};
+        <!-- 작성 게시물 이미지 삭제 -->
+        DELETE a
+            FROM `image` AS a
+            JOIN `post` AS b
+            ON a.`post_no`=b.`no`
+            WHERE b.`user_no`=#{no};
+        <!-- 코멘트 좋아요 삭제 -->
+        DELETE FROM `comment_like`
+            WHERE `comment_no` IN (SELECT `no` FROM `comment` WHERE `user_no`=#{no});
+        <!-- 코멘트 삭제 -->
+        DELETE FROM `comment`
+            WHERE `user_no`=#{no};
+        <!-- 내가 작성한 게시물에 달린 코멘트 삭제 -->
+        DELETE FROM `comment`
+            WHERE `post_no`
+            IN (SELECT `no` FROM `post` WHERE `user_no`=#{no});
+        <!-- 내가 작성한 게시물 삭제 -->
+        DELETE FROM `post` WHERE `user_no`=#{no};
     </delete>
 
 </mapper>

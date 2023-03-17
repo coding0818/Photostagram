@@ -28,7 +28,8 @@ public class ProfileService {
     public MemberVO selectMember(String username){return dao.selectMember(username);}
     public void selectMembers(){}
     public int updateMember(MemberVO vo){return dao.updateMember(vo);}
-    public void deleteMember(){}
+    public int deleteMember(int no){return dao.deleteMember(no);}
+    public int deleteMemberData(int no){return dao.deleteMemberData(no);}
 
 
     /*** 추가 서비스 로직 ***/
