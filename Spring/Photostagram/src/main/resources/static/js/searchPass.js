@@ -15,8 +15,6 @@ $(function(){
 
         let userName = $('input[name=userName]').val();
         let email = $('input[name=email]').val();
-//        console.log('userName : ' + userName);
-//        console.log('email : ' + email);
 
         if(userName == "") { // 아이디가 공백일 때
             $('.check-txt').removeClass('on');
@@ -48,7 +46,7 @@ $(function(){
             data: jsonData,
             dataType: 'json',
             success: function(data) {
-                if(data.name != "") { // 존재한다면
+                if(data.name != "") {
                     name = data.name;
                     sendEmailPass(userName, email);
                 } else {
@@ -60,6 +58,7 @@ $(function(){
         });
     });
 
+    // 임시 비밀번호 이메일로 발송
     function sendEmailPass(userName, email) {
 
         console.log('email : ' + email);
@@ -86,6 +85,4 @@ $(function(){
             }
         });
     }
-
-
 });

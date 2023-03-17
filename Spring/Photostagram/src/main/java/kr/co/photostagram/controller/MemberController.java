@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,28 +36,23 @@ public class MemberController {
     @Autowired
     public MailPassService mailPassService;
 
+    /**
+     * 로그인 페이지
+     * @param success
+     * @param m
+     * @return success 111, 200
+     */
     @GetMapping("/login")
-    public String login(){
+    public String login(String success, Model m){
+        m.addAttribute("success", success);
 
         // 로그인 후 뒤로가기 방지
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) { // 로그인 하지 않았다면
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) { // 로그인이 되어있지 않다면
             return "member/login";
         }else{  // 로그인 했다면
             return "redirect:/index";
         }
-    }
-
-    @GetMapping("/register")
-    public String register(){
-        //return "member/register";
-        return "member/registerLayout";
-    }
-
-    @GetMapping("/registerForm")
-    public String registerForm(){
-        //return "member/register";
-        return "member/register";
     }
 
     /**
@@ -73,7 +69,7 @@ public class MemberController {
 
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
-        
+
         return resultMap;
     }
 
@@ -93,16 +89,6 @@ public class MemberController {
         resultMap.put("result", result);
 
         return resultMap;
-    }
-
-    @GetMapping("/birth")
-    public String birth(){
-        return "member/birth";
-    }
-
-    @GetMapping("/email")
-    public String email(){
-        return "member/email";
     }
 
     /**
@@ -127,11 +113,6 @@ public class MemberController {
         resultMap.put("confirm", confirm);
 
         return resultMap;
-    }
-
-    @GetMapping("/terms")
-    public String terms(){
-        return "member/terms";
     }
 
     /**
@@ -159,16 +140,6 @@ public class MemberController {
         return resultMap;
     }
 
-    @GetMapping("/checkId")
-    public String checkId() {
-        return "member/checkIdLayout";
-    }
-
-    @GetMapping("/checkIdForm")
-    public String checkIdForm() {
-        return "member/checkId";
-    }
-
     /**
      * 아이디 찾기
      * @param name
@@ -187,16 +158,6 @@ public class MemberController {
         return resultMap;
     }
 
-    @GetMapping("/checkPass")
-    public String checkPass() {
-        return "member/checkPassLayout";
-    }
-
-    @GetMapping("/checkPassForm")
-    public String checkPassForm() {
-        return "member/checkPass";
-    }
-
     /**
      * 비밀번호 찾기
      * @param userName
@@ -208,9 +169,6 @@ public class MemberController {
     public Map searchPass(@Param("userName") String userName, @Param("email") String email) {
         log.info("searchPass...");
 
-//        System.out.println("userName = " + userName);
-//        System.out.println("email = " + email);
-        
         String name = service.searchPass(userName, email);
 
         Map resultMap = new HashMap<>();
@@ -235,6 +193,71 @@ public class MemberController {
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
         return resultMap;
+    }
+
+    @GetMapping("/register")
+    public String register(){
+        // 로그인 후 뒤로가기 방지
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) { // 로그인이 되어있지 않다면
+            return "member/registerLayout";
+        }else{  // 로그인 했다면
+            return "redirect:/index";
+        }
+    }
+
+    @GetMapping("/registerForm")
+    public String registerForm(){
+        //return "member/register";
+        return "member/register";
+    }
+
+    @GetMapping("/birth")
+    public String birth(){
+        return "member/birth";
+    }
+
+    @GetMapping("/email")
+    public String email(){
+        return "member/email";
+    }
+
+    @GetMapping("/terms")
+    public String terms(){
+        return "member/terms";
+    }
+
+    @GetMapping("/checkId")
+    public String checkId() {
+
+        // 로그인 후 뒤로가기 방지
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) { // 로그인이 되어있지 않다면
+            return "member/checkIdLayout";
+        }else{  // 로그인 했다면
+            return "redirect:/index";
+        }
+    }
+
+    @GetMapping("/checkIdForm")
+    public String checkIdForm() {
+        return "member/checkId";
+    }
+
+    @GetMapping("/checkPass")
+    public String checkPass() {
+        // 로그인 후 뒤로가기 방지
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) { // 로그인이 되어있지 않다면
+            return "member/checkPassLayout";
+        }else{  // 로그인 했다면
+            return "redirect:/index";
+        }
+    }
+
+    @GetMapping("/checkPassForm")
+    public String checkPassForm() {
+        return "member/checkPass";
     }
 
     @GetMapping("/resultId")
