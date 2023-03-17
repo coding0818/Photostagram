@@ -29,14 +29,14 @@ public class ChatService {
         for(int user:user_no){
             dao.insertChatRoomMember(vo.getNo(), user);
         }
-        return 1;
+        return vo.getNo();
     }
 
     public List<RoomVO> selectChatRoomList(int me){
         return dao.selectChatRoomList(me);
     }
 
-    public List<RoomVO> selectNowRoom(int room_no){
+    public RoomVO selectNowRoom(int room_no){
         return dao.selectNowRoom(room_no);
     }
 
@@ -46,5 +46,15 @@ public class ChatService {
 
     public List<ChattingVO> selectMessages(int room){
         return dao.selectMessages(room);
+    }
+
+    public List<RoomVO> selectChatRoomNotMine(int user){
+        int[] rooms_no = dao.selectChatRoomNotMine(user);
+        List<RoomVO> rooms = new ArrayList<>();
+        for(int no : rooms_no){
+            RoomVO vo = dao.selectChatRoomsNotMine(no);
+            rooms.add(vo);
+        }
+        return rooms;
     }
 }
