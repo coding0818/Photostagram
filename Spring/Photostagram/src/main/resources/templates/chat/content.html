@@ -36,6 +36,38 @@ $(document).on("click", function(e){
          $("#overlay").css({ visibility:"hidden", 
                                      opacity:0 });
     }
+
+    $('.chatMember').on('click', function(){
+        let ul = $(this).parent('ul');
+        let room_no =ul.children('input').val();
+
+        location.href='/Photostagram/chat/content?room_no='+room_no;
+    });
+
+    $('.chatbox-box-1').keydown(function(key) {
+        //키의 코드가 13번일 경우 (13번은 엔터키)
+        if (key.keyCode == 13) {
+            let content = $(this).val();
+            let my_no = [[${user.no}]];
+            let room_no = $('input[name=roomNow_no]').val();
+
+            let jsonData = {"message":content, "user_no":my_no, "room":room_no};
+
+            $.ajax({
+                url:'/Photostagram/insertMessage',
+                method:'POST',
+                data:jsonData,
+                dataType:'json',
+                success:function(data){
+                    let message = '<div class="chat ch2">';
+                        message += '<div class="textbox">'+content+'</div>';
+                        message += '</div>';
+
+                    $('.wrap').append(message);
+                }
+            });
+        }
+    });
   });
   
     </script>
@@ -43,139 +75,30 @@ $(document).on("click", function(e){
     <div class="left">
         <div class="up">
             <div class="src1">
-                <p>sdfa123</p>
+                <p>[[${user.username}]]</p>
             </div>
             <div class="src2">
-                <img id="lay" src="./img/free-icon-writing-6570264.png" alt="">
+                <img id="lay" th:src="@{/img/free-icon-writing-6570264.png}" alt="">
             </div>
         </div>
         <div class="dir2">
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-                <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="프로필사진">
-                <div class="profile">
-                    <p>dlafjd</p>
-                    <p>안녕하세요.</p>
-                </div>
-            </li>
-          </ul>
+            <th:block th:if="${not #lists.isEmpty(rooms)}" th:each="room:${rooms}">
+                <ul>
+                    <input type="hidden" th:value="${room.no}" name="user_no"/>
+                    <li class="chatMember" >
+                        <th:block th:if="${#strings.isEmpty(room.members[0].profileImg)}">
+                            <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필사진">
+                        </th:block>
+                        <th:block th:unless="${#strings.isEmpty(room.members[0].profileImg)}">
+                            <img th:src="@{/thumb/{img}(img=${room.members[0].profileImg})}" alt="프로필사진">
+                        </th:block>
+                        <div class="profile">
+                            <p><span th:each="member:${room.members}">[[${member.username}]]&nbsp;</span></p>
+                            <p></p>
+                        </div>
+                    </li>
+                </ul>
+            </th:block>
         </div>
     </div>
     <div class="right-1">
@@ -185,70 +108,74 @@ $(document).on("click", function(e){
                 <div class="chat-head-3"></div>
                 <div class="chat-head-4">
                     <div class="chat-head-5">
-                        <div class="chat-head-6">
-                            <span class="chat-head-7">
-                                <img class="chat-head-8" src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="계정 사진">
-                            </span>
-                        </div>
-                        <div class="chat-head-name">
-                            <div class="chat-head-name-1">
-                                <div class="chat-head-name-2">
-                                    <div class="chat-head-name-3">
-                                        아무ro</div>
+                        <th:block th:if="${not #lists.isEmpty(roomsNow)}" th:each="roomNow:${roomsNow}">
+                            <input type="hidden" th:value="${roomNow.no}" name="roomNow_no"/>
+                            <div class="chat-head-6">
+                                <span class="chat-head-7">
+                                    <th:block th:if="${#strings.isEmpty(roomNow.members[0].profileImg)}">
+                                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필사진">
+                                    </th:block>
+                                    <th:block th:unless="${#strings.isEmpty(roomNow.members[0].profileImg)}">
+                                        <img th:src="@{/thumb/{img}(img=${roomNow.members[0].profileImg})}" alt="프로필사진">
+                                    </th:block>
+                                </span>
+                            </div>
+                            <div class="chat-head-name">
+                                <div class="chat-head-name-1">
+                                    <div class="chat-head-name-2">
+                                        <div class="chat-head-name-3">
+                                            <span th:each="user:${roomNow.members}">[[${user.username}]]&nbsp;</span></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </th:block>
                     </div>
                 </div>
                 <div class="chat-head-add">
                     <div class="chat-head-add-0">
-                        <img src="./img/free-icon-telephone-4544272.png" alt="음성 통화">
+                        <img th:src="@{/img/free-icon-telephone-4544272.png}" alt="음성 통화">
                     </div>
                     <div class="chat-head-add-1">
-                      <img src="./img/free-icon-videos-4353992.png" alt="영상 통화">
+                      <img th:src="@{/img/free-icon-videos-4353992.png}" alt="영상 통화">
                     </div>
                     <div class="chat-head-add-2">
-                      <img src="./img/free-icon-info-5258991.png" alt="상세정보">
+                      <img th:src="@{/img/free-icon-info-5258991.png}" alt="상세정보">
                     </div>
                 </div>
             </div>
         </div>
       </div>
       <div class="wrap">
-        <div class="chat ch1">
-            <div class="icon"><img class="" src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="계정사진"></div>
-            <div class="textbox">안녕하세요.</div>
-        </div>
-        <div class="chat ch2">
-            <div class="textbox">안녕하세요. 반갑습니다.</div>
-        </div>
-        <div class="chat ch1">
-            <div class="icon"><img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="계정사진"></div>
-            <div class="textbox">반갑습니다</div>
-        </div>
-        <div class="chat ch2">
-            <div class="textbox">....</div>
-        </div>
+          <th:block th:if="${not #lists.isEmpty(chats)}" th:each="chat:${chats}">
+              <!--
+                <div class="chat ch1">
+                    <div class="icon"><img class="" src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="계정사진"></div>
+                    <div class="textbox">안녕하세요.</div>
+                </div>-->
+              <div class="chat ch2" th:if="${chat.user_no == user.no}">
+                  <div class="textbox">[[${chat.message}]]</div>
+              </div>
+          </th:block>
     </div>
     <div class="chatbox">
       <div class="chatboxem-1">
         <div class="chatboxem-2">
           <div class="mj">
             <div class="chatboxem-3">
-              <img src="./img/free-icon-smiling-emoticon-square-face-42877.png" alt="이모티콘">
+              <img th:src="@{/img/free-icon-smiling-emoticon-square-face-42877.png}" alt="이모티콘">
             </div>
           </div>
           <div class="chatbox-box">
-            <textarea placeholder="메시지 입력..." class="chatbox-box-1"></textarea>
+            <input placeholder="메시지 입력..." class="chatbox-box-1"/>
           </div>
           <div class="chatg">
             <div class="chatg-1">
-              <img src="./img/free-icon-gallery-4348117.png" alt="갤러리">
+              <img th:src="@{/img/free-icon-gallery-4348117.png}" alt="갤러리">
             </div>
           </div>
           <div class="chath">
             <div class="chath-1">
-              <img src="./img/free-icon-heart-shape-3717486.png" alt="좋아요">
+              <img th:src="@{/img/free-icon-heart-shape-3717486.png}" alt="좋아요">
             </div>
           </div>
         </div>

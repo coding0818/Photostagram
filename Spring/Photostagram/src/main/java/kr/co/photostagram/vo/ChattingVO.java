@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ChatroomVO {
+public class ChattingVO {
     private int no;
-    private int me;
-    private int other;
+    private String rdate;
+    private String message;
+    private int user_no;
+    private int room;
 }
