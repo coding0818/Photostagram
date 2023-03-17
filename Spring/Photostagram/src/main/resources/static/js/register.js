@@ -214,7 +214,7 @@ $(function(){
                 success: function(data) {
                     if (data.result == 1) {
                         emailCode = data.confirm;
-                        console.log("emailCode = " + emailCode);
+//                        console.log("emailCode = " + emailCode);
                     } else {
                         alert('이메일 코드 전송 실패!')
                         return false;
