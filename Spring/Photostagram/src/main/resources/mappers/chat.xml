@@ -9,4 +9,8 @@
     <insert id="insertChatRoom">
         insert into `chatroom` set `me`=#{my_no}, `other`=#{user_no};
     </insert>
+    <!--채팅룸 정보 조회-->
+    <select id="selectChatRoomList" resultType="kr.co.photostagram.vo.ChatroomVO">
+        
+    </select>
 </mapper>
