@@ -15,6 +15,7 @@ public class CommentVO {
     private int parent;
     private String rdate;
 
+    private int modal_likeCount;
     private MemberVO memberVO;
     private Comment_likeVO comment_likeVO;
 

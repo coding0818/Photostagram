@@ -4,24 +4,55 @@
  */
 
 $(function () {
-  $(".bx_slider").bxSlider();
+  $(".bx_slider").bxSlider({
+    infiniteLoop: false,
+    height: 600,
+    slideWidth: 600,
+    speed: 200,
+    moveSlides: 1
+  });
 
-  let modalPost = $(".modal-post");
   let PostMenu = $(".post-menu");
   /**
    * 댓글 모두보기 누를 경우 Post-Modal 뜸.
    */
+
+  // 댓글 모두보기
   $(".commentMore").on("click", function () {
+    let article    = $(this).closest('article');
+    let modalPost  = article.find('.modal-post');
+    let imgsection = article.find('.img_section');
+    let mainPostBx = imgsection.find('.bx-controls-direction');
+    let modalPostBx = modalPost.find('.bx-controls-direction');
+
     modalPost.css("display", "flex");
-    $("body").css("overflow-y", "hidden");
-  });
-  $(".sprite_bubble_icon").on("click", function () {
-    modalPost.css("display", "flex");
+    mainPostBx.css("display", "none");
+    modalPostBx.css("display", "flex");
     $("body").css("overflow-y", "hidden");
   });
 
+  // 버블 아이콘
+  $(".sprite_bubble_icon").on("click", function () {
+    let article    = $(this).closest('article');
+    let modalPost  = article.find('.modal-post');
+    let imgsection = article.find('.img_section');
+    let mainPostBx = imgsection.find('.bx-controls-direction');
+    let modalPostBx = modalPost.find('.bx-controls-direction');
+
+    modalPost.css("display", "flex");
+    mainPostBx.css("display", "none");
+    modalPostBx.css("display", "flex");
+    $("body").css("overflow-y", "hidden");
+  });
+
+  // 모달 post 닫기
   $(".post-close").on("click", function () {
+    let article = $(this).closest('article');
+    let modalPost = article.find('.modal-post');
+    let bxControll = article.find('.bx-controls-direction');
+
     modalPost.css("display", "none");
+    bxControll.css("display", "flex");
     $("body").css("overflow-y", "visible");
   });
 
@@ -237,25 +268,28 @@ $(function () {
       "comment_no":comment_no
     };
 
-    $.ajax({
-      url:url,
-      method:'POST',
-      data:JSON.stringify(jsonData),
-      contentType: "application/json",
-      dataType:'json',
-      success: (data)=>{
-        if(data.result > 0){
-          if(article.find($(this)).hasClass('sprite_small_heart_icon_outline')){
+     $.ajax({
+       url:url,
+       method:'POST',
+       data:JSON.stringify(jsonData),
+       contentType: "application/json",
+       dataType:'json',
+       success: (data)=>{
+         if(data.result > 0){
+           if(article.find($(this)).hasClass('sprite_small_heart_icon_outline')){
       
-            article.find($(this))
-            .removeClass('sprite_small_heart_icon_outline')
-            .addClass('sprite_full_small_heart_icon_outline');
+             article.find($(this))
+             .removeClass('sprite_small_heart_icon_outline')
+             .addClass('sprite_full_small_heart_icon_outline');
 
+             let likeCount = $(this).next().children().next().next().prev().text();
+             let count = parseInt(likeCount);
+             $(this).next().children().next().next().prev().text(count+1);
 
-          }
-        }
-      }
-    })  
+           }
+         }
+       }
+     })
 
   })
   
@@ -264,7 +298,7 @@ $(function () {
 
     let article    = $(this).closest('article'); 
     let user_no    = $(this).attr('data-no'); // 유저 번호
-    let comment_no = article.find('.reply_no').val(); // 댓글번호
+    let comment_no = article.find($(this).parent()).attr('data-no'); // 댓글번호
     let url        = "/Photostagram/CommentLikeDel";
 
     console.log("user_no : " + user_no);
@@ -283,12 +317,15 @@ $(function () {
       dataType:'json',
       success: (data)=>{
         if(data.result > 0){
-          if(article.find('.comLike').hasClass('sprite_full_small_heart_icon_outline')){
+          if(article.find($(this)).hasClass('sprite_full_small_heart_icon_outline')){
       
-            article.find('.comLike')
-            .removeClass('sprite_full_small_heart_icon_outline')
-            .addClass('sprite_small_heart_icon_outline');
-      
+            article.find($(this))
+             .removeClass('sprite_full_small_heart_icon_outline')
+             .addClass('sprite_small_heart_icon_outline');
+
+             let likeCount = $(this).next().children().next().next().prev().text();
+             let count = parseInt(likeCount);
+             $(this).next().children().next().next().prev().text(count-1);
           }
         }
       }

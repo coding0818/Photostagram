@@ -49,7 +49,17 @@ public class IndexService {
         return posts;
     }
 
-    public List<CommentVO> selectComment(){ return dao.selectComment();}
+    @Transactional
+    public List<CommentVO> selectComment(){
+        List<CommentVO> comments = dao.selectComment();
+
+        for(CommentVO vo : comments){
+            int likecount = dao.selectModalCommentlikeCount(vo.getNo());
+            vo.setModal_likeCount(likecount);
+        }
+        return comments;
+
+    }
 
 
 }

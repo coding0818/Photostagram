@@ -32,5 +32,7 @@ public interface IndexDAO {
     // 댓글 개수
     public int selectCommentCountNum(int post_no);
 
+    // modal 댓글 좋아요 수
+    public int selectModalCommentlikeCount(int comment_no);
 
 }

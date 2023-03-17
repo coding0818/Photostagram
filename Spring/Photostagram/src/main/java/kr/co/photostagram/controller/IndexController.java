@@ -7,13 +7,13 @@ import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +56,8 @@ public class IndexController {
 
         model.addAttribute("notices", notices);
 
-        log.info("articles : " + articles);
+//        log.info("articles : " + articles);
+        log.info("comment : " + comments);
         model.addAttribute("articles", articles);
         model.addAttribute("comments", comments);
         return "index";
@@ -124,6 +125,7 @@ public class IndexController {
     // 댓글 좋아요 클릭 시
     @PostMapping("CommentLikeAdd")
     @ResponseBody
+    @Transactional
     public Map CommentLike(@RequestBody Comment_likeVO vo){
         int result = 0;
         result = service.insertCommentLikeAdd(vo);
@@ -141,12 +143,13 @@ public class IndexController {
     // 댓글 좋아요 취소 시
     @PostMapping("CommentLikeDel")
     @ResponseBody
+    @Transactional
     public Map CommentLikeDel(@RequestBody Comment_likeVO vo){
         int result = 0;
         result = service.deleteCommentLike(vo);
 
         log.info(" =============================== ");
-        log.info("     댓글 좋아요 : " + result);
+        log.info("     댓글 좋아요취소 : " + result);
         log.info(" =============================== ");
 
         Map map = new HashMap();
