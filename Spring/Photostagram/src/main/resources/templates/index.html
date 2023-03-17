@@ -209,7 +209,7 @@
             </div>
 
             <!-- 포스트 게시글 모달 -->
-            <div class="modal-post">
+            <div class="modal-post" th:data-no="${article.no}">
               <svg class="post-close" fill="#ffffff" viewBox="0 0 48 48">
                 <path
                         clip-rule="evenodd"
@@ -218,105 +218,76 @@
                 ></path>
               </svg>
               <div class="wrapper">
+                <!---------- 모달 메인 사진 -------->
                 <div class="image">
-                  <img id="post-main" src="./img/thumb02.jpg" />
-                  <div class="heart-wrapper">
-                    <div class="heart"></div>
+                  <div class="bx_slider">
+                    <!------------- 게시글 사진입니다 --------------------->
+                    <th:block th:each="thumbImage : ${article.imageVO}">
+                      <img th:src="|@{/}thumb/${thumbImage.thumb}" alt="visual01" />
+                    </th:block>
                   </div>
                 </div>
+
                 <div class="post-content">
                   <!-- 글 작성자 -->
                   <div class="user">
+                    <th:block th:if="${#strings.isEmpty(article.memberVO.profileImg)}">
+                      <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
+                      <a href="#" th:text="${article.memberVO.username}"></a>
+                    </th:block>
 
-                    <img src="./img/thumb.jpeg" />
-                    <a onclick="location.href='profile.html'">KindTiger</a>
-                    <span>ㆍ</span>
+                    <th:block th:unless="${#strings.isEmpty(article.memberVO.profileImg)}">
+                      <img th:src="|@{/}thumb/${article.memberVO.profileImg}" alt="프로필이미지"/>
+                      <a href="#" th:text="${article.memberVO.username}"></a>
+                    </th:block>
+
+                    <span>&nbsp;ㆍ</span>&nbsp;
                     <button class="follow">팔로우</button>&nbsp;
-                    <div class="blank"></div>
-                    <svg
-                            aria-label="옵션 더 보기"
-                            class="etc"
-                            onclick="postMenu()"
-                            viewBox="0 0 48 48"
-                    >
-                      <circle
-                              clip-rule="evenodd"
-                              cx="8"
-                              cy="24"
-                              fill-rule="evenodd"
-                              r="4.5"
-                      ></circle>
-                      <circle
-                              clip-rule="evenodd"
-                              cx="24"
-                              cy="24"
-                              fill-rule="evenodd"
-                              r="4.5"
-                      ></circle>
-                      <circle
-                              clip-rule="evenodd"
-                              cx="40"
-                              cy="24"
-                              fill-rule="evenodd"
-                              r="4.5"
-                      ></circle>
-                    </svg>
                   </div>
+
+
+                  <!-- modal 댓글 -->
                   <div class="rest">
                     <div class="text">
-                      <div class="top">
-                        <img src="./img/thumb.jpeg" />
+                      <th:block th:each="comment : ${comments}" th:if="${#strings.equals(comment.post_no,article.no)}">
+                        <div class="top">
+                          <!----------- modal 댓글 프로필 사진입니다 ------------>
+                        <th:block th:if="${#strings.isEmpty(comment.memberVO.profileImg)}">
+                          <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
+                        </th:block>
+
+                        <th:block th:unless="${#strings.isEmpty(comment.memberVO.profileImg)}">
+                          <img th:src="|@{/}thumb/${comment.memberVO.profileImg}" alt="프로필이미지"/>
+                        </th:block>
+                          <!-------------------------------------------------->
+
+                          <!---------- modal 댓글작성자 ID, 내용 입니다 ---------->
                         <div class="posting">
-                          <div>
-                  <span class="comment">
-                    <a class="id" onclick="location.href='profile.html'">KingTiger</a>
-                    안녕하세요 나는 타이거입니다.
-                  </span>
-                            <div class="sprite_small_heart_icon_outline"></div>
+                          <div th:data-no="${comment.no}">
+                            <a class="modal_comment_id" href="#" th:text="${comment.memberVO.username}">KingTiger</a>
+                            <span class="modal_comment" th:text="${comment.comment}">안녕하세요 나는 타이거입니다.</span>
+                            <!-- 댓글 좋아요 -->
+                            <th:block th:if="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
+                              <div class="comLike sprite_full_small_heart_icon_outline" th:data-no="${user.no}"></div>
+                            </th:block>
+                            <!-- 댓글 좋아요를 안 누른 경우 -->
+                            <th:block th:unless="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
+                              <div class="comLike sprite_small_heart_icon_outline" th:data-no="${user.no}"></div>
+                            </th:block>
+
                             <div class="commentInfo">
-                              <span>1일</span>&nbsp;&nbsp;
-                              <span>좋아요 100개</span>&nbsp;
+                              <span>1일</span>&nbsp;&nbsp;좋아요
+                              <span id="md_comment_likeCount" th:text="${comment.modal_likeCount}">100개</span>개&nbsp;
                               <span>답글달기</span>
                             </div>
                           </div>
                         </div>
+                          <!-------------------------------------------------->
                       </div>
-                      <div class="top">
-                        <img src="./img/thumb.jpeg" />
-                        <div class="posting">
-                          <div>
-                  <span class="comment">
-                    <a class="id" onclick="location.href='profile.html'">KingTiger</a>
-                    안녕하세요 나는 타이거입니다.
-                  </span>
-                            <div class="sprite_small_heart_icon_outline"></div>
-                            <div class="commentInfo">
-                              <span>1일</span>&nbsp;&nbsp;
-                              <span>좋아요 100개</span>&nbsp;
-                              <span>답글달기</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="top">
-                        <img src="./img/thumb.jpeg" />
-                        <div class="posting">
-                          <div>
-                  <span class="comment">
-                    <a class="id" onclick="location.href='profile.html'">KingTiger</a>
-                    안녕하세요 나는 타이거입니다.
-                  </span>
-                            <div class="sprite_small_heart_icon_outline"></div>
-                            <div class="commentInfo">
-                              <span>1일</span>&nbsp;&nbsp;
-                              <span>좋아요 100개</span>&nbsp;
-                              <span>답글달기</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      </th:block> <!-- comment : ${comments}-->
                     </div>
                     <div class="buttons">
+                      <!-- 좋아요 버튼 -->
                       <button class="like">
                         <svg class="like-no" viewBox="0 0 48 48">
                           <path
@@ -329,13 +300,8 @@
                           ></path>
                         </svg>
                       </button>
-                      <button class="comment">
-                        <svg viewBox="0 0 48 48">
-                          <path
-                                  d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.1 2.8-11.1C47.5 11 37 .5 24 .5S.5 11 .5 24 11 47.5 24 47.5c4 0 7.8-1 11.1-2.8l11 2.8c.8.2 1.6-.6 1.4-1.4zm-3-22.1c0 4-1 7-2.6 10-.2.4-.3.9-.2 1.4l2.1 8.4-8.3-2.1c-.5-.1-1-.1-1.4.2-1.8 1-5.2 2.6-10 2.6-11.4 0-20.6-9.2-20.6-20.5S12.7 3.5 24 3.5 44.5 12.7 44.5 24z"
-                          ></path>
-                        </svg>
-                      </button>
+
+                      <!-- 공유 버튼 -->
                       <button class="direct" onclick="direct()">
                         <svg viewBox="0 0 48 48">
                           <path
@@ -343,7 +309,8 @@
                           ></path>
                         </svg>
                       </button>
-                      <div class="blank"></div>
+
+                      <!-- 저장됨 -->
                       <button class="save">
                         <svg class="save-no" viewBox="0 0 48 48">
                           <path
@@ -356,7 +323,9 @@
                           ></path>
                         </svg>
                       </button>
+
                     </div>
+
                     <button class="likes-count">좋아요 1,351개</button>
                     <div class="post-date">2020년 6월 19일</div>
                     <div class="comment-wrapper">

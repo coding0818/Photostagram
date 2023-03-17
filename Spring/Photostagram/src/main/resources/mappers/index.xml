@@ -57,26 +57,24 @@
         a.user_no AS commentUser,
         a.parent,
         a.rdate AS commentRdate,
-        b.username,
+        b.username,b.profileImg,
         c.user_no AS commentLikeUser,
         c.comment_no,
         c.rdate AS commentLikeRdate
 
         FROM `comment` AS a
-            JOIN `user` AS b
-        ON a.user_no = b.no
-            LEFT JOIN `comment_like` AS c
-        ON a.no = c.comment_no;
+        JOIN `user` AS b ON a.user_no = b.no
+        LEFT JOIN `comment_like` AS c ON a.no = c.comment_no
+        ORDER BY a.post_no DESC;
     </select>
 
     <select id="selectCommentCountNum" resultType="int">
         SELECT COUNT(`no`) FROM `comment` WHERE `post_no`=#{post_no};
     </select>
 
-    <select id="selectArticleImg" resultType="kr.co.photostagram.vo.PostVO">
-        SELECT * FROM `image` WHERE post_no = #{post_no};
+    <select id="selectModalCommentlikeCount" resultType="int">
+        SELECT COUNT(`no`) FROM `comment_like` WHERE `comment_no` = #{comment_no};
     </select>
-
     <update id="postLikeAddUpdate">
         UPDATE `post` SET
         `like` = `like`+1
@@ -141,6 +139,7 @@
 
         <collection property="memberVO" ofType="kr.co.photostagram.vo.MemberVO">
             <result column="username" property="username"/>
+            <result column="profileImg" property="profileImg"/>
         </collection>
         <collection property="comment_likeVO" ofType="kr.co.photostagram.vo.Comment_likeVO">
             <id column="no" property="no"/>
