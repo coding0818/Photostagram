@@ -132,8 +132,9 @@
                     data:jsonData,
                     dataType:'json',
                     success:function(data){
+                        let room_no = data.result;
                         console.log('메시지창으로 이동!');
-                        location.href='/Photostagram/chat/content';
+                        location.href='/Photostagram/chat/content?room_no='+room_no;
                     }
                 });
             });
