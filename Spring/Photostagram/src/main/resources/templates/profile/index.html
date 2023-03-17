@@ -3,6 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/profileLayout}">
 <th:block layout:fragment="main">
+    <th:block th:if="${#strings.equals(member.password, member.name)}">
+        <div id="deleteUserProfile">
+            <h1>죄송합니다. 페이지를 사용할 수 없습니다.</h1><br/>
+            <h2>클릭하신 링크가 잘못되었거나 페이지가 삭제되었습니다. <a href="javascript:window.history.back();">Photostagram으로 돌아가기.</a></h2>
+        </div>
+    </th:block>
+    <th:block th:unless="${#strings.equals(member.password, member.name)}">
         <div id="pro">
           <section>
               <div class="myProfile">
@@ -293,7 +300,5 @@
             </div>
         </div>
     </th:block>
+</th:block>
 </html>
-<script>
-
-</script>

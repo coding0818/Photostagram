@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Member;
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.*;
 
@@ -308,6 +308,33 @@ public class ProfileController {
         System.out.println("result : "+ result);
 
         return resultMap;
+    }
+
+    @GetMapping("profile/deleteUser")
+    public String deleteUser (Principal principal, Model model){
+        MemberVO user = service.selectMember(principal.getName());
+
+        model.addAttribute("user", user);
+        return "profile/deleteUser";
+    }
+
+    @Transactional
+    @ResponseBody
+    @PostMapping("profile/deleteUser")
+    public void deleteUser (HttpServletResponse resp, Principal principal, int no, String password){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String pass = service.selectMember(principal.getName()).getPassword();
+
+
+
+        if(encoder.matches(password, pass)){
+            service.deleteMember(no);
+            service.deleteMemberData(no);
+            JSFunction.alertLocation(resp, "성공적으로 탈퇴되었습니다.", "/Photostagram/member/logout");
+        } else {
+            JSFunction.alertBack(resp, "비밀번호를 다시 확인해주세요.");
+        }
+
     }
 
 
