@@ -14,5 +14,6 @@ public interface BoardDAO {
    public BoardVO selectContent(int no);
    public List<Board1VO> selectPostHashTag(int no);
    public List<CommentVO> selectcomments(int no);
+   public List<ImageVO> selectimages(int no);
 
 }
