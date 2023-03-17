@@ -38,12 +38,16 @@ public class BoardController {
         log.info("hashes : " + hashes);
 
         List<CommentVO> comments = service.selectcomments(no);
+        log.info("comments : " + comments);
+
+        List<ImageVO> images = service.selectimages(no);
 
         model.addAttribute("user", user);
         model.addAttribute("post", post);
         model.addAttribute("content", content);
         model.addAttribute("hashes", hashes);
         model.addAttribute("comments", comments);
+        model.addAttribute("images", images);
 
         return "board/post";
     }

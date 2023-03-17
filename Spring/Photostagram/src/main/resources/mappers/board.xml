@@ -33,4 +33,9 @@
        select `comment` from `comment` where post_no=#{no};
     </select>
 
+    <select id="selectimages" resultType="kr.co.photostagram.vo.ImageVO">
+        select * from `image` where `post_no`=#{no};
+    </select>
+
+
 </mapper>

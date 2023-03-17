@@ -25,6 +25,7 @@ public class BoardService {
     public BoardVO selectContent(int no) {return dao.selectContent(no);}
     public List<Board1VO> selectPostHashTag(int no) {return dao.selectPostHashTag(no);}
     public List<CommentVO> selectcomments(int no) {return dao.selectcomments(no);}
+    public List<ImageVO> selectimages(int no) {return dao.selectimages(no);}
 
 
 
