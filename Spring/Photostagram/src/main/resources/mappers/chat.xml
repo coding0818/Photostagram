@@ -45,7 +45,10 @@
     </insert>
     <!--채팅 메시지 조회-->
     <select id="selectMessages" resultType="kr.co.photostagram.vo.ChattingVO">
-        select * from `chatting` where `room`=#{room};
+        select a.*, b.profileImg from `chatting` as a
+        join `user` as b on a.`user_no`=b.`no`
+        where `room`=#{room}
+        order by `rdate` asc;
     </select>
     <!--다른사람이 개설한 채팅방 조회(메시지 있는 것만)-->
     <select id="selectChatRoomNotMine" resultType="int">
