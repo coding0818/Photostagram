@@ -56,6 +56,12 @@ public class ChatController {
         log.info("rooms : "+rooms);
 
         model.addAttribute("rooms", rooms);
+
+        // 다른 사람이 만든 채팅방 조회
+        List<RoomVO> rooms2 = service.selectChatRoomNotMine(user.getNo());
+        log.info("rooms2 : "+rooms2);
+
+        model.addAttribute("rooms2", rooms2);
         return "chat/main";
     }
 

@@ -15,4 +15,7 @@ public class ChattingVO {
     private String message;
     private int user_no;
     private int room;
+
+    //추가 필드
+    private String profileImg;
 }
