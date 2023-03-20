@@ -23,6 +23,12 @@ import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.*;
 
+/**
+ * 날짜 : 2023/03/08
+ * 이름 : 조주영
+ * 내용 : profile 컨트롤러
+ */
+
 @Slf4j
 @Controller
 public class ProfileController {
@@ -79,8 +85,6 @@ public class ProfileController {
             //System.out.println("service1 : "+ j);
             //System.out.println("array1 : "+ followingArray[i]);
         }
-
-
 
         int result = 0;
         Map<MemberVO, Integer> followerMap = new HashMap<>();
@@ -324,8 +328,6 @@ public class ProfileController {
     public void deleteUser (HttpServletResponse resp, Principal principal, int no, String password){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String pass = service.selectMember(principal.getName()).getPassword();
-
-
 
         if(encoder.matches(password, pass)){
             service.deleteMember(no);
