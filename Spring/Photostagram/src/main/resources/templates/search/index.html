@@ -37,8 +37,8 @@
                 </th:block>
                 <th:block th:unless="${#lists.isEmpty(postLikeList)}" th:each="like:${postLikeList}">
                     <div class="pic">
-                        <a href="#">
-                            <img th:src="@{/thumb/{img}(img=${like.imageVO.thumb})}">
+                        <a th:href="@{/board/post(no=${like.no})}">
+                            <img th:src="@{/thumb/{img}(img=${like.imageVO[0].thumb})}">
                         </a>
                     </div>
                 </th:block>
@@ -55,8 +55,8 @@
                 </th:block>
                 <th:block th:unless="${#lists.isEmpty(posts)}" th:each="post:${posts}">
                     <div class="pic">
-                        <a href="#">
-                            <img th:src="@{/thumb/{img}(img=${post.imageVO.thumb})}">
+                        <a th:href="@{/board/post(no=${post.no})}">
+                            <img th:src="@{/thumb/{img}(img=${post.imageVO[0].thumb})}">
                         </a>
                     </div>
                 </th:block>

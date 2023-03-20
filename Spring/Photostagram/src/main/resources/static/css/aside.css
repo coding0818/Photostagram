@@ -908,6 +908,7 @@ html {height: 100%;}
       left: 9px;
       background: none;
       border: none;
+      visibility: hidden;
     }
     #input_image > .afterBtn{
       position: fixed;
@@ -915,6 +916,7 @@ html {height: 100%;}
       right: 305px;
       background: none;
       border: none;
+      visibility: hidden;
     }
 
     video{

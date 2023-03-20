@@ -39,6 +39,10 @@ function uploadFiles(e){
         $('#modal_add_feed').css({
             display: 'none'
         })
+        if(images.length > 1){
+          $('.afterBtn').css({"visibility":"visible"});
+        }
+        $('video').css({"display":"none"});
     }else if(images[0].type.match(/video.*/)){
        $('#modal_add_feed_content').css({
            display : 'flex'
@@ -145,7 +149,10 @@ function uploadFiles(e){
               $('#modal_add_feed').css({
                   display: 'none'
               });
-
+              if(images.length > 1){
+                $('.afterBtn').css({"visibility":"visible"});
+              }
+              $('video').css({"display":"none"});
           }else if(images[0].type.match(/video.*/)){
               $('#modal_add_feed_content').css({
                   display : 'flex'
@@ -171,7 +178,7 @@ function uploadFiles(e){
 
     let j = 0;
 
-    $('#afterBtn').on('click', function(){
+    $('.afterBtn').on('click', function(){
         let inputFile = $('#file_upload');
         let file = inputFile[0].files;
 
@@ -189,7 +196,10 @@ function uploadFiles(e){
         let images= dataTransfer.files;
         console.log('images : '+images);
 
-        if(j+1 == images.length) return;
+        if(j+1 == images.length)return;
+        if(j+2 == images.length){
+            $(this).css({"visibility":"hidden"});
+        }
         j++;
 
         console.log("j1 :"+j);
@@ -202,9 +212,11 @@ function uploadFiles(e){
             "background-position" : "center"
         }); 
         console.log("j2 :"+j);
+
+        $('.beforeBtn').css({"visibility":"visible"});
     });
 
-    $('#beforeBtn').on('click', function(){
+    $('.beforeBtn').on('click', function(){
         let inputFile = $('#file_upload');
         let file = inputFile[0].files;
 
@@ -222,7 +234,10 @@ function uploadFiles(e){
         let images= dataTransfer.files;
         console.log('images : '+images);
 
-        if(j == 0)return;
+        if(j == 0) return;
+        if(j == 1){
+            $(this).css({"visibility":"hidden"});
+        }
         j--;
 
         $('.modal_image_upload_content').css({
@@ -233,7 +248,7 @@ function uploadFiles(e){
             "background-position" : "center"
         }); 
         console.log("j"+j); 
-        
+        $('.afterBtn').css({"visibility":"visible"});
     });
 
     $('#afterBtnDrop').on('click', function(){

@@ -6,30 +6,30 @@
     <script th:inline="javascript">
       
       $(function(){
-  $("#confirm").click(function(){
-      modalClose();
-      //컨펌 이벤트 처리
-  });
-  $("#modal-open").click(function(){
-    $("#overlay").css('display','flex').hide().fadeIn();
-  });
- 
-  function modalClose(){
-    $("#overlay").fadeOut();
-  }
-});
+          $("#confirm").click(function(){
+              modalClose();
+              //컨펌 이벤트 처리
+          });
+          $("#modal-open").click(function(){
+            $("#overlay").css('display','flex').hide().fadeIn();
+          });
 
-$(function(){
-  $("#lay").click(function(){
-    $("#overlay").css('display','flex').hide().fadeIn();
-  });
- 
-  function modalClose(){
-    $("#overlay").fadeOut();
-  }
-});
+          function modalClose(){
+            $("#overlay").fadeOut();
+          }
+        });
 
-    let websocket = new WebSocket("ws://localhost:8080/Photostagram/chat");
+    $(function(){
+      $("#lay").click(function(){
+        $("#overlay").css('display','flex').hide().fadeIn();
+      });
+
+      function modalClose(){
+        $("#overlay").fadeOut();
+      }
+    });
+
+    let websocket = new WebSocket("ws://localhost:8383/Photostagram/chat/content");
 
     websocket.onmessage = onMessage;
     websocket.onopen = onOpen;
@@ -50,7 +50,7 @@ $(function(){
     function onMessage(msg) {
     var data = JSON.parse(msg.data); // msg를 받으면 data 필드 안에 Json String으로 정보가 있음
     // 필요한 정보를 Json data에서 추출
-     var senderId = data.senderId;
+     var senderId = username;
      var message = data.message;
      var time = data.time;
      var newOne = data.newOne;
@@ -65,7 +65,6 @@ $(function(){
         // 채팅 입력 칸이 비어있지 않을 경우만 정보를 Json형태로 전송
         if(message != "") {
         let msg = {
-            'receiverId' : receiverId,
             'message' : message
         };
 
@@ -77,10 +76,8 @@ $(function(){
     }
 
 
-$(document).on("click", function(e){  
-        if( $("#overlay").is(e.target)) {
-         $("#overlay").css({ visibility:"hidden", 
-                                     opacity:0 });
+    $(document).on("click", function(e){
+        if( $("#overlay").is(e.target)) {$("#overlay").css({ visibility:"hidden", opacity:0 });
     }
 
     $('.chatMember').on('click', function(){
@@ -91,6 +88,7 @@ $(document).on("click", function(e){
     });
 
 
+/*
     $('.chatbox-box-1').keydown(function(key) {
         //키의 코드가 13번일 경우 (13번은 엔터키)
         if (key.keyCode == 13) {
@@ -114,7 +112,7 @@ $(document).on("click", function(e){
                 }
             });
         }
-    });
+    });*/
   });
   
     </script>

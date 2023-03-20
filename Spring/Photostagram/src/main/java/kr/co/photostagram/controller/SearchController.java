@@ -4,6 +4,7 @@ import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.service.SearchService;
 import kr.co.photostagram.vo.MemberVO;
+import kr.co.photostagram.vo.NoticeVO;
 import kr.co.photostagram.vo.PostVO;
 import kr.co.photostagram.vo.SearchListVO;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +55,12 @@ public class SearchController {
         log.info("searchList : "+searchList);
 
         model.addAttribute("searchList", searchList);
+
+        // 알림
+        List<NoticeVO> notices = mainService.selectNotices(user.getNo());
+        log.info("notices : "+notices);
+
+        model.addAttribute("notices", notices);
 
         log.info("posts_likelist : "+postLikeList);
         log.info("posts_hashtag : "+posts);
