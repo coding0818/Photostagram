@@ -56,6 +56,12 @@ public class ChatController {
         log.info("rooms : "+rooms);
 
         model.addAttribute("rooms", rooms);
+
+        // 다른 사람이 만든 채팅방 조회
+        List<RoomVO> rooms2 = service.selectChatRoomNotMine(user.getNo());
+        log.info("rooms2 : "+rooms2);
+
+        model.addAttribute("rooms2", rooms2);
         return "chat/main";
     }
 
@@ -85,16 +91,22 @@ public class ChatController {
         model.addAttribute("rooms", rooms);
 
         // 현재 채팅방 조회
-        List<RoomVO> roomsNow = service.selectNowRoom(room_no);
-        log.info("roomNow : "+roomsNow);
+        RoomVO roomNow = service.selectNowRoom(room_no);
+        log.info("roomNow : "+roomNow);
 
-        model.addAttribute("roomsNow", roomsNow);
+        model.addAttribute("roomNow", roomNow);
 
         // 현재 채팅방 채팅내역 조회
         List<ChattingVO> chats = service.selectMessages(room_no);
         log.info("chats : "+chats);
 
         model.addAttribute("chats", chats);
+
+        // 다른 사람이 만든 채팅방 조회
+        List<RoomVO> rooms2 = service.selectChatRoomNotMine(user.getNo());
+        log.info("rooms2 : "+rooms2);
+
+        model.addAttribute("rooms2", rooms2);
         return "chat/content";
     }
 

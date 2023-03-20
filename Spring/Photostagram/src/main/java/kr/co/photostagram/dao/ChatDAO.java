@@ -17,7 +17,9 @@ public interface ChatDAO {
     public int insertChatRoom(RoomVO vo);
     public int insertChatRoomMember(@Param("room") int room, @Param("user_no") int user_no);
     public List<RoomVO> selectChatRoomList(int me);
-    public List<RoomVO> selectNowRoom(int room_no);
+    public RoomVO selectNowRoom(@Param("room_no") int room_no);
     public int insertMessages(ChattingVO vo);
     public List<ChattingVO> selectMessages(int room);
+    public int[] selectChatRoomNotMine(int user);
+    public RoomVO selectChatRoomsNotMine(int room_no);
 }
