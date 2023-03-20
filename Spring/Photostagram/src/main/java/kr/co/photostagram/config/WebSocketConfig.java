@@ -15,6 +15,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 
-        registry.addHandler(chatHandler, "Photostagram/chat").setAllowedOrigins("*");
+        registry.addHandler(chatHandler, "Photostagram/chat/content").setAllowedOrigins("*");
     }
 }
