@@ -3,6 +3,7 @@ package kr.co.photostagram.service;
 import kr.co.photostagram.dao.ChatDAO;
 import kr.co.photostagram.vo.ChattingVO;
 import kr.co.photostagram.vo.MemberVO;
+import kr.co.photostagram.vo.RecommendVO;
 import kr.co.photostagram.vo.RoomVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,9 @@ public class ChatService {
             rooms.add(vo);
         }
         return rooms;
+    }
+
+    public List<RecommendVO> selectRecommends(int user_no){
+        return dao.selectRecommends(user_no);
     }
 }
