@@ -43,23 +43,25 @@ public class IndexController {
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
 
-        log.info("user_no : "+user.getNo());
-        log.info("searchList : "+searchList);
+        List<MemberVO> followingChk = profileService.selectFollowings(user.getNo());
+
+
+        log.info("user : " + user);
+        log.info("followingChk : " + followingChk);
+//        log.info("user_no : "+user.getNo());
+//        log.info("searchList : "+searchList);
 
         model.addAttribute("user", user);
         model.addAttribute("searchList", searchList);
 
         // 알림
         List<NoticeVO> notices = mainService.selectNotices(user.getNo());
-
         log.info("notices : "+notices);
 
         model.addAttribute("notices", notices);
-
-//        log.info("articles : " + articles);
-        log.info("comment : " + comments);
         model.addAttribute("articles", articles);
         model.addAttribute("comments", comments);
+
         return "index";
     }
 
