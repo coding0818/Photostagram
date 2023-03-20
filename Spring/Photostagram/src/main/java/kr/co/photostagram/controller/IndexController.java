@@ -43,7 +43,11 @@ public class IndexController {
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
 
+        List<MemberVO> followingChk = profileService.selectFollowings(user.getNo());
+
+
         log.info("user : " + user);
+        log.info("followingChk : " + followingChk);
 //        log.info("user_no : "+user.getNo());
 //        log.info("searchList : "+searchList);
 

@@ -23,14 +23,6 @@
             `comment_no` = #{comment_no},
             `rdate`=NOW();
     </insert>
-<!--    <collection property="post_hashtagVO" ofType="kr.co.photostagram.vo.Post_hashtagVO">-->
-<!--        <result column="hashPost" property="post_no"/>-->
-<!--        <result column="hashtag_no" property="hashtag_no"/>-->
-<!--    </collection>-->
-<!--    <collection property="hashTagVO" ofType="kr.co.photostagram.vo.HashTagVO">-->
-<!--        <result column="no" property="no"/>-->
-<!--        <result column="hashtag" property="hashtag"/>-->
-<!--    </collection>-->
 
     <select id="selectArticles"  resultMap="selectArticleResultMap">
         SELECT
@@ -69,7 +61,16 @@
     </select>
 
     <select id="selectFollowing">
-
+        SELECT
+        a.`no`,
+        a.username,
+        a.name,
+        a.profileImg,
+        b.follower,
+        b.following
+        FROM `user` AS a
+        LEFT JOIN `follow` AS b
+        ON a.no = b.follower
     </select>
 
     <select id="selectCommentCountNum" resultType="int">
