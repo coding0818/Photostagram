@@ -68,6 +68,10 @@
         ORDER BY a.post_no DESC;
     </select>
 
+    <select id="selectFollowing">
+
+    </select>
+
     <select id="selectCommentCountNum" resultType="int">
         SELECT COUNT(`no`) FROM `comment` WHERE `post_no`=#{post_no};
     </select>

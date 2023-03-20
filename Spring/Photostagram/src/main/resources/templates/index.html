@@ -88,21 +88,21 @@
 
                   <!------------- 게시글 상단 프로필사진입니다 --------------------->
                   <th:block th:if="${#strings.isEmpty(article.memberVO.profileImg)}">
-                    <a href="#"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/></a>
+                    <a th:href="@{/profile(username=${user.username})}"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/></a>
                   </th:block>
 
-                  <a href="#"><img th:src="|@{/}thumb/${article.memberVO.profileImg}" alt="프로필이미지"/></a>
+                  <a th:href="@{/profile(username=${user.username})}"><img th:src="|@{/}thumb/${article.memberVO.profileImg}" alt="프로필이미지"/></a>
 
                 </div>
                 <div class="user_name">
                   <div class="nick_name m_text">
                     <!------------- 게시글 상단 아이디입니다 --------------------->
-                    <a href="#" th:text="${article.memberVO.username}">letary</a>
+                    <a th:href="@{/profile(username=${user.username})}" th:text="${article.memberVO.username}">letary</a>
 
                     <span class="jum">•</span>
 
                     <!------------- 게시글 상단 날짜입니다 --------------------->
-                    <span class="time" th:text="${article.rdate}">1일</span>
+                    <span class="time noticeTime" th:text="${article.rdate}">1일</span>
 
                     <span class="jum">•</span>
                     <input type="button" class="followBtn" value="팔로우" />
@@ -161,7 +161,7 @@
                 <div class="comment-detail">
                   <div class="nick_name m_text">
                     <!------------ 게시자 아이디 입니다 ----------->
-                    <a href="#" th:text="${article.memberVO.username}"></a>
+                    <a th:href="@{/profile(username=${user.username})}" th:text="${article.memberVO.username}"></a>
                   </div>
                   <!------------- 게시글 내용 입니다 ----------------->
                   <div class="mainContent" style="display: inline-block;">
@@ -178,7 +178,7 @@
                 <div class="reply_user" th:data-no="${comment.no}">
                   <!------- /* 댓글 아이디, 댓글 내용 */------->
                   <input type="hidden" class="reply_no" th:value="${comment.no}">
-                  <span class="reply_nick" th:text="${comment.username}">j_hlli</span>
+                  <a th:href="@{/profile(username=${user.username})}" class="reply_nick" th:text="${comment.username}">j_hlli</a>
                   <span class="reply_content" th:text="${comment.comment}">강아지가 너무 귀여워요!</span>
                   <!---------------------------------------->
 
@@ -244,16 +244,32 @@
                     <span>&nbsp;ㆍ</span>&nbsp;
                     <button class="follow">팔로우</button>&nbsp;
                   </div>
-                  <div>
-                    asdasd
+                  <!-- modal 게시글 내용 -->
+                  <div class="user-content">
+                    <th:block th:if="${#strings.isEmpty(article.memberVO.profileImg)}">
+                      <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
+                      <a th:href="@{/profile(username=${user.username})}" th:text="${article.memberVO.username}"></a>
+                    </th:block>
+
+                    <th:block th:unless="${#strings.isEmpty(article.memberVO.profileImg)}">
+                      <img th:src="|@{/}thumb/${article.memberVO.profileImg}" alt="프로필이미지"/>
+                      <a th:href="@{/profile(username=${user.username})}" th:text="${article.memberVO.username}"></a>
+                    </th:block>
+
+                    <span>
+                      [[${article.content}]]
+                      <a href="#" th:each="hashtag : ${article.hashTagVO}" class="modalhashtag_text" style="color: #00376B;">#[[${hashtag.hashtag}]]</a>
+                    </span>
+
                   </div>
+
 
 
                   <!-- modal 댓글 -->
                   <div class="rest">
                     <div class="text">
                       <th:block th:each="comment : ${comments}" th:if="${#strings.equals(comment.post_no,article.no)}">
-                        <div class="top">
+                        <div class="top" th:value="${comment.no}">
                           <!----------- modal 댓글 프로필 사진입니다 ------------>
                         <th:block th:if="${#strings.isEmpty(comment.memberVO.profileImg)}">
                           <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
@@ -266,8 +282,8 @@
 
                           <!---------- modal 댓글작성자 ID, 내용 입니다 ---------->
                         <div class="posting">
-                          <div th:data-no="${comment.no}">
-                            <a class="modal_comment_id" href="#" th:text="${comment.memberVO.username}">KingTiger</a>
+                          <div>
+                            <a class="modal_comment_id" th:href="@{/profile(username=${user.username})}" th:text="${comment.memberVO.username}">KingTiger</a>
                             <span class="modal_comment" th:text="${comment.comment}">안녕하세요 나는 타이거입니다.</span>
                             <!-- 댓글 좋아요 -->
                             <th:block th:if="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
@@ -292,16 +308,12 @@
                     <div class="buttons">
                       <!-- 좋아요 버튼 -->
                       <button class="like">
-                        <svg class="like-no" viewBox="0 0 48 48">
-                          <path
-                                  d="M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"
-                          ></path>
-                        </svg>
-                        <svg class="like-yes" viewBox="0 0 48 48">
-                          <path
-                                  d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"
-                          ></path>
-                        </svg>
+                        <th:block th:if="${#strings.equals(user.no,article.post_likeVO.user_no)}">
+                          <div class="artLike sprite_full_heart_icon_outline" th:data-no="${user.no}"></div>
+                        </th:block>
+                        <th:block th:unless="${#strings.equals(user.no,article.post_likeVO.user_no)}">
+                          <div class="artLike sprite_heart_icon_outline" th:data-no="${user.no}"></div>
+                        </th:block>
                       </button>
 
                       <!-- 공유 버튼 -->
@@ -329,8 +341,9 @@
 
                     </div>
 
-                    <button class="likes-count">좋아요 1,351개</button>
-                    <div class="post-date">2020년 6월 19일</div>
+                    <button class="likes-count">좋아요 [[${article.like}]]개</button>
+                    <div class="post-date" >[[${article.rdate}]]</div>
+
                     <div class="comment-wrapper">
                       <textarea onkeyup="comment()" placeholder="댓글 달기..."></textarea>
                       <button class="submit">게시</button>
@@ -348,21 +361,29 @@
         <!-- <input type="hidden" id="page" value="1"> 왜 있는지 모름 (보류)-->
 
         <!-- 게시글 오른쪽 사용자 프로필 및 정보 -->
+
         <div class="side_box">
           <div class="user_profile">
             <div class="profile_thumb">
-              <img src="./img/thumb.jpeg" alt="프로필사진" />
+              <a href="#">
+                <img th:src="|@{/}thumb/${user.profileImg}" alt="프로필사진" />
+              </a>
             </div>
+
             <div class="detail">
-              <div class="id m_text">letary</div>
-              <div class="ko_name" >김길동</div>
+              <a href="#">
+                <div class="id m_text" th:text="${user.username}">letary</div>
+              </a>
+              <div class="ko_name" th:text="${user.name}">김길동</div>
             </div>
+
             <div class="trans">
               <a href="#">전환</a>
             </div>
           </div>
 
           <!----- 회원님을 위한 추천 ----->
+          <!-- 내가 팔로잉 하지 않은 사람들 -->
           <article class="recommend">
             <header class="reco_header">
               <div>회원님을 위한 추천</div>

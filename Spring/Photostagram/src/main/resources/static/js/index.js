@@ -69,7 +69,8 @@ $(function () {
   //메인콘텐츠 더보기 누를 경우
   $(".contents").each(function () {
     let article = $(this).closest('article');
-
+    let postdate = article.find('.post-date').text();
+    console.log(postdate.substr(2,10));
     let divCommentWord = article.find('.commentWord'); // 작성자가 쓴 내용
     let comment = divCommentWord.text().trim();
 
@@ -105,6 +106,8 @@ $(function () {
         article.find('.ContentsMore').addClass("short")
       }
     }
+
+    article.find('.post-date').empty().append(postdate.substr(0,10));
   });
 
   // 댓글 작성
@@ -134,7 +137,6 @@ $(function () {
       comment: comment
     };
 
-    
     if(comment == ""){
         alert('댓글을 입력하세요.')
         return false;
@@ -149,8 +151,6 @@ $(function () {
       success: (data) => {
 
         if (data.result > 0) {
-
-
 
           let str = "<div class='reply_user' data-no='"+data.no+"'>";
           str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
@@ -256,13 +256,20 @@ $(function () {
     e.preventDefault();
 
     let article    = $(this).closest('article');
+    let modalPost  = $(this).closest('.modal-post');
+    
     let user_no    = $(this).attr('data-no'); // 유저 번호
     let comment_no = article.find($(this).parent()).attr('data-no'); // 댓글번호
+
+
+    let modalComment_no = modalPost.find('.modal_comment_no').html();
+
+
     let url        = "/Photostagram/CommentLikeAdd";
 
     console.log("user_no : " + user_no);
     console.log("comment_no : " + comment_no);
-
+    console.log("modalComment_no : " + modalComment_no);
     let jsonData = {
       "user_no":user_no,
       "comment_no":comment_no
@@ -277,14 +284,24 @@ $(function () {
        success: (data)=>{
          if(data.result > 0){
            if(article.find($(this)).hasClass('sprite_small_heart_icon_outline')){
-      
+             // 게시글 댓글 쪽 좋아요
              article.find($(this))
              .removeClass('sprite_small_heart_icon_outline')
              .addClass('sprite_full_small_heart_icon_outline');
+             if(modalComment_no == comment_no){
+              modalPost.find('.sprite_small_heart_icon_outline')
+              .removeClass('sprite_small_heart_icon_outline')
+              .addClass('sprite_full_small_heart_icon_outline');
+             }
+             
+             
 
+             // modal 댓글 좋아요 개수 올리기
              let likeCount = $(this).next().children().next().next().prev().text();
              let count = parseInt(likeCount);
              $(this).next().children().next().next().prev().text(count+1);
+
+             
 
            }
          }
@@ -292,7 +309,7 @@ $(function () {
      })
 
   })
-  
+  // 좋아요 눌러져 있는 좋아요 클릭시
   $(document).on("click", ".sprite_full_small_heart_icon_outline", function(e){
     e.preventDefault();
 
