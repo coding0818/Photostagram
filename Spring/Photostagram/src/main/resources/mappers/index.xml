@@ -41,6 +41,16 @@
 
         ORDER BY a.`no` DESC;
     </select>
+    <select id="selectUser" resultType="kr.co.photostagram.vo.MemberVO">
+        SELECT * FROM `user`;
+    </select>
+
+    <select id="selectFollowing" resultType="kr.co.photostagram.vo.MemberVO">
+        SELECT b.* FROM `follow` AS a
+        JOIN `user` AS b
+        ON a.`following` = b.`no`
+        WHERE  `follower`= #{no};
+    </select>
 
     <select id="selectComment" resultMap="selectCommentResultMap">
         SELECT a.no,
@@ -58,19 +68,6 @@
         JOIN `user` AS b ON a.user_no = b.no
         LEFT JOIN `comment_like` AS c ON a.no = c.comment_no
         ORDER BY a.post_no DESC;
-    </select>
-
-    <select id="selectFollowing">
-        SELECT
-        a.`no`,
-        a.username,
-        a.name,
-        a.profileImg,
-        b.follower,
-        b.following
-        FROM `user` AS a
-        LEFT JOIN `follow` AS b
-        ON a.no = b.follower
     </select>
 
     <select id="selectCommentCountNum" resultType="int">

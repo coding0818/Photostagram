@@ -3,6 +3,7 @@ package kr.co.photostagram.service;
 import kr.co.photostagram.dao.IndexDAO;
 import kr.co.photostagram.vo.CommentVO;
 import kr.co.photostagram.vo.Comment_likeVO;
+import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,15 @@ public class IndexService {
     // 댓글 작성
     public void insertComment(CommentVO vo){
         dao.insertComment(vo);
+    }
+
+    public List<MemberVO> selectUser(){
+        return dao.selectUser();
+    }
+
+    public List<MemberVO> selectFollowing(int no){
+        return dao.selectFollowing(no);
+
     }
 
     @Transactional
