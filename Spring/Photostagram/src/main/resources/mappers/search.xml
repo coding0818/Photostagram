@@ -21,6 +21,7 @@
         JOIN `hashtag` AS c ON b.hashtag_no = c.`no`
         JOIN `image` AS d ON a.`no`=d.post_no
         WHERE c.`no`=#{no}
+        GROUP BY a.`no`
         ORDER BY a.`like` DESC
         LIMIT 9;
     </select>
@@ -32,22 +33,11 @@
         <result column="like" property="like"></result>
         <result column="rdate" property="rdate"></result>
 
-        <association property="imageVO" javaType="kr.co.photostagram.vo.ImageVO">
+        <collection property="imageVO" ofType="kr.co.photostagram.vo.ImageVO">
             <id column="no" property="no"></id>
             <result column="thumb" property="thumb"></result>
             <result column="post_no" property="post_no"></result>
-        </association>
-        <association property="memberVO" javaType="kr.co.photostagram.vo.MemberVO">
-            <id column="no" property="no"/>
-            <result column="username" property="username"/>
-            <result column="name" property="name"/>
-            <result column="password" property="password"/>
-            <result column="email" property="email"/>
-            <result column="profileImg" property="profileImg"/>
-            <result column="profileText" property="profileText"/>
-            <result column="gender" property="gender"/>
-            <result column="birth" property="birth"/>
-        </association>
+        </collection>
     </resultMap>
     <!--해시태그가 이름 조회-->
     <select id="selectHashTagName" resultType="string">
