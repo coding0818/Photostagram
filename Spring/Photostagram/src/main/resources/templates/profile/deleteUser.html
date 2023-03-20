@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--/*
+날짜 : 2023/03/15
+이름 : 조주영
+내용 : 탈퇴화면
+*/-->
 <html xmlns:th="http://www.thymleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/profileLayout}">
@@ -33,7 +38,7 @@
                   </div>
 
               </div>
-              <form th:action="@{/profile/deleteUser}" method="post">
+              <form th:action="@{/profile/deleteUser}" method="post" id="deleteSubmit">
                   <input type="hidden" name="no" th:value="${user.no}"/>
                   <table>
                       <tbody>
@@ -47,9 +52,20 @@
                           </tr>
                       </tbody>
                   </table>
-                  <input id="passChange" type="submit" value="비밀번호 변경">
+                  <input id="passChange" type="submit" value="탈퇴하기">
               </form>
           </div>
         </div>
     </th:block>
 </html>
+<script>
+    $(function(){
+        $("#deleteSubmit").submit(function(e){
+            e.preventDefault();
+            if(confirm('정말 탈퇴하시겠습니까?')){
+                this.submit();
+            }
+        });
+
+    });
+</script>

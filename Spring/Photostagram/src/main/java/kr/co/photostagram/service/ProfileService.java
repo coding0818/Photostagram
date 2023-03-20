@@ -17,6 +17,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * 날짜 : 2023/03/08
+ * 이름 : 조주영
+ * 내용 : 프로필 service
+ */
+
 @Slf4j
 @Service
 public class ProfileService {

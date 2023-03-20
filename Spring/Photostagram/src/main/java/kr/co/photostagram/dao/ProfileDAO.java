@@ -11,6 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+/**
+ * 날짜 : 2023/03/08
+ * 이름 : 조주영
+ * 내용 : profileDAO
+ */
+
 @Mapper
 @Repository
 public interface ProfileDAO {
