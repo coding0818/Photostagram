@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,7 @@ public class IndexController {
     private MainService mainService;
 
     @GetMapping(value = {"/", "index"})
-    public String index(Model model, Principal principal){
+    public String index(Model model, Principal principal) throws IndexOutOfBoundsException{
         // 전체 게시물 조회
         List<PostVO> articles = service.selectArticles();
         // 댓글 조회
@@ -43,14 +44,27 @@ public class IndexController {
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
 
-        List<MemberVO> followingChk = profileService.selectFollowings(user.getNo());
+        List<MemberVO> members = service.selectUser();
+        List<MemberVO> followings = service.selectFollowing(user.getNo());
 
+        for(int i = 0; i < followings.size(); i++){
+            MemberVO index = followings.get(i);
 
-        log.info("user : " + user);
-        log.info("followingChk : " + followingChk);
+            members.remove(index);
+        }
+        for(int j = 0; j < members.size(); j++){
+            MemberVO followfilter = members.get(j);
+            if(followfilter.getNo() == user.getNo()){
+                members.remove(followfilter);
+            }
+
+        }
+          log.info("articles : " + articles);
+        log.info("comments : " + comments);
+//        log.info("user : " + user);
 //        log.info("user_no : "+user.getNo());
 //        log.info("searchList : "+searchList);
-
+        model.addAttribute("members", members);
         model.addAttribute("user", user);
         model.addAttribute("searchList", searchList);
 
