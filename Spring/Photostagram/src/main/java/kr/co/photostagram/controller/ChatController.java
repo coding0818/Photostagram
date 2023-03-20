@@ -62,6 +62,12 @@ public class ChatController {
         log.info("rooms2 : "+rooms2);
 
         model.addAttribute("rooms2", rooms2);
+
+        // 추천인 조회
+        List<RecommendVO> recommends = service.selectRecommends(user.getNo());
+        log.info("recommends : "+recommends);
+
+        model.addAttribute("recommends", recommends);
         return "chat/main";
     }
 
@@ -107,6 +113,12 @@ public class ChatController {
         log.info("rooms2 : "+rooms2);
 
         model.addAttribute("rooms2", rooms2);
+
+        // 추천인 조회
+        List<RecommendVO> recommends = service.selectRecommends(user.getNo());
+        log.info("recommends : "+recommends);
+
+        model.addAttribute("recommends", recommends);
         return "chat/content";
     }
 
