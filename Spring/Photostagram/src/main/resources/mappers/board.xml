@@ -37,5 +37,19 @@
         select * from `image` where `post_no`=#{no};
     </select>
 
+    <select id="selectcommentlist" resultType="kr.co.photostagram.vo.Board3VO">
+        SELECT
+        a.`content`,
+        a.`rdate`,
+        a.`like`,
+        b.`comment`,
+        c.`profileImg`,
+        c.`username`
+        from `post` as a
+        join `comment` as b on a.`no` = b.`post_no`
+        left join `user` as c on a.`user_no` = c.`no`;
+    </select>
+
+
 
 </mapper>

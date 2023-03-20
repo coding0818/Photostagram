@@ -41,6 +41,9 @@ public class BoardController {
         log.info("comments : " + comments);
 
         List<ImageVO> images = service.selectimages(no);
+        log.info("images : " + images);
+
+        List<Board3VO> commentlist = service.selectcommentlist(no);
 
         model.addAttribute("user", user);
         model.addAttribute("post", post);
@@ -48,6 +51,7 @@ public class BoardController {
         model.addAttribute("hashes", hashes);
         model.addAttribute("comments", comments);
         model.addAttribute("images", images);
+        model.addAttribute("commentlist", commentlist);
 
         return "board/post";
     }
