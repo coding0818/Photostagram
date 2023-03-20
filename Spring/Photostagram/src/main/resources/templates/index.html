@@ -102,7 +102,7 @@
                     <span class="jum">•</span>
 
                     <!------------- 게시글 상단 날짜입니다 --------------------->
-                    <span class="time noticeTime" th:text="${article.rdate}">1일</span>
+                    <span class="time noticeTime"></span>
 
                     <span class="jum">•</span>
                     <input type="button" class="followBtn" value="팔로우" />
@@ -374,7 +374,7 @@
             </div>
 
             <div class="detail">
-              <a href="#">
+              <a th:href="@{/profile(username=${user.username})}">
                 <div class="id m_text" th:text="${user.username}">letary</div>
               </a>
               <div class="ko_name" th:text="${user.name}">김길동</div>
@@ -392,20 +392,20 @@
               <div>회원님을 위한 추천</div>
               <div class="more">모두 보기</div>
             </header>
-            <th:block th:each="member : ${members}">
+            <th:block th:each="member : ${members}" th:if="${not #strings.equals(member.name,'NULL')}">
               <div class="thumb_user">
                 <div class="profile_thumb">
 
                   <th:block th:if="${#strings.isEmpty(member.profileImg)}">
-                    <a th:href="@{/profile(username=${user.username})}"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/></a>
+                    <a th:href="@{/profile(username=${member.username})}"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/></a>
                   </th:block>
 
                   <th:block th:unless="${#strings.isEmpty(member.profileImg)}">
-                    <a th:href="@{/profile(username=${user.username})}"><img th:src="|@{/}thumb/${member.profileImg}" alt="프로필이미지"/></a>
+                    <a th:href="@{/profile(username=${member.username})}"><img th:src="|@{/}thumb/${member.profileImg}" alt="프로필이미지"/></a>
                   </th:block>
                 </div>
                 <div class="detail">
-                  <div class="id" th:text="${member.username}">kind_pizza</div>
+                  <a th:href="@{/profile(username=${member.username})}" class="id" th:text="${member.username}">kind_pizza</a>
                   <div class="time">1시간 전</div>
                 </div>
               </div>
