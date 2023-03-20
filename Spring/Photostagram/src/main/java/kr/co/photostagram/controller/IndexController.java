@@ -59,8 +59,9 @@ public class IndexController {
             }
 
         }
-          log.info("articles : " + articles);
-        log.info("comments : " + comments);
+//        log.info("articles : " + articles);
+//        log.info("comments : " + comments);
+        log.info("members : " + members);
 //        log.info("user : " + user);
 //        log.info("user_no : "+user.getNo());
 //        log.info("searchList : "+searchList);
