@@ -16,7 +16,7 @@
 
     #post {
         width: auto;
-        height: 700px;
+        height: 712px;
         display: block;
         border: 1px solid #e9e9e9;
         margin-bottom: 50px;
@@ -187,13 +187,13 @@
       margin-right: 10px;
     }
     .reply > h1 {float: left;}
-    .reply > a {color: #0095f6; width: 350px; display: block;}
+    .reply > a {color: #0095f6; width: 350px; }
     .reply > div {
-      margin-top: 5px;
+      margin-top: 22px;
       margin-left: 1px;
       color: #a9a9a9;
       font-weight: bold;
-      float: left;
+
     }
     .reply > div > a {color: #a9a9a9; font-weight: bold;}
 
@@ -208,7 +208,7 @@
 
     .showReply {
       position: relative;
-      top: 10px;
+      top: 12px;
       margin-left: 30px;
       width: 450px;
       display: block;
@@ -226,6 +226,8 @@
       height: 11px;
       font-size: 0;
     }
+
+
 
 
     /*********** 더보기 스타일 ***********/
@@ -290,9 +292,6 @@
     .mySlides{width:700px; height:700px;}
     .picture-size{max-width:100%; height:100%;}
 
-    /*** 사진 슬라이드 ***/
-    .mySlide  {
-      overflow: hidden;
-    }
+
 
 

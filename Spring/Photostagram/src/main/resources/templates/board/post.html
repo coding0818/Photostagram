@@ -6,13 +6,13 @@
     <div id="wrapper">
         <article id="post">
             <section class="picture" >
-                <th:block th:each="images:${images}">
                    <div class="mySlide">
-                    <div class="mySlides">
-                        <img class="picture-size" th:src="|@{/}thumb/${images.thumb}" alt="picture">
-                    </div>
+                            <div class="mySlides">
+                                <th:block th:each="images:${images}">
+                                    <img class="picture-size" th:src="|@{/}thumb/${images.thumb}" alt="picture">
+                                </th:block>
+                            </div>
                    </div>
-                </th:block>
             </section>
             <section class="contents">
                 <nav>
@@ -37,6 +37,19 @@
                                 </th:block>
                                 <div>
                                     5주 &nbsp;&nbsp;
+                                </div>
+                            </div>
+                        </li>
+                        <th:block th:each="commentlist:${commentlist}">
+                        <li>
+                            <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
+                            <div class="reply">
+                                <h1><span>[[${commentlist.username}]]</span>[[${commentlist.content}]]</h1>
+                                <th:block th:each="hash:${hashes}">
+                                    <a href="#">#[[${commentlist.hashtag}]]</a>
+                                </th:block>
+                                <div>
+                                    [[${commentlist.rdate}]]주 &nbsp;&nbsp;
                                     좋아요 <span>100</span>개 &nbsp;&nbsp;
                                     <a href="#">답글달기</a>
                                 </div>
@@ -50,7 +63,7 @@
                                             <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile">
                                             <div class="reply">
                                                 <th:block th:each="comment:${comments}">
-                                                <h1><span>gildong</span>[[${comment.comment}]]</h1>
+                                                    <h1><span>gildong</span>[[${comment.comment}]]</h1>
                                                 </th:block>
                                                 <a href="#">#해시태그</a>
                                                 <div>
@@ -130,6 +143,7 @@
                                 </div>
                             </div>
                         </li>
+                        </th:block>
                     </ul>
                 <div>
                     <div>

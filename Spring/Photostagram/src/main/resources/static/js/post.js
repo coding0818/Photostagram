@@ -1,4 +1,7 @@
   $(function() {
+        $('.mySlides').bxSlider({
+            });
+
 
     /*** 게시글 좋아요 ***/
     $('#like').click(function(){
