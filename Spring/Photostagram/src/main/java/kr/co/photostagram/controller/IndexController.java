@@ -56,6 +56,9 @@ public class IndexController {
             }
         }
         log.info("articles : " + articles);
+//        log.info("members : " + members);
+        log.info("followings : " + followings);
+        model.addAttribute("followings", followings);
         model.addAttribute("members", members);
         model.addAttribute("user", user);
         model.addAttribute("searchList", searchList);

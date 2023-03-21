@@ -14,7 +14,7 @@
             $(function(){
                // 비교시간
                 let notices = [[${notices}]];
-                //let articles = [[${articles}]];
+
                 let h = 0;
                 notices.forEach(function(notice, index){
                     let rdate = notice.rdate;
@@ -43,13 +43,6 @@
                     console.log("Date2 : "+calDate2);
 
                     let MSec = calDate1.getTime() - calDate2.getTime();
-                    let Min = MSec / 1000 / 60;
-                    Min = parseInt(Min);
-                    let h = Min / 60;
-                    h = Math.round(h);
-
-                    console.log("h시간 : "+h);
-                    console.log(index);
 
                     if(h == 24){
                         $('.noticeTime')[index].append('1일');
@@ -68,61 +61,11 @@
                         }
                     }
                 });
-/*
-                articles.forEach(function(notice, index){
-                    let rdate = notice.rdate;
-                    console.log("rdate : "+rdate);
-                    rdate = rdate.split(" ");
-
-                    let date = rdate[0].split("-");
-                    let sttYear = date[0];
-                    let sttMonth = date[1];
-                    sttMonth = parseInt(sttMonth)-1;
-                    let sttDay = date[2];
-                    console.log('sttYear : '+sttYear);
-                    console.log('sttMonth : '+sttMonth);
-                    console.log('sttDay : '+sttDay);
-
-                    let time = rdate[1].split(":");
-                    let sttHours = time[0];
-                    let sttMinutes = time[1];
-                    console.log("sttHours : "+sttHours);
-                    console.log("sttMinutes : "+sttMinutes);
-
-                    let calDate1 = new Date(year, month, day, hours, minutes);
-                    let calDate2 = new Date(sttYear, sttMonth, sttDay, sttHours, sttMinutes);
-
-                    console.log("Date1 : "+calDate1);
-                    console.log("Date2 : "+calDate2);
-
-                    let MSec = calDate1.getTime() - calDate2.getTime();
-                    let Min = MSec / 1000 / 60;
-                    Min = parseInt(Min);
-                    let h = Min / 60;
-                    h = Math.round(h);
-
-                    console.log("h시간 : "+h);
-                    console.log(index);
-
-                    if(h == 24){
-                        $('.noticeTime')[index].append('1일');
-                        return;
-                    }else if(h < 24){
-                        $('.noticeTime')[index].append(h+'시간');
-                        return;
-                    }else{
-                        h = Math.floor(h / 24);
-                        if(h < 7){
-                            $('.noticeTime')[index].append(h+'일');
-                            return;
-                        }else{
-                            h = Math.floor(h / 7);
-                            $('.noticeTime')[index].append(h+'주');
-                        }
-                    }
-                });*/
+                   
+                
             });
         </script>
+
         <!--sidebar 기본-->
         <aside class="sidebar">
             <header class="sidebar-header">

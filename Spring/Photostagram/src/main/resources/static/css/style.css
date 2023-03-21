@@ -528,3 +528,16 @@ body {
     float: right;
 }
 
+.modal-post .modal_video {
+    width: 590px !important;
+}
+
+.contents .bx-wrapper .bx-pager{
+    overflow: hidden;
+    margin-bottom: 47px;
+}
+
+.contents .bx-wrapper{
+    margin-bottom: 0;
+}
+
