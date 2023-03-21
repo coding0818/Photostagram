@@ -101,7 +101,7 @@
                   <th:block th:unless="${#maps.isEmpty(sortMap)}">
                       <th:block th:each="m:${sortMap}">
                           <div class="pic">
-                              <a th:href="@{/board/post (no=${m.key})}">
+                              <a th:href="@{/board/post (no=${m.value.no})}">
                               <th:block th:if="${#strings.endsWith(m.value.firstThumb, '.mp4')} == true">
                                   <video th:src="|@{/}thumb/${m.value.firstThumb}"></video>
                                   <i class="fa-solid fa-film fa-2x faIcons"></i>
@@ -116,7 +116,6 @@
                               </th:block>
                               </a>
                           </div>
-                          <div id="endList"></div>
                       </th:block>
                   </th:block>
               </div>
@@ -312,8 +311,81 @@
 /*<![CDATA[*/
     let username = [[${username}]];
     let pg = 1;
+    let isComplete = false;
+
 
     $(window).scroll(function() {
+        //console.log(pg);
+        //console.log(isComplete);
+
+        let top = $(this).scrollTop();
+        let height = ($(document).height() - $(window).height()) / 1.1;
+
+        console.log('top : ' + top);
+        console.log('height : ' + height);
+
+        if(top > height){
+
+            if(!isComplete){
+
+                console.log(pg + '데이터불러오기!!!!');
+                $.ajax({
+                    url: "/Photostagram/profile/post",
+                    type: "post",
+                    async: false,
+                    data: {"username": username, "pg": pg},
+                    dataType: "json",
+                    success: function(data){
+                        isComplete = true;
+
+                        if (Object.keys(data).length != 0){
+                            //console.log(data);
+
+                            pg += 1;
+                            isComplete = false;
+
+                            //console.log(pg);
+                            //console.log('here7');
+                            //console.log(data);
+
+                            for (i=0; i < Object.keys(data).length; i++){
+                                let num = data[i].no
+                                let thumb = data[i].firstThumb
+                                let tags = '';
+
+                                if (thumb.slice(-4, thumb.length) == '.mp4') {
+                                    tags = `<div class="pic">
+                                                <a href="/Photostagram/board/post?no=${num}">
+                                                <video src="/Photostagram/thumb/${thumb}"></video>
+                                                <i class="fa-solid fa-film fa-2x faIcons"></i>
+                                            </div>`
+                                }else if (data[i].thumbs > 1) {
+                                    tags = `<div class="pic">
+                                                <a href="/Photostagram/board/post?no=${num}">
+                                                <img src="/Photostagram/thumb/${thumb}">
+                                                <i class="fa-solid fa-images fa-2x faIcons"></i>
+                                            </div>`
+                                } else {
+                                   tags = `<div class="pic">
+                                                <a href="/Photostagram/board/post?no=${num}">
+                                                <img src="/Photostagram/thumb/${thumb}">
+                                            </div>`
+                                }
+
+                                //console.log (data[i].no);
+                                //console.log (data[i].firstThumb);
+                                $('.myList').append(tags);
+                            }
+                        } else {
+                            isComplete = true;
+                            return 0;
+                        }
+                    }
+                });
+            }
+        }
+
+        /*
         if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 
         $.ajax({
@@ -333,41 +405,7 @@
           $(".myList").append("");
 
         }
+        */
     });
-/*]]*/
-</script>
-<script th:inline="javascript">
-/*<![CDATA[*/
-
-    let username = [[${username}]];
-    let pg = 1;
-
-    const target = document.querySelector("#endList");
-    let options = {
-        root: document.querySelector('.myList'),
-        rootMargin: '0px',
-        threshold: 0
-    }
-
-    let callback = (entries, observer) => {
-        entries.forEach(entry => {
-            $.ajax({
-                url: "/Photostagram/profile/post",
-                type: "post",
-                data: {"username": username, "pg": pg},
-                dataType: "json",
-                success: function(data){
-                    if (data > 0){
-                        $('.myList').append(data);
-                        pg += 1;
-                    }
-                }
-            });
-        });
-    }
-
-    let io = new IntersectionObserver (callback, options);
-    io.observe(target);
-
 /*]]*/
 </script>
