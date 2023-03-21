@@ -51,18 +51,17 @@ public class ProfileController {
         int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
 
         /*** 사용자 게시물 ***/
-        List<PostVO> posts = service.selectPosts(pageNo, 0);             // 게시물 목록
+        List<PostVO> posts = service.selectPosts(pageNo, 0);      // 게시물 목록
         Map<Integer, PostVO> map = new HashMap<>();                   // 맵 생성
 
         for (int i=0; i<posts.size(); i++){                           // 게시물 갯수만큼 반복
             int postNo = posts.get(i).getNo();                        // 게시물 번호
             PostVO article = service.selectThumb(pageNo, postNo);     // 게시물 당 첫번째 사진과 사진 갯수 불러오기 (`image` 내에서 같은 `post_no` 중 가장 작은 `no` 값의 `thumb`)
-            map.put(postNo, article);                                 // 게시물 번호(key) + 게시물 썸네일 (value)로 맵에 전달
+            map.put(i, article);                                      // 인덱스 번호(key) + 게시물 썸네일 (value)로 맵에 전달
         }
 
         /*** 게시물 최신 순으로 정렬 ***/
-        Map<Integer, PostVO> sortMap = new TreeMap<>(Comparator.reverseOrder());    // 게시물 번호(key) 기준으로 역순 정렬
-        sortMap.putAll(map);                                                        // 새로운 맵에 put
+        Map<Integer, PostVO> sortMap = new TreeMap<>(map);    // 게시물 번호(key) 기준으로 정렬
 
         /*** 게시물, 팔로워, 팔로잉 ***/
         int post = service.selectCountPost(pageNo);                 // 게시물 갯수
@@ -147,26 +146,39 @@ public class ProfileController {
 
     @ResponseBody
     @PostMapping("profile/post")
-    public Map<Integer, PostVO> post (Principal principal, String username, int pg){
+    public Map<Integer, PostVO> post (String username, int pg){
+
+        //log.info("here1...");
 
         /*** 사용자, 프로필 페이지 사용자 ***/
         MemberVO member =  service.selectMember(username);
         int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
         pg = 12 * pg;
 
+        //log.info("here2...");
+
         /*** 사용자 게시물 ***/
         List<PostVO> posts = service.selectPosts(pageNo, pg);         // 게시물 목록
         Map<Integer, PostVO> map = new HashMap<>();                   // 맵 생성
 
+        //log.info("here3...");
+
         for (int i=0; i<posts.size(); i++){                           // 게시물 갯수만큼 반복
             int postNo = posts.get(i).getNo();                        // 게시물 번호
             PostVO article = service.selectThumb(pageNo, postNo);     // 게시물 당 첫번째 사진과 사진 갯수 불러오기 (`image` 내에서 같은 `post_no` 중 가장 작은 `no` 값의 `thumb`)
-            map.put(postNo, article);                                 // 게시물 번호(key) + 게시물 썸네일 (value)로 맵에 전달
+            map.put(i, article);                                      // 게시물 번호(key) + 게시물 썸네일 (value)로 맵에 전달
         }
 
+        //log.info("here4...");
+
         /*** 게시물 최신 순으로 정렬 ***/
-        Map<Integer, PostVO> data = new TreeMap<>(Comparator.reverseOrder());    // 게시물 번호(key) 기준으로 역순 정렬
-        data.putAll(map);                                                        // 새로운 맵에 put
+        Map<Integer, PostVO> data = new TreeMap<>(map);    // 게시물 번호(key) 기준으로 정렬
+
+        //log.info("here5...");
+
+        //System.out.println(data);
+
+        //log.info("here6...");
 
         return data;
     }
