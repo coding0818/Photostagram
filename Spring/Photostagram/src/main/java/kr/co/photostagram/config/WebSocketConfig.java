@@ -10,20 +10,22 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+    //endpoint를 /stomp로 하고, allowedOrigins를 "*"로 하면 페이지에서
+    //Get /info 404 Error가 발생한다. 그래서 아래와 같이 2개의 계층으로 분리하고
+    //origins를 개발 도메인으로 변경하니 잘 동작하였다.
+    //이유는 왜 그런지 아직 찾지 못함
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        // stomp 접속 주소 url => /ws-stomp
-        registry.addEndpoint("/chat/content") // 연결될 엔드포인트
-                .withSockJS(); // SocketJS 를 연결한다는 설정
+        registry.addEndpoint("/stomp/chat/content")
+                .setAllowedOrigins("http://localhost:8383")
+                .withSockJS();
     }
 
+    /*어플리케이션 내부에서 사용할 path를 지정할 수 있음*/
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        // 메시지를 구독하는 요청 url => 즉 메시지 받을 때
-        registry.enableSimpleBroker("/sub");
-
-        // 메시지를 발행하는 요청 url => 즉 메시지 보낼 때
         registry.setApplicationDestinationPrefixes("/pub");
+        registry.enableSimpleBroker("/sub");
     }
 
 }

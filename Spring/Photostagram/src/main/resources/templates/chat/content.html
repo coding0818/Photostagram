@@ -3,6 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/chatLayout}">
 <th:block layout:fragment="main">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script th:inline="javascript">
       
       $(function(){
@@ -29,52 +32,6 @@
       }
     });
 
-    let websocket = new WebSocket("ws://localhost:8383/Photostagram/chat/content");
-
-    websocket.onmessage = onMessage;
-    websocket.onopen = onOpen;
-    websocket.onclose = onClose;
-
-    let username = [[${#authentication.principal.username}]];
-
-    //on exit chat room
-    function onClose(evt) {
-    console.log("close event : " + evt);
-    }
-
-    //on entering chat room
-    function onOpen(evt) {
-    console.log("open event : " + evt);
-    }
-
-    function onMessage(msg) {
-    var data = JSON.parse(msg.data); // msg를 받으면 data 필드 안에 Json String으로 정보가 있음
-    // 필요한 정보를 Json data에서 추출
-     var senderId = username;
-     var message = data.message;
-     var time = data.time;
-     var newOne = data.newOne;
-     var outOne = data.outOne;
-    }
-
-    // send a message
-    function send(){
-    let message = $('.chatbox-box-1').val();
-
-        // don't send when content is empty
-        // 채팅 입력 칸이 비어있지 않을 경우만 정보를 Json형태로 전송
-        if(message != "") {
-        let msg = {
-            'message' : message
-        };
-
-            if(message != null) {
-            websocket.send(JSON.stringify(msg));	// websocket handler로 전송(서버로 전송)
-            }
-            message = '';
-        }
-    }
-
 
     $(document).on("click", function(e){
         if( $("#overlay").is(e.target)) {$("#overlay").css({ visibility:"hidden", opacity:0 });
@@ -87,7 +44,14 @@
         location.href='/Photostagram/chat/content?room_no='+room_no;
     });
 
+    var roomId = [[${roomNow.no}]];
+    var username = [[${#authentication.principal.username}]];
 
+    console.log(roomId + ", " + username);
+
+    var sockJs = new SockJS("/Photostagram/stomp/chat/content");
+    //1. SockJS를 내부에 들고있는 stomp를 내어줌
+    var stomp = Stomp.over(sockJs);
 /*
     $('.chatbox-box-1').keydown(function(key) {
         //키의 코드가 13번일 경우 (13번은 엔터키)
@@ -113,6 +77,56 @@
             });
         }
     });*/
+
+            //2. connection이 맺어지면 실행
+            stomp.connect({}, function (){
+               console.log("STOMP Connection")
+
+               //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+               stomp.subscribe("/sub/chat/content/" + roomId, function (chat) {
+                   var content = JSON.parse(chat.body);
+
+                   var writer = content.writer;
+                   var str = '';
+
+                    console.log('content : '+content);
+                    console.log('content.message : '+content.message);
+                    console.log('content.writer : '+content.writer);
+
+                   if(writer == username){
+                       //alert('작성자가 username과 같습니다');
+                       str = "<div class='chat ch2'>";
+                       str += "<div class='textbox'>"+content.message+"</div>";
+                       str += "</div>";
+                   }
+                   else{
+                       //alert('작성자가 username과 다릅니다');
+                       str = "<div class='chat ch1'>";
+                       str += "<div class='icon'>";
+                       str += "<img class='' src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg' alt='계정사진'>";
+                       str += "</div>";
+                       str += "<div class='textbox'>"+content.message+"</div>";
+                       str += "</div>";
+                   }
+                   $(".wrap").append(str);
+               });
+
+               //3. send(path, header, message)로 메세지를 보낼 수 있음
+               stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
+            });
+
+
+    $('.chatbox-box-1').keydown(function(key) {
+        //키의 코드가 13번일 경우 (13번은 엔터키)
+        if (key.keyCode == 13) {
+            var msg = $('.chatbox-box-1').val();
+
+            console.log(username + ":" + msg);
+            stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg, writer: username}));
+            msg = '';
+        }
+    });
+
   });
   
     </script>
