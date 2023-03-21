@@ -175,7 +175,7 @@
                     <a th:href="@{/profile(username=${article.memberVO.username})}" th:text="${article.memberVO.username}"></a>
                   </div>
                   <!------------- 게시글 내용 입니다 ----------------->
-                  <div class="mainContent" style="display: inline-block;">
+                  <div class="mainContent">
                     <div class="commentWord" th:text="${article.content}" style="color: #262626;">내용</div>
                     <th:block th:each="hashtag : ${article.hashTagVO}">
                       <a th:href="@{/search(no = ${hashtag.no})}" class="hashtag_text" style="color: #00376B;">#[[${hashtag.hashtag}]]</a>
@@ -269,7 +269,7 @@
 
                     <span>
                       [[${article.content}]]
-                      <a href="#" th:each="hashtag : ${article.hashTagVO}" class="modalhashtag_text" style="color: #00376B;">#[[${hashtag.hashtag}]]</a>
+                      <a th:href="@{/search(no = ${hashtag.no})}" th:each="hashtag : ${article.hashTagVO}" class="modalhashtag_text" style="color: #00376B;">#[[${hashtag.hashtag}]]</a>
                     </span>
 
                   </div>

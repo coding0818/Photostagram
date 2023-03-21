@@ -217,6 +217,13 @@ body {
   margin-right: 4px;
   margin-bottom: 3px;
 }
+
+.contents .comment_container .comment .mainContent {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  font-family:"nsM"
+}
 .contents .comment_container .comment .commentWord {
   text-overflow: ellipsis;
   display: inline-block;
