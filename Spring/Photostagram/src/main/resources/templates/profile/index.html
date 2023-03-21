@@ -318,14 +318,19 @@
         //console.log(pg);
         //console.log(isComplete);
 
+        // 현재 스크롤이 있는 위치의 높이
         let top = $(this).scrollTop();
+
+        // 현재 창의 총 높이 (컨텐츠 총 길이 -- 의 1.1)
         let height = ($(document).height() - $(window).height()) / 1.1;
 
         console.log('top : ' + top);
         console.log('height : ' + height);
 
+        // 스크롤 위치가 총 높이의 1.1배보다 아래로 내려오면 실행
         if(top > height){
 
+            // 같은 작업이 다시 실행되지 않도록 걸어둔 조건문
             if(!isComplete){
 
                 console.log(pg + '데이터불러오기!!!!');
@@ -336,18 +341,23 @@
                     data: {"username": username, "pg": pg},
                     dataType: "json",
                     success: function(data){
+                        // 반복 실행 방지로 isComplete true 처리
                         isComplete = true;
 
+                        // 데이터 길이가 0이 아닐 때 (null 체크 시 빈 map이 들어오기 때문에 not null로 뜸)
                         if (Object.keys(data).length != 0){
                             //console.log(data);
 
+                            // 실행되면 pg값 1씩 추가
                             pg += 1;
+                            // (새 데이터가 들어오면)다시 실행할 수 있도록 isComplete false 처리
                             isComplete = false;
 
                             //console.log(pg);
                             //console.log('here7');
                             //console.log(data);
 
+                            // 받아온 object 길이만큼 반복, data[i]에서 i는 key 값
                             for (i=0; i < Object.keys(data).length; i++){
                                 let num = data[i].no
                                 let thumb = data[i].firstThumb
@@ -377,6 +387,7 @@
                                 $('.myList').append(tags);
                             }
                         } else {
+                            // 재 실행 가능하도록 하는 isComplete를 true로 차단
                             isComplete = true;
                             return 0;
                         }
@@ -385,7 +396,9 @@
             }
         }
 
-        /*
+
+
+        /*** 이 코드 아님
         if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 
         $.ajax({
@@ -405,7 +418,7 @@
           $(".myList").append("");
 
         }
-        */
+        ***/
     });
 /*]]*/
 </script>
