@@ -28,9 +28,9 @@ public class Board3VO {
     private Post_likeVO post_likeVO;
     private List<ImageVO> imageVO;
     private MemberVO memberVO;
-    private List<Board1VO> Board1VO;
+    private List<Board1VO> board1VO;
 
     private CommentVO commentVO;
-    private Comment_likeVO Comment_likeVO;
+    private Comment_likeVO comment_likeVO;
 
 }
