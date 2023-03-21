@@ -89,7 +89,7 @@
       display: block;
       margin-left: 10px;
       margin-top: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 0px;
     }
     #post > .contents > ul > li > .reply {width: 410px;}
     #post > .contents > ul > li > label > a {float: left; color: #a9a9a9; font-weight: bold;}

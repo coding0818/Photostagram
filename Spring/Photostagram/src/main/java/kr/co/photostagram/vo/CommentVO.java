@@ -21,5 +21,7 @@ public class CommentVO {
 
     // 추가필드
     private String username;
+    private int like_count;
+    private String profileImg;
 
 }

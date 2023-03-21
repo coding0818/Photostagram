@@ -13,12 +13,7 @@
             WHERE a.`no`=#{no};
     </select>
 
-    <select id="selectContent" resultType="kr.co.photostagram.vo.BoardVO">
-        SELECT * FROM `post` as a
-        JOIN `user` as b
-        ON a.`user_no` = b.`no`
-        WHERE a.`no`=#{no};
-    </select>
+
 
     <select id="selectPostHashTag" resultType="kr.co.photostagram.vo.Board1VO">
         SELECT
@@ -37,7 +32,8 @@
         select * from `image` where `post_no`=#{no};
     </select>
 
-    <select id="selectcommentlist" resultType="kr.co.photostagram.vo.Board3VO">
+    <select id="selectcommentlist" resultType="kr.co.photostagram.vo.CommentVO">
+        <!--
         SELECT
         a.`content`,
         a.`rdate`,
@@ -48,8 +44,14 @@
         from `post` as a
         join `comment` as b on a.`no` = b.`post_no`
         left join `user` as c on a.`user_no` = c.`no`;
+        -->
+        SELECT a.*,  COUNT(b.`no`) AS `like_count`, c.username, c.profileImg
+        FROM `comment` AS a
+        left JOIN `comment_like` AS b ON a.`no`=b.comment_no
+        JOIN `user` AS c ON a.user_no = c.`no`
+        WHERE a.`post_no`=#{postNo}
+        GROUP BY b.`comment_no`;
     </select>
-
 
 
 </mapper>

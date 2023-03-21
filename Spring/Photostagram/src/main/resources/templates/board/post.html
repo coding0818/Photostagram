@@ -40,31 +40,31 @@
                                 </div>
                             </div>
                         </li>
-                        <th:block th:each="commentlist:${commentlist}">
-                        <li>
-                            <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
+                        <li th:each="commentVo:${commentList}">
+                            <img class="proImg" th:src="|@{/}thumb/${commentVo.profileImg}"  alt="profile">
                             <div class="reply">
-                                <h1><span>[[${commentlist.username}]]</span>[[${commentlist.content}]]</h1>
-                                <th:block th:each="hash:${hashes}">
-                                    <a href="#">#[[${commentlist.hashtag}]]</a>
+                                <h1><span>[[${commentVo.username}]]</span>[[${commentVo.comment}]]</h1>
+                                <!--/*
+                                <th:block th:each="hash:${commentlist}">
+                                    <a href="#">#[[${hash.board1VO.hashtag}]]</a>
                                 </th:block>
+                                */-->
                                 <div>
-                                    [[${commentlist.rdate}]]주 &nbsp;&nbsp;
-                                    좋아요 <span>100</span>개 &nbsp;&nbsp;
+                                    [[${commentVo.rdate}]]주&nbsp;&nbsp;
+                                    좋아요 <span>[[${commentVo.like_count}]]</span>개 &nbsp;&nbsp;
                                     <a href="#">답글달기</a>
                                 </div>
                             </div>
+
                             <a href="#" id="reHeart" class="reWhite">좋아요</a>
                             <div class="showReply">
                                 <a href="#" class="reOpen">ㅡ 답글보기</a>
                                 <div class="listReply reHide">
                                     <ul class="reReply">
                                         <li>
-                                            <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile">
+                                            <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                                             <div class="reply">
-                                                <th:block th:each="comment:${comments}">
-                                                    <h1><span>gildong</span>[[${comment.comment}]]</h1>
-                                                </th:block>
+                                                <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
                                                 <a href="#">#해시태그</a>
                                                 <div>
                                                     5주 &nbsp;&nbsp;
@@ -143,7 +143,6 @@
                                 </div>
                             </div>
                         </li>
-                        </th:block>
                     </ul>
                 <div>
                     <div>
