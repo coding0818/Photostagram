@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
@@ -57,13 +54,8 @@ public class IndexController {
             if(followfilter.getNo() == user.getNo()){
                 members.remove(followfilter);
             }
-
         }
-          log.info("articles : " + articles);
-        log.info("comments : " + comments);
-//        log.info("user : " + user);
-//        log.info("user_no : "+user.getNo());
-//        log.info("searchList : "+searchList);
+        log.info("articles : " + articles);
         model.addAttribute("members", members);
         model.addAttribute("user", user);
         model.addAttribute("searchList", searchList);
@@ -78,7 +70,20 @@ public class IndexController {
 
         return "index";
     }
+    @GetMapping("follow")
+    @ResponseBody
+    public Map follow(Principal principal, @RequestParam int following){
+        MemberVO user =  profileService.selectMember(principal.getName());
+        int follower = user.getNo();
 
+        int followResult = 0;
+        followResult = profileService.insertFollowing(follower, following);
+
+        Map map = new HashMap();
+        map.put("result", followResult);
+
+        return map;
+    }
     // 댓글 작성
     @PostMapping("CmtRegister")
     @ResponseBody
