@@ -66,4 +66,16 @@
         (SELECT a.*, NULL AS user, b.username, b.profileImg FROM `room` AS a
         JOIN `user` AS b ON a.me=b.`no` WHERE a.`no`=#{room_no});
     </select>
+    <!--추천 회원-->
+    <select id="selectRecommends" resultType="kr.co.photostagram.vo.RecommendVO">
+        (SELECT b.`user`, c.username, c.profileImg FROM `room` AS a
+        JOIN `room_member` AS b ON a.`no`=b.room
+        JOIN `user` AS c ON b.`user`=c.`no`
+        WHERE a.me=#{user_no})
+        UNION
+        (SELECT b.me, c.username, c.profileImg FROM `room_member` AS a
+        JOIN `room` AS b ON a.room=b.`no`
+        JOIN `user` AS c ON b.me=c.`no`
+        WHERE a.`user`=#{user_no})
+    </select>
 </mapper>
