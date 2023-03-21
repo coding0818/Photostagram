@@ -24,7 +24,8 @@
             JOIN `image` AS b
             ON a.`no`=b.`post_no`
             WHERE a.`user_no`=#{no}
-            GROUP BY a.`no`;
+            GROUP BY a.`no` DESC
+            LIMIT #{pg}, 12 ;
     </select>
 
     <select id="selectThumb" resultType="kr.co.photostagram.vo.PostVO">

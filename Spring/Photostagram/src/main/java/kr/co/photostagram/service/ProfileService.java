@@ -42,7 +42,7 @@ public class ProfileService {
 
     public int updatePassword (String newPass, int no) {return dao.updatePassword(newPass, no);}
 
-    public List<PostVO> selectPosts(int no) {return dao.selectPosts(no);}
+    public List<PostVO> selectPosts(int no, int pg) {return dao.selectPosts(no, pg);}
 
     public PostVO selectThumb(int pageNo, int postNo) {return dao.selectThumb(pageNo, postNo);}
 

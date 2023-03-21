@@ -308,3 +308,66 @@
     </th:block>
 </th:block>
 </html>
+<script th:inline="javascript">
+/*<![CDATA[*/
+    let username = [[${username}]];
+    let pg = 1;
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+
+        $.ajax({
+                url: "/Photostagram/profile/post",
+                type: "post",
+                data: {"username": username, "pg": pg},
+                dataType: "json",
+                success: function(data){
+                    if (data > 0){
+                        console.log(data);
+                        $('.myList').append(data);
+                        pg += 1;
+                    }
+                }
+            });
+
+          $(".myList").append("");
+
+        }
+    });
+/*]]*/
+</script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+
+    let username = [[${username}]];
+    let pg = 1;
+
+    const target = document.querySelector("#endList");
+    let options = {
+        root: document.querySelector('.myList'),
+        rootMargin: '0px',
+        threshold: 0
+    }
+
+    let callback = (entries, observer) => {
+        entries.forEach(entry => {
+            $.ajax({
+                url: "/Photostagram/profile/post",
+                type: "post",
+                data: {"username": username, "pg": pg},
+                dataType: "json",
+                success: function(data){
+                    if (data > 0){
+                        $('.myList').append(data);
+                        pg += 1;
+                    }
+                }
+            });
+        });
+    }
+
+    let io = new IntersectionObserver (callback, options);
+    io.observe(target);
+
+/*]]*/
+</script>
