@@ -6,6 +6,7 @@ import kr.co.photostagram.vo.PostVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,7 +31,7 @@ public interface ProfileDAO {
 
     public int updatePassword(@Param("newPass") String newPass, @Param("no") int no);
 
-    public List<PostVO> selectPosts(int no);
+    public List<PostVO> selectPosts(@Param("no") int no, @Param("pg") int pg);
 
     public PostVO selectThumb(@Param("pageNo") int pageNo, @Param("postNo") int postNo);
 

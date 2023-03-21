@@ -51,7 +51,7 @@ public class ProfileController {
         int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
 
         /*** 사용자 게시물 ***/
-        List<PostVO> posts = service.selectPosts(pageNo);             // 게시물 목록
+        List<PostVO> posts = service.selectPosts(pageNo, 0);             // 게시물 목록
         Map<Integer, PostVO> map = new HashMap<>();                   // 맵 생성
 
         for (int i=0; i<posts.size(); i++){                           // 게시물 갯수만큼 반복
@@ -143,6 +143,32 @@ public class ProfileController {
         model.addAttribute("followingMap", followingMap);
         model.addAttribute("followerMap", followerMap);
         return "profile/index";
+    }
+
+    @ResponseBody
+    @PostMapping("profile/post")
+    public Map<Integer, PostVO> post (Principal principal, String username, int pg){
+
+        /*** 사용자, 프로필 페이지 사용자 ***/
+        MemberVO member =  service.selectMember(username);
+        int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
+        pg = 12 * pg;
+
+        /*** 사용자 게시물 ***/
+        List<PostVO> posts = service.selectPosts(pageNo, pg);         // 게시물 목록
+        Map<Integer, PostVO> map = new HashMap<>();                   // 맵 생성
+
+        for (int i=0; i<posts.size(); i++){                           // 게시물 갯수만큼 반복
+            int postNo = posts.get(i).getNo();                        // 게시물 번호
+            PostVO article = service.selectThumb(pageNo, postNo);     // 게시물 당 첫번째 사진과 사진 갯수 불러오기 (`image` 내에서 같은 `post_no` 중 가장 작은 `no` 값의 `thumb`)
+            map.put(postNo, article);                                 // 게시물 번호(key) + 게시물 썸네일 (value)로 맵에 전달
+        }
+
+        /*** 게시물 최신 순으로 정렬 ***/
+        Map<Integer, PostVO> data = new TreeMap<>(Comparator.reverseOrder());    // 게시물 번호(key) 기준으로 역순 정렬
+        data.putAll(map);                                                        // 새로운 맵에 put
+
+        return data;
     }
 
     @GetMapping("profile/modify")
