@@ -30,7 +30,7 @@
         b.username, b.name, b.profileImg, b.profileText,
         c.thumb,
         d.post_no AS postlike_no, d.user_no AS postlike_user_no, d.rdate AS postlike_rdate,
-        f.`hashtag`
+        f.no AS hash_no, f.`hashtag`
         FROM `post` AS a
 
         JOIN `user` AS b ON a.user_no = b.no
@@ -126,6 +126,7 @@
             <result column="post_no" property="post_no"/>
         </collection>
         <collection property="hashTagVO" ofType="kr.co.photostagram.vo.HashTagVO">
+            <result column="hash_no" property="no"/>
             <result column="hashtag" property="hashtag"/>
         </collection>
     </resultMap>

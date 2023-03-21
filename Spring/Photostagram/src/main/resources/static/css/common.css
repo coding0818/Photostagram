@@ -131,6 +131,20 @@ body {
   height: 23px;
 }
 
+.followBtn{
+    border: 0;
+    background: 0;
+    color: #0095F6;
+    font-weight: bold;
+}
+
+.followingBtn{
+    border: 0;
+    background: 0;
+    color: gray;
+    height: 25px;
+    font-weight: bold;
+}
 /*-------------------------------------//icons*/
 
 #container {

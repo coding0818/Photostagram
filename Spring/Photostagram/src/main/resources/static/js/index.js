@@ -70,7 +70,6 @@ $(function () {
   $(".contents").each(function () {
     let article = $(this).closest('article');
     let postdate = article.find('.post-date').text();
-    console.log(postdate.substr(2,10));
     let divCommentWord = article.find('.commentWord'); // 작성자가 쓴 내용
     let comment = divCommentWord.text().trim();
 
@@ -107,7 +106,6 @@ $(function () {
       }
     }
 
-    article.find('.post-date').empty().append(postdate.substr(0,10));
   });
 
   // 댓글 작성
@@ -350,7 +348,35 @@ $(function () {
 
   })
 
+  $(document).on("click", ".idx_followBtn", function(){
+    let body = $(this).closest('body');
+    let following = $(this).attr('data-no');
+
+    let jsonData = {"following":following};
+    
+    $.ajax({
+      url:'/Photostagram/follow',
+      method:'GET',
+      data:jsonData,
+      dataType:'json',
+      success: (data)=>{
+        if(data.result > 0){
+            if(body.find('.idxfw').hasClass('idx_followBtn')){
+                  body.find($(this))
+                  .removeClass('idx_followBtn')
+                  .addClass('idx_followingBtn');
+
+                  $(this).val('팔로잉');
+            }
+        }
+      }
+    })
+  })
+
+
+
   /*
     북마크 (default : -237px -286px, click : -159px -286px)
   */
+
 });
