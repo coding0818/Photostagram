@@ -57,12 +57,16 @@ public class ProfileController {
         for (int i=0; i<posts.size(); i++){                           // 게시물 갯수만큼 반복
             int postNo = posts.get(i).getNo();                        // 게시물 번호
             PostVO article = service.selectThumb(pageNo, postNo);     // 게시물 당 첫번째 사진과 사진 갯수 불러오기 (`image` 내에서 같은 `post_no` 중 가장 작은 `no` 값의 `thumb`)
-            map.put(i, article);                                      // 인덱스 번호(key) + 게시물 썸네일 (value)로 맵에 전달
+            map.put(i, article);                                      // 인덱스 번호(key) + 게시물 정보(value)로 맵에 전달
         }
 
         /*** 게시물 최신 순으로 정렬 ***/
-        Map<Integer, PostVO> sortMap = new TreeMap<>(map);    // 게시물 번호(key) 기준으로 정렬
+        Map<Integer, PostVO> sortMap = new TreeMap<>(map);    // 인덱스 번호(key) 기준으로 정렬
 
+        //Map<Integer, PostVO> sortMap = new TreeMap<>(Comparator.reverseOrder());      ---- 역순정렬 하는 코드
+        //sortMap.put(map)                                                              ---- 이후 sortMap에 따로 put 적용해준다.
+
+        
         /*** 게시물, 팔로워, 팔로잉 ***/
         int post = service.selectCountPost(pageNo);                 // 게시물 갯수
         int myFollower = service.selectCountFollower(pageNo);       // 팔로워 수
@@ -144,13 +148,14 @@ public class ProfileController {
         return "profile/index";
     }
 
+    /*** 무한스크롤 페이지 게시물 불러오기 ***/
     @ResponseBody
     @PostMapping("profile/post")
     public Map<Integer, PostVO> post (String username, int pg){
 
         //log.info("here1...");
 
-        /*** 사용자, 프로필 페이지 사용자 ***/
+        /*** 프로필 페이지 사용자 ***/
         MemberVO member =  service.selectMember(username);
         int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
         pg = 12 * pg;
@@ -214,6 +219,7 @@ public class ProfileController {
         return "profile/changePass";
     }
 
+    /*** 비밀번호 변경 ***/
     @ResponseBody
     @PostMapping("profile/changePass")
     public void changePass(HttpServletResponse resp, Principal principal, String prePass, String pass1, String pass2){
@@ -252,6 +258,7 @@ public class ProfileController {
         //System.out.println("pass2 : "+ pass2);
     }
 
+    /*** 이전 비밀번호와 같은지 확인 ***/
     @ResponseBody
     @PostMapping("profile/prePass")
     public Map<String, Integer> prePass(Principal principal, String prePass) {
@@ -272,7 +279,7 @@ public class ProfileController {
         return resultMap;
     }
 
-
+    /*** 프로필 사진 업로드 없이 삭제 ***/
     @ResponseBody
     @GetMapping("profile/upload")
     public Map<String, Integer> upload(Principal principal, String type){
@@ -309,6 +316,7 @@ public class ProfileController {
         return resultMap;
     }
 
+    /*** 팔로우, 언팔로우 요청 처리 ***/
     @GetMapping("profile/follow")
     public String follow(String type, String userName, String myName){
 
@@ -324,6 +332,7 @@ public class ProfileController {
         return "redirect:/profile?username="+userName;
     }
 
+    /*** 팔로우, 언팔로우 요청 처리 -- ajax ***/
     @ResponseBody
     @PostMapping("profile/follow")
     public Map<String, Integer> follow(Principal principal, @RequestParam("type") String type, @RequestParam("userName") String userName){
@@ -360,6 +369,7 @@ public class ProfileController {
         return "profile/deleteUser";
     }
 
+    /*** 회원 탈퇴 ***/
     @Transactional
     @ResponseBody
     @PostMapping("profile/deleteUser")
