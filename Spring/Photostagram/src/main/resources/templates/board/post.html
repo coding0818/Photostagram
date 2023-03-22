@@ -3,6 +3,74 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/profileLayout}">
 <th:block layout:fragment="main">
+    <script th:inline="javascript">
+            let now = new Date();
+
+            // 현재시간
+            let year = now.getFullYear();
+            let month = now.getMonth();
+            let day = now.getDate();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+
+            $(function(){
+               // 비교시간
+                let noticesTime = [[${noticesTime}]];
+
+                let h = 0;
+                noticesTime.forEach(function(noticesTime, index){
+                    let rdate = noticesTime.rdate;
+                    console.log("rdate : "+rdate);
+                    rdate = rdate.split(" ");
+
+                    let date = rdate[0].split("-");
+                    let sttYear = date[0];
+                    let sttMonth = date[1];
+                    sttMonth = parseInt(sttMonth)-1;
+                    let sttDay = date[2];
+                    console.log('sttYear : '+sttYear);
+                    console.log('sttMonth : '+sttMonth);
+                    console.log('sttDay : '+sttDay);
+
+                    let time = rdate[1].split(":");
+                    let sttHours = time[0];
+                    let sttMinutes = time[1];
+                    console.log("sttHours : "+sttHours);
+                    console.log("sttMinutes : "+sttMinutes);
+
+                    let calDate1 = new Date(year, month, day, hours, minutes);
+                    let calDate2 = new Date(sttYear, sttMonth, sttDay, sttHours, sttMinutes);
+
+                    console.log("Date1 : "+calDate1);
+                    console.log("Date2 : "+calDate2);
+
+                    let MSec = calDate1.getTime() - calDate2.getTime();
+                    let Min = MSec / 1000 / 60;
+                    Min = parseInt(Min);
+                    let h = Min / 60;
+                    h = Math.round(h);
+                    console.log("h : "+h);
+                    if(h == 24){
+                        $('.comment-time')[index].append('1일');
+                        return;
+                    }else if(h < 24){
+                        $('.comment-time')[index].append(h+'시간');
+                        return;
+                    }else{
+                        h = Math.floor(h / 24);
+                        if(h < 7){
+                            $('.comment-time')[index].append(h+'일');
+                            return;
+                        }else{
+                            h = Math.floor(h / 7);
+                            $('.comment-time')[index].append(h+'주');
+                        }
+                    }
+                });
+
+
+            });
+        </script>
     <div id="wrapper">
         <article id="post">
             <section class="picture" >
@@ -35,8 +103,8 @@
                                 <th:block th:each="hash:${hashes}">
                                     <a href="#">#[[${hash.hashtag}]]</a>
                                 </th:block>
-                                <div>
-                                    5주 &nbsp;&nbsp;
+                                <div class="comment-time">
+                                    5주
                                 </div>
                             </div>
                         </li>
@@ -49,8 +117,7 @@
                                     <a href="#">#[[${hash.board1VO.hashtag}]]</a>
                                 </th:block>
                                 */-->
-                                <div>
-                                    [[${commentVo.rdate}]]주&nbsp;&nbsp;
+                                <div class="comment-time">
                                     좋아요 <span>[[${commentVo.like_count}]]</span>개 &nbsp;&nbsp;
                                     <a href="#">답글달기</a>
                                 </div>
@@ -66,8 +133,7 @@
                                             <div class="reply">
                                                 <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
                                                 <a href="#">#해시태그</a>
-                                                <div>
-                                                    5주 &nbsp;&nbsp;
+                                                <div class="comment-time">
                                                     좋아요 <span>100</span>개 &nbsp;&nbsp;
                                                     <a href="#">답글달기</a>
                                                 </div>
@@ -152,8 +218,8 @@
                         <a href="#" id="bookMark" class="remove"></a>
                     </div>
                     <div>
-                        <div>좋아요 <span>100</span>개</div>
-                        <div>2월 28일</div>
+                        <div>좋아요 <span>[[${content_like_time.like}]]</span>개</div>
+                        <div class="date" th:text="${#strings.substring(content_like_time.rdate, 5, 10)}">2월 28일</div>
                     </div>
                     <div>
                         <a href="#"><i class="fa-regular fa-face-smile fa-2x"></i></a>
