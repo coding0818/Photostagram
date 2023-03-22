@@ -303,7 +303,7 @@
 
                             <!---------- modal 댓글작성자 ID, 내용 입니다 ---------->
                           <div class="posting">
-                            <div>
+                            <div th:data-no="${comment.no}">
                               <a class="modal_comment_id" th:href="@{/profile(username=${user.username})}" th:text="${comment.memberVO.username}">KingTiger</a>
                               <input type="hidden" th:value="${comment.no}">
                               <span class="modal_comment" th:text="${comment.comment}">안녕하세요 나는 타이거입니다.</span>
@@ -456,5 +456,11 @@
     </section>
   </section>
 </th:block>
-
 </html>
+<script th:inline="javascript">
+/*<![CDATA[*/
+  window.onscroll = function(e){
+    console.log(window.innerHeight , window.scrollY,document.body.offsetHeight)
+  }
+/*]]*/
+</script>

@@ -221,7 +221,6 @@ body {
 .contents .comment_container .comment .mainContent {
   display: inline-block;
   font-size: 14px;
-  font-weight: bold;
   font-family:"nsM"
 }
 .contents .comment_container .comment .commentWord {
@@ -232,7 +231,7 @@ body {
 }
 
 .contents .comment_container .comment .hashtag_text {
-
+ font-weight: bold;
 }
 
 .contents .comment_container .small_heart {
@@ -534,7 +533,7 @@ body {
 
 .contents .bx-wrapper .bx-pager{
     overflow: hidden;
-    margin-bottom: 47px;
+    margin-bottom: 36px;
 }
 
 .contents .bx-wrapper{
