@@ -1054,16 +1054,15 @@ div.modal-post div.wrapper div.post-content div.user svg.etc {
   cursor: pointer;
 }
 div.modal-post div.wrapper div.post-content div.rest {
-  display: flex;
+  display: block;
   width: 100%;
-  height: calc(100% - 73px);
+  height: calc(88% - 138px);
   flex-direction: column;
-  margin-top: 20px;
   position: relative;
 }
 div.modal-post div.wrapper div.post-content div.rest div.text {
   width: 100%;
-  height: calc(100% - 32px);
+  height: calc(96% - 100px);
   box-sizing: border-box;
   overflow-y: scroll;
   padding: 5px 11px;
@@ -1092,15 +1091,16 @@ div.modal-post div.wrapper div.post-content div.user-content a {
   padding: 0px 0px 0px 10px;
   cursor: pointer;
   position: relative;
-  top: -10px;
+  top: -12px;
 }
 div.modal-post div.wrapper div.post-content div.user-content span {
   font-size: 14px;
   font-family: "nsM";
   padding-bottom: 3px;
-  position: absolute;
-  margin-top: 6px;
-  margin-left: 5px;
+  position: relative;
+  margin-top: -5px;
+  margin-left: 44px;
+  display: block;
 }
 
 div.modal-post div.wrapper div.post-content div.user-content span a {
