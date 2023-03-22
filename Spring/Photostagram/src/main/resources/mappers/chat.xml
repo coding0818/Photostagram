@@ -78,4 +78,23 @@
         JOIN `user` AS c ON b.me=c.`no`
         WHERE a.`user`=#{user_no})
     </select>
+    <!--중복 채팅방 조회-->
+    <select id="selectChatRoomHave" resultMap="selectChatRoomIhave">
+        (SELECT a.`no`,a.me, b.`user` FROM `room` AS a
+        JOIN `room_member` AS b ON a.`no`=b.room
+        WHERE a.me=#{me})
+        UNION ALL
+        (SELECT b.`no`, b.me, a.`user` FROM `room_member` AS a
+        JOIN `room` AS b ON a.room=b.`no`
+        WHERE a.`user`=#{me})
+    </select>
+    <resultMap id="selectChatRoomIhave" type="kr.co.photostagram.DTO.ChatRoom">
+        <id column="no" property="no"></id>
+        <collection property="mes" ofType="int">
+            <result column="me" property="username"/>
+        </collection>
+        <collection property="users" ofType="int">
+            <result column="user" property="user"/>
+        </collection>
+    </resultMap>
 </mapper>

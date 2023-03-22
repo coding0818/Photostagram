@@ -149,10 +149,10 @@ public class ChatController {
     @ResponseBody
     @PostMapping("insertMessage")
     public Map<String, Integer> insertMessage(ChattingVO vo){
-        int result = service.insertMessages(vo);
+        //int result = service.insertMessages(vo);
 
         Map<String, Integer> resultMap = new HashMap<>();
-        resultMap.put("result", result);
+        //resultMap.put("result", result);
         log.info("goChattingRoom...3...for끝");
         return resultMap;
     }
