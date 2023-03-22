@@ -59,11 +59,11 @@
                       <span class="jum">•</span>
 
                       <!------------- 게시글 상단 날짜입니다 --------------------->
-                      <span class="time articleTime" th:text="${article.rdate}"></span>
+                      <span class="time articleTime"></span>
 
-                      <th:block th:if="${not #strings.equals(user.no,article.user_no)}"><span class="jum">•</span>
-                      <input type="button" class="idxfw idx_followBtn" value="팔로우" th:data-no="${article.user_no}"/>
-                      </th:block>
+<!--                      <th:block th:if="${not #strings.equals(user.no,article.user_no)}"><span class="jum">•</span>-->
+<!--                        <input type="button" class="idxfw idx_followBtn" value="팔로우" th:data-no="${article.user_no}"/>-->
+<!--                      </th:block>-->
                     </div>
                     <div class="country s_text">Busan, South Korea</div>
                   </div>
@@ -85,7 +85,8 @@
                              width="590"
                              loop
                              controls
-                             autoplay th:src="|@{/}thumb/${thumbImage.thumb}">
+
+                             th:src="|@{/}thumb/${thumbImage.thumb}">
                       </video>
                     </th:block>
                     <th:block th:unless="${#strings.contains(thumbImage.thumb,'.mp4')}">
@@ -327,7 +328,7 @@
                         <input type="hidden" name="uid" th:value="${#authentication.principal.user.username}">
                         <input type="hidden" name="postNo" th:value="${article.no}">
                         <input type="hidden" name="userNo" th:value="${user.no}">
-                        <input type="text" placeholder="댓글 달기...">
+                        <input type="text" class="commentText" placeholder="댓글 달기...">
                         <button class="modal_upload_btn m_text">게시</button>
                       </div>
                     </div>
@@ -417,7 +418,72 @@
 </html>
 <script th:inline="javascript">
 /*<![CDATA[*/
-  let articles = [[${articles}]];
-  console.log(articles);
+
+  let idxnow = new Date();
+
+  // 현재시간
+  let idxyear = idxnow.getFullYear();
+  let idxmonth = idxnow.getMonth();
+  let idxday = idxnow.getDate();
+  let idxhours = idxnow.getHours();
+  let idxminutes = idxnow.getMinutes();
+
+  $(function(){
+     // 비교시간
+      let articles = [[${articles}]];
+
+      let idx_h = 0;
+      articles.forEach(function(article, index){
+          let idxrdate = article.rdate;
+          console.log("idx rdate : "+idxrdate);
+          idxrdate = idxrdate.split(" ");
+
+          let idxdate = idxrdate[0].split("-");
+          let idxsttYear = idxdate[0];
+          let idxsttMonth = idxdate[1];
+          idxsttMonth = parseInt(idxsttMonth)-1;
+          let idxsttDay = idxdate[2];
+          console.log('idx sttYear : '+idxsttYear);
+          console.log('idx sttMonth : '+idxsttMonth);
+          console.log('idx sttDay : '+idxsttDay);
+
+          let idxtime = idxrdate[1].split(":");
+          let idxsttHours = idxtime[0];
+          let idxsttMinutes = idxtime[1];
+          console.log("idx sttHours : "+idxsttHours);
+          console.log("idx sttMinutes : "+idxsttMinutes);
+
+          let idx_calDate1 = new Date(idxyear, idxmonth, idxday, idxhours, idxminutes);
+          let idx_calDate2 = new Date(idxsttYear, idxsttMonth, idxsttDay, idxsttHours, idxsttMinutes);
+
+          console.log("idx Date1 : "+idx_calDate1);
+          console.log("idx Date2 : "+idx_calDate2);
+
+          let idx_MSec = idx_calDate1.getTime() - idx_calDate2.getTime();
+          let idx_Min = idx_MSec / 1000 / 60;
+          idx_Min = parseInt(idx_Min);
+          let idx_h = idx_Min / 60;
+          idx_h = Math.round(idx_h);
+          console.log("idx h : "+idx_h);
+          if(idx_h == 24){
+              $('.articleTime')[index].append('1일');
+              return;
+          }else if(idx_h < 24){
+              $('.articleTime')[index].append(idx_h+'시간');
+              return;
+          }else{
+              idx_h = Math.floor(idx_h / 24);
+              if(idx_h < 7){
+                  $('.articleTime')[index].append(idx_h+'일');
+                  return;
+              }else{
+                  idx_h = Math.floor(idx_h / 7);
+                  $('.articleTime')[index].append(idx_h+'주');
+              }
+          }
+      });
+
+
+  });
 /*]]*/
 </script>
