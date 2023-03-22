@@ -7,8 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script th:inline="javascript">
-      
-       $(function(){
+    $(function(){
 
           $("#confirm").click(function(){
               modalClose();
@@ -26,7 +25,7 @@
             console.log('click!!!');
             $("#overlay").css('display','flex').hide().fadeIn();
           });
-
+    });
 
     $(document).ready(function(){
         $('.chatMember').on('click', function(){
@@ -48,7 +47,6 @@
         //1. SockJS를 내부에 들고있는 stomp를 내어줌
         var stomp = Stomp.over(sockJs);
 
-
         //2. connection이 맺어지면 실행
         stomp.connect({}, function (){
             console.log("STOMP Connection")
@@ -65,70 +63,6 @@
                 console.log('username : ' + username); // 로그인 되어있는 유저
                 console.log('message : ' + message);
 
-    console.log(roomId + ", " + username);
-
-    var sockJs = new SockJS("/Photostagram/stomp/chat/content");
-    //1. SockJS를 내부에 들고있는 stomp를 내어줌
-    var stomp = Stomp.over(sockJs);
-
-    //2. connection이 맺어지면 실행
-    stomp.connect({}, function (){
-       console.log("STOMP Connection")
-
-       //4. subscribe(path, callback)으로 메세지를 받을 수 있음
-       stomp.subscribe("/sub/chat/content/" + roomId, function (chat) {
-           var content = JSON.parse(chat.body);
-
-           var writer = content.writer;
-           var str = '';
-
-            console.log('content : '+content);
-            console.log('content.message : '+content.message);
-            console.log('content.writer : '+content.writer);
-
-           if(writer == username){
-               //alert('작성자가 username과 같습니다');
-               str = "<div class='chat ch2'>";
-               str += "<div class='textbox'>"+content.message+"</div>";
-               str += "</div>";
-           }
-           else{
-               //alert('작성자가 username과 다릅니다');
-               str = "<div class='chat ch1'>";
-               str += "<div class='icon'>";
-               str += "<img class='' src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg' alt='계정사진'>";
-               str += "</div>";
-               str += "<div class='textbox'>"+content.message+"</div>";
-               str += "</div>";
-           }
-           $(".wrap").append(str);
-       });
-
-       //3. send(path, header, message)로 메세지를 보낼 수 있음
-       //stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}));
-    });
-
-/*
-    $('.chatbox-box-1').keydown(function(key) {
-        //키의 코드가 13번일 경우 (13번은 엔터키)
-        if (key.keyCode == 13) {
-            let content = $(this).val();
-            let my_no = [[${user.no}]];
-            let room_no = $('input[name=roomNow_no]').val();
-
-            let jsonData = {"message":content, "user_no":my_no, "room":room_no};
-
-            $.ajax({
-                url:'/Photostagram/insertMessage',
-                method:'POST',
-                data:jsonData,
-                dataType:'json',
-                success:function(data){
-                    let message = '<div class="chat ch2">';
-                        message += '<div class="textbox">'+content+'</div>';
-                        message += '</div>';
-
-                    $('.wrap').append(message);
                 if(writer == username){ // 내가 쓴 글이라면
                     //alert('writer와 username이 같다!!!');
                     //alert('message : ' + message);
@@ -179,10 +113,6 @@
                     <img id="lay" th:src="@{/img/free-icon-writing-6570264.png}" alt="">
                 </div>
             </div>
-<<<<<<< HEAD
-            <div class="src2">
-                <img id="lay" th:src="@{/img/free-icon-writing-6570264.png}" alt="lay2">
-=======
             <div class="dir2">
                 <th:block th:if="${not #lists.isEmpty(rooms)}" th:each="room:${rooms}">
                     <ul>
@@ -218,7 +148,6 @@
                         </li>
                     </ul>
                 </th:block>
->>>>>>> 6d64f1c2eb85e7874148942633cc497c63962932
             </div>
         </div>
         <div class="right-1">
