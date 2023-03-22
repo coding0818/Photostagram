@@ -5,6 +5,7 @@ import kr.co.photostagram.vo.Comment_likeVO;
 import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface IndexDAO {
     // 댓글 등록
     public void insertComment(CommentVO vo);
 
-    public List<PostVO> selectArticles();
+    public List<PostVO> selectArticles(@Param("usersNo") List<Integer> usersNo);
     public List<CommentVO> selectComment();
 
     public List<MemberVO> selectUser();
