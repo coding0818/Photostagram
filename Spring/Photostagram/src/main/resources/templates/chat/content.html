@@ -112,7 +112,7 @@
                });
 
                //3. send(path, header, message)로 메세지를 보낼 수 있음
-               stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
+               //stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}));
             });
 
 
@@ -124,6 +124,33 @@
             console.log(username + ":" + msg);
             stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg, writer: username}));
             msg = '';
+
+            let content = $(this).val();
+            let my_no = [[${user.no}]];
+            let room_no = $('input[name=roomNow_no]').val();
+
+            let jsonData = {"message":content, "user_no":my_no, "room":room_no};
+
+            console.log('content : '+ content);
+            console.log('my_no : '+ my_no);
+            console.log('room_no : '+ room_no);
+
+/*
+            $.ajax({
+                url:'/Photostagram/insertMessage',
+                method:'POST',
+                data:jsonData,
+                dataType:'json',
+                success:function(data){
+                    alert('데이터 입력완료!');
+
+                    let message = '<div class="chat ch2">';
+                        message += '<div class="textbox">'+content+'</div>';
+                        message += '</div>';
+
+                    $('.wrap').append(message);
+                }
+            });*/
         }
     });
 
