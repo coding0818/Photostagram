@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +33,6 @@ public class IndexController {
 
     @GetMapping(value = {"/", "index"})
     public String index(Model model, Principal principal) throws IndexOutOfBoundsException{
-        // 전체 게시물 조회
-        List<PostVO> articles = service.selectArticles();
         // 댓글 조회
         List<CommentVO> comments = service.selectComment();
 
@@ -44,22 +43,34 @@ public class IndexController {
         List<MemberVO> members = service.selectUser();
         List<MemberVO> followings = service.selectFollowing(user.getNo());
 
+        // 팔로잉 되어있는 "유저넘버" 리스트
+        List<Integer> usersNo = new ArrayList<>();
+
+        // 회원님을 위한 추천 (미 팔로잉자)
         for(int i = 0; i < followings.size(); i++){
             MemberVO index = followings.get(i);
-
+            // 팔로잉 되어있으면 추천리스트에서 삭제
             members.remove(index);
+
+            // usersNo add
+            int user_no = followings.get(i).getNo();
+            usersNo.add(user.getNo()); // 로그인 한 유저번호
+            usersNo.add(user_no); // 상대방 유저번호
         }
+
+        // 회원님을 위한 추천에 (로그인 한 본인이 뜨지않게)
         for(int j = 0; j < members.size(); j++){
             MemberVO followfilter = members.get(j);
             if(followfilter.getNo() == user.getNo()){
                 members.remove(followfilter);
             }
         }
-        log.info("articles : " + articles);
-//        log.info("members : " + members);
-        log.info("followings : " + followings);
-        model.addAttribute("followings", followings);
+
+        List<PostVO> articles = service.selectArticles(usersNo);
+
+        model.addAttribute("articles", articles);
         model.addAttribute("members", members);
+        model.addAttribute("followings", followings);
         model.addAttribute("user", user);
         model.addAttribute("searchList", searchList);
 
@@ -68,11 +79,12 @@ public class IndexController {
         log.info("notices : "+notices);
 
         model.addAttribute("notices", notices);
-        model.addAttribute("articles", articles);
-        model.addAttribute("comments", comments);
 
+        model.addAttribute("comments", comments);
+        log.info("followings" + followings);
         return "index";
     }
+
     @GetMapping("follow")
     @ResponseBody
     public Map follow(Principal principal, @RequestParam int following){
@@ -87,6 +99,7 @@ public class IndexController {
 
         return map;
     }
+
     // 댓글 작성
     @PostMapping("CmtRegister")
     @ResponseBody
@@ -97,6 +110,9 @@ public class IndexController {
 
         map.put("result", 1);
         map.put("no",vo.getNo());
+
+        //아이디 필요함
+        //유저 프로필이미지
         map.put("user_no", vo.getUser_no());
 
         return map;

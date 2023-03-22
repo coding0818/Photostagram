@@ -1056,9 +1056,8 @@ div.modal-post div.wrapper div.post-content div.user svg.etc {
 div.modal-post div.wrapper div.post-content div.rest {
   display: block;
   width: 100%;
-  height: calc(88% - 138px);
+  height: 100%;
   flex-direction: column;
-  position: relative;
 }
 div.modal-post div.wrapper div.post-content div.rest div.text {
   width: 100%;
@@ -1512,6 +1511,7 @@ div.modal-post div.wrapper div.post-content div.rest div.post-date {
   padding-left: 16px;
 }
 div.modal-post div.wrapper div.post-content div.rest div.comment-wrapper {
+  position: relative;
   display: flex;
   width: 100%;
   min-height: 56px;
@@ -1520,25 +1520,24 @@ div.modal-post div.wrapper div.post-content div.rest div.comment-wrapper {
   box-sizing: border-box;
   margin-top: 8px;
   padding-left: 16px;
-  padding-right: 16px;
+  padding-right: 49px;
 }
 div.modal-post
   div.wrapper
   div.post-content
   div.rest
   div.comment-wrapper
-  textarea {
+  input {
   line-height: normal;
   height: 40px;
   flex: 1;
   font-size: 14px;
   font-family: "nsM";
   color: #8e8e8e;
-  resize: none;
+  outline: none;
   overflow: hidden;
   box-sizing: border-box;
   margin-right: 10px;
-  padding-top: 10px;
   border: 0;
 }
 div.modal-post

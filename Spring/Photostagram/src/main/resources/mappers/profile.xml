@@ -29,12 +29,15 @@
     </select>
 
     <select id="selectThumb" resultType="kr.co.photostagram.vo.PostVO">
-        SELECT a.`no`, `thumb` AS `firstThumb`, COUNT(`thumb`) AS 'thumbs'
-            FROM `post` AS a
-            JOIN `image` AS b
-            ON a.`no`=b.`post_no`
-            WHERE a.`user_no`=#{pageNo} AND b.`post_no`=#{postNo}
-            GROUP BY a.`no`;
+        SELECT b.*, `thumb` AS 'firstThumb', COUNT(DISTINCT `thumb`) AS 'thumbs',
+            COUNT(c.`comment`) AS 'commentCount'
+            FROM `post` AS b
+            JOIN `image` AS a
+            ON b.`no`=a.`post_no`
+            LEFT JOIN `comment` AS c
+            ON c.`post_no`=a.`post_no`
+            WHERE b.`user_no`=#{pageNo} AND a.`post_no`=#{postNo}
+            GROUP BY b.`no`;
     </select>
 
     <!--

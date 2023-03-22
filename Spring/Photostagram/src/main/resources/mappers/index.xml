@@ -39,7 +39,10 @@
         LEFT JOIN `post_hashtag` AS e ON a.no = e.post_no
         LEFT JOIN `hashtag` AS f ON e.hashtag_no = f.`no`
 
-        WHERE a.no = #{following}
+        WHERE a.`user_no` IN
+        <foreach collection="usersNo" item="following" index="index" separator="," open="(" close=")">
+            #{following}
+        </foreach>
         ORDER BY a.`no` DESC;
     </select>
     <select id="selectUser" resultType="kr.co.photostagram.vo.MemberVO">

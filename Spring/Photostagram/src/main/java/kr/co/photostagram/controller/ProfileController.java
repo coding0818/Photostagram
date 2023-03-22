@@ -153,20 +153,14 @@ public class ProfileController {
     @PostMapping("profile/post")
     public Map<Integer, PostVO> post (String username, int pg){
 
-        //log.info("here1...");
-
         /*** 프로필 페이지 사용자 ***/
         MemberVO member =  service.selectMember(username);
         int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
         pg = 12 * pg;
 
-        //log.info("here2...");
-
         /*** 사용자 게시물 ***/
         List<PostVO> posts = service.selectPosts(pageNo, pg);         // 게시물 목록
         Map<Integer, PostVO> map = new HashMap<>();                   // 맵 생성
-
-        //log.info("here3...");
 
         for (int i=0; i<posts.size(); i++){                           // 게시물 갯수만큼 반복
             int postNo = posts.get(i).getNo();                        // 게시물 번호
@@ -174,16 +168,8 @@ public class ProfileController {
             map.put(i, article);                                      // 게시물 번호(key) + 게시물 썸네일 (value)로 맵에 전달
         }
 
-        //log.info("here4...");
-
         /*** 게시물 최신 순으로 정렬 ***/
         Map<Integer, PostVO> data = new TreeMap<>(map);    // 게시물 번호(key) 기준으로 정렬
-
-        //log.info("here5...");
-
-        //System.out.println(data);
-
-        //log.info("here6...");
 
         return data;
     }

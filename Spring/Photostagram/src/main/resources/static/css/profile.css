@@ -123,6 +123,7 @@
         position: relative;
         float:left;
         margin: 5px;
+        height: 300px;
     }
     #pro > section > .myList > .pic > a {
         display: block;
@@ -566,6 +567,25 @@
     #deleteUserProfile > h1 {font-size: 26px; text-align: center;}
     #deleteUserProfile > h2 {font-size: 20px; text-align: center;}
     #deleteUserProfile > h2 > a {font-size: 20px;}
+
+    .picOver {
+      display: none;
+      width: 300px;
+      height: 300px;
+      overflow: hidden;
+      position: relative;
+      float: left;
+      top: -300px;
+      background: black; opacity: 0.5;
+    }
+
+    .picOver > div {width: 50%; height: 100%; float: left;}
+    .picOverI, .picOverSpan {position: relative; top: 150px;}
+    .picOver > div:nth-child(1) > i {left: 80px;}
+    .picOver > div:nth-child(2) > i {left: 20px;}
+    .picOver > div:nth-child(1) > span {color: white; left: 85px; font-size: 18px;}
+    .picOver > div:nth-child(2) > span {color: white; left: 25px; font-size: 18px;}
+    .pic:hover > .picOver {display: block; cursor: pointer;}
 
 
 

@@ -63,14 +63,14 @@ class PhotostagramApplicationTests {
 	@Autowired
 	private IndexDAO dao;
 
-	@Test
-	public void testSelectArticles(){
-
-		List<PostVO> result = dao.selectArticles();
-
-		System.out.println(result);
-
-	}
+//	@Test
+//	public void testSelectArticles(){
+//
+//		List<PostVO> result = dao.selectArticles();
+//
+//		System.out.println(result);
+//
+//	}
 
 
 }

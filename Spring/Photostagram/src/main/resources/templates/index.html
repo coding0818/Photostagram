@@ -13,75 +13,31 @@
     <!---- 스토리 부분 ---->
     <div class="hidden_menu">
       <div class="scroll_inner">
-        <div class="user">
+        <th:block th:each="following : ${followings}">
+          <div class="user">
+
           <div class="thumb_img">
-            <img src="./img/thumb.jpeg" alt="프로필사진" />
+            <th:block th:if="${#strings.isEmpty(following.profileImg)}">
+              <a th:href="@{/profile(username=${following.username})}"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/></a>
+            </th:block>
+
+            <th:block th:unless="${#strings.isEmpty(following.profileImg)}">
+              <a th:href="@{/profile(username=${following.username})}"><img th:src="|@{/}thumb/${following.profileImg}" alt="프로필이미지"/></a>
+            </th:block>
           </div>
-          <div class="id">kindtigerrr1</div>
+
+          <div class="id" th:text="${following.username}">kindtigerrr1</div>
         </div>
-        <div class="user">
-          <div class="thumb_img">
-            <img src="./img/thumb.jpeg" alt="프로필사진" />
-          </div>
-          <div class="id">kindtigerrr2</div>
-        </div>
-        <div class="user">
-          <div class="thumb_img">
-            <img src="./img/thumb.jpeg" alt="프로필사진" />
-          </div>
-          <div class="id">kindtigerrr3</div>
-        </div>
-        <div class="user">
-          <div class="thumb_img">
-            <img src="./img/thumb.jpeg" alt="프로필사진" />
-          </div>
-          <div class="id">kindtigerrr</div>
-        </div>
-        <div class="user">
-          <div class="thumb_img">
-            <img src="./img/thumb.jpeg" alt="프로필사진" />
-          </div>
-          <div class="id">kindtigerrr</div>
-        </div>
-        <div class="user">
-          <div class="thumb_img">
-            <img src="./img/thumb.jpeg" alt="프로필사진" />
-          </div>
-          <div class="id">kindtigerrr</div>
-        </div>
-        <div class="user">
-          <div class="thumb_img">
-            <img src="./img/thumb.jpeg" alt="프로필사진" />
-          </div>
-          <div class="id">kindtigerrr</div>
-        </div>
-        <div class="user">
-          <div class="thumb_img">
-            <img src="./img/thumb.jpeg" alt="프로필사진" />
-          </div>
-          <div class="id">kindtigerrr</div>
-        </div>
-        <div class="user">
-          <div class="thumb_img">
-            <img src="./img/thumb.jpeg" alt="프로필사진" />
-          </div>
-          <div class="id">kindtigerrr</div>
-        </div>
-        <div class="user">
-          <div class="thumb_img">
-            <img src="./img/thumb.jpeg" alt="프로필사진" />
-          </div>
-          <div class="id">kindtigerrr</div>
-        </div>
+        </th:block>
+
       </div>
     </div>
     <section id="main_container">
       <div class="inner">
         <div class="contents_box">
           <!-- 메인콘텐츠 -->
-          <th:block th:each="following : ${followings}">
             <th:block th:each="article : ${articles}">
-              <article th:class="contents" th:if="${#strings.equals(following.no,article.user_no)}" th:data-no="${article.no}">
+              <article th:class="contents" th:data-no="${article.no}">
               <header class="top">
                 <div class="user_container">
                   <!-- 상단 게시자 정보 div -->
@@ -196,7 +152,7 @@
 
                     <!-- 좋아요를 눌렀던 경우 -->
                     <th:block th:if="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
-                      <div class="comLike sprite_full_small_heart_icon_outline" th:data-no="${user.no}"></div>
+                      <div class="comLike_full sprite_full_small_heart_icon_outline" th:data-no="${user.no}"></div>
                     </th:block>
                     <!-- 좋아요를 안 누른 경우 -->
                     <th:block th:unless="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
@@ -368,8 +324,11 @@
                       <div class="post-date" >[[${article.rdate}]]</div>
 
                       <div class="comment-wrapper">
-                        <textarea onkeyup="comment()" placeholder="댓글 달기..."></textarea>
-                        <button class="submit">게시</button>
+                        <input type="hidden" name="uid" th:value="${#authentication.principal.user.username}">
+                        <input type="hidden" name="postNo" th:value="${article.no}">
+                        <input type="hidden" name="userNo" th:value="${user.no}">
+                        <input type="text" placeholder="댓글 달기...">
+                        <button class="modal_upload_btn m_text">게시</button>
                       </div>
                     </div>
 
@@ -380,7 +339,6 @@
               </div>
             </article>
             </th:block>
-          </th:block>
         </div>
         <!-- <input type="hidden" id="page" value="1"> 왜 있는지 모름 (보류)-->
 
@@ -459,8 +417,7 @@
 </html>
 <script th:inline="javascript">
 /*<![CDATA[*/
-  window.onscroll = function(e){
-    console.log(window.innerHeight , window.scrollY,document.body.offsetHeight)
-  }
+  let articles = [[${articles}]];
+  console.log(articles);
 /*]]*/
 </script>
