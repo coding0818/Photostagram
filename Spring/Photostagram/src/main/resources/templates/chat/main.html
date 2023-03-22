@@ -5,37 +5,24 @@
 <th:block layout:fragment="main">
     <script th:inline="javascript">
       
-      $(function(){
-            $("#confirm").click(function(){
+     $(function(){
+
+          $("#confirm").click(function(){
               modalClose();
               //컨펌 이벤트 처리
-            });
-            $("#modal-open").click(function(){
+          });
+          $("#modal-open").click(function(){
             $("#overlay").css('display','flex').hide().fadeIn();
-            });
+          });
 
-            function modalClose(){
+          function modalClose(){
             $("#overlay").fadeOut();
-            }
-            });
+          }
 
-            $(function(){
-            $("#lay").click(function(){
+          $("#lay").click(function(){
+            console.log('click!!!');
             $("#overlay").css('display','flex').hide().fadeIn();
-            });
-
-            function modalClose(){
-            $("#overlay").fadeOut();
-            }
-            });
-
-
-
-            $(document).on("click", function(e){
-                if( $("#overlay").is(e.target)) {
-                 $("#overlay").css({ visibility:"hidden",
-                                             opacity:0 });
-            }
+          });
 
             $('.chatMember').on('click', function(){
                 let ul = $(this).parent('ul');

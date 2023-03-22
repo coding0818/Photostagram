@@ -16,9 +16,11 @@ public interface BoardDAO {
    public List<Board1VO> selectPostHashTag(int no);
    public List<CommentVO> selectcomments(int no);
    public List<ImageVO> selectimages(int no);
+   public List<NoticeVO> selectNoticesTime(int no);
 
-   public List<CommentVO> selectcommentlist(@Param("postNo") int postNo);
+   public List<Board2VO> selectcommentlist(@Param("postNo") int postNo);
 
+   public PostVO selectContentLikeTime(int no);
 
 
 }

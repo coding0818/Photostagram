@@ -45,11 +45,17 @@ public class BoardController {
         List<ImageVO> images = service.selectimages(no);
         log.info("images : " + images);
 
-        /*** 댓글 작성자 ***/
+        /*** 게시물 작성 날짜 ***/
+        PostVO content_like_time = service.selectContentLikeTime(no);
+
 
         /*** 게시물 댓글 ***/
-        List<CommentVO> commentList = service.selectcommentlist(no);
+        List<Board2VO> commentList = service.selectcommentlist(no);
         log.info("commentList : " + commentList);
+
+        /*** 댓글 작성 시간 ***/
+        List<NoticeVO> noticesTime = service.selectNoticesTime(no);
+
 
 
 
@@ -59,6 +65,8 @@ public class BoardController {
         model.addAttribute("comments", comments);
         model.addAttribute("images", images);
         model.addAttribute("commentList", commentList);
+        model.addAttribute("noticesTime", noticesTime);
+        model.addAttribute("content_like_time", content_like_time);
 
 
         return "board/post";

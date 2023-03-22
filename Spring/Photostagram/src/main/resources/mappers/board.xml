@@ -32,7 +32,7 @@
         select * from `image` where `post_no`=#{no};
     </select>
 
-    <select id="selectcommentlist" resultType="kr.co.photostagram.vo.CommentVO">
+    <select id="selectcommentlist" resultType="kr.co.photostagram.vo.Board2VO">
         <!--
         SELECT
         a.`content`,
@@ -53,5 +53,85 @@
         GROUP BY b.`comment_no`;
     </select>
 
+    <select id="selectNoticesTime" resultType="kr.co.photostagram.vo.NoticeVO">
+        (SELECT
+        t2.`post_no` AS content_no,
+        t1.`user_no` AS user_no,
+        t2.user_no AS my_no,
+        t2.`comment` AS content,
+        t1.`rdate` AS rdate,
+        t3.`username` AS username,
+        t3.`profileImg` AS profileImg,
+        t5.thumb AS thumb,
+        '1' AS type
+        FROM `comment_like` AS t1
+        JOIN `comment` AS t2 ON t1.`comment_no` = t2.`no`
+        JOIN `user`    AS t3 ON t1.`user_no` = t3.`no`
+        JOIN `post` AS t4 ON t2.post_no=t4.`no`
+        JOIN `image` AS t5 ON t4.`no`=t5.post_no
+        WHERE t2.user_no=#{user_no}
+        AND t1.rdate > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        GROUP BY content_no
+        )
+        UNION ALL
+        (SELECT
+        t1.`post_no` AS content_no,
+        t1.`user_no` AS user_no,
+        t2.user_no AS my_no,
+        t2.`content` AS content,
+        t1.`rdate` AS rdate,
+        t3.`username` AS username,
+        t3.`profileImg` AS profileImg,
+        t4.thumb AS thumb,
+        '2' AS type
+        FROM `post_like` AS t1
+        JOIN `post` AS t2 ON t1.`post_no` = t2.`no`
+        JOIN `user` AS t3 ON t1.`user_no` = t3.`no`
+        JOIN `image` AS t4 ON t2.`no`=t4.post_no
+        WHERE t2.user_no=#{user_no}
+        AND t1.rdate > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        GROUP BY content_no
+        )
+        UNION ALL
+        (SELECT
+        NULL AS content_no,
+        `follower` AS user_no,
+        `following` AS my_no,
+        NULL AS content,
+        t1.`rdate` AS rdate,
+        t2.`username` AS username,
+        t2.`profileImg` AS profileImg,
+        NULL AS thumb,
+        '3' AS type
+        FROM `follow` AS t1
+        JOIN `user`   AS t2 ON t1.`follower` = t2.`no`
+        WHERE `following`=#{user_no}
+        AND t1.rdate > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        )
+        UNION ALL
+        (SELECT
+        t2.`no` AS content_no,
+        t1.`user_no` AS user_no,
+        t2.`user_no` AS my_no,
+        t1.`comment` AS content,
+        t1.`rdate` AS rdate,
+        t3.`username` AS username,
+        t3.`profileImg` AS profileImg,
+        t4.thumb AS thumb,
+        '4' AS type
+        FROM `comment` AS t1
+        JOIN `post` AS t2 ON t1.`post_no`=t2.`no`
+        JOIN `user` AS t3 ON t3.`no`=t1.user_no
+        JOIN `image` AS t4 ON t2.`no`=t4.post_no
+        WHERE t2.`user_no`=#{user_no}
+        AND t1.rdate > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        GROUP BY content_no
+        )
+        ORDER BY rdate DESC;
+    </select>
 
+
+    <select id="selectContentLikeTime" resultType="kr.co.photostagram.vo.PostVO">
+        SELECT * FROM `post` WHERE `no`=#{no};
+    </select>
 </mapper>

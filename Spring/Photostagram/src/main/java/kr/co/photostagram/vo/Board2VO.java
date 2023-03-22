@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class CommentVO {
+public class Board2VO {
     private int no;
     private String comment;
     private int post_no;
@@ -21,6 +21,7 @@ public class CommentVO {
 
     // 추가필드
     private String username;
-
+    private int like_count;
+    private String profileImg;
 
 }
