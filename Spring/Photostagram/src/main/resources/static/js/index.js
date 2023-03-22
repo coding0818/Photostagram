@@ -111,41 +111,41 @@ $(function () {
       }
     }
 
-    let postdate = article.find('.articleTime').text();
-    rdate1 = postdate.split(" ");
+    // let postdate = article.find('.articleTime').text();
+    // rdate1 = postdate.split(" ");
 
-    console.log("rdate 1 : " + rdate1);
-    let date1 = rdate1[0].split("-");
-    let rdateYear = date1[0];
-    let rdateMonth = date1[1];
-    let rdateDay = date1[2];
+    // console.log("rdate 1 : " + rdate1);
+    // let date1 = rdate1[0].split("-");
+    // let rdateYear = date1[0];
+    // let rdateMonth = date1[1];
+    // let rdateDay = date1[2];
 
-    console.log('rdateYear : ' + rdateYear)
-    console.log('rdateMonth : ' + rdateMonth)
-    console.log('rdateDay : ' + rdateDay)
+    // console.log('rdateYear : ' + rdateYear)
+    // console.log('rdateMonth : ' + rdateMonth)
+    // console.log('rdateDay : ' + rdateDay)
 
-    let Timesection  = rdate1[1].split(":");
-    let rdateHours   = Timesection[0];
-    let rdateMinutes = Timesection[1];
+    // let Timesection  = rdate1[1].split(":");
+    // let rdateHours   = Timesection[0];
+    // let rdateMinutes = Timesection[1];
    
-    console.log('rdateHours : ' + rdateHours)
-    console.log('rdateMinutes : ' + rdateMinutes)
+    // console.log('rdateHours : ' + rdateHours)
+    // console.log('rdateMinutes : ' + rdateMinutes)
 
-    let idx_calDate1 = new Date(nowYear, nowMonth, nowDay, nowHours, nowMinutes);
-    let idx_calDate2 = new Date(rdateYear, rdateMonth, rdateDay, rdateHours, rdateMinutes);
+    // let idx_calDate1 = new Date(nowYear, nowMonth, nowDay, nowHours, nowMinutes);
+    // let idx_calDate2 = new Date(rdateYear, rdateMonth, rdateDay, rdateHours, rdateMinutes);
 
-    console.log("idx_calDate 1 현재시간 : " + idx_calDate1)
-    console.log("idx_calDate 2 작성시간 : " + idx_calDate2)
+    // console.log("idx_calDate 1 현재시간 : " + idx_calDate1)
+    // console.log("idx_calDate 2 작성시간 : " + idx_calDate2)
 
-    let timeSec = idx_calDate1.getTime() - idx_calDate2.getTime();
-    // console.log("timeSec : " + timeSec)
-    let timeMin = timeSec / 1000 / 60;
-    // console.log("timeMin : " + timeMin)
-    timeMin = parseInt(timeMin);
-    let timeHours = timeMin / 60;
-    timeHours = Math.round(timeHours);
+    // let timeSec = idx_calDate1.getTime() - idx_calDate2.getTime();
+    // // console.log("timeSec : " + timeSec)
+    // let timeMin = timeSec / 1000 / 60;
+    // // console.log("timeMin : " + timeMin)
+    // timeMin = parseInt(timeMin);
+    // let timeHours = timeMin / 60;
+    // timeHours = Math.round(timeHours);
 
-    console.log("timeHours 시간 : "+timeHours);
+    // console.log("timeHours 시간 : "+timeHours);
 
     // if(timeHours == 24){
     //   $('.articleTime').append('1일');
@@ -204,7 +204,7 @@ $(function () {
       contentType: "application/json",
       dataType: "json",
       success: (data) => {
-
+        console.log(data);
         if (data.result > 0) {
 
           let str = "<div class='reply_user' data-no='"+data.no+"'>";
@@ -217,14 +217,10 @@ $(function () {
           article.find('.comment_container').append(str);
           article.find('.commentText').val('');
 
-
-
           let count = article.find('#comment-count').text(); // 현재 태그사이 텍스트받고
           let commentCount = parseInt(count); // 문자열이라 더하기가 안되기때문에 parseInt
 
           article.find('#comment-count').text(commentCount+1); // 해당 텍스트에 +1
-
-
 
         } else {
           alert("작성 실패");
@@ -233,6 +229,39 @@ $(function () {
     });
   });
 
+  $(document).on("click", ".modal_upload_btn", function(){
+    let modal_rest = $(this).closest('.rest');
+    let div = $(this).parent();
+    let input = div.children();
+
+    let uid     = input.eq(0).val();
+    let post_no = input.eq(1).val();
+    let user_no = input.eq(2).val();
+    let comment = input.eq(3).val();
+
+    console.log("uid : " + uid)
+    console.log("post_no : " + post_no)
+    console.log("user_no : " + user_no)
+    console.log("comment : " + comment)
+
+    let modal_comment = `<div class="top">
+                                <img src="/Photostagram/thumb/b65b6b35-ea3b-4702-913b-b17a982e6846.svg" alt="프로필이미지">
+                                <div class="posting">
+                                  <div data-no="189">
+                                    <a class="modal_comment_id" href="/Photostagram/profile?username=letary">letary</a>
+                                    <input type="hidden" value="189">
+                                    <span class="modal_comment">c</span>
+                                  <div class="comLike sprite_small_heart_icon_outline" data-no="5"></div>
+                                    <div class="commentInfo">
+                                      <span>1일</span>&nbsp;&nbsp;좋아요
+                                      <span id="md_comment_likeCount">0</span>개&nbsp;
+                                      <span>답글달기</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>`
+    
+  })
   /*
     게시글 좋아요 (빈하트 -52px -258px 꽉찬하트 -26px -258px;)
     댓글 좋아요 (빈하트 -323px -274px 꽉찬하트  -323px -287px)
@@ -320,12 +349,10 @@ $(function () {
     let modalPost  = $(this).closest('.modal-post');
     let user_no    = $(this).attr('data-no'); // 유저 번호
     let comment_no = article.find($(this).parent()).attr('data-no'); // 댓글번호
-    let modalComment_no = modalPost.find('.modal_comment_no').html();
     let url        = "/Photostagram/CommentLikeAdd";
 
     console.log("user_no : " + user_no);
     console.log("comment_no : " + comment_no);
-    console.log("modalComment_no : " + modalComment_no);
     let jsonData = {
       "user_no":user_no,
       "comment_no":comment_no
@@ -339,16 +366,12 @@ $(function () {
        dataType:'json',
        success: (data)=>{
          if(data.result > 0){
-           if(article.find($(this)).hasClass('sprite_small_heart_icon_outline')){
+           if(article.find('.comLike').hasClass('sprite_small_heart_icon_outline')){
              // 게시글 댓글 쪽 좋아요
              article.find($(this))
              .removeClass('sprite_small_heart_icon_outline')
              .addClass('sprite_full_small_heart_icon_outline');
-             if(modalComment_no == comment_no){
-              modalPost.find('.sprite_small_heart_icon_outline')
-              .removeClass('sprite_small_heart_icon_outline')
-              .addClass('sprite_full_small_heart_icon_outline');
-             }
+
              // modal 댓글 좋아요 개수 올리기
              let likeCount = $(this).next().children().next().next().prev().text();
              let count = parseInt(likeCount);

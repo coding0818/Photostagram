@@ -48,8 +48,9 @@ public class IndexService {
     }
 
     @Transactional
-    public List<PostVO> selectArticles(){
-        List<PostVO> posts = dao.selectArticles();
+    public List<PostVO> selectArticles(List<Integer> usersNo){
+
+        List<PostVO> posts = dao.selectArticles(usersNo);
 
         for(PostVO vo : posts){
             int count = dao.selectCommentCountNum(vo.getNo());

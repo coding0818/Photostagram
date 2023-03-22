@@ -97,6 +97,7 @@ body {
   background: url(../img/background01.png) no-repeat -323px -274px;
   width: 12px;
   height: 11px;
+  margin-top: 4px;
   cursor: pointer;
   float: right;
 }
@@ -106,6 +107,7 @@ body {
   background: url(../img/background01.png) no-repeat -323px -287px;
   width: 12px;
   height: 11px;
+  margin-top: 4px;
   cursor: pointer;
   float: right;
 }
