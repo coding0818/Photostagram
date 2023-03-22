@@ -50,6 +50,7 @@
                           <th:block th:unless="${#strings.equals(myName, username)}">
                               <th:block th:if="${result} > 0">
                                   <a href="#" class="button" id="following">팔로잉</a>
+                                  <a href="#" class="button" id="chatStart">메시지 보내기</a>
                               </th:block>
                               <th:block th:unless="${result} > 0">
                                   <a th:href="@{/profile/follow (type=insert, userName=${username}, myName=${myName})}" class="button" id="follow">팔로우</a>
@@ -91,7 +92,12 @@
               </div>
               <div class="myNav">
                   <div><a href="#">게시물</a></div>
-                  <div><a href="#">릴스</a></div>
+                      <th:block th:if="${#strings.equals(myName, username)}">
+                          <div><a href="#">저장됨</a></div>
+                      </th:block>
+                      <th:block th:unless="${#strings.equals(myName, username)}">
+                          <div><a href="#">릴스</a></div>
+                      </th:block>
                   <div><a href="#">태그됨</a></div>
               </div>
               <div class="myList">
@@ -115,6 +121,10 @@
                                   </th:block>
                               </th:block>
                               </a>
+                              <div class="picOver" th:onclick="|window.open('@{/board/post (no=${m.value.no})}')|">
+                                  <div><i class="fa-solid fa-heart fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">[[${m.value.like}]]</span></div>
+                                  <div><i class="fa-solid fa-comment fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">[[${m.value.commentCount}]]</span></div>
+                              </div>
                           </div>
                       </th:block>
                   </th:block>
@@ -303,6 +313,7 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     </th:block>
 </th:block>
@@ -313,10 +324,7 @@
     let pg = 1;
     let isComplete = false;
 
-
     $(window).scroll(function() {
-        //console.log(pg);
-        //console.log(isComplete);
 
         // 현재 스크롤이 있는 위치의 높이
         let top = $(this).scrollTop();
@@ -346,44 +354,51 @@
 
                         // 데이터 길이가 0이 아닐 때 (null 체크 시 빈 map이 들어오기 때문에 not null로 뜸)
                         if (Object.keys(data).length != 0){
-                            //console.log(data);
 
                             // 실행되면 pg값 1씩 추가
                             pg += 1;
                             // (새 데이터가 들어오면)다시 실행할 수 있도록 isComplete false 처리
                             isComplete = false;
 
-                            //console.log(pg);
-                            //console.log('here7');
-                            //console.log(data);
-
                             // 받아온 object 길이만큼 반복, data[i]에서 i는 key 값
                             for (i=0; i < Object.keys(data).length; i++){
                                 let num = data[i].no
                                 let thumb = data[i].firstThumb
+                                let like = data[i].like
+                                let comments = data[i].commentCount
                                 let tags = '';
 
                                 if (thumb.slice(-4, thumb.length) == '.mp4') {
                                     tags = `<div class="pic">
                                                 <a href="/Photostagram/board/post?no=${num}">
                                                 <video src="/Photostagram/thumb/${thumb}"></video>
-                                                <i class="fa-solid fa-film fa-2x faIcons"></i>
+                                                <i class="fa-solid fa-film fa-2x faIcons"></i></a>
+                                                <div class="picOver" onclick="window.open('/Photostagram/board/post?no=${num}')">
+                                                   <div><i class="fa-solid fa-heart fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${like}</span></div>
+                                                   <div><i class="fa-solid fa-comment fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${comments}</span></div>
+                                                </div>
                                             </div>`
                                 }else if (data[i].thumbs > 1) {
                                     tags = `<div class="pic">
                                                 <a href="/Photostagram/board/post?no=${num}">
                                                 <img src="/Photostagram/thumb/${thumb}">
-                                                <i class="fa-solid fa-images fa-2x faIcons"></i>
+                                                <i class="fa-solid fa-images fa-2x faIcons"></i></a>
+                                                <div class="picOver" onclick="window.open('/Photostagram/board/post?no=${num}')">
+                                                   <div><i class="fa-solid fa-heart fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${like}</span></div>
+                                                   <div><i class="fa-solid fa-comment fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${comments}</span></div>
+                                                </div>
                                             </div>`
                                 } else {
                                    tags = `<div class="pic">
                                                 <a href="/Photostagram/board/post?no=${num}">
-                                                <img src="/Photostagram/thumb/${thumb}">
+                                                <img src="/Photostagram/thumb/${thumb}"></a>
+                                                <div class="picOver" onclick="window.open('/Photostagram/board/post?no=${num}')">
+                                                   <div><i class="fa-solid fa-heart fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${like}</span></div>
+                                                   <div><i class="fa-solid fa-comment fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${comments}</span></div>
+                                                </div>
                                             </div>`
                                 }
 
-                                //console.log (data[i].no);
-                                //console.log (data[i].firstThumb);
                                 $('.myList').append(tags);
                             }
                         } else {
@@ -419,6 +434,38 @@
 
         }
         ***/
+    });
+/*]]*/
+</script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+    $('#chatStart').on('click', function(e){
+        e.preventDefault();
+
+        var checkBoxArr = [];
+
+	    let no = [[${member.no}]];
+        checkBoxArr.push(no);
+
+        let my_no = [[${user.no}]];
+        console.log('my_no : '+my_no);
+
+        let jsonData = {"user_no":checkBoxArr, "my_no":my_no};
+        console.log('jsonData : '+JSON.stringify(jsonData));
+
+
+        $.ajax({
+            url:'/Photostagram/goChattingRoom',
+            method:'POST',
+            traditional: true,
+            data:jsonData,
+            dataType:'json',
+            success:function(data){
+                let room_no = data.result;
+                console.log('메시지창으로 이동!');
+                location.href='/Photostagram/chat/content?room_no='+room_no;
+            }
+        });
     });
 /*]]*/
 </script>
