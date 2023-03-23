@@ -1,11 +1,9 @@
 package kr.co.photostagram.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -31,7 +29,9 @@ public class SecurityConfiguration {
 		// 인가(접근권한) 설정
 		http.authorizeHttpRequests()
 				.mvcMatchers("/member/**", "/css/**", "/img/**", "/js/**").permitAll() // 해당 url 인증 없어도 됨.
+				.mvcMatchers("/chat/content").hasRole("1")
 				.anyRequest().authenticated(); // 위 url 빼고 모두 인증 거쳐야 함.
+
 
 		// 로그인 설정
 		http.formLogin()
