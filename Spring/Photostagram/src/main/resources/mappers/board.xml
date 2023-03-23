@@ -134,4 +134,8 @@
     <select id="selectContentLikeTime" resultType="kr.co.photostagram.vo.PostVO">
         SELECT * FROM `post` WHERE `no`=#{no};
     </select>
+
+    <select id="selectImg" resultType="kr.co.photostagram.vo.BoardVO">
+        SELECT * FROM `post` WHERE `no`=#{no};
+    </select>
 </mapper>

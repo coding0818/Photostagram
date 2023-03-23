@@ -30,4 +30,6 @@ public class PostVO {
     private MemberVO memberVO;
     private List<HashTagVO> hashTagVO;
 
+
+
 }

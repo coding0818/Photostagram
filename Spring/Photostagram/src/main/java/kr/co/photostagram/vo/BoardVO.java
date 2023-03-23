@@ -28,4 +28,6 @@ public class BoardVO {
     private MemberVO memberVO;
 
     private String username;
+
+    private String profileImg;
 }
