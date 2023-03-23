@@ -119,7 +119,7 @@
                 <span>만들기</span>
               </span>
                 </button>
-                <button>
+                <button id="myProfile">
                     <a th:href="@{/profile(username=${user.username})}">
                         <th:block th:if="${#strings.isEmpty(user.profileImg)}">
                             <img th:src=@{/img/44884218_345707102882519_2446069589734326272_n.jpg}/>

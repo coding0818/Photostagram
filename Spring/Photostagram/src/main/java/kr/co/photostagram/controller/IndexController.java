@@ -104,15 +104,11 @@ public class IndexController {
     @PostMapping("CmtRegister")
     @ResponseBody
     public Map<String, Object> cmtRegister(@RequestBody CommentVO vo){
-
         service.insertComment(vo);
         Map<String, Object> map = new HashMap<>();
 
         map.put("result", 1);
         map.put("no",vo.getNo());
-
-        //아이디 필요함
-        //유저 프로필이미지
         map.put("user_no", vo.getUser_no());
 
         return map;

@@ -149,6 +149,7 @@ html {height: 100%;}
         width: 28px;
         height: 28px;
         transition: 0.2s;
+        border-radius: 50%;
       }
 
       .sidebar button i > span {
@@ -572,11 +573,13 @@ html {height: 100%;}
         width: 50px;
         height: 50px;
         float: left;
+        margin-right: 2px;
       }
 
       .alarmlist > div:nth-child(1) > a >  img{
         width: 50px;
         height: 50px;
+        border-radius: 50%;
       }
 
       .alarmlist > div:nth-child(2) {
@@ -587,6 +590,7 @@ html {height: 100%;}
 
       .alarmlist > div:nth-child(2) > a >  h3{
         font-size: 14px;
+        line-height: normal;
       }
 
       .alarmlist > div:nth-child(3){
@@ -599,6 +603,7 @@ html {height: 100%;}
         float: right;
         width: 48px;
         height: 48px;
+        margin-left: 11px;
       }
 
       .spinner {
@@ -984,6 +989,7 @@ div.modal-post div.wrapper div.image {
   align-items: center;
 }
 div.modal-post div.wrapper div.image img {
+  object-fit: cover;
   position: absolute;
   width: 590px !important;
   height: 590px;
@@ -1057,11 +1063,11 @@ div.modal-post div.wrapper div.post-content div.rest {
   display: block;
   width: 100%;
   height: 100%;
-  flex-direction: column;
+  overflow: hidden;
 }
 div.modal-post div.wrapper div.post-content div.rest div.text {
   width: 100%;
-  height: calc(96% - 100px);
+  height: calc(96% - 148px);
   box-sizing: border-box;
   overflow-y: scroll;
   padding: 5px 11px;
@@ -1520,8 +1526,17 @@ div.modal-post div.wrapper div.post-content div.rest div.comment-wrapper {
   box-sizing: border-box;
   margin-top: 8px;
   padding-left: 16px;
-  padding-right: 49px;
+  float: left;
+  overflow: hidden;
 }
+div.modal-post div.wrapper div.post-content div.rest div.comment-wrapper .upload_btn {
+ color: #0095F6;
+ border: 0;
+ background: white;
+ margin-right: 13px;
+ cursor:pointer;
+}
+
 div.modal-post
   div.wrapper
   div.post-content
