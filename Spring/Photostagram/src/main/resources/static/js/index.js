@@ -2,13 +2,6 @@
  *  날짜 : 2023 / 02 / 28
  *  이름 : 조광호
  */
-let nowTime = new Date();
-// 현재시간
-let nowYear  = nowTime.getFullYear();
-let nowMonth = nowTime.getMonth();
-let nowDay   = nowTime.getDate();
-let nowHours = nowTime.getHours();
-let nowMinutes = nowTime.getMinutes();
 
 $(function () {
   
@@ -21,10 +14,7 @@ $(function () {
   });
 
   let PostMenu = $(".post-menu");
-  /**
-   * 댓글 모두보기 누를 경우 Post-Modal 뜸.
-   */
-
+  
   // 댓글 모두보기
   $(".commentMore").on("click", function () {
     let article    = $(this).closest('article');
@@ -110,109 +100,69 @@ $(function () {
         article.find('.ContentsMore').addClass("short")
       }
     }
-
-    // let postdate = article.find('.articleTime').text();
-    // rdate1 = postdate.split(" ");
-
-    // console.log("rdate 1 : " + rdate1);
-    // let date1 = rdate1[0].split("-");
-    // let rdateYear = date1[0];
-    // let rdateMonth = date1[1];
-    // let rdateDay = date1[2];
-
-    // console.log('rdateYear : ' + rdateYear)
-    // console.log('rdateMonth : ' + rdateMonth)
-    // console.log('rdateDay : ' + rdateDay)
-
-    // let Timesection  = rdate1[1].split(":");
-    // let rdateHours   = Timesection[0];
-    // let rdateMinutes = Timesection[1];
-   
-    // console.log('rdateHours : ' + rdateHours)
-    // console.log('rdateMinutes : ' + rdateMinutes)
-
-    // let idx_calDate1 = new Date(nowYear, nowMonth, nowDay, nowHours, nowMinutes);
-    // let idx_calDate2 = new Date(rdateYear, rdateMonth, rdateDay, rdateHours, rdateMinutes);
-
-    // console.log("idx_calDate 1 현재시간 : " + idx_calDate1)
-    // console.log("idx_calDate 2 작성시간 : " + idx_calDate2)
-
-    // let timeSec = idx_calDate1.getTime() - idx_calDate2.getTime();
-    // // console.log("timeSec : " + timeSec)
-    // let timeMin = timeSec / 1000 / 60;
-    // // console.log("timeMin : " + timeMin)
-    // timeMin = parseInt(timeMin);
-    // let timeHours = timeMin / 60;
-    // timeHours = Math.round(timeHours);
-
-    // console.log("timeHours 시간 : "+timeHours);
-
-    // if(timeHours == 24){
-    //   $('.articleTime').append('1일');
-    //   return;
-    // }else if(timeHours < 24){
-    //   $('.articleTime').append(timeHours+'시간');
-    //   return;
-    // }else{
-    //     timeHours = Math.floor(timeHours / 24);
-    //     if(timeHours < 7){
-    //       $('.articleTime').append(timeHours+'일');
-    //       return;
-    //     }else{
-    //       timeHours = Math.floor(timeHours / 7);
-    //       $('.articleTime').append(timeHours+'주');
-    //     }
-    // }
   });
+  /*
+    !!!!!! 댓글 작성 !!!!!
+  */
+  $(document).on("click", ".upload_btn", function(){
+    let modal_rest = $(this).closest('.rest');
+    let article = $(this).closest('article');
+    let div = $(this).parent();
+    let input = div.children();
 
-  // 댓글 작성
-  $(document).on("click",".upload_btn", function(e) {
-    e.preventDefault();
-    
-    let article    = $(this).closest('article')
-    let div        = $(this).parent();
-    let input      = div.children();
 
     let uid     = input.eq(0).val();
     let post_no = input.eq(1).val();
     let user_no = input.eq(2).val();
     let comment = input.eq(3).val();
-    let url = "/Photostagram/CmtRegister";
-
+    let image = $('#myProfile').children().children().attr("src")
+    
     console.log("uid : " + uid)
     console.log("post_no : " + post_no)
     console.log("user_no : " + user_no)
     console.log("comment : " + comment)
-
-
+    
     let jsonData = {
-      uid: uid,
-      post_no: post_no,
-      user_no: user_no,
-      comment: comment
+      "uid":uid,
+      "post_no":post_no,
+      "user_no":user_no,
+      "comment":comment
     };
 
-    if(comment == ""){
-        alert('댓글을 입력하세요.')
-        return false;
-    }
-
     $.ajax({
-      url: url,
-      method: "post",
+      url:'/Photostagram/CmtRegister',
+      method:'POST',
       data: JSON.stringify(jsonData),
       contentType: "application/json",
-      dataType: "json",
-      success: (data) => {
-        console.log(data);
-        if (data.result > 0) {
+      dataType:'json',
+      success: function(data){
+        if(data.result > 0){
+
+          let modal_comment = "<div class='top'>";
+          modal_comment += "<img src='" + image + "' alt='프로필이미지'>";
+          modal_comment += "<div class='posting'>";
+          modal_comment += "<div data-no='" + data.no + "'>";
+          modal_comment += "<a class='modal_comment_id' href='/Photostagram/profile?username=" + uid + "'>" + uid + "</a>";
+          modal_comment += "<input type='hidden' value='" + data.no + "'>";
+          modal_comment += "<span class='modal_comment' style='margin-left:2px;'>" + comment + "</span>";
+          modal_comment += "<div class='comLike sprite_small_heart_icon_outline' data-no='" + user_no + "'></div>";
+          modal_comment += "<div class='commentInfo'>";
+          modal_comment += "<span>1일</span>&nbsp;&nbsp;좋아요&nbsp;";
+          modal_comment += "<span id='md_comment_likeCount'>0</span>개&nbsp;";
+          modal_comment += "<span>답글달기</span>";
+          modal_comment += "</div>";
+          modal_comment += "</div>";
+          modal_comment += "</div>";
+          modal_comment += "</div>";
+
+          article.find('.text').append(modal_comment);
 
           let str = "<div class='reply_user' data-no='"+data.no+"'>";
-          str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
-          str += "<span class='reply_nick'>" + uid + "</span>";
-          str += "<span class='reply_content' style='margin-left:4px;'>" + comment + "</span>";
-          str += "<div class='comLike sprite_small_heart_icon_outline' data-no='"+data.user_no+"'></div>";
-          str += "</div>";
+            str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
+            str += "<span class='reply_nick'>" + uid + "</span>";
+            str += "<span class='reply_content' style='margin-left:4px;'>" + comment + "</span>";
+            str += "<div class='comLike sprite_small_heart_icon_outline' data-no='"+data.user_no+"'></div>";
+            str += "</div>";
 
           article.find('.comment_container').append(str);
           article.find('.commentText').val('');
@@ -221,46 +171,13 @@ $(function () {
           let commentCount = parseInt(count); // 문자열이라 더하기가 안되기때문에 parseInt
 
           article.find('#comment-count').text(commentCount+1); // 해당 텍스트에 +1
-
-        } else {
-          alert("작성 실패");
+        }else{
+            alert('실패')
         }
       }
-    });
-  });
-
-  $(document).on("click", ".modal_upload_btn", function(){
-    let modal_rest = $(this).closest('.rest');
-    let div = $(this).parent();
-    let input = div.children();
-
-    let uid     = input.eq(0).val();
-    let post_no = input.eq(1).val();
-    let user_no = input.eq(2).val();
-    let comment = input.eq(3).val();
-
-    console.log("uid : " + uid)
-    console.log("post_no : " + post_no)
-    console.log("user_no : " + user_no)
-    console.log("comment : " + comment)
-
-    let modal_comment = `<div class="top">
-                                <img src="/Photostagram/thumb/b65b6b35-ea3b-4702-913b-b17a982e6846.svg" alt="프로필이미지">
-                                <div class="posting">
-                                  <div data-no="189">
-                                    <a class="modal_comment_id" href="/Photostagram/profile?username=letary">letary</a>
-                                    <input type="hidden" value="189">
-                                    <span class="modal_comment">c</span>
-                                  <div class="comLike sprite_small_heart_icon_outline" data-no="5"></div>
-                                    <div class="commentInfo">
-                                      <span>1일</span>&nbsp;&nbsp;좋아요
-                                      <span id="md_comment_likeCount">0</span>개&nbsp;
-                                      <span>답글달기</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>`
+    })
     
+        
   })
   /*
     게시글 좋아요 (빈하트 -52px -258px 꽉찬하트 -26px -258px;)

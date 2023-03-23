@@ -124,6 +124,10 @@
     </delete>
 
     <delete id="deleteMemberData">
+        <!-- 입장된 채팅룸에서 퇴장 -->
+        DELETE FROM `room_member` WHERE `user`=#{no};
+        <!-- 개설한 채팅룸 삭제 -->
+        DELETE FROM `room` WHERE `me`=#{no};
         <!-- 팔로우 기록 삭제 -->
         DELETE FROM `follow`
             WHERE `follower` = #{no}

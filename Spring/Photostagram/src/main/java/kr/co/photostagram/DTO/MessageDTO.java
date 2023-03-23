@@ -12,4 +12,5 @@ public class MessageDTO {
 	private int room;
 
 	private String writer;
+	private String profileImg;
 }

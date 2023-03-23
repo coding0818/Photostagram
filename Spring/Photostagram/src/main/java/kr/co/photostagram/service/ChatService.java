@@ -2,6 +2,7 @@ package kr.co.photostagram.service;
 
 import kr.co.photostagram.DTO.ChatRoom;
 import kr.co.photostagram.DTO.MessageDTO;
+import kr.co.photostagram.DTO.RoomDTO;
 import kr.co.photostagram.dao.ChatDAO;
 import kr.co.photostagram.vo.ChattingVO;
 import kr.co.photostagram.vo.MemberVO;
@@ -12,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -27,45 +27,72 @@ public class ChatService {
     }
 
     @Transactional
-    public int insertChatRoom(ArrayList<Integer> user_no, int my_no){
+    public int insertChatRoom(ArrayList<Integer> user_no, int my_no) {
         RoomVO vo = new RoomVO();
         vo.setMe(my_no);
+        Arrays.sort(user_no.toArray());
 
         List<ChatRoom> rooms = dao.selectChatRoomHave(my_no);
-        log.info("roomsIhave : "+rooms);
+        log.info("roomsIhave : " + rooms);
+        log.info("roomsIhave size : " + rooms.size());
         boolean isNewRoom = false;
-        for(int i=0; i<rooms.size(); i++){
-            if(rooms.get(i).getMes().get(i) == my_no){
-                log.info("i  : "+i);
-                isNewRoom = rooms.get(i).getUsers().containsAll(user_no);
-                log.info("isNewRoom"+ isNewRoom);
-                if(isNewRoom == true){
-                    return rooms.get(i).getNo();
+        int no = 0;
+        for (int i = 0; i < rooms.size(); i++) {
+            List<Integer> users = new ArrayList<>();
+
+            ChatRoom chatRoom = rooms.get(i);
+
+            for(int j=0 ; j<chatRoom.getMes().size() ; j++){
+                log.info("i : "+i);
+                if (chatRoom.getMes().get(j) == my_no) {
+                    // 내가 개설한 방  검사
+                    log.info("j  : " + j);
+                    users = chatRoom.getUsers();
+                    Arrays.sort(users.toArray());
+                    log.info("users : " + users);
+                    isNewRoom = Arrays.equals(users.toArray(), user_no.toArray());
+                    log.info("isNewRoom" + isNewRoom);
+                }else{
+                    // 다른 사람이 개설한 방에 내가 있을 경우 검사
+                    log.info("j2  : " + j);
+
+                    List<Integer> join = new ArrayList<>();
+                    join.addAll(chatRoom.getMes());
+                    join.addAll(chatRoom.getUsers());
+                    join.remove(Integer.valueOf(my_no));
+
+                    Arrays.sort(join.toArray());
+                    log.info("users2 : " + users);
+                    isNewRoom = Arrays.equals(join.toArray(), user_no.toArray());
+                    log.info("isNewRoom2" + isNewRoom);
                 }
-            }else if(rooms.get(i).getUsers().get(i) == my_no){
-                log.info("i  : "+i);
-                isNewRoom = rooms.get(i).getMes().containsAll(user_no);
-                log.info("isNewRoom"+isNewRoom);
-                if(isNewRoom){
-                    return rooms.get(i).getNo();
+
+                if (isNewRoom == true) {
+                    log.info("rooms_no : " + chatRoom.getNo());
+                    no = chatRoom.getNo();
+                    return no;
                 }
             }
         }
 
-        dao.insertChatRoom(vo);
 
-        for(int user:user_no){
-            dao.insertChatRoomMember(vo.getNo(), user);
-        }
+            dao.insertChatRoom(vo);
 
-        return vo.getNo();
+            for (int user : user_no) {
+                dao.insertChatRoomMember(vo.getNo(), user);
+            }
+
+            no = vo.getNo();
+
+            return no;
+
     }
 
     public List<RoomVO> selectChatRoomList(int me){
         return dao.selectChatRoomList(me);
     }
 
-    public RoomVO selectNowRoom(int room_no){
+    public List<RoomDTO> selectNowRoom(int room_no){
         return dao.selectNowRoom(room_no);
     }
 
