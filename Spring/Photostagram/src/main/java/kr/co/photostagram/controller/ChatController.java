@@ -1,5 +1,6 @@
 package kr.co.photostagram.controller;
 
+import kr.co.photostagram.DTO.RoomDTO;
 import kr.co.photostagram.service.ChatService;
 import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
@@ -97,7 +98,7 @@ public class ChatController {
         model.addAttribute("rooms", rooms);
 
         // 현재 채팅방 조회
-        RoomVO roomNow = service.selectNowRoom(room_no);
+        List<RoomDTO> roomNow = service.selectNowRoom(room_no);
         log.info("roomNow : "+roomNow);
 
         model.addAttribute("roomNow", roomNow);
@@ -105,6 +106,7 @@ public class ChatController {
         // 현재 채팅방 채팅내역 조회
         List<ChattingVO> chats = service.selectMessages(room_no);
         log.info("chats : "+chats);
+        log.info("chat profileImg : "+chats.get(1).getProfileImg());
 
         model.addAttribute("chats", chats);
 

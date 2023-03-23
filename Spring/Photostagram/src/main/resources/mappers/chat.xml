@@ -33,11 +33,16 @@
     </resultMap>
 
     <!--현재 채팅방 정보 조회-->
-    <select id="selectNowRoom" resultMap="selectChatRooms">
-        select a.*,b.`user`, c.username, c.profileImg from `room` as a
+    <select id="selectNowRoom" resultType="kr.co.photostagram.DTO.RoomDTO">
+        (select a.*,b.`user`, c.username, c.profileImg from `room` as a
         join `room_member` as b on a.no=b.room
         join `user` as c on b.`user`=c.`no`
-        where a.no=#{room_no};
+        where a.no=#{room_no})
+        UNION
+        (select a.*,a.me, c.username, c.profileImg from `room` as a
+        join `room_member` as b on a.no=b.room
+        join `user` as c on c.`no`=a.me
+        where a.no=#{room_no});
     </select>
     <!--메시지 입력-->
     <insert id="insertMessages">
@@ -84,9 +89,11 @@
         JOIN `room_member` AS b ON a.`no`=b.room
         WHERE a.me=#{me})
         UNION ALL
-        (SELECT b.`no`, b.me, a.`user` FROM `room_member` AS a
+        (SELECT c.`no`,c.me, d.`user` FROM `room` AS c
+        JOIN `room_member` AS d ON c.`no`=d.room
+        WHERE c.`no` IN (SELECT b.`no` FROM `room_member` AS a
         JOIN `room` AS b ON a.room=b.`no`
-        WHERE a.`user`=#{me})
+        WHERE a.`user`=#{me}))
     </select>
     <resultMap id="selectChatRoomIhave" type="kr.co.photostagram.DTO.ChatRoom">
         <id column="no" property="no"></id>
