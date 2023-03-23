@@ -101,73 +101,12 @@ $(function () {
       }
     }
   });
-
-  // 댓글 작성
-  $(document).on("click",".upload_btn", function(e) {
-    e.preventDefault();
-    
-    let article    = $(this).closest('article')
-    let div        = $(this).parent();
-    let input      = div.children();
-
-    let uid     = input.eq(0).val();
-    let post_no = input.eq(1).val();
-    let user_no = input.eq(2).val();
-    let comment = input.eq(3).val();
-    let url = "/Photostagram/CmtRegister";
-
-    console.log("uid : " + uid)
-    console.log("post_no : " + post_no)
-    console.log("user_no : " + user_no)
-    console.log("comment : " + comment)
-
-
-    let jsonData = {
-      uid: uid,
-      post_no: post_no,
-      user_no: user_no,
-      comment: comment
-    };
-
-    if(comment == ""){
-        alert('댓글을 입력하세요.')
-        return false;
-    }
-
-    $.ajax({
-      url: url,
-      method: "post",
-      data: JSON.stringify(jsonData),
-      contentType: "application/json",
-      dataType: "json",
-      success: (data) => {
-        console.log(data);
-        if (data.result > 0) {
-
-          let str = "<div class='reply_user' data-no='"+data.no+"'>";
-          str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
-          str += "<span class='reply_nick'>" + uid + "</span>";
-          str += "<span class='reply_content' style='margin-left:4px;'>" + comment + "</span>";
-          str += "<div class='comLike sprite_small_heart_icon_outline' data-no='"+data.user_no+"'></div>";
-          str += "</div>";
-
-          article.find('.comment_container').append(str);
-          article.find('.commentText').val('');
-
-          let count = article.find('#comment-count').text(); // 현재 태그사이 텍스트받고
-          let commentCount = parseInt(count); // 문자열이라 더하기가 안되기때문에 parseInt
-
-          article.find('#comment-count').text(commentCount+1); // 해당 텍스트에 +1
-
-        } else {
-          alert("작성 실패");
-        }
-      }
-    });
-  });
-
-  $(document).on("click", ".modal_upload_btn", function(){
+  /*
+    !!!!!! 댓글 작성 !!!!!
+  */
+  $(document).on("click", ".upload_btn", function(){
     let modal_rest = $(this).closest('.rest');
+    let article = $(this).closest('article');
     let div = $(this).parent();
     let input = div.children();
 
@@ -198,6 +137,7 @@ $(function () {
       dataType:'json',
       success: function(data){
         if(data.result > 0){
+
           let modal_comment = "<div class='top'>";
           modal_comment += "<img src='" + image + "' alt='프로필이미지'>";
           modal_comment += "<div class='posting'>";
@@ -215,7 +155,22 @@ $(function () {
           modal_comment += "</div>";
           modal_comment += "</div>";
 
-          modal_rest.find('.text').append(modal_comment);
+          article.find('.text').append(modal_comment);
+
+          let str = "<div class='reply_user' data-no='"+data.no+"'>";
+            str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
+            str += "<span class='reply_nick'>" + uid + "</span>";
+            str += "<span class='reply_content' style='margin-left:4px;'>" + comment + "</span>";
+            str += "<div class='comLike sprite_small_heart_icon_outline' data-no='"+data.user_no+"'></div>";
+            str += "</div>";
+
+          article.find('.comment_container').append(str);
+          article.find('.commentText').val('');
+
+          let count = article.find('#comment-count').text(); // 현재 태그사이 텍스트받고
+          let commentCount = parseInt(count); // 문자열이라 더하기가 안되기때문에 parseInt
+
+          article.find('#comment-count').text(commentCount+1); // 해당 텍스트에 +1
         }else{
             alert('실패')
         }

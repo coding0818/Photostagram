@@ -149,6 +149,7 @@ html {height: 100%;}
         width: 28px;
         height: 28px;
         transition: 0.2s;
+        border-radius: 50%;
       }
 
       .sidebar button i > span {
@@ -988,6 +989,7 @@ div.modal-post div.wrapper div.image {
   align-items: center;
 }
 div.modal-post div.wrapper div.image img {
+  object-fit: cover;
   position: absolute;
   width: 590px !important;
   height: 590px;
@@ -1524,10 +1526,17 @@ div.modal-post div.wrapper div.post-content div.rest div.comment-wrapper {
   box-sizing: border-box;
   margin-top: 8px;
   padding-left: 16px;
-  padding-right: 49px;
   float: left;
   overflow: hidden;
 }
+div.modal-post div.wrapper div.post-content div.rest div.comment-wrapper .upload_btn {
+ color: #0095F6;
+ border: 0;
+ background: white;
+ margin-right: 13px;
+ cursor:pointer;
+}
+
 div.modal-post
   div.wrapper
   div.post-content
