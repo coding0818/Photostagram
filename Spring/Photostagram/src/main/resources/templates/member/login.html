@@ -63,7 +63,7 @@
                                 <div></div>
                             </div>
                             <div class="btn-group">
-                                <button class="btn-fb">
+                                <button class="btn-fb" id="logBtn">
                                     <img th:src="@{/img/facebook-icon.png}" alt="페이스북 이미지">
                                     <span>Facebook으로 로그인</span>
                                 </button>
@@ -105,6 +105,70 @@
         }
         setInterval(slide, 2000)
     });
+</script>
+<script>
+//페이스북 (로그인) 기본 설정
+window.fbAsyncInit = function () {
+    //페이스북 로그인 기능 클라이언트 설정
+    FB.init({
+        appId: '229061809607478',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v10.0'
+    });
+
+    //페이스북 로그인 여부 확인
+    FB.getLoginStatus(function (response) {
+        statusChangeCallback(response);
+    });
+};
+
+//로그인 상태에 따라 로그인 / 로그아웃 구분
+const statusChangeCallback = (res)=>{
+    if(res.status === 'connected')
+        document.querySelector('#logBtn').value="로그아웃";
+    else document.querySelector('#logBtn').value= "로그인";
+}
+
+//페이스북 (로그인)
+const facebookLogin = ()=>{
+    //로그인 정보 GET
+    FB.login((res)=>{
+        //사용자 정보 GET
+        FB.api(
+            `/${res.authResponse.userID}/`,
+            'GET',
+            {"fields":"id,name,email"},
+            (res2) => {
+            //res.authResponse.accessToken : 엑세스 토큰
+            //res.authResponse.graphDomain : 공급자 (페이스북)
+            //res.authResponse.userID : 유저 아이디 구분 (숫자)
+            //res2.name : 유저 이름
+            //res2.email : 유저 이메일 정보
+            document.querySelector('#logBtn').value="로그아웃";
+            console.log(res,res2);
+        });
+    });
+
+}
+
+//페이스북 (로그아웃)
+const facebookLogout = ()=>{
+    FB.logout((res)=>{
+        document.querySelector('#logBtn').value= "로그인";
+    });
+}
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script>
+//로그인 버튼 클릭시
+document.querySelector('#logBtn').addEventListener('click', e => {
+    if(e.target.value === '로그인'){
+        facebookLogin();
+    } else {
+        facebookLogout();
+    }
+});
 </script>
 <script th:src="@{/js/member.js}"></script>
 </th:block>
