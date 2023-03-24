@@ -85,7 +85,7 @@
             <section class="contents">
                 <nav>
                     <div id="profile">
-                        <img th:src="|@{/}thumb/${postImg.profileImg}"  alt="profile">
+                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
                         <p class="postTop">
                             <span id="nick">[[${user.username}]]</span>
                             ·
@@ -217,7 +217,7 @@
                         <a href="#" id="bookMark" class="remove"></a>
                     </div>
                     <div>
-                        <div class="favorite2" th:if="${content_like_time.like >0}">좋아요 <span>[[${content_like_time.like}]]</span>개</div>
+                        <div>좋아요 <span>[[${content_like_time.like}]]</span>개</div>
                         <div class="date" th:text="${#strings.substring(content_like_time.rdate, 5, 10)}">2월 28일</div>
                     </div>
                     <div>

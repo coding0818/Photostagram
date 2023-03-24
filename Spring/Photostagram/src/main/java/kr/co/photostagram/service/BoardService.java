@@ -30,7 +30,7 @@ public class BoardService {
     public List<NoticeVO> selectNoticesTime(int no) {return dao.selectNoticesTime(no);}
 
     public PostVO selectContentLikeTime(int no) {return dao.selectContentLikeTime(no);}
-    public BoardVO selectImg(int no) {return dao.selectImg(no);}
+
 
 
 
