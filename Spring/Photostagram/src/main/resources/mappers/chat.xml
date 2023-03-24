@@ -104,4 +104,17 @@
             <result column="user" property="user"/>
         </collection>
     </resultMap>
+    <!--채팅삭제-->
+    <delete id="deleteRoomMemberAll">
+        DELETE FROM `room_member` WHERE `room`=#{room_no};
+    </delete>
+    <delete id="deleteRoom">
+        delete from `room_member` where `no`=#{room_no} and `me`=#{user_no};
+    </delete>
+    <delete id="deleteRoomMemberOne">
+        delete from `room_member` where `room`=#{room_no} and `user`=#{user_no};
+    </delete>
+    <select id="selectRoomOwner" resultType="int">
+        SELECT `me` FROM `room` WHERE `no`=#{room_no};
+    </select>
 </mapper>

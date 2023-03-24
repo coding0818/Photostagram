@@ -527,6 +527,7 @@ input[type='checkbox']:checked::before {
     position: absolute;
     vertical-align: baseline;
     width: 519px;
+    z-index: 3;
 }
 
 .chat-head-1{
@@ -921,20 +922,6 @@ a {
     display: block;
 }
 
-.getOutChat > button{
-    width: 110px;
-    height: 30px;
-    border-radius-top-left: 15px;
-    border-radius-top-right: 15px;
-    line-height: 27px;
-    text-align: center;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid red;
-    background: #f5e1e1;
-}
-
 .deleteChat {
     width:110px;
     height: 30px;
@@ -942,8 +929,8 @@ a {
 
 .deleteChat > button {
     width: 110px;
-    line-height: 27px;
     text-align: center;
     border: none;
+    border-radius: 15px;
     background: #f5e1e1;
 }
