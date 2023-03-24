@@ -43,8 +43,11 @@ public class IndexController {
         List<MemberVO> members = service.selectUser();
         List<MemberVO> followings = service.selectFollowing(user.getNo());
 
+
         // 팔로잉 되어있는 "유저넘버" 리스트
         List<Integer> usersNo = new ArrayList<>();
+
+        usersNo.add(user.getNo()); // 로그인 한 유저번호
 
         // 회원님을 위한 추천 (미 팔로잉자)
         for(int i = 0; i < followings.size(); i++){
@@ -54,7 +57,6 @@ public class IndexController {
 
             // usersNo add
             int user_no = followings.get(i).getNo();
-            usersNo.add(user.getNo()); // 로그인 한 유저번호
             usersNo.add(user_no); // 상대방 유저번호
         }
 
@@ -67,7 +69,7 @@ public class IndexController {
         }
 
         List<PostVO> articles = service.selectArticles(usersNo);
-
+        log.info("articles : " + articles);
         model.addAttribute("articles", articles);
         model.addAttribute("members", members);
         model.addAttribute("followings", followings);
