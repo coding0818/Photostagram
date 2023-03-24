@@ -63,9 +63,9 @@
                                 <div></div>
                             </div>
                             <div class="btn-group">
-                                <button class="btn-fb" id="logBtn">
+                                <button class="btn-fb">
                                     <img th:src="@{/img/facebook-icon.png}" alt="페이스북 이미지">
-                                    <span>Facebook으로 로그인</span>
+                                    <span onclick="fnFbCustomLogin();">Facebook으로 로그인</span>
                                 </button>
                             </div>
                             <a th:href="@{/member/checkId}" class="forgot-pw">아이디를 잊으셨나요?</a>
@@ -107,69 +107,39 @@
     });
 </script>
 <script>
-//페이스북 (로그인) 기본 설정
-window.fbAsyncInit = function () {
-    //페이스북 로그인 기능 클라이언트 설정
-    FB.init({
-        appId: '229061809607478',
-        autoLogAppEvents: true,
-        xfbml: true,
-        version: 'v10.0'
-    });
+//기존 로그인 상태를 가져오기 위해 Facebook에 대한 호출
+function statusChangeCallback(res){
+	statusChangeCallback(response);
+}
 
-    //페이스북 로그인 여부 확인
-    FB.getLoginStatus(function (response) {
-        statusChangeCallback(response);
-    });
+function fnFbCustomLogin(){
+    alert('facebook login!!!');
+	FB.login(function(response) {
+		if (response.status === 'connected') {
+			FB.api('/me', 'get', {fields: 'name,email'}, function(r) {
+				console.log(r);
+			})
+		} else if (response.status === 'not_authorized') {
+			// 사람은 Facebook에 로그인했지만 앱에는 로그인하지 않았습니다.
+			alert('앱에 로그인해야 이용가능한 기능입니다.');
+		} else {
+			// 그 사람은 Facebook에 로그인하지 않았으므로이 앱에 로그인했는지 여부는 확실하지 않습니다.
+			alert('페이스북에 로그인해야 이용가능한 기능입니다.');
+		}
+	}, {scope: 'public_profile,email'});
+}
+
+window.fbAsyncInit = function() {
+	FB.init({
+		appId      : '229061809607478', // 내 앱 ID를 입력한다.
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v16.0'
+	});
+	FB.AppEvents.logPageView();
 };
-
-//로그인 상태에 따라 로그인 / 로그아웃 구분
-const statusChangeCallback = (res)=>{
-    if(res.status === 'connected')
-        document.querySelector('#logBtn').value="로그아웃";
-    else document.querySelector('#logBtn').value= "로그인";
-}
-
-//페이스북 (로그인)
-const facebookLogin = ()=>{
-    //로그인 정보 GET
-    FB.login((res)=>{
-        //사용자 정보 GET
-        FB.api(
-            `/${res.authResponse.userID}/`,
-            'GET',
-            {"fields":"id,name,email"},
-            (res2) => {
-            //res.authResponse.accessToken : 엑세스 토큰
-            //res.authResponse.graphDomain : 공급자 (페이스북)
-            //res.authResponse.userID : 유저 아이디 구분 (숫자)
-            //res2.name : 유저 이름
-            //res2.email : 유저 이메일 정보
-            document.querySelector('#logBtn').value="로그아웃";
-            console.log(res,res2);
-        });
-    });
-
-}
-
-//페이스북 (로그아웃)
-const facebookLogout = ()=>{
-    FB.logout((res)=>{
-        document.querySelector('#logBtn').value= "로그인";
-    });
-}
 </script>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-<script>
-//로그인 버튼 클릭시
-document.querySelector('#logBtn').addEventListener('click', e => {
-    if(e.target.value === '로그인'){
-        facebookLogin();
-    } else {
-        facebookLogout();
-    }
-});
-</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v16.0&appId=229061809607478" nonce="SiOBIhLG"></script>
 <script th:src="@{/js/member.js}"></script>
 </th:block>
 </html>
