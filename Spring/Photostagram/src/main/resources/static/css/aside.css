@@ -322,6 +322,7 @@ html {height: 100%;}
         width: 28px;
         height: 28px;
         transition: 0.2s;
+        border-radius: 50%;
       }
 
       .side button i > span {
