@@ -117,4 +117,19 @@ public class ChatService {
     public List<RecommendVO> selectRecommends(int user_no){
         return dao.selectRecommends(user_no);
     }
+
+    @Transactional
+    public int deleteChat(int room_no, int user_no){
+        int owner = dao.selectRoomOwner(room_no);
+        int result;
+        if(owner == user_no){
+            //방 주인이 나가는 경우
+            dao.deleteRoomMemberAll(room_no);
+            result = dao.deleteRoom(room_no, user_no);
+        }else{
+            // 방 멤버가 나가는 경우
+            result = dao.deleteRoomMemberOne(room_no, user_no);
+        }
+        return result;
+    }
 }

@@ -28,4 +28,8 @@ public interface ChatDAO {
     public RoomVO selectChatRoomsNotMine(int room_no);
     public List<RecommendVO> selectRecommends(int user_no);
     public List<ChatRoom> selectChatRoomHave(int me);
+    public int selectRoomOwner(int room_no);
+    public int deleteRoom(@Param("room_no") int room_no, @Param("user_no") int user_no);
+    public int deleteRoomMemberOne(@Param("room_no") int room_no, @Param("user_no") int user_no);
+    public int deleteRoomMemberAll(int room_no);
 }

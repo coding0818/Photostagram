@@ -97,20 +97,10 @@ public class ChatController {
 
         model.addAttribute("rooms", rooms);
 
-        // 현재 채팅방 조회
-        List<RoomDTO> roomNow = service.selectNowRoom(room_no);
-        log.info("roomNow : "+roomNow);
-
-        for(RoomDTO now : roomNow){
-            if(now.getUser() == user.getNo()){
-                model.addAttribute("roomNow", roomNow);
-            }
-        }
-
         // 현재 채팅방 채팅내역 조회
         List<ChattingVO> chats = service.selectMessages(room_no);
         log.info("chats : "+chats);
-        log.info("chat profileImg : "+chats.get(1).getProfileImg());
+        //log.info("chat profileImg : "+chats.get(1).getProfileImg());
 
         model.addAttribute("chats", chats);
 
@@ -125,6 +115,22 @@ public class ChatController {
         log.info("recommends : "+recommends);
 
         model.addAttribute("recommends", recommends);
+
+        // 현재 채팅방 조회
+        List<RoomDTO> roomNow = service.selectNowRoom(room_no);
+        log.info("roomNow : "+roomNow);
+
+        List<Integer> roomMembers = new ArrayList<>();
+
+        for(RoomDTO now : roomNow){
+            roomMembers.add(now.getUser());
+        }
+
+        if(roomMembers.contains(user.getNo())){
+            model.addAttribute("roomNow", roomNow);
+        }else{
+            return "redirect:/chat/index";
+        }
         return "chat/content";
     }
 
@@ -153,13 +159,13 @@ public class ChatController {
     }
 
     @ResponseBody
-    @PostMapping("insertMessage")
-    public Map<String, Integer> insertMessage(ChattingVO vo){
-        //int result = service.insertMessages(vo);
+    @PostMapping("deleteChat")
+    public Map<String, Integer> deleteChat(int room_no, int user_no){
+        int result = service.deleteChat(room_no, user_no);
 
         Map<String, Integer> resultMap = new HashMap<>();
-        //resultMap.put("result", result);
-        log.info("goChattingRoom...3...for끝");
+        resultMap.put("result", result);
+        log.info("deleteChat...3...for끝");
         return resultMap;
     }
 }

@@ -209,7 +209,7 @@
                 <h2>검색</h2>
                 <input type="text" name="search" id="searchAll" placeholder="검색"></input>
                 <input type="hidden" name="user_no" th:value="${user.no}"/>
-                <button id="searchBtn"><img src="./img/search.png" alt=""></button>
+                <button id="searchBtn"><img th:src="@{/img/search.png}" alt=""></button>
             </div>
             <div id="searchListRecent">
                 <h3>최근 검색 항목 <button id="deleteSearchAll">모두 지우기</button></h3>
