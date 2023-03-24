@@ -21,7 +21,6 @@ repositories {
 }
 
 dependencies {
-	compile "org.springframework.social:spring-social-facebook:2.0.3.RELEASE"
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.webjars:sockjs-client:1.5.1'
 	implementation 'org.webjars:stomp-websocket:2.3.4'
@@ -48,4 +47,12 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.withType(Jar) {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+	manifest {
+		attributes["Main-Class"] = "kr.co.photostagram.PhotostagramApplication"
+	}
 }
