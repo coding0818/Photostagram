@@ -705,6 +705,7 @@ input[type='checkbox']:checked::before {
     display: flex;
     justify-content: center;
     cursor: pointer;
+    position: relative;
 }
 
 .chat-head-add-2 img{
@@ -905,118 +906,44 @@ a {
 }
 
 /*채팅방 나가기, 채팅 삭제*/
-.secondModalFrame {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: rgba(0,0,0,0.4);
-  -ms-overflow-style: none;
+.deleteOrOutChat{
+    width: 110px;
+    height: 100%;
+    position: absolute;
+    right: 10px;
+    top: 54px;
+    z-index: 10;
+    background: #f5e1e1;
+    display: none;
 }
-.secondModalFrame::-webkit-scrollbar {display: none;}
 
-.secondModal > div {
-        display: block;
-        width:400px;
-        height: 200px;
-        position: relative;
-        text-align: center;
-        padding: 20px;
-        box-sizing: border-box;
-     }
-    .secondModal > div > div {
-        display: inline-block;
-        width: 75px;
-        height: 75px;
-        overflow: hidden;
-        border-radius: 70%;
-     }
-    .secondModal > div > div > img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-     }
-    .secondModal > div > h1 {
-        text-align: center;
-        font-size: 14px;
-        margin-top: 5px;
-     }
-    .secondModal > div > h1 > span {font-weight: bold; font-size: 15px;}
+.deleteOrOutChat.on{
+    display: block;
+}
 
-    .secondModal > ul {text-align: center;}
-    .secondModal > ul > li {
-        text-align: center;
-        border-top:1px solid #e9e9e9;
-        display: block;
-        height: 50px;
-        line-height: 50px;
-        box-sizing: border-box;
-     }
-    .secondModal > ul > li > a {font-size: 14px; font-weight: bold;}
-    .secondModal > ul > li:nth-child(1) > a {color: red;}
+.getOutChat > button{
+    width: 110px;
+    height: 30px;
+    border-radius-top-left: 15px;
+    border-radius-top-right: 15px;
+    line-height: 27px;
+    text-align: center;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid red;
+    background: #f5e1e1;
+}
 
-    .cancelModalFrame {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: rgba(0,0,0,0.4);
-      -ms-overflow-style: none;
-    }
-    .cancelModalFrame::-webkit-scrollbar {display: none;}
+.deleteChat {
+    width:110px;
+    height: 30px;
+}
 
-     .cancelModal {
-      background-color: #fefefe;
-      margin: 15% auto;
-      border: 1px solid #888;
-      width: 400px;
-      border-radius: 10px;
-      box-sizing: border-box;
-    }
-    .cancelModal > div {
-        display: block;
-        width:400px;
-        height: 150px;
-        position: relative;
-        text-align: center;
-        padding: 20px;
-        box-sizing: border-box;
-     }
-    .cancelModal > div > div {
-        display: inline-block;
-        width: 75px;
-        height: 75px;
-        overflow: hidden;
-        border-radius: 70%;
-     }
-    .cancelModal > div > div > img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-     }
-    .cancelModal > div > h1 {
-        text-align: center;
-        font-size: 14px;
-        margin-top: 5px;
-     }
-    .cancelModal > div > h1 > span {font-weight: bold;}
-
-    .cancelModal > ul {text-align: center;}
-    .cancelModal > ul > li {
-        text-align: center;
-        border-top:1px solid #e9e9e9;
-        display: block;
-        height: 50px;
-        line-height: 50px;
-        box-sizing: border-box;
-     }
-    .cancelModal > ul > li > a {font-size: 14px; font-weight: bold;}
-    .cancelModal > ul > li:nth-child(1) > a {color: red;}
+.deleteChat > button {
+    width: 110px;
+    line-height: 27px;
+    text-align: center;
+    border: none;
+    background: #f5e1e1;
+}

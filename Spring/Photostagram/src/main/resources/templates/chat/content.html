@@ -113,9 +113,27 @@
         });
 
         $('.chat-head-add-2').on('click', function(){
-            let modal = $('#ChatDelete');
+            $('.deleteOrOutChat').toggleClass('on');
+        });
 
-            modal.show();
+        $('.getOutChat').on('click', function(){
+            let isOutChat = confirm('채팅을 삭제하시겠어요?');
+            if(isOutChat){
+                let room_no = $('input[name=roomNow_no]').val();
+                let user_no = [[${user.no}]];
+
+                let jsonData = {"room_no":room_no, "user_no":user_no};
+
+                $.ajax({
+                    url:'/Photostagram/outChat',
+                    method:'POST',
+                    data:jsonData,
+                    dataType:'json',
+                    success:function(data){
+                        location.href='/Photostagram/chat/index';
+                    }
+                });
+            }
         });
     });
     </script>
@@ -208,6 +226,19 @@
                             </div>
                             <div class="chat-head-add-2">
                                 <img th:src="@{/img/free-icon-info-5258991.png}" alt="상세정보">
+                            </div>
+                        </div>
+                        <div class="deleteOrOutChat" th:if="${#lists.size(roomNow) > 2}">
+                            <div class="getOutChat">
+                                <button>채팅나가기</button>
+                            </div>
+                            <div class="deleteChat">
+                                <button>채팅삭제</button>
+                            </div>
+                        </div>
+                        <div class="deleteOrOutChat" th:unless="${#lists.size(roomNow) > 2}">
+                            <div class="deleteChat">
+                                <button>채팅삭제</button>
                             </div>
                         </div>
                     </div>
