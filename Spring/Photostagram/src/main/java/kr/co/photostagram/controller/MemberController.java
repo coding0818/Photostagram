@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.lang.reflect.Member;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
+
+/*
+    이름 : 김진우
+    날짜 : 2023/03/24
+    내용 : MemberController
+ */
 
 @Slf4j
 @Controller

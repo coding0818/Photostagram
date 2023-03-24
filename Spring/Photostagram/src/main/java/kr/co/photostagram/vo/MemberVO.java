@@ -4,6 +4,12 @@ import lombok.*;
 
 import javax.validation.constraints.*;
 
+/*
+    이름 : 김진우
+    날짜 : 2023/03/24
+    내용 : MemberVO
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +19,7 @@ public class MemberVO {
 
     private int no;
 
+    //
     @NotBlank
     @Pattern(regexp = "^[a-z0-9]{5,19}$")
     private String username;
