@@ -213,6 +213,14 @@
                         팔로잉
                         <span class="closeFollowing">&times;</span>
                     </div>
+                    <div>
+                        <div id="followUser">
+                            사람
+                        </div>
+                        <div id="followTag">
+                            해시태그
+                        </div>
+                    </div>
                     <ul class="fList">
                         <th:block th:each="map:${followingMap}">
                             <th:block th:each="following,index:${map.key}">
@@ -469,3 +477,24 @@
     });
 /*]]*/
 </script>
+<!--
+<script th:inline="javascript">
+/*<![CDATA[*/
+
+    $("#followUser").on('click', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            url: '/Photostagram/profile/followers',
+            method: 'POST',
+            data: {"name": name},
+            dataType: 'json',
+            success: function(data){
+
+            }
+        });
+    });
+
+/*]]*/
+</script>
+-->
