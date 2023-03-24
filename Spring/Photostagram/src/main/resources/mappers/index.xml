@@ -40,9 +40,11 @@
         LEFT JOIN `hashtag` AS f ON e.hashtag_no = f.`no`
 
         WHERE a.`user_no` IN
-        <foreach collection="usersNo" item="following" index="index" separator="," open="(" close=")">
-            #{following}
-        </foreach>
+            <foreach collection="usersNo" item="following" index="index" separator="," open="(" close=")">
+                 #{following},0
+            </foreach>
+
+
         ORDER BY a.`no` DESC;
     </select>
     <select id="selectUser" resultType="kr.co.photostagram.vo.MemberVO">
@@ -156,4 +158,7 @@
         </collection>
     </resultMap>
 
+    <sql id="YesFollowing">
+
+    </sql>
 </mapper>
