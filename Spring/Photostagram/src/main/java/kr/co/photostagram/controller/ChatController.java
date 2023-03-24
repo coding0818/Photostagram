@@ -101,7 +101,11 @@ public class ChatController {
         List<RoomDTO> roomNow = service.selectNowRoom(room_no);
         log.info("roomNow : "+roomNow);
 
-        model.addAttribute("roomNow", roomNow);
+        for(RoomDTO now : roomNow){
+            if(now.getUser() == user.getNo()){
+                model.addAttribute("roomNow", roomNow);
+            }
+        }
 
         // 현재 채팅방 채팅내역 조회
         List<ChattingVO> chats = service.selectMessages(room_no);
