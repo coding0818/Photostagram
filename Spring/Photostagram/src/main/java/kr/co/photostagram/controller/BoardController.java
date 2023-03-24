@@ -30,8 +30,8 @@ public class BoardController {
         /*** 게시자 아이디 ***/
         MemberVO user = service.selectMember(myName);
 
-        /*** 게시자 프로필 ***/
-        BoardVO postImg = service.selectImg(no);
+
+
 
         /*** 게시물 내용 ***/
         BoardVO post = service.selectPost(no);
@@ -71,7 +71,6 @@ public class BoardController {
         model.addAttribute("commentList", commentList);
         model.addAttribute("noticesTime", noticesTime);
         model.addAttribute("content_like_time", content_like_time);
-        model.addAttribute("postImg", postImg);
 
 
         return "board/post";

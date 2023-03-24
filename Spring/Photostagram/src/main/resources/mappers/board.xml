@@ -45,12 +45,15 @@
         join `comment` as b on a.`no` = b.`post_no`
         left join `user` as c on a.`user_no` = c.`no`;
         -->
-        SELECT a.*,  COUNT(b.`no`) AS `like_count`, c.username, c.profileImg
+        SELECT a.*,
+        b.username,
+        b.profileImg,
+        COUNT(c.`no`) AS `like_count`
         FROM `comment` AS a
-        left JOIN `comment_like` AS b ON a.`no`=b.comment_no
-        JOIN `user` AS c ON a.user_no = c.`no`
-        WHERE a.`post_no`=#{postNo}
-        GROUP BY b.`comment_no`;
+        JOIN `user` AS b ON a.user_no = b.`no`
+        left JOIN `comment_like` AS c ON a.`no`=c.comment_no
+        WHERE a.`post_no`= #{postNo}
+        GROUP BY a.`no`;
     </select>
 
     <select id="selectNoticesTime" resultType="kr.co.photostagram.vo.NoticeVO">
@@ -135,7 +138,5 @@
         SELECT * FROM `post` WHERE `no`=#{no};
     </select>
 
-    <select id="selectImg" resultType="kr.co.photostagram.vo.BoardVO">
-        SELECT * FROM `post` WHERE `no`=#{no};
-    </select>
+
 </mapper>
