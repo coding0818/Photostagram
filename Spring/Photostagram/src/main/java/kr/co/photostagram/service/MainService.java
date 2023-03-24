@@ -178,6 +178,8 @@ public class MainService {
     @Transactional
     public int insertSearchResult(SearchListVO vo){
         int countResult = dao.selectSearchResult(vo.getCate(),vo.getSearchResult());
+        log.info("searchList vo : "+vo);
+        log.info("countResult : "+countResult);
         if(countResult > 0){
             return 0;
         }else{
