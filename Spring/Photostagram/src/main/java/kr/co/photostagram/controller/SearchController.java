@@ -65,6 +65,10 @@ public class SearchController {
         log.info("posts_likelist : "+postLikeList);
         log.info("posts_hashtag : "+posts);
 
+        /*** 해시태그 팔로우 여부 확인 ***/
+        int result = service.searchHashFollow(no, user.getNo());
+
+        model.addAttribute("result", result);
         model.addAttribute("user", user);
         model.addAttribute("posts", posts);
         model.addAttribute("countHashTag", countHashTag);
