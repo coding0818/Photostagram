@@ -109,7 +109,7 @@
         DELETE FROM `room_member` WHERE `room`=#{room_no};
     </delete>
     <delete id="deleteRoom">
-        delete from `room_member` where `no`=#{room_no} and `me`=#{user_no};
+        delete from `room` where `no`=#{room_no} and `me`=#{user_no};
     </delete>
     <delete id="deleteRoomMemberOne">
         delete from `room_member` where `room`=#{room_no} and `user`=#{user_no};

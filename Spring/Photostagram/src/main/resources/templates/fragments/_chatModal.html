@@ -170,27 +170,34 @@
                 <div class="recommend-1">추천</div>
             </div>
             <div class="reco-list-wrap" aria-disabled="false" role="button" tabindex="0">
-            <!--<div class="reco-list-main">
+            <div class="reco-list-main">
+                <!--/*
+                <th:block th:if="${not #lists.isEmpty(recommends)}" th:each="recommend:${recommends}">
                     <div class="reco-list-img">
                         <span class="reco-list-img-1">
-                          <img class="reco-list-img-real" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="계정사진">
+                            <th:block th:if="${#strings.isEmpty(recommend.profileImg)}">
+                                <img class="reco-list-img-real" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="계정사진">
+                            </th:block>
+                            <th:block th:unless="${#strings.isEmpty(recommend.profileImg)}">
+                                <img class="reco-list-img-real" th:src="@{/thumb/{img}(img=${recommend.profileImg})}" alt="계정사진">
+                            </th:block>
                         </span>
                     </div>
                     <div class="reco-id">
                         <div class="reco-id-1">
                             <div class="reco-id-2">
-                                <div class="reco-id-3">dlafjd</div>
+                                <div class="reco-id-3">[[${recommend.username}]]</div>
                             </div>
                         </div>
                         <div class="reco-name">
-                            <div class="reco-name-1">
-                                아무개</div>
+                            <div class="reco-name-1"></div>
                         </div>
                     </div>
                     <div class="reco-btn">
                         <input type="radio">
                     </div>
-                </div>-->
+                </th:block>*/-->
+                </div>
             </div>
         </div>
     </div>
