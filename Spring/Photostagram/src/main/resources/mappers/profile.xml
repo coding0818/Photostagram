@@ -75,6 +75,10 @@
         SELECT COUNT(*) FROM `follow` WHERE `follower`=#{follower} AND `following`=#{following};
     </select>
 
+    <select id="searchUserName" resultType="int">
+        SELECT COUNT(*) FROM `user` WHERE `username`=#{username};
+    </select>
+
     <update id="updateMember">
         UPDATE `user` SET
             `username` = #{username},
@@ -104,6 +108,7 @@
             WHERE `no`=#{no};
     </update>
 
+    <!-- ver.1
     <update id="deleteMember">
         UPDATE `user` SET
             `name` = 'NULL',
@@ -116,6 +121,12 @@
             `birth` = 'NULL'
             WHERE `no`=#{no};
     </update>
+    -->
+
+    <delete id="deleteMember">
+        DELETE FROM `user`
+            WHERE `no`=#{no};
+    </delete>
 
     <delete id="deleteFollow">
         DELETE FROM `follow`
@@ -150,6 +161,12 @@
             JOIN `post` AS b
             ON a.`post_no`=b.`no`
             WHERE b.`user_no`=#{no};
+        <!-- 내가 한 게시물 좋아요 삭제 -->
+        DELETE FROM `post_like`
+            WHERE `user_no`=#{no};
+        <!-- 내가 한 코멘트 좋아요 삭제 -->
+        DELETE FROM `comment_like`
+            WHERE `user_no`=#{no};
         <!-- 코멘트 좋아요 삭제 -->
         DELETE FROM `comment_like`
             WHERE `comment_no` IN (SELECT `no` FROM `comment` WHERE `user_no`=#{no});

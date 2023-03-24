@@ -2,6 +2,7 @@ package kr.co.photostagram.controller;
 
 import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
+import kr.co.photostagram.service.SearchService;
 import kr.co.photostagram.utils.JSFunction;
 import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.NoticeVO;
@@ -38,6 +39,9 @@ public class ProfileController {
 
     @Autowired
     private MainService mainService;
+
+    @Autowired
+    private SearchService searchService;
 
     @GetMapping(value = {"profile", "profile/index"})
     public String index(Principal principal, Model model, String username) {
@@ -193,7 +197,12 @@ public class ProfileController {
             vo.setGender(null);
         }
 
-        service.updateMember(vo);
+        if (service.searchUserName(vo.getUsername()) == 0){
+            service.updateMember(vo);
+        } else {
+            JSFunction.alertLocation(resp, "중복된 사용자 이름입니다. 다른 이름을 입력해주세요.", "/Photostagram/profile/modify");
+        }
+
         JSFunction.alertLocation(resp, "수정이 완료되었습니다.", "/Photostagram/profile/modify");
     }
 
@@ -364,11 +373,24 @@ public class ProfileController {
         String pass = service.selectMember(principal.getName()).getPassword();
 
         if(encoder.matches(password, pass)){
-            service.deleteMember(no);
             service.deleteMemberData(no);
+            service.deleteMember(no);
             JSFunction.alertLocation(resp, "성공적으로 탈퇴되었습니다.", "/Photostagram/member/logout");
         } else {
             JSFunction.alertBack(resp, "비밀번호를 다시 확인해주세요.");
+        }
+
+    }
+
+    @ResponseBody
+    @PostMapping("profile/followHashTag")
+    public void followHashTag (Principal principal, String type, int tagNo) {
+        int userNo = service.selectMember(principal.getName()).getNo();
+
+        if ("insert".equals(type)){
+            int result = searchService.insertHashFollow(tagNo, userNo);
+        } else {
+            int delete = searchService.deleteHashFollow(tagNo, userNo);
         }
 
     }

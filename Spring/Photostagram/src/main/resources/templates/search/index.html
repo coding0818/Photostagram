@@ -22,7 +22,14 @@
                             게시물<span>[[${countHashTag}]]</span>개
                         </li>
                     </ul>
-                    <!--<input type="button" class="followBtn" value="팔로우">-->
+                    <th:block th:if="${result} > 0">
+                        <input type="button" class="followBtn" value="팔로우" style="display: none;">
+                        <input type="button" class="unFollowBtn" value="팔로잉">
+                    </th:block>
+                    <th:block th:unless="${result} > 0">
+                        <input type="button" class="followBtn" value="팔로우">
+                        <input type="button" class="unFollowBtn" value="팔로잉" style="display: none;">
+                    </th:block>
                 </div>
             </div>
 
@@ -65,5 +72,13 @@
     </div>
 </th:block>
 </html>
+<script>
+$(function(){
+    $('.followBtn').on('click', function(e){
+        e.preventDefault();
+        alert('클릭');
+    });
+});
+</script>
 
 
