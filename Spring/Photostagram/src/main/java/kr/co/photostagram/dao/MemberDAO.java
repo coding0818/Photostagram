@@ -5,6 +5,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+/*
+    이름 : 김진우
+    날짜 : 2023/03/24
+    내용 : MemberDAO
+ */
+
 @Mapper
 @Repository
 public interface MemberDAO {

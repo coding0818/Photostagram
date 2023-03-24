@@ -14,6 +14,11 @@ import javax.mail.Message.RecipientType;
 import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
+/*
+    이름 : 김진우
+    날짜 : 2023/03/24
+    내용 : MemberService
+ */
 
 @Slf4j
 @Service
@@ -46,7 +51,6 @@ public class MemberService {
 
     public int changePass(String userName, String pass) {
         pass = encoder.encode(pass);
-//        System.out.println("pass = " + pass);
         return dao.changePass(userName, pass);
     }
 
