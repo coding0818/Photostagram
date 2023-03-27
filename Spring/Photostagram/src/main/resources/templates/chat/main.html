@@ -69,7 +69,12 @@
                             <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필사진">
                         </th:block>
                         <th:block th:unless="${#strings.isEmpty(room2.members[0].profileImg)}">
-                            <img th:src="@{/thumb/{img}(img=${room2.members[0].profileImg})}" alt="프로필사진">
+                            <th:block th:if="${room2.members[0].profileImg != user.profileImg}">
+                                <img th:src="@{/thumb/{img}(img=${room2.members[0].profileImg})}" alt="프로필사진">
+                            </th:block>
+                            <th:block th:unless="${room2.members[0].profileImg != user.profileImg}">
+                                <img th:src="@{/thumb/{img}(img=${room2.members[1].profileImg})}" alt="프로필사진">
+                            </th:block>
                         </th:block>
                         <div class="profile">
                             <p><span th:each="member:${room2.members}" th:if="${member.username != user.username}">[[${member.username}]]&nbsp;</span></p>

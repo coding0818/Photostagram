@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -39,6 +38,7 @@ public class IndexController {
         MemberVO user =  profileService.selectMember(principal.getName());
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
+        log.info("searchList....indexController : "+searchList);
 
         List<MemberVO> members = service.selectUser();
         List<MemberVO> followings = service.selectFollowing(user.getNo());

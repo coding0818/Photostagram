@@ -38,7 +38,7 @@
     </select>
     <!--검색(검색기록 삽입)-->
     <select id="selectSearchResult" resultType="int">
-        select count(`no`) from `searchList` where `cate`=#{cate} and `searchResult`=#{searchResult};
+        select count(`no`) from `searchList` where `user_no`=#{user_no} and `cate`=#{cate} and `searchResult`=#{searchResult};
     </select>
     <insert id="insertSearchItem">
         insert into `searchList` set
