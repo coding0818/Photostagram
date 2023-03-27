@@ -384,15 +384,19 @@ public class ProfileController {
 
     @ResponseBody
     @PostMapping("profile/followHashTag")
-    public void followHashTag (Principal principal, String type, int tagNo) {
+    public Map<String, Integer> followHashTag (Principal principal, @RequestParam("type") String type, @RequestParam("tagNo") int tagNo) {
         int userNo = service.selectMember(principal.getName()).getNo();
+        int result = 0;
 
         if ("insert".equals(type)){
-            int result = searchService.insertHashFollow(tagNo, userNo);
+            result = searchService.insertHashFollow(tagNo, userNo);
         } else {
-            int delete = searchService.deleteHashFollow(tagNo, userNo);
+            result = searchService.deleteHashFollow(tagNo, userNo);
         }
 
+        Map<String, Integer> map = new HashMap<>();
+        map.put("result", result);
+        return map;
     }
 
 
