@@ -207,7 +207,7 @@ public class ProfileController {
 
         int i = 0;
         for (MemberVO follow : followList){                             // 팔로워 수 만큼 반복
-            follow.setFollowResult(service.searchFollowing(myNo, follow.getNo()));
+            follow.setFollowResult(service.searchFollowing(myNo, service.selectMember(follow.getUsername()).getNo()));
             map.put(i, follow);
             System.out.println(i);
             System.out.println(follow);
@@ -223,19 +223,17 @@ public class ProfileController {
     /*** 팔로잉 해시태그 불러오기 ***/
     @ResponseBody
     @PostMapping("profile/tags")
-    public Map<Integer, HashTagVO> tags (Principal principal, String username, int pg) {
+    public Map<Integer, HashTagVO> tags (Principal principal, String username) {
 
 
         /*** 프로필 페이지 사용자 ***/
         MemberVO member =  service.selectMember(username);
         int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
         int myNo = service.selectMember(principal.getName()).getNo();
-        pg = 12 * pg;
         log.info("pageNo : " + pageNo);
-        log.info("pg : "+ pg);
 
         Map<Integer, HashTagVO> map = new HashMap<>();                             // 맵 생성
-        List<HashTagVO> followList = service.selectFollowTags(pageNo, pg);
+        List<HashTagVO> followList = service.selectFollowTags(pageNo, 0);
 
         int i=0;
         for (HashTagVO follow : followList) {
