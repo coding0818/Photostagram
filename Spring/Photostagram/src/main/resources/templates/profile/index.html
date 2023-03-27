@@ -152,7 +152,7 @@
                         팔로워
                         <span class="closeFollow">&times;</span>
                     </div>
-                    <ul class="fList">
+                    <ul class="fList" th:data-value="follower">
                         <th:block th:each="map:${followerMap}">
                             <th:block th:each="follower,index:${map.key}">
                             <li>
@@ -221,7 +221,7 @@
                             해시태그
                         </div>
                     </div>
-                    <ul class="fList">
+                    <ul class="fList" th:data-value="following">
                         <th:block th:each="map:${followingMap}">
                             <th:block th:each="following,index:${map.key}">
                                 <li>
@@ -447,6 +447,154 @@
 </script>
 <script th:inline="javascript">
 /*<![CDATA[*/
+    let pageUser = [[${username}]];
+    const pop = $('.fList');
+    var i = 1;
+
+    const userBtn = $('#followUser');
+    const tagBtn = $('#followTag');
+
+    userBtn.on('click', function(e){
+        e.preventDefault();
+        var tag = $(this);
+        var type = tag.attr('data-value');
+
+        $.ajax({
+            url: '/Photostagram/profile/follower',
+            type: 'post',
+            async: false,
+            data: {'pg':0, 'username':pageUser, type:'type'},
+            dataType: 'json',
+            success: function(data){
+                if (Object.keys(data).length != 0) {
+                    i++;
+                    console.log ('성공!');
+                    for (i=0; i<Object.keys(data).length; i++) {
+                        let
+                    }
+                }
+            }
+        });
+    });
+
+    tagBtn.on('click', function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '/Photostagram/profile/tags',
+            type: 'post',
+            async: false,
+            data: {'pg':i, 'username':pageUser},
+            dataType: 'json',
+            success: function(data){
+                if (Object.keys(data).length != 0) {
+                    i++;
+                    console.log ('성공!');
+                    for (i=0; i<Object.keys(data).length; i++) {
+                        let name = data[i].hashtag;
+                        let result = data[i].followResult;
+                        let tags='';
+
+                        if (result = 0) {
+                            tags = `<a href="#">
+                                     <div>
+                                        <img src="/Photostagram/thumb/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                                     </div>
+                                     <h1>${name}</h1>
+                                    </a>
+                                    <a href="#" class="aFloatRight" data-value="${name}">
+                                        <span>팔로우</span>
+                                        <span class="spinner"></span>
+                                    </a>
+                                    <a href="#" class="aFloatRight" data-value="${name}" style="display:none;">
+                                        <span>팔로잉</span>
+                                        <span class="spinner"></span>
+                                    </a>`
+                        } else {
+                            tags= `<a href="#">
+                                     <div>
+                                        <img src="/Photostagram/thumb/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                                     </div>
+                                     <h1>${name}</h1>
+                                    </a>
+                                    <a href="#" class="aFloatRight" data-value="${name}" style="display:none;">
+                                        <span>팔로우</span>
+                                        <span class="spinner"></span>
+                                    </a>
+                                    <a href="#" class="aFloatRight" data-value="${name}">
+                                        <span>팔로잉</span>
+                                        <span class="spinner"></span>
+                                    </a>`
+                        }
+
+                        tag.append(tags);
+                    }
+                }
+            }
+        });
+    });
+
+        pop.scroll(function(){
+            var tag = $(this);
+            var type = tag.attr('data-value');
+            var top = tag.scrollTop();
+            console.log(top);
+            console.log(type);
+
+            if (top > 280 * i){
+                console.log('데이터 불러오기');
+                console.log('i : ' + i);
+
+                console.log('here1');
+
+                if (type == 'hash'){
+                    $.ajax({
+                        url: '/Photostagram/profile/tags',
+                        type: 'post',
+                        async: false,
+                        data: {'pg':i, 'username':pageUser},
+                        dataType: 'json',
+                        success: function(data){
+                            if (Object.keys(data).length != 0) {
+                                i++;
+                                console.log ('성공!');
+                                for (i=0; i<Object.keys(data).length; i++) {
+                                    //let
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: '/Photostagram/profile/followers',
+                        type: 'post',
+                        async: false,
+                        data: {'pg':i, 'username':pageUser, 'type':type},
+                        dataType: 'json',
+                        success: function(data){
+                            console.log('here2');
+                            if (Object.keys(data).length != 0){
+                                i++;
+                                console.log('here3');
+                                console.log ('성공!');
+
+                                for (i=0; i<Object.keys(data).length; i++) {
+                                    //let
+                                }
+
+                            }
+
+                        }
+                    });
+                }
+            }
+
+        });
+
+/*]]*/
+</script>
+<!--
+<script th:inline="javascript">
+/*<![CDATA[*/
     $('#chatStart').on('click', function(e){
         e.preventDefault();
 
@@ -477,6 +625,7 @@
     });
 /*]]*/
 </script>
+-->
 <!--
 <script th:inline="javascript">
 /*<![CDATA[*/

@@ -52,13 +52,22 @@
         SELECT * FROM `follow` AS a
             JOIN `user` AS b
             ON a.`follower` = b.`no`
-            WHERE `following`=#{no};
+            WHERE `following`=#{pageNo}
+            LIMIT #{pg}, 12 ;
     </select>
     <select id="selectFollowings" resultType="kr.co.photostagram.vo.MemberVO">
         SELECT * FROM `follow` AS a
             JOIN `user` AS b
             ON a.`following` = b.`no`
-            WHERE `follower`=#{no};
+            WHERE `follower`=#{pageNo}
+            LIMIT #{pg}, 12 ;
+    </select>
+    <select id="selectFollowTags" resultType="kr.co.photostagram.vo.HashTagVO">
+        SELECT * FROM `follow_hashtag` AS a
+            JOIN `hashtag` AS b
+            ON a.`tag_no` = b.`no`
+            WHERE `user_no`=#{pageNo}
+            LIMIT #{pg}, 12 ;
     </select>
 
     <select id="selectCountPost" resultType="int">
@@ -73,6 +82,10 @@
 
     <select id="searchFollowing" resultType="int">
         SELECT COUNT(*) FROM `follow` WHERE `follower`=#{follower} AND `following`=#{following};
+    </select>
+
+    <select id="searchFollowingTag" resultType="int">
+        SELECT COUNT(*) FROM `follow_hashtag' WHERE `user_no`=#{pageNo} AND `tag_no`=#{tagNo};
     </select>
 
     <select id="searchUserName" resultType="int">

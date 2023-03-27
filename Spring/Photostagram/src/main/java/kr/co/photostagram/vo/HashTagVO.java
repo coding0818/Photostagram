@@ -15,4 +15,7 @@ public class HashTagVO {
 
     // 해시태그_포스트 개수
     private int countPost;
+
+    // 팔로우 여부
+    private int followResult;
 }
