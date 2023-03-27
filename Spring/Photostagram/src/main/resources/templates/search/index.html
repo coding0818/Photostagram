@@ -76,7 +76,18 @@
 $(function(){
     $('.followBtn').on('click', function(e){
         e.preventDefault();
-        alert('클릭');
+
+        let location = window.location.href;
+        console.log(location);
+
+        const url = new URL(location);
+        const urlParams = url.searchParams;
+        console.log(url);
+        console.log(urlParams.get('no'));
+
+        let no = urlParams.get('no');
+
+
     });
 });
 </script>
