@@ -22,10 +22,6 @@ public class BoardVO {
     private List<MultipartFile> files;
 
 
-    private int commentCount;
-    private Post_likeVO post_likeVO;
-    private ImageVO imageVO;
-    private MemberVO memberVO;
 
     private String username;
 
