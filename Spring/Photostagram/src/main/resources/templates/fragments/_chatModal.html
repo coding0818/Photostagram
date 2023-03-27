@@ -109,6 +109,43 @@
                 }
             });
 
+            $('input[name=userCheck]').click(function(){
+
+                //alert('here1');
+
+                let div = $(this).parent('div');
+                let userCheck  = div.children('input[name=userCheck]');
+
+                let length = $('input:checkbox[name=userCheck]:checked').length;
+                console.log('here1 : '+length);
+
+                let username = div.attr('data-username');
+                let no = div.attr('data-no');
+
+                if(userCheck.is(':checked')){
+                    console.log('checked!');
+                    $('.sendingUser').append('<h5 class='+username+' data-num='+no+'>'+username+'&nbsp;&nbsp;</h5>');
+                    $('.new-body2-1').val('');
+
+                    if($('.sendingUser').children().length > 0){
+                        $('.btn-next').attr("disabled", false);
+                        $('.btn-next').css("color", "#0000ff");
+                    }
+                }else{
+                    console.log('not checked!');
+                    $('.'+username+'').remove();
+                    $('.new-body2-1').val('');
+
+                    console.log('h5 length : '+$('h5').length);
+
+                    if($('.sendingUser').children().length == 0){
+                        $('.btn-next').attr("disabled", true);
+                        $('.btn-next').css("color", "#4db5f9");
+                    }
+                }
+
+            });
+
             $('.btn-next').on('click', function(){
                 var checkBoxArr = [];
 
@@ -193,7 +230,7 @@
                             <div class="reco-name-1"></div>
                         </div>
                     </div>
-                    <div class="reco-btn">
+                    <div class="reco-btn" th:data-username="${recommend.username}" th:data-no="${recommend.user}">
                         <input type='checkbox' name='userCheck'>
                     </div>
                 </div>
