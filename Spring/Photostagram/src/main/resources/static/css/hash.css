@@ -89,6 +89,16 @@ input, textarea {outline: none;}
     text-align: center;
 }
 
+.unFollowBtn {
+    width: 728px;
+    height: 30px;
+    border-radius: 4px;
+    font-weight: bold;
+    background: #e9e9e9;
+    border: 0;
+    text-align: center;
+}
+
 /* #hash > section > .myProfile > .detail > .pAbout > .notice {font-size: 15px;} */
 
 #hash > section > .myNav {

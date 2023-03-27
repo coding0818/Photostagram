@@ -41,4 +41,8 @@ public class SearchService {
     public List<PostVO> selectPostsByLike(int no){
         return dao.selectPostsByLike(no);
     }
+
+    public int searchHashFollow(int tagNo, int userNo) {return dao.searchHashFollow(tagNo, userNo);}
+    public int insertHashFollow(int tagNo, int userNo) {return dao.insertHashFollow(tagNo, userNo);}
+    public int deleteHashFollow(int tagNo, int userNo) {return dao.deleteHashFollow(tagNo, userNo);}
 }

@@ -43,4 +43,25 @@
     <select id="selectHashTagName" resultType="string">
         select `hashtag` from `hashtag` where `no`=#{no};
     </select>
+
+
+    <!-- 검색 결과의 해시태그 팔로우 여부 체크 -->
+    <select id="searchHashFollow" resultType="int">
+        SELECT COUNT(*) FROM `follow_hashtag`
+            WHERE `tag_no`=#{tagNo}
+            AND `user_no`=#{userNo};
+    </select>
+
+    <insert id="insertHashFollow">
+        INSERT INTO `follow_hashtag`
+            SET `tag_no`=#{tagNo},
+            `user_no`=#{userNo};
+    </insert>
+
+    <delete id="deleteHashFollow">
+        DELETE FROM `follow_hashtag`
+            WHERE `tag_no`=#{tagNo}
+            AND `user_no`=#{userNo};
+    </delete>
+
 </mapper>

@@ -74,6 +74,10 @@ ul{
     box-sizing: border-box;
     /* unordered list 기본 스타일 제거(점, 들여쓰기) */
 }
+
+.chatMember > img{
+    border-radius: 50%;
+}
 /* 제목(h2와 p) 사이즈 재정의 */
 .profile-title > *{
     font-size: 0.75rem; /* 16px 브라우저 기준 12px 의미*/

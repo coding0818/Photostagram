@@ -26,6 +26,7 @@ public interface ProfileDAO {
     public MemberVO selectMember(String username);
     public void selectMembers();
     public int updateMember(MemberVO vo);
+    public int searchUserName(String username);
     public int deleteMember(int no);
     public int deleteMemberData(int no);
 

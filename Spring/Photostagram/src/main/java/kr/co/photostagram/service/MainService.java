@@ -163,8 +163,10 @@ public class MainService {
         return  result;
     }
 
+    @Transactional
     public List<SearchListVO> selectSearchItemRecent(int user_no){
         List<SearchListVO> searchList = dao.selectSearchItemRecentUser(user_no);
+        log.info("searchList...MainService : "+searchList);
         for(SearchListVO sl : searchList){
             if(sl.getCate() == 2){
                 // 검색 항목이 hashtag일 때
@@ -177,7 +179,9 @@ public class MainService {
 
     @Transactional
     public int insertSearchResult(SearchListVO vo){
-        int countResult = dao.selectSearchResult(vo.getCate(),vo.getSearchResult());
+        int countResult = dao.selectSearchResult(vo.getUser_no(), vo.getCate(),vo.getSearchResult());
+        log.info("searchList vo : "+vo);
+        log.info("countResult : "+countResult);
         if(countResult > 0){
             return 0;
         }else{

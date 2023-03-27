@@ -207,7 +207,7 @@
         <div class="sidesearch">
             <div>
                 <h2>검색</h2>
-                <input type="text" name="search" id="searchAll" placeholder="검색"></input>
+                <input type="text" name="search" id="searchAll" placeholder="검색"/>
                 <input type="hidden" name="user_no" th:value="${user.no}"/>
                 <button id="searchBtn"><img th:src="@{/img/search.png}" alt=""></button>
             </div>
@@ -245,7 +245,7 @@
                             </a>
                             <div th:data-searchNo="${list.no}">
                                 <button class="searchDelete">
-                                    <img src="./img/aside_x.PNG" alt="">
+                                    <img th:src="@{/img/aside_x.PNG}" alt="">
                                 </button>
                             </div>
                         </div>
@@ -268,7 +268,7 @@
                             </a>
                             <div th:data-searchNo="${list.no}">
                                 <button class="searchDelete">
-                                    <img src="./img/aside_x.PNG" alt="">
+                                    <img th:src="@{/img/aside_x.PNG}" alt="">
                                 </button>
                             </div>
                         </div>
