@@ -22,7 +22,7 @@ public interface MainDAO {
     public List<MemberVO> selectUser(String searchItem);
     public int insertSearchItem(SearchListVO vo);
     public int selectCountHashTag(int hashtag_no);
-    public int selectSearchResult(@Param("cate") int cate, @Param("searchResult") int searchResult);
+    public int selectSearchResult(@Param("user_no") int user_no, @Param("cate") int cate, @Param("searchResult") int searchResult);
     public List<SearchListVO> selectSearchItemRecentUser(int user_no);
     public int deleteSearch(int no);
     public int deleteSearchAll(int user_no);

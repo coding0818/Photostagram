@@ -22,6 +22,7 @@
                             if(users.length == 0){
                                 alert('사용자 없음');
                             }else{
+                                $('.reco-list-main').hide();
                                 $('.recommend').hide();
                                 users.forEach(function(user){
                                     let member = "<div class='reco-list-main'>";
@@ -170,9 +171,8 @@
                 <div class="recommend-1">추천</div>
             </div>
             <div class="reco-list-wrap" aria-disabled="false" role="button" tabindex="0">
-            <div class="reco-list-main">
-                <!--/*
                 <th:block th:if="${not #lists.isEmpty(recommends)}" th:each="recommend:${recommends}">
+                <div class="reco-list-main">
                     <div class="reco-list-img">
                         <span class="reco-list-img-1">
                             <th:block th:if="${#strings.isEmpty(recommend.profileImg)}">
@@ -194,10 +194,10 @@
                         </div>
                     </div>
                     <div class="reco-btn">
-                        <input type="radio">
+                        <input type='checkbox' name='userCheck'>
                     </div>
-                </th:block>*/-->
                 </div>
+                </th:block>
             </div>
         </div>
     </div>
