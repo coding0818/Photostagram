@@ -4,10 +4,7 @@ import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.service.SearchService;
 import kr.co.photostagram.utils.JSFunction;
-import kr.co.photostagram.vo.MemberVO;
-import kr.co.photostagram.vo.NoticeVO;
-import kr.co.photostagram.vo.PostVO;
-import kr.co.photostagram.vo.SearchListVO;
+import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -76,8 +73,8 @@ public class ProfileController {
         int myFollower = service.selectCountFollower(pageNo);       // 팔로워 수
         int myFollowing = service.selectCountFollowing(pageNo);     // 팔로잉 하는 수
 
-        List<MemberVO> myFollowers = service.selectFollowers(pageNo);   // 팔로워 목록
-        List<MemberVO> myFollowings = service.selectFollowings(pageNo); // 팔로잉 목록
+        List<MemberVO> myFollowers = service.selectFollowers(pageNo, 0);   // 팔로워 목록
+        List<MemberVO> myFollowings = service.selectFollowings(pageNo, 0); // 팔로잉 목록
 
         /*** 팔로잉 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
         int[] followingArray = new int [myFollowings.size()];
@@ -174,6 +171,84 @@ public class ProfileController {
 
         /*** 게시물 최신 순으로 정렬 ***/
         Map<Integer, PostVO> data = new TreeMap<>(map);    // 게시물 번호(key) 기준으로 정렬
+
+        return data;
+    }
+
+    /*** 팔로잉 유저 불러오기 ***/
+    @ResponseBody
+    @PostMapping("profile/followers")
+    public Map<Integer, MemberVO> followers (Principal principal, String username, int pg, String type){
+
+        log.info("followers start...");
+
+        /*** 프로필 페이지 사용자 ***/
+        MemberVO member =  service.selectMember(username);
+        int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
+        int myNo = service.selectMember(principal.getName()).getNo();   // 로그인 사용자 번호
+        pg = 12 * pg;
+        log.info("pageNo : " + pageNo);
+        log.info("pg : "+ pg);
+        log.info("type : "+ type);
+
+        Map<Integer, MemberVO> map = new HashMap<>();                            // 맵 생성
+        List<MemberVO> followList = null;                                        // 리스트 선언
+
+        /*** 팔로우 리스트 ***/
+        if ("follower".equals(type)){
+            followList = service.selectFollowers(pageNo, pg);             // 팔로워 리스트
+            log.info("here1");
+        } else {
+            followList = service.selectFollowings(pageNo, pg);            // 팔로잉 리스트
+            log.info("here2");
+        }
+
+        //System.out.println(followList);
+
+        int i = 0;
+        for (MemberVO follow : followList){                             // 팔로워 수 만큼 반복
+            follow.setFollowResult(service.searchFollowing(myNo, follow.getNo()));
+            map.put(i, follow);
+            System.out.println(i);
+            System.out.println(follow);
+            i++;
+        }
+
+        /*** 게시물 최신 순으로 정렬 ***/
+        Map<Integer, MemberVO> data = new TreeMap<>(map);    // 게시물 번호(key) 기준으로 정렬
+
+        return data;
+    }
+    
+    /*** 팔로잉 해시태그 불러오기 ***/
+    @ResponseBody
+    @PostMapping("profile/tags")
+    public Map<Integer, HashTagVO> tags (Principal principal, String username, int pg) {
+
+
+        /*** 프로필 페이지 사용자 ***/
+        MemberVO member =  service.selectMember(username);
+        int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
+        int myNo = service.selectMember(principal.getName()).getNo();
+        pg = 12 * pg;
+        log.info("pageNo : " + pageNo);
+        log.info("pg : "+ pg);
+
+        Map<Integer, HashTagVO> map = new HashMap<>();                             // 맵 생성
+        List<HashTagVO> followList = service.selectFollowTags(pageNo, pg);
+
+        int i=0;
+        for (HashTagVO follow : followList) {
+            if (pageNo == myNo) {
+                follow.setFollowResult(1);
+                map.put(i, follow); i++;
+            } else {
+                follow.setFollowResult(service.searchFollowingTag(pageNo, follow.getNo()));
+                map.put(i, follow); i++;
+            }
+        }
+
+        Map<Integer, HashTagVO> data = new TreeMap<>(map);
 
         return data;
     }
@@ -382,6 +457,7 @@ public class ProfileController {
 
     }
 
+    /*** 해시태그 팔로우 요청 처리 ***/
     @ResponseBody
     @PostMapping("profile/followHashTag")
     public Map<String, Integer> followHashTag (Principal principal, @RequestParam("type") String type, @RequestParam("tagNo") int tagNo) {
