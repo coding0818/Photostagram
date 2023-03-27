@@ -21,21 +21,24 @@ public class BoardController {
     private BoardService service;
     @GetMapping("board/post")
     public String post(Principal principal, Model model, int no) {
-        /*** 사용자, 프로필 페이지 사용자 ***/
-        String myName = principal.getName();
-        log.info("myName : " + myName);
+
 
         /*** 게시물 작성자 ***/
 
-        /*** 게시자 아이디 ***/
-        MemberVO user = service.selectMember(myName);
-
-
-
+        //BoardVO user = service.selectMember(myName);
+        //log.info("user : " + user);
 
         /*** 게시물 내용 ***/
         BoardVO post = service.selectPost(no);
         log.info("post : " + post);
+
+        /*** 게시자 아이디, 프로필 ***/
+        BoardVO user = BoardVO.builder()
+                .username(post.getUsername())
+                .profileImg(post.getProfileImg())
+                .build();
+
+
 
         /*** 해쉬태그 ***/
         List<Board1VO> hashes = service.selectPostHashTag(no);
@@ -59,9 +62,6 @@ public class BoardController {
 
         /*** 댓글 작성 시간 ***/
         List<NoticeVO> noticesTime = service.selectNoticesTime(no);
-
-
-
 
         model.addAttribute("user", user);
         model.addAttribute("post", post);

@@ -2,7 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.photostagram.dao.BoardDAO">
 
-    <select id="selectMember" resultType="kr.co.photostagram.vo.MemberVO">
+    <select id="selectMember" resultType="kr.co.photostagram.vo.BoardVO">
+        <!--SELECT
+        a.*,
+        b.username,
+        b.profileImg
+        FROM `post` AS a
+        JOIN `user` AS b ON a.user_no = b.`no`
+        WHERE a.`no`=#{no};
+        -->
         SELECT * FROM `user` WHERE `username`=#{username};
     </select>
 
@@ -137,6 +145,8 @@
     <select id="selectContentLikeTime" resultType="kr.co.photostagram.vo.PostVO">
         SELECT * FROM `post` WHERE `no`=#{no};
     </select>
+
+
 
 
 </mapper>

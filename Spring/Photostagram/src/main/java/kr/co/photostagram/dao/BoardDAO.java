@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface BoardDAO {
-   public MemberVO selectMember(String username);
+   public BoardVO selectMember(String username);
    public BoardVO selectPost(int no);
    public BoardVO selectContent(int no);
    public List<Board1VO> selectPostHashTag(int no);
