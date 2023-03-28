@@ -156,7 +156,9 @@
           let btn = $('.userSelect');
           let close = $('.pClose');
 
-          btn.click(function(e){
+
+          $(document).on("click",".userSelect",function(e){
+          //btn.click(function(e){
             modal.show();
             let tag = $(this);
             let userName = tag.attr('data-value');
@@ -221,7 +223,9 @@
           let btn = $('.userFollowing');
           let close = $('.pClose');
 
-          btn.click(function(e){
+
+          $(document).on("click",".userFollowing",function(e){
+            e.preventDefault();
             modal.show();
             let tag = $(this);
             let userName = tag.attr('data-value');
@@ -270,6 +274,7 @@
           }
 
           close.click (function(e){
+            e.preventDefault();
             modal.hide();
           });
 
@@ -284,10 +289,12 @@
         let close = $('.pClose');
 
         btn.click(function(e){
+            e.preventDefault();
             modal.show();
         });
 
         close.click (function(e){
+            e.preventDefault();
             modal.hide();
         });
 

@@ -57,12 +57,16 @@ public class ProfileService {
     public int selectCountPost(int no) {return dao.selectCountPost(no);}
     public int selectCountFollower(int no) {return dao.selectCountFollower(no);}
     public int selectCountFollowing(int no) {return dao.selectCountFollowing(no);}
+    public int selectCountFollowingTags(int no) {return dao.selectCountFollowingTags(no);}
 
 
     /*** 팔로워, 팔로잉 ***/
 
     public int insertFollowing(int follower, int following) {return dao.insertFollow(follower, following);}
     public int deleteFollowing(int follower, int following) {return dao.deleteFollow(follower, following);}
+
+    public int insertTagFollow (int no, int userNo) {return dao.insertTagFollow(no, userNo);}
+    public int deleteTagFollow (int no, int userNo) {return dao.deleteTagFollow(no, userNo);}
 
     public int searchFollowing(int follower, int following) {return dao.searchFollowing(follower, following);}
 
