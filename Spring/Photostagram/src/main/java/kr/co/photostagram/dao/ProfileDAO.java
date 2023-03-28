@@ -47,6 +47,7 @@ public interface ProfileDAO {
     public int selectCountPost(int no);
     public int selectCountFollower(int no);
     public int selectCountFollowing(int no);
+    public int selectCountFollowingTags(int no);
 
 
     /*** 팔로워, 팔로잉 ***/
@@ -54,8 +55,10 @@ public interface ProfileDAO {
     public int insertFollow (@Param("follower") int follower, @Param("following") int following);
     public int deleteFollow (@Param("follower") int follower, @Param("following") int following);
 
-    public int searchFollowing (@Param("follower") int follower, @Param("following") int following);
+    public int insertTagFollow (@Param("no") int no, @Param("userNo") int userNo);
+    public int deleteTagFollow (@Param("no") int no, @Param("userNo") int userNo);
 
+    public int searchFollowing (@Param("follower") int follower, @Param("following") int following);
     public int searchFollowingTag (@Param("pageNo") int pageNo, @Param("tagNo") int tagNo);
 
     /*** 프로필 사진 업로드 ***/
