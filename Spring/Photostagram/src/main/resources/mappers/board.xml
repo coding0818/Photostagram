@@ -146,6 +146,13 @@
         SELECT * FROM `post` WHERE `no`=#{no};
     </select>
 
+    <insert id="insertComment">
+        insert into `comment` set
+            `comment`=#{comment},
+            `post_no`=#{post_no},
+            `user_no`=#{user_no},
+            `rdate`=NOW();
+    </insert>
 
 
 
