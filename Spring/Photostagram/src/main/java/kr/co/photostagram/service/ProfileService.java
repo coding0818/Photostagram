@@ -1,6 +1,7 @@
 package kr.co.photostagram.service;
 
 import kr.co.photostagram.dao.ProfileDAO;
+import kr.co.photostagram.vo.HashTagVO;
 import kr.co.photostagram.vo.ImageVO;
 import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
@@ -47,14 +48,16 @@ public class ProfileService {
 
     public PostVO selectThumb(int pageNo, int postNo) {return dao.selectThumb(pageNo, postNo);}
 
-    public List<MemberVO> selectFollowers(int no) {return dao.selectFollowers(no);}
-    public List<MemberVO> selectFollowings(int no) {return dao.selectFollowings(no);}
+    public List<MemberVO> selectFollowers(int pageNo, int pg) {return dao.selectFollowers(pageNo, pg);}
+    public List<MemberVO> selectFollowings(int pageNo, int pg) {return dao.selectFollowings(pageNo, pg);}
+    public List<HashTagVO> selectFollowTags(int pageNo, int pg) {return dao.selectFollowTags(pageNo, pg);}
 
     /*** 게시물, 팔로워, 팔로잉 카운트 ***/
 
     public int selectCountPost(int no) {return dao.selectCountPost(no);}
     public int selectCountFollower(int no) {return dao.selectCountFollower(no);}
     public int selectCountFollowing(int no) {return dao.selectCountFollowing(no);}
+    public int selectCountFollowingTags(int no) {return dao.selectCountFollowingTags(no);}
 
 
     /*** 팔로워, 팔로잉 ***/
@@ -62,8 +65,12 @@ public class ProfileService {
     public int insertFollowing(int follower, int following) {return dao.insertFollow(follower, following);}
     public int deleteFollowing(int follower, int following) {return dao.deleteFollow(follower, following);}
 
+    public int insertTagFollow (int no, int userNo) {return dao.insertTagFollow(no, userNo);}
+    public int deleteTagFollow (int no, int userNo) {return dao.deleteTagFollow(no, userNo);}
+
     public int searchFollowing(int follower, int following) {return dao.searchFollowing(follower, following);}
 
+    public int searchFollowingTag(int pageNo, int tagNo) {return dao.searchFollowingTag(pageNo, tagNo);}
 
     @Value("${spring.servlet.multipart.location}")
     private String uploadPath;

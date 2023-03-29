@@ -3,79 +3,76 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/profileLayout}">
 <th:block layout:fragment="main">
-    <script>
-        var str = document.getElementById("text");
-		str.innerHTML = "아직 댓글이 없습니다.";
-		str.innerHTML = "댓글을 남겨보세요.";
-    </script>
     <script th:inline="javascript">
-            let now = new Date();
+        $(function(){
 
-            // 현재시간
-            let year = now.getFullYear();
-            let month = now.getMonth();
-            let day = now.getDate();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
+           $('#btnComment').click(function(e){
+                e.preventDefault();
+                //alert('click!!!');
 
-            $(function(){
-               // 비교시간
-                let noticesTime = [[${noticesTime}]];
+                var comment = $("#comment").val();
+                var user_no = [[${user.user_no}]];
+                var post_no = [[${post.no}]];
+                var username = [[${user.username}]];
+                var profileImg = [[${user.profileImg}]];
 
-                let h = 0;
-                noticesTime.forEach(function(noticesTime, post){
-                    let rdate = noticesTime.rdate;
-                    console.log("rdate : "+rdate);
-                    rdate = rdate.split(" ");
+                var jsonData = {
+                    "comment": comment,
+                    "user_no": user_no,
+                    "post_no": post_no
+                };
 
-                    let date = rdate[0].split("-");
-                    let sttYear = date[0];
-                    let sttMonth = date[1];
-                    sttMonth = parseInt(sttMonth)-1;
-                    let sttDay = date[2];
-                    console.log('sttYear : '+sttYear);
-                    console.log('sttMonth : '+sttMonth);
-                    console.log('sttDay : '+sttDay);
+                console.log('jsonData : ' + JSON.stringify(jsonData));
 
-                    let time = rdate[1].split(":");
-                    let sttHours = time[0];
-                    let sttMinutes = time[1];
-                    console.log("sttHours : "+sttHours);
-                    console.log("sttMinutes : "+sttMinutes);
+                $.ajax({
+                    url : '/Photostagram/BoardComment',
+                    method : 'POST',
+                    data : jsonData,
+                    dataType : 'JSON',
+                    success : function(data){
+                        console.log('success data : ' + JSON.stringify(data));
 
-                    let calDate1 = new Date(year, month, day, hours, minutes);
-                    let calDate2 = new Date(sttYear, sttMonth, sttDay, sttHours, sttMinutes);
+                        if(data.result > 0){
+                            console.log('username : ' + username);
+                            console.log('profileImg : ' + profileImg);
 
-                    console.log("Date1 : "+calDate1);
-                    console.log("Date2 : "+calDate2);
+                            let BoardComment = "<li id='text'>";
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
+                            BoardComment += "<>;
 
-                    let MSec = calDate1.getTime() - calDate2.getTime();
-                    let Min = MSec / 1000 / 60;
-                    Min = parseInt(Min);
-                    let h = Min / 60;
-                    h = Math.round(h);
-                    console.log("h : "+h);
-                    if(h == 24){
-                        $('.comment-time')[index].append('1일');
-                        return;
-                    }else if(h < 24){
-                        $('.comment-time')[index].append(h+'시간');
-                        return;
-                    }else{
-                        h = Math.floor(h / 24);
-                        if(h < 7){
-                            $('.comment-time')[index].append(h+'일');
-                            return;
+
+
+                            $(#text).append(BoardComment);
+
+
                         }else{
-                            h = Math.floor(h / 7);
-                            $('.comment-time')[index].append(h+'주');
+                            alert("실패");
+
+
                         }
                     }
                 });
-
-
             });
-        </script>
+
+
+
+        });
+    </script>
     <div id="wrapper">
         <article id="post">
             <section class="picture" >
@@ -90,7 +87,7 @@
             <section class="contents">
                 <nav>
                     <div id="profile">
-                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
+                        <img th:src="|@{/}thumb/${user.profileImg}"  alt="profile">
                         <p class="postTop">
                             <span id="nick">[[${user.username}]]</span>
                             <span>·</span>
@@ -102,7 +99,7 @@
                 </nav>
                 <ul>
                     <li>
-                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
+                        <img class="proImg" th:src="|@{/}thumb/${user.profileImg}"  alt="profile">
                         <div class="reply">
                             <h1><span>[[${user.username}]]</span>[[${post.content}]]</h1>
                             <th:block th:each="hash:${hashes}">
@@ -126,7 +123,6 @@
                                 <span class="favorite" th:if="${commentVo.like_count > 0}">좋아요 <span>[[${commentVo.like_count}]]</span>개</span>&nbsp;&nbsp;<a href="#">답글달기</a>
                             </div>
                         </div>
-
                         <a href="#" id="reHeart" class="reWhite">좋아요</a>
                         <div class="showReply">
                             <a href="#" class="reOpen" th:if="${commentVo.parent > 0}">ㅡ 답글보기</a>
@@ -236,8 +232,8 @@
 
                     <div>
                         <a href="#"><i class="fa-regular fa-face-smile fa-2x"></i></a>
-                        <textarea name="" id=""></textarea>
-                        <a href="#">게시</a>
+                        <textarea name="comment" id="comment"></textarea>
+                        <a href="#" id="btnComment">게시</a>
                     </div>
                 </div>
             </section>

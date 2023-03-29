@@ -1,7 +1,7 @@
 $(function(){
 
-        /*** 팔로워 ***/
-        $('.userFollow').click(function(e){
+        /*** 팔로우 ***/
+        $(document).on("click",".userFollow",function(e){
             e.preventDefault();
             let tag = $(this);
 
@@ -28,7 +28,66 @@ $(function(){
             }, 1000);
 
         });
-        
+
+        $(document).on("click",".tagFollow",function(e){
+            e.preventDefault();
+            console.log ('here1');
+            let tag = $(this);
+
+            tag.children('.spinner').show();
+            console.log ('here2');
+
+            let tagId = $(this).attr('data-value');
+
+            setTimeout(function(){
+            console.log ('here3');
+                $.ajax({
+                    url: '/Photostagram/profile/tagFollow',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {'no':tagId, 'type':'insert'},
+                    success: function(data){
+                    console.log ('here4');
+                        if(data.result > 0){
+                        console.log ('here5');
+                            tag.parent().children('.tagFollow').hide();
+                            tag.children('.spinner').hide();
+                            tag.parent().children('.tagFollowing').show();
+                        }
+                    }
+                });
+            }, 1000);
+        });
+
+        $(document).on("click",".tagFollowing",function(e){
+            e.preventDefault();
+            console.log ('here1');
+            let tag = $(this);
+
+            tag.children('.spinner').show();
+
+            let tagId = $(this).attr('data-value');
+            console.log ('here2');
+
+            setTimeout(function(){
+            console.log ('here3');
+                $.ajax({
+                    url: '/Photostagram/profile/tagFollow',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {'no':tagId, 'type':'delete'},
+                    success: function(data){
+                    console.log ('here4');
+                        if(data.result > 0){
+                        console.log ('here5');
+                            tag.parent().children('.tagFollowing').hide();
+                            tag.children('.spinner').hide();
+                            tag.parent().children('.tagFollow').show();
+                        }
+                    }
+                });
+            }, 1000);
+        });
 
         /*** 팔로잉 ***/
         /*

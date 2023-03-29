@@ -19,7 +19,7 @@ public class BoardService {
     @Autowired
     private BoardDAO dao;
 
-    public MemberVO selectMember(String username){return dao.selectMember(username);}
+    public BoardVO selectMember(String username){return dao.selectMember(username);}
 
     public BoardVO selectPost(int no) {return dao.selectPost(no);}
     public BoardVO selectContent(int no) {return dao.selectContent(no);}
@@ -30,6 +30,9 @@ public class BoardService {
     public List<NoticeVO> selectNoticesTime(int no) {return dao.selectNoticesTime(no);}
 
     public PostVO selectContentLikeTime(int no) {return dao.selectContentLikeTime(no);}
+    public int insertComment(CommentVO vo) {
+        return dao.insertComment(vo);
+    }
 
 
 

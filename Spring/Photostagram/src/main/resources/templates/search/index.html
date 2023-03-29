@@ -86,8 +86,45 @@ $(function(){
         console.log(urlParams.get('no'));
 
         let no = urlParams.get('no');
+        let tag = $(this);
+        console.log(no);
 
+        $.ajax({
+            url: '/Photostagram/profile/followHashTag',
+            type: 'post',
+            dataType: 'json',
+            data: {'tagNo':no, 'type':'insert'},
+            success: function(data){
+                if (data.result > 0) {
+                    tag.hide();
+                    tag.next().show();
+                }
+            }
+        });
+    });
 
+    $('.unFollowBtn').on('click', function(e){
+        e.preventDefault();
+
+        let location = window.location.href;
+        const url = new URL(location);
+        const urlParams = url.searchParams;
+
+        let no = urlParams.get('no');
+        let tag = $(this);
+
+        $.ajax({
+            url: '/Photostagram/profile/followHashTag',
+            type: 'post',
+            dataType: 'json',
+            data: {'tagNo':no, 'type':'delete'},
+            success: function(data){
+                if (data.result > 0) {
+                    tag.hide();
+                    tag.prev().show();
+                }
+            }
+        });
     });
 });
 </script>

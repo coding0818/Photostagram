@@ -4,10 +4,7 @@ import kr.co.photostagram.service.MainService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.service.SearchService;
 import kr.co.photostagram.utils.JSFunction;
-import kr.co.photostagram.vo.MemberVO;
-import kr.co.photostagram.vo.NoticeVO;
-import kr.co.photostagram.vo.PostVO;
-import kr.co.photostagram.vo.SearchListVO;
+import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -45,111 +42,120 @@ public class ProfileController {
 
     @GetMapping(value = {"profile", "profile/index"})
     public String index(Principal principal, Model model, String username) {
-        
-        /*** 사용자, 프로필 페이지 사용자 ***/
-        String myName = principal.getName();
-        MemberVO member =  service.selectMember(username);
-        MemberVO user = service.selectMember(myName);
-        
-        int myNo = user.getNo();          // 현재 로그인 된 사용자 번호
-        int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
 
-        /*** 사용자 게시물 ***/
-        List<PostVO> posts = service.selectPosts(pageNo, 0);      // 게시물 목록
-        Map<Integer, PostVO> map = new HashMap<>();                   // 맵 생성
+        int searchResult = service.searchUserName(username);
 
-        for (int i=0; i<posts.size(); i++){                           // 게시물 갯수만큼 반복
-            int postNo = posts.get(i).getNo();                        // 게시물 번호
-            PostVO article = service.selectThumb(pageNo, postNo);     // 게시물 당 첫번째 사진과 사진 갯수 불러오기 (`image` 내에서 같은 `post_no` 중 가장 작은 `no` 값의 `thumb`)
-            map.put(i, article);                                      // 인덱스 번호(key) + 게시물 정보(value)로 맵에 전달
-        }
-
-        /*** 게시물 최신 순으로 정렬 ***/
-        Map<Integer, PostVO> sortMap = new TreeMap<>(map);    // 인덱스 번호(key) 기준으로 정렬
-
-        //Map<Integer, PostVO> sortMap = new TreeMap<>(Comparator.reverseOrder());      ---- 역순정렬 하는 코드
-        //sortMap.put(map)                                                              ---- 이후 sortMap에 따로 put 적용해준다.
-
-        
-        /*** 게시물, 팔로워, 팔로잉 ***/
-        int post = service.selectCountPost(pageNo);                 // 게시물 갯수
-        int myFollower = service.selectCountFollower(pageNo);       // 팔로워 수
-        int myFollowing = service.selectCountFollowing(pageNo);     // 팔로잉 하는 수
-
-        List<MemberVO> myFollowers = service.selectFollowers(pageNo);   // 팔로워 목록
-        List<MemberVO> myFollowings = service.selectFollowings(pageNo); // 팔로잉 목록
-
-        /*** 팔로잉 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
-        int[] followingArray = new int [myFollowings.size()];
-        Map<MemberVO, Integer> followingMap = new HashMap<>();
-
-        for (int i=0; i<myFollowings.size(); i++){
-            MemberVO currentUser = service.selectMember(myFollowings.get(i).getUsername());
-            followingArray[i] = currentUser.getNo();
-            int j = service.searchFollowing(myNo, followingArray[i]);
-
-            followingMap.put(currentUser, j);
-            //System.out.println("service1 : "+ j);
-            //System.out.println("array1 : "+ followingArray[i]);
-        }
-
-        int result = 0;
-        Map<MemberVO, Integer> followerMap = new HashMap<>();
-
-        /*** 팔로워 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
-
-        /*** 현재 페이지 사용자와 로그인 사용자가 다른 경우에만 수행 ***/
-        if (!username.equals(myName)){
-            int[] followerArray = new int[myFollowers.size()];
-            for (int i=0; i<myFollowers.size(); i++){
-                MemberVO currentUser = service.selectMember(myFollowers.get(i).getUsername());
-                followerArray[i] = currentUser.getNo();
-                int j = service.searchFollowing(myNo, followerArray[i]);
-
-                followerMap.put(currentUser, j);
-                //System.out.println("service2 : "+ j);
-            }
-            System.out.println("array2 : "+ followerArray);
-
-            /*** 팔로워 팔로잉 버튼 ***/
-            result = service.searchFollowing(myNo, pageNo);  // 로그인 사용자가 현재 페이지 사용자를 팔로잉 했는지 여부 (0 = 하지않음, 1 = 함)
-            
-        /*** 현재 페이지 사용자와 로그인 사용자가 같은 경우 팔로워 목록만 저장 ***/
+        if (searchResult == 0){
+            return "redirect:/index";
         } else {
-            int[] followerArray = new int[myFollowers.size()];
-            for (int i=0; i<myFollowers.size(); i++){
-                MemberVO currentUser = service.selectMember(myFollowers.get(i).getUsername());
-                followerArray[i] = currentUser.getNo();
-                followerMap.put(currentUser, 1);
+        
+            /*** 사용자, 프로필 페이지 사용자 ***/
+            String myName = principal.getName();
+            MemberVO member =  service.selectMember(username);
+            MemberVO user = service.selectMember(myName);
+
+            int myNo = user.getNo();          // 현재 로그인 된 사용자 번호
+            int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
+
+            /*** 사용자 게시물 ***/
+            List<PostVO> posts = service.selectPosts(pageNo, 0);      // 게시물 목록
+            Map<Integer, PostVO> map = new HashMap<>();                   // 맵 생성
+
+            for (int i=0; i<posts.size(); i++){                           // 게시물 갯수만큼 반복
+                int postNo = posts.get(i).getNo();                        // 게시물 번호
+                PostVO article = service.selectThumb(pageNo, postNo);     // 게시물 당 첫번째 사진과 사진 갯수 불러오기 (`image` 내에서 같은 `post_no` 중 가장 작은 `no` 값의 `thumb`)
+                map.put(i, article);                                      // 인덱스 번호(key) + 게시물 정보(value)로 맵에 전달
             }
+
+            /*** 게시물 최신 순으로 정렬 ***/
+            Map<Integer, PostVO> sortMap = new TreeMap<>(map);    // 인덱스 번호(key) 기준으로 정렬
+
+            //Map<Integer, PostVO> sortMap = new TreeMap<>(Comparator.reverseOrder());      ---- 역순정렬 하는 코드
+            //sortMap.put(map)                                                              ---- 이후 sortMap에 따로 put 적용해준다.
+
+
+            /*** 게시물, 팔로워, 팔로잉 ***/
+            int post = service.selectCountPost(pageNo);                         // 게시물 갯수
+            int myFollower = service.selectCountFollower(pageNo);               // 팔로워 수
+            int myFollowing = service.selectCountFollowing(pageNo);             // 팔로잉 하는 수
+            int tagFollowing = service.selectCountFollowingTags(pageNo);        // 팔로잉 하는 해시태그 수
+
+            List<MemberVO> myFollowers = service.selectFollowers(pageNo, 0);   // 팔로워 목록
+            List<MemberVO> myFollowings = service.selectFollowings(pageNo, 0); // 팔로잉 목록
+
+            /*** 팔로잉 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
+            int[] followingArray = new int [myFollowings.size()];
+            Map<MemberVO, Integer> followingMap = new HashMap<>();
+
+            for (int i=0; i<myFollowings.size(); i++){
+                MemberVO currentUser = service.selectMember(myFollowings.get(i).getUsername());
+                followingArray[i] = currentUser.getNo();
+                int j = service.searchFollowing(myNo, followingArray[i]);
+
+                followingMap.put(currentUser, j);
+                //System.out.println("service1 : "+ j);
+                //System.out.println("array1 : "+ followingArray[i]);
+            }
+
+            int result = 0;
+            Map<MemberVO, Integer> followerMap = new HashMap<>();
+
+            /*** 팔로워 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
+
+            /*** 현재 페이지 사용자와 로그인 사용자가 다른 경우에만 수행 ***/
+            if (!username.equals(myName)){
+                int[] followerArray = new int[myFollowers.size()];
+                for (int i=0; i<myFollowers.size(); i++){
+                    MemberVO currentUser = service.selectMember(myFollowers.get(i).getUsername());
+                    followerArray[i] = currentUser.getNo();
+                    int j = service.searchFollowing(myNo, followerArray[i]);
+
+                    followerMap.put(currentUser, j);
+                    //System.out.println("service2 : "+ j);
+                }
+                System.out.println("array2 : "+ followerArray);
+
+                /*** 팔로워 팔로잉 버튼 ***/
+                result = service.searchFollowing(myNo, pageNo);  // 로그인 사용자가 현재 페이지 사용자를 팔로잉 했는지 여부 (0 = 하지않음, 1 = 함)
+
+            /*** 현재 페이지 사용자와 로그인 사용자가 같은 경우 팔로워 목록만 저장 ***/
+            } else {
+                int[] followerArray = new int[myFollowers.size()];
+                for (int i=0; i<myFollowers.size(); i++){
+                    MemberVO currentUser = service.selectMember(myFollowers.get(i).getUsername());
+                    followerArray[i] = currentUser.getNo();
+                    followerMap.put(currentUser, 1);
+                }
+            }
+
+            // 검색기록 요청
+            List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
+
+            log.info("user_no : "+user.getNo());
+
+            // 알림
+            List<NoticeVO> notices = mainService.selectNotices(user.getNo());
+
+            log.info("notices : "+notices);
+
+            model.addAttribute("notices", notices);
+            model.addAttribute("user", user);
+            model.addAttribute("member", member);
+            model.addAttribute("searchList", searchList);
+            model.addAttribute("username", username);
+            model.addAttribute("myName", myName);
+            model.addAttribute("post", post);
+            model.addAttribute("myFollower", myFollower);
+            model.addAttribute("myFollowers", myFollowers);
+            model.addAttribute("myFollowing", myFollowing);
+            model.addAttribute("myFollowings", myFollowings);
+            model.addAttribute("tagFollowing", tagFollowing);
+            model.addAttribute("result", result);
+            model.addAttribute("sortMap", sortMap);
+            model.addAttribute("followingMap", followingMap);
+            model.addAttribute("followerMap", followerMap);
+            return "profile/index";
         }
-
-        // 검색기록 요청
-        List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
-
-        log.info("user_no : "+user.getNo());
-
-        // 알림
-        List<NoticeVO> notices = mainService.selectNotices(user.getNo());
-
-        log.info("notices : "+notices);
-
-        model.addAttribute("notices", notices);
-        model.addAttribute("user", user);
-        model.addAttribute("member", member);
-        model.addAttribute("searchList", searchList);
-        model.addAttribute("username", username);
-        model.addAttribute("myName", myName);
-        model.addAttribute("post", post);
-        model.addAttribute("myFollower", myFollower);
-        model.addAttribute("myFollowers", myFollowers);
-        model.addAttribute("myFollowing", myFollowing);
-        model.addAttribute("myFollowings", myFollowings);
-        model.addAttribute("result", result);
-        model.addAttribute("sortMap", sortMap);
-        model.addAttribute("followingMap", followingMap);
-        model.addAttribute("followerMap", followerMap);
-        return "profile/index";
     }
 
     /*** 무한스크롤 페이지 게시물 불러오기 ***/
@@ -174,6 +180,83 @@ public class ProfileController {
 
         /*** 게시물 최신 순으로 정렬 ***/
         Map<Integer, PostVO> data = new TreeMap<>(map);    // 게시물 번호(key) 기준으로 정렬
+
+        return data;
+    }
+
+    /*** 팔로잉 유저 불러오기 ***/
+    @ResponseBody
+    @PostMapping("profile/followers")
+    public Map<Integer, MemberVO> followers (Principal principal, String username, int pg, String type){
+
+        log.info("followers start...");
+
+        /*** 프로필 페이지 사용자 ***/
+        MemberVO member =  service.selectMember(username);
+        int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
+        int myNo = service.selectMember(principal.getName()).getNo();   // 로그인 사용자 번호
+        pg = 12 * pg;
+        log.info("pageNo : " + pageNo);
+        log.info("pg : "+ pg);
+        log.info("type : "+ type);
+
+        Map<Integer, MemberVO> map = new HashMap<>();                            // 맵 생성
+        List<MemberVO> followList = null;                                        // 리스트 선언
+
+        /*** 팔로우 리스트 ***/
+        if ("follower".equals(type)){
+            followList = service.selectFollowers(pageNo, pg);             // 팔로워 리스트
+            log.info("here1");
+        } else {
+            followList = service.selectFollowings(pageNo, pg);            // 팔로잉 리스트
+            log.info("here2");
+        }
+
+        //System.out.println(followList);
+
+        int i = 0;
+        for (MemberVO follow : followList){                             // 팔로워 수 만큼 반복
+            follow.setFollowResult(service.searchFollowing(myNo, service.selectMember(follow.getUsername()).getNo()));
+            map.put(i, follow);
+            System.out.println(i);
+            System.out.println(follow);
+            i++;
+        }
+
+        /*** 게시물 최신 순으로 정렬 ***/
+        Map<Integer, MemberVO> data = new TreeMap<>(map);    // 게시물 번호(key) 기준으로 정렬
+
+        return data;
+    }
+    
+    /*** 팔로잉 해시태그 불러오기 ***/
+    @ResponseBody
+    @PostMapping("profile/tags")
+    public Map<Integer, HashTagVO> tags (Principal principal, String username, int pg) {
+
+
+        /*** 프로필 페이지 사용자 ***/
+        MemberVO member =  service.selectMember(username);
+        int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
+        int myNo = service.selectMember(principal.getName()).getNo();
+        pg = 12 * pg;
+        log.info("pageNo : " + pageNo);
+
+        Map<Integer, HashTagVO> map = new HashMap<>();                             // 맵 생성
+        List<HashTagVO> followList = service.selectFollowTags(pageNo, pg);
+
+        int i=0;
+        for (HashTagVO follow : followList) {
+            if (pageNo == myNo) {
+                follow.setFollowResult(1);
+                map.put(i, follow); i++;
+            } else {
+                follow.setFollowResult(service.searchFollowingTag(pageNo, follow.getNo()));
+                map.put(i, follow); i++;
+            }
+        }
+
+        Map<Integer, HashTagVO> data = new TreeMap<>(map);
 
         return data;
     }
@@ -356,6 +439,31 @@ public class ProfileController {
         return resultMap;
     }
 
+    @ResponseBody
+    @PostMapping("profile/tagFollow")
+    public Map<String, Integer> tagFollow (Principal principal, @RequestParam("no") int no, @RequestParam("type") String type){
+        int userNo = service.selectMember(principal.getName()).getNo();
+        int result = 0;
+
+        log.info("no : "+ no);
+        log.info("userNo : "+ userNo);
+        log.info("type : "+ type);
+
+        if(("insert").equals(type)){
+            log.info("here1");
+            result = service.insertTagFollow(no, userNo);
+        } else if (("delete").equals(type)) {
+            log.info("here2");
+            result = service.deleteTagFollow(no, userNo);
+        }
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+        log.info("result : "+ result);
+
+        return resultMap;
+    }
+
     @GetMapping("profile/deleteUser")
     public String deleteUser (Principal principal, Model model){
         MemberVO user = service.selectMember(principal.getName());
@@ -382,17 +490,22 @@ public class ProfileController {
 
     }
 
+    /*** 해시태그 팔로우 요청 처리 ***/
     @ResponseBody
     @PostMapping("profile/followHashTag")
-    public void followHashTag (Principal principal, String type, int tagNo) {
+    public Map<String, Integer> followHashTag (Principal principal, @RequestParam("type") String type, @RequestParam("tagNo") int tagNo) {
         int userNo = service.selectMember(principal.getName()).getNo();
+        int result = 0;
 
         if ("insert".equals(type)){
-            int result = searchService.insertHashFollow(tagNo, userNo);
+            result = searchService.insertHashFollow(tagNo, userNo);
         } else {
-            int delete = searchService.deleteHashFollow(tagNo, userNo);
+            result = searchService.deleteHashFollow(tagNo, userNo);
         }
 
+        Map<String, Integer> map = new HashMap<>();
+        map.put("result", result);
+        return map;
     }
 
 

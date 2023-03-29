@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface BoardDAO {
-   public MemberVO selectMember(String username);
+   public BoardVO selectMember(String username);
    public BoardVO selectPost(int no);
    public BoardVO selectContent(int no);
    public List<Board1VO> selectPostHashTag(int no);
@@ -21,6 +21,8 @@ public interface BoardDAO {
    public List<Board2VO> selectcommentlist(@Param("postNo") int postNo);
 
    public PostVO selectContentLikeTime(int no);
+
+   public int insertComment(CommentVO vo);
 
 
 

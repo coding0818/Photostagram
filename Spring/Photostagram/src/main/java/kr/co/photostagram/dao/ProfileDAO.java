@@ -1,5 +1,6 @@
 package kr.co.photostagram.dao;
 
+import kr.co.photostagram.vo.HashTagVO;
 import kr.co.photostagram.vo.ImageVO;
 import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
@@ -36,14 +37,17 @@ public interface ProfileDAO {
 
     public PostVO selectThumb(@Param("pageNo") int pageNo, @Param("postNo") int postNo);
 
-    public List<MemberVO> selectFollowers (int no);
-    public List<MemberVO> selectFollowings (int no);
+    public List<MemberVO> selectFollowers (@Param("pageNo") int pageNo, @Param("pg") int pg);
+    public List<MemberVO> selectFollowings (@Param("pageNo") int pageNo, @Param("pg") int pg);
+
+    public List<HashTagVO> selectFollowTags (@Param("pageNo") int pageNo, @Param("pg") int pg);
 
     /*** 게시물, 팔로워, 팔로잉 수 count ***/
 
     public int selectCountPost(int no);
     public int selectCountFollower(int no);
     public int selectCountFollowing(int no);
+    public int selectCountFollowingTags(int no);
 
 
     /*** 팔로워, 팔로잉 ***/
@@ -51,8 +55,11 @@ public interface ProfileDAO {
     public int insertFollow (@Param("follower") int follower, @Param("following") int following);
     public int deleteFollow (@Param("follower") int follower, @Param("following") int following);
 
-    public int searchFollowing (@Param("follower") int follower, @Param("following") int following);
+    public int insertTagFollow (@Param("no") int no, @Param("userNo") int userNo);
+    public int deleteTagFollow (@Param("no") int no, @Param("userNo") int userNo);
 
+    public int searchFollowing (@Param("follower") int follower, @Param("following") int following);
+    public int searchFollowingTag (@Param("pageNo") int pageNo, @Param("tagNo") int tagNo);
 
     /*** 프로필 사진 업로드 ***/
     public int updateProfilePhoto(@Param("newName") String newName, @Param("no") int no);

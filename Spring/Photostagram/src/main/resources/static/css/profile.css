@@ -291,31 +291,30 @@
 
   .aFloatRight {
     float: right;
-    background: #32a4ff;
     border-radius: 5px;
     text-align: center;
   }
   .aFloatRight > span {font-weight: bold;}
-  .userFollow {
+  .aFloatRight > .spinner {
+          position: absolute;
+          display: none;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          background-image: url(../img/GIF/spinner.gif);
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-color: white;
+          background-position: center;
+      }
+
+  .userFollow, .tagFollow {
     position: relative;
     background-color: #32a4ff;
    }
 
-    .aFloatRight > .spinner {
-        position: absolute;
-        display: none;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        background-image: url(../img/GIF/spinner.gif);
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-color: white;
-        background-position: center;
-    }
-
-  .userFollowing {position: relative; background: #e9e9e9;}
+  .userFollowing, .tagFollowing {position: relative; background: #e9e9e9;}
   .userSelect {position: relative; background: #e9e9e9;}
 
     .photoModal {

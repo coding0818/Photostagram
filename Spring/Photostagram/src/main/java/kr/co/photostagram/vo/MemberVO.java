@@ -46,4 +46,8 @@ public class MemberVO {
     private String profile_phone;
 
 
+    // 추가 필드
+    private int followResult;
+
+
 }

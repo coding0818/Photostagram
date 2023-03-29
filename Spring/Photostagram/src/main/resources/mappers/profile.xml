@@ -14,6 +14,12 @@
             `rdate` = NOW();
     </insert>
 
+    <insert id="insertTagFollow">
+        INSERT INTO `follow_hashtag`
+            SET `tag_no`= #{no},
+            `user_no` = #{userNo};
+    </insert>
+
     <select id="selectMember" resultType="kr.co.photostagram.vo.MemberVO">
         SELECT * FROM `user` WHERE `username`=#{username};
     </select>
@@ -30,7 +36,7 @@
 
     <select id="selectThumb" resultType="kr.co.photostagram.vo.PostVO">
         SELECT b.*, `thumb` AS 'firstThumb', COUNT(DISTINCT `thumb`) AS 'thumbs',
-            COUNT(c.`comment`) AS 'commentCount'
+            COUNT(DISTINCT c.`comment`) AS 'commentCount'
             FROM `post` AS b
             JOIN `image` AS a
             ON b.`no`=a.`post_no`
@@ -52,13 +58,22 @@
         SELECT * FROM `follow` AS a
             JOIN `user` AS b
             ON a.`follower` = b.`no`
-            WHERE `following`=#{no};
+            WHERE `following`=#{pageNo}
+            LIMIT #{pg}, 12 ;
     </select>
     <select id="selectFollowings" resultType="kr.co.photostagram.vo.MemberVO">
         SELECT * FROM `follow` AS a
             JOIN `user` AS b
             ON a.`following` = b.`no`
-            WHERE `follower`=#{no};
+            WHERE `follower`=#{pageNo}
+            LIMIT #{pg}, 12 ;
+    </select>
+    <select id="selectFollowTags" resultType="kr.co.photostagram.vo.HashTagVO">
+        SELECT a.`tag_no`, a.`user_no`, b.`hashtag` FROM `follow_hashtag` AS a
+            JOIN `hashtag` AS b
+            ON a.`tag_no` = b.`no`
+            WHERE `user_no`=#{pageNo}
+            LIMIT #{pg}, 12 ;
     </select>
 
     <select id="selectCountPost" resultType="int">
@@ -70,9 +85,16 @@
     <select id="selectCountFollowing" resultType="int">
         SELECT COUNT(*) FROM `follow` WHERE `follower`=#{no};
     </select>
+    <select id="selectCountFollowingTags" resultType="int">
+        SELECT COUNT(*) FROM `follow_hashtag` WHERE `user_no`=#{no};
+    </select>
 
     <select id="searchFollowing" resultType="int">
         SELECT COUNT(*) FROM `follow` WHERE `follower`=#{follower} AND `following`=#{following};
+    </select>
+
+    <select id="searchFollowingTag" resultType="int">
+        SELECT COUNT(*) FROM `follow_hashtag` WHERE `user_no`=#{pageNo} AND `tag_no`=#{tagNo};
     </select>
 
     <select id="searchUserName" resultType="int">
@@ -132,6 +154,12 @@
         DELETE FROM `follow`
             WHERE `follower` = #{follower}
             AND `following` = #{following};
+    </delete>
+
+    <delete id="deleteTagFollow">
+        DELETE FROM `follow_hashtag`
+            WHERE `tag_no` = #{no}
+            AND `user_no` = #{userNo};
     </delete>
 
     <delete id="deleteMemberData">
