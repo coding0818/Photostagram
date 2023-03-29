@@ -36,28 +36,18 @@
                             console.log('username : ' + username);
                             console.log('profileImg : ' + profileImg);
 
-                            let BoardComment = "<li id='text'>";
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
-                            BoardComment += "<>;
+                            let tags = `<li id="text">
+                                            <img class="proImg" src="/Photostagram/thumb/${profileImg}" alt="profile">
+                                            <div class="reply">
+                                                <h1><span>${username}</span>${comment}</h1>
+                                                <div class="comment-time">
+                                                   <a href="#">답글달기</a>
+                                                </div>
+                                            </div>
+                                            <a href="#" id="reHeart" class="reWhite">좋아요</a>
+                                        </li>`;
 
-
-
-                            $(#text).append(BoardComment);
+                            $('#post > .contents > ul').append(tags);
 
 
                         }else{

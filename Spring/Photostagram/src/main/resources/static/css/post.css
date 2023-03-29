@@ -36,6 +36,8 @@
       margin: 10px;
       width: 30px;
       height: 30px;
+      border-radius:70%;
+      overflow:hidden;
     }
     #post > .contents > nav > #profile > .postTop {
       position: relative;
@@ -171,6 +173,9 @@
       margin-right: 10px;
       float: left;
       height: 30px;
+      width:30px;
+      border-radius:70%;
+      overflow:hidden;
     }
 
     .reply > h1 {word-break: break-all;}
