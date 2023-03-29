@@ -397,6 +397,16 @@ input[type='checkbox']:checked::before {
     position: relative;
 }
 
+.reco-list-main-add{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 8px 16px 8px 16px;
+    box-sizing: border-box;
+    position: relative;
+}
+
 .reco-list-img{
     display: flex;
     flex: 0 0 auto;
