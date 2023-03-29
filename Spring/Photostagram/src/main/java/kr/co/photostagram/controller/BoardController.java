@@ -67,6 +67,9 @@ public class BoardController {
         /*** 댓글 작성 시간 ***/
         List<NoticeVO> noticesTime = service.selectNoticesTime(no);
 
+
+
+
         model.addAttribute("user", user);
         model.addAttribute("post", post);
         model.addAttribute("hashes", hashes);

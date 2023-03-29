@@ -22,6 +22,7 @@ public interface BoardDAO {
 
    public PostVO selectContentLikeTime(int no);
 
+
    public int insertComment(CommentVO vo);
 
 
