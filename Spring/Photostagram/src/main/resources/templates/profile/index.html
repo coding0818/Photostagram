@@ -50,7 +50,7 @@
                           <th:block th:unless="${#strings.equals(myName, username)}">
                               <th:block th:if="${result} > 0">
                                   <a href="#" class="button" id="following">팔로잉</a>
-                                  <!--<a href="#" class="button" id="chatStart">메시지 보내기</a>-->
+                                  <a href="#" class="button" id="chatStart">메시지 보내기</a>
                               </th:block>
                               <th:block th:unless="${result} > 0">
                                   <a th:href="@{/profile/follow (type=insert, userName=${username}, myName=${myName})}" class="button" id="follow">팔로우</a>
@@ -1056,15 +1056,14 @@ $(function(){
 });
 /*]]*/
 </script>
-<!--
+
 <script th:inline="javascript">
 /*<![CDATA[*/
-    $('#chatStart').on('click', function(e){
-        e.preventDefault();
 
+    $('#chatStart').on('click', function(){
         var checkBoxArr = [];
 
-	    let no = [[${member.no}]];
+        let no = [[${member.no}]];
         checkBoxArr.push(no);
 
         let my_no = [[${user.no}]];
@@ -1087,27 +1086,6 @@ $(function(){
             }
         });
     });
-/*]]*/
-</script>
--->
-<!--
-<script th:inline="javascript">
-/*<![CDATA[*/
-
-    $("#followUser").on('click', function(e){
-        e.preventDefault();
-
-        $.ajax({
-            url: '/Photostagram/profile/followers',
-            method: 'POST',
-            data: {"name": name},
-            dataType: 'json',
-            success: function(data){
-
-            }
-        });
-    });
 
 /*]]*/
 </script>
--->
