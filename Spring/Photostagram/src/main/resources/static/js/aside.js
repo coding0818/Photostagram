@@ -39,11 +39,11 @@ function uploadFiles(e){
         $('#modal_add_feed').css({
             display: 'none'
         })
-        if(images.length > 1){
-          $('.afterBtn').css({"visibility":"visible"});
+        if(files.length > 1){
+          $('.afterBtnDrop').css({"visibility":"visible"});
         }
         $('video').css({"display":"none"});
-    }else if(images[0].type.match(/video.*/)){
+    }else if(files[0].type.match(/video.*/)){
        $('#modal_add_feed_content').css({
            display : 'flex'
        });
@@ -251,7 +251,7 @@ function uploadFiles(e){
         $('.afterBtn').css({"visibility":"visible"});
     });
 
-    $('#afterBtnDrop').on('click', function(){
+    $('.afterBtnDrop').on('click', function(){
         let file = files;
 
         console.log(file);
@@ -268,7 +268,10 @@ function uploadFiles(e){
         let images= dataTransfer.files;
         console.log('images : '+images);
 
-        if(j+1 == images.length) return;
+        if(j+1 == images.length)return;
+        if(j+2 == images.length){
+            $(this).css({"visibility":"hidden"});
+        }
         j++;
 
         console.log("j1 :"+j);
@@ -281,9 +284,10 @@ function uploadFiles(e){
             "background-position" : "center"
         });
         console.log("j2 :"+j);
+        $('.beforeBtnDrop').css({"visibility":"visible"});
     });
 
-    $('#beforeBtnDrop').on('click', function(){
+    $('.beforeBtnDrop').on('click', function(){
         let file = files;
 
         console.log(file);
@@ -300,7 +304,11 @@ function uploadFiles(e){
         let images= dataTransfer.files;
         console.log('images : '+images);
 
-        if(j == 0)return;
+        if(j == 0) return;
+        if(j == 1){
+            $(this).css({"visibility":"hidden"});
+        }
+
         j--;
 
         $('.modal_image_upload_content').css({
@@ -311,6 +319,7 @@ function uploadFiles(e){
             "background-position" : "center"
         });
         console.log("j"+j);
+        $('.afterBtnDrop').css({"visibility":"visible"});
     });
 
     $('#more_view').on('click', function(){
