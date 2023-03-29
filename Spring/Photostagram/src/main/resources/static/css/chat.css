@@ -77,6 +77,8 @@ ul{
 
 .chatMember > img{
     border-radius: 50%;
+    object-fit: cover;
+    height: 50px;
 }
 /* 제목(h2와 p) 사이즈 재정의 */
 .profile-title > *{
@@ -743,6 +745,10 @@ a {
     height: 100%;
 }
 
+.wrap.on{
+    display:none;
+}
+
 .wrap .chat {
     display: flex;
     align-items: flex-start;
@@ -802,6 +808,10 @@ a {
     justify-content: flex-start;
     flex: 0 0 auto;
     box-sizing: border-box;
+}
+
+.chatbox.on{
+    display:none;
 }
 
 .chatboxem-1{
@@ -921,30 +931,60 @@ a {
 }
 
 /*채팅방 나가기, 채팅 삭제*/
-.deleteOrOutChat{
-    width: 110px;
-    height: 100%;
-    position: absolute;
-    right: 10px;
-    top: 54px;
-    z-index: 10;
-    background: #f5e1e1;
-    display: none;
-}
-
-.deleteOrOutChat.on{
-    display: block;
-}
-
 .deleteChat {
     width:110px;
     height: 30px;
+    margin-top:20px;
 }
 
-.deleteChat > button {
-    width: 110px;
-    text-align: center;
-    border: none;
-    border-radius: 15px;
-    background: #f5e1e1;
+.deleteChat > a {
+    display:block;
+    color: red;
+}
+
+/*채팅 옵션*/
+.chatOptions{
+    display:none;
+    position: absolute;
+    top: 72px;
+    left: 46%;
+}
+
+.chatOptions.on{
+    display:block;
+}
+
+.chatMemberList{
+    display:block;
+}
+
+.chatMemberList > ul {
+    width:470px;
+    height:70px;
+}
+
+.chatMemberList > ul:hover {
+    background-color: #e4e6eb;
+}
+
+.chatMemberList > ul > li img{
+    border-radius: 50%;
+    object-fit: cover;
+    height: 50px;
+    width:50px;
+    position:absolute;
+    top:12%;
+}
+
+.chatMemberList > ul > li > a{
+    display:block;
+    width: 470px;
+    height:70px;
+    position: relative;
+}
+
+.chatMembers{
+    position:absolute;
+    top:30%;
+    left:12%;
 }

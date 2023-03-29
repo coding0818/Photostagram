@@ -113,10 +113,13 @@
         });
 
         $('.chat-head-add-2').on('click', function(){
-            $('.deleteOrOutChat').toggleClass('on');
+            $('.chatOptions').toggleClass('on');
+            $('#msgArea').toggleClass('on');
+            $('.chatbox').toggleClass('on');
         });
 
-        $('.deleteChat').on('click', function(){
+        $('.deleteChat').on('click', function(e){
+            e.preventDefault();
             let isOutChat = confirm('채팅을 삭제하시겠어요?');
             if(isOutChat){
                 let room_no = $('input[name=roomNow_no]').val();
@@ -135,6 +138,7 @@
                 });
             }
         });
+
     });
     </script>
     <div class="fullscreen">
@@ -228,11 +232,6 @@
                                 <img th:src="@{/img/free-icon-info-5258991.png}" alt="상세정보">
                             </div>
                         </div>
-                        <div class="deleteOrOutChat">
-                            <div class="deleteChat">
-                                <button>채팅나가기</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -254,6 +253,22 @@
                         <div class="textbox">[[${chat.message}]]</div>
                     </div>
                 </th:block>
+            </div>
+            <div class="chatOptions">
+                <div class="chatMemberList">
+                    <h3>멤버</h3>
+                    <ul th:each="list:${roomNow}">
+                        <li>
+                            <a th:href="@{/profile/index(username=${list.username})}">
+                                <img th:src="@{/thumb/{img}(img=${list.profileImg})}">
+                                <span class="chatMembers">&nbsp;&nbsp;[[${list.username}]]</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="deleteChat">
+                    <a>채팅나가기</a>
+                </div>
             </div>
             <div class="chatbox">
                 <div class="chatboxem-1">

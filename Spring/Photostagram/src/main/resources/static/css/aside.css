@@ -934,19 +934,21 @@ html {height: 100%;}
     }
 
     /*modal drop*/
-    #input_image_drop > .beforeBtn{
+    #input_image_drop > .beforeBtnDrop{
       position: fixed;
       top: 45%;
       left: 9px;
       background: none;
       border: none;
+      visibility: hidden;
     }
-    #input_image_drop > .afterBtn{
+    #input_image_drop > .afterBtnDrop{
       position: fixed;
       top: 45%;
       right: 305px;
       background: none;
       border: none;
+      visibility: hidden;
     }
 
 

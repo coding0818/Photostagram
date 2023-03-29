@@ -8,9 +8,7 @@
             <div class="myProfile">
                 <div class="proPhoto">
                     <div>
-                        <input type="file" class="real-addProf" accept="image/*" style="display: none;"/>
-                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile" class="addProf"/>
-                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"/>
+                        <img th:src="@{/thumb/{img}(img=${postLikeList[0].imageVO[0].thumb})}" alt="profile" class="addProf"/>
                     </div>
                 </div>
                 <div class="detail">
