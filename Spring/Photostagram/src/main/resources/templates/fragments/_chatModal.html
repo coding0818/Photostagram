@@ -25,7 +25,7 @@
                                 $('.reco-list-main').hide();
                                 $('.recommend').hide();
                                 users.forEach(function(user){
-                                    let member = "<div class='reco-list-main'>";
+                                    let member = "<div class='reco-list-main-add'>";
                                         member += "<div class='reco-list-img'>";
                                         member += "<span class='reco-list-img-1'>";
                                         if(user.profileImg == null){
@@ -79,7 +79,8 @@
                                         $('.sendingUser').append('<h5 class='+username+' data-num='+no+'>'+username+'&nbsp;&nbsp;</h5>');
                                         $('.new-body2-1').val('');
                                         $('.recommend').show();
-                                        $('.reco-list-main').remove();
+                                        $('.reco-list-main').show();
+                                        $('.reco-list-main-add').remove();
 
                                         if($('.sendingUser').children().length > 0){
                                             $('.btn-next').attr("disabled", false);
@@ -90,7 +91,8 @@
                                         $('.'+username+'').remove();
                                         $('.new-body2-1').val('');
                                         $('.recommend').show();
-                                        $('.reco-list-main').remove();
+                                        $('.reco-list-main').show();
+                                        $('.reco-list-main-add').remove();
 
                                         console.log('h5 length : '+$('h5').length);
 
@@ -209,7 +211,7 @@
             </div>
             <div class="reco-list-wrap" aria-disabled="false" role="button" tabindex="0">
                 <th:block th:if="${not #lists.isEmpty(recommends)}" th:each="recommend:${recommends}">
-                <div class="reco-list-main">
+                <div class="reco-list-main" id="recommends_user">
                     <div class="reco-list-img">
                         <span class="reco-list-img-1">
                             <th:block th:if="${#strings.isEmpty(recommend.profileImg)}">
