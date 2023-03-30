@@ -273,7 +273,7 @@ public class ProfileController {
 
     @ResponseBody
     @PostMapping("profile/modify")
-    public void modify(HttpServletResponse resp, MemberVO vo){
+    public void modify(HttpServletResponse resp, MemberVO vo, Principal principal){
         //log.info("user_no : "+vo.getNo());
 
         if (vo.getGender().length() > 2){
@@ -283,7 +283,11 @@ public class ProfileController {
         if (service.searchUserName(vo.getUsername()) == 0){
             service.updateMember(vo);
         } else {
-            JSFunction.alertLocation(resp, "중복된 사용자 이름입니다. 다른 이름을 입력해주세요.", "/Photostagram/profile/modify");
+            if ((service.selectMember(principal.getName())).equals(vo.getUsername())){
+                JSFunction.alertLocation(resp, "수정이 완료되었습니다.", "/Photostagram/profile/modify");
+            } else {
+                JSFunction.alertLocation(resp, "중복된 사용자 이름입니다. 다른 이름을 입력해주세요.", "/Photostagram/profile/modify");
+            }
         }
 
         JSFunction.alertLocation(resp, "수정이 완료되었습니다.", "/Photostagram/profile/modify");
