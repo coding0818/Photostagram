@@ -596,7 +596,6 @@ html {height: 100%;}
 
       .alarmlist > div:nth-child(3){
         float: right;
-
         background: none;
         border: none;
       }
@@ -604,6 +603,13 @@ html {height: 100%;}
         float: right;
         width: 48px;
         height: 48px;
+        margin-left: 11px;
+      }
+      .alarmlist > div:nth-child(3) > video{
+        float: right;
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
         margin-left: 11px;
       }
 
@@ -925,7 +931,15 @@ html {height: 100%;}
       visibility: hidden;
     }
 
-    video{
+    #input_image_drop > video{
+        width: 590px;
+        height: 590px;
+        position: absolute;
+        left:0;
+        top:0;
+    }
+
+    #input_image > video{
         width: 590px;
         height: 590px;
         position: absolute;
