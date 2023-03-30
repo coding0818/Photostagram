@@ -77,7 +77,7 @@
             <section class="contents">
                 <nav>
                     <div id="profile">
-                        <img th:src="|@{/}thumb/${user.profileImg}"  alt="profile">
+                        <img th:src="|@{/}thumb/${user.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"  alt="profile">
                         <p class="postTop">
                             <span id="nick">[[${user.username}]]</span>
                             <span>·</span>
@@ -89,7 +89,7 @@
                 </nav>
                 <ul>
                     <li>
-                        <img class="proImg" th:src="|@{/}thumb/${user.profileImg}"  alt="profile">
+                        <img class="proImg" th:src="|@{/}thumb/${user.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"  alt="profile">
                         <div class="reply">
                             <h1><span>[[${user.username}]]</span>[[${post.content}]]</h1>
                             <th:block th:each="hash:${hashes}">
@@ -101,7 +101,7 @@
                         </div>
                     </li>
                     <li id="text" th:each="commentVo:${commentList}">
-                        <img class="proImg" th:src="|@{/}thumb/${commentVo.profileImg}"  alt="profile">
+                        <img class="proImg" th:src="|@{/}thumb/${commentVo.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'" alt="profile">
                         <div class="reply">
                             <h1><span>[[${commentVo.username}]]</span>[[${commentVo.comment}]]</h1>
                             <!--/*
@@ -230,24 +230,11 @@
         </article>
         <div id="more">
             <div><span>[[${user.username}]]</span>님의 게시물 더 보기</div>
-            <a href="#">
-                <img th:src="@{/img/300x300-1.png}" alt="pic">
-            </a>
-            <a href="#">
-                <img th:src="@{/img/300x300-1.png}" alt="pic">
-            </a>
-            <a href="#">
-                <img th:src="@{/img/300x300-1.png}" alt="pic">
-            </a>
-            <a href="#">
-                <img th:src="@{/img/300x300-1.png}" alt="pic">
-            </a>
-            <a href="#">
-                <img th:src="@{/img/300x300-1.png}" alt="pic">
-            </a>
-            <a href="#">
-                <img th:src="@{/img/300x300-1.png}" alt="pic">
-            </a>
+            <th:block th:each="plus:${plusimg}">
+                <a href="#" class="plusimg">
+                    <img th:src="|@{/}thumb/${plus.thumb}" alt="pic">
+                </a>
+            </th:block>
         </div>
         <div id="pCancel" class="pModal">
             <div class="pContents">
