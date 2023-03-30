@@ -298,12 +298,17 @@
                                 </a>
                             </div>
                             <div>
-                                <a>
+                                <a th:href="@{/board/post(no = ${notice.content_no})}">
                                     <h3>[[${notice.username}]]님이 회원님의 댓글을 좋아합니다.&nbsp;&nbsp;<span class="noticeTime"></span></h3>
                                 </a>
                             </div>
                             <div>
-                                <img th:src="@{/thumb/{img}(img=${notice.thumb})}" alt="">
+                                <th:block th:if="${#strings.endsWith(notice.thumb, '.mp4')}==true">
+                                    <video th:src="@{/thumb/{video}(video=${notice.thumb})}" class="alarmVideo"></video>
+                                </th:block>
+                                <th:block th:unless="${#strings.endsWith(notice.thumb, '.mp4')}==true">
+                                    <img th:src="@{/thumb/{img}(img=${notice.thumb})}" alt="">
+                                </th:block>
                             </div>
                         </div>
                     </th:block>
@@ -320,12 +325,17 @@
                                 </a>
                             </div>
                             <div>
-                                <a>
+                                <a th:href="@{/board/post(no = ${notice.content_no})}">
                                     <h3>[[${notice.username}]]님이 회원님의 사진을 좋아합니다.&nbsp;&nbsp;<span class="noticeTime"></span></h3>
                                 </a>
                             </div>
                             <div>
-                                <img th:src="@{/thumb/{img}(img=${notice.thumb})}" alt="">
+                                <th:block th:if="${#strings.endsWith(notice.thumb, '.mp4')}==true">
+                                    <video th:src="@{/thumb/{video}(video=${notice.thumb})}" class="alarmVideo"></video>
+                                </th:block>
+                                <th:block th:unless="${#strings.endsWith(notice.thumb, '.mp4')}==true">
+                                    <img th:src="@{/thumb/{img}(img=${notice.thumb})}" alt="">
+                                </th:block>
                             </div>
                         </div>
                     </th:block>
@@ -373,7 +383,7 @@
                     <th:block th:if="${notice.type == '4'}">
                         <div class="alarmlist">
                             <div>
-                                <a th:href="@{#}">
+                                <a th:href="@{/profile/index(username = ${notice.username})}">
                                     <th:block th:if="${#strings.isEmpty(notice.profileImg)}">
                                         <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="">
                                     </th:block>
@@ -383,12 +393,17 @@
                                 </a>
                             </div>
                             <div>
-                                <a th:href="@{#}">
+                                <a th:href="@{/board/post(no = ${notice.content_no})}">
                                     <h3>[[${notice.username}]]님이 댓글을 남겼습니다.:[[${notice.content}]]&nbsp;&nbsp;<span class="noticeTime"></span></h3>
                                 </a>
                             </div>
                             <div>
-                                <img th:src="@{/thumb/{img}(img=${notice.thumb})}" alt="">
+                                <th:block th:if="${#strings.endsWith(notice.thumb, '.mp4')}==true">
+                                    <video th:src="@{/thumb/{video}(video=${notice.thumb})}" class="alarmVideo"></video>
+                                </th:block>
+                                <th:block th:unless="${#strings.endsWith(notice.thumb, '.mp4')}==true">
+                                    <img th:src="@{/thumb/{img}(img=${notice.thumb})}" alt="">
+                                </th:block>
                             </div>
                         </div>
                     </th:block>

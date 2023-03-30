@@ -8,7 +8,12 @@
             <div class="myProfile">
                 <div class="proPhoto">
                     <div>
-                        <img th:src="@{/thumb/{img}(img=${postLikeList[0].imageVO[0].thumb})}" alt="profile" class="addProf"/>
+                        <th:block th:if="${#strings.endsWith(postLikeList[0].imageVO[0].thumb, '.mp4')} == true">
+                            <video th:src="|@{/}thumb/${postLikeList[0].imageVO[0].thumb}" class="addProf"></video>
+                        </th:block>
+                        <th:block th:unless="${#strings.endsWith(postLikeList[0].imageVO[0].thumb, '.mp4')} == true">
+                            <img th:src="@{/thumb/{img}(img=${postLikeList[0].imageVO[0].thumb})}" alt="profile" class="addProf"/>
+                        </th:block>
                     </div>
                 </div>
                 <div class="detail">
@@ -43,7 +48,12 @@
                 <th:block th:unless="${#lists.isEmpty(postLikeList)}" th:each="like:${postLikeList}">
                     <div class="pic">
                         <a th:href="@{/board/post(no=${like.no})}">
-                            <img th:src="@{/thumb/{img}(img=${like.imageVO[0].thumb})}">
+                            <th:block th:if="${#strings.endsWith(like.imageVO[0].thumb, '.mp4')} == true">
+                                <video th:src="|@{/}thumb/${like.imageVO[0].thumb}"></video>
+                            </th:block>
+                            <th:block th:unless="${#strings.endsWith(like.imageVO[0].thumb, '.mp4')} == true">
+                                <img th:src="@{/thumb/{img}(img=${like.imageVO[0].thumb})}">
+                            </th:block>
                         </a>
                     </div>
                 </th:block>
@@ -61,7 +71,12 @@
                 <th:block th:unless="${#lists.isEmpty(posts)}" th:each="post:${posts}">
                     <div class="pic">
                         <a th:href="@{/board/post(no=${post.no})}">
-                            <img th:src="@{/thumb/{img}(img=${post.imageVO[0].thumb})}">
+                            <th:block th:if="${#strings.endsWith(post.imageVO[0].thumb, '.mp4')} == true">
+                                <video height="300" width="300" th:src="|@{/}thumb/${post.imageVO[0].thumb}"></video>
+                            </th:block>
+                            <th:block th:unless="${#strings.endsWith(post.imageVO[0].thumb, '.mp4')} == true">
+                                <img th:src="@{/thumb/{img}(img=${post.imageVO[0].thumb})}">
+                            </th:block>
                         </a>
                     </div>
                 </th:block>
