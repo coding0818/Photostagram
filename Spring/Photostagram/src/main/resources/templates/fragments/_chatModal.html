@@ -28,8 +28,8 @@
                                     let member = "<div class='reco-list-main-add'>";
                                         member += "<div class='reco-list-img'>";
                                         member += "<span class='reco-list-img-1'>";
-                                        if(user.profileImg == null){
-                                            member += "<img class='reco-list-img-real' src='./img/44884218_345707102882519_2446069589734326272_n.jpg' alt='계정사진'>";
+                                        if(!user.profileImg){
+                                            member += "<img class='reco-list-img-real' src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg' alt='계정사진'>";
                                         }else{
                                             member += "<img class='reco-list-img-real' src='/Photostagram/thumb/"+user.profileImg+"' alt='계정사진'>";
                                         }

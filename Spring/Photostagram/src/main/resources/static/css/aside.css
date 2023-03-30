@@ -526,6 +526,13 @@ html {height: 100%;}
         position: relative;
       }
 
+      .searchProfile{
+        width:54px;
+        height:54px;
+        border-radius:50%;
+        object-fit:cover;
+      }
+
      /*알림*/
       .sidealarm{
         display: none;

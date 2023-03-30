@@ -224,7 +224,7 @@
                                         <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="">
                                     </th:block>
                                     <th:block th:unless="${#strings.isEmpty(list.profileImg)}">
-                                        <img th:src="@{/thumb/{img}(img=${list.profileImg})}" alt="">
+                                        <img th:src="@{/thumb/{img}(img=${list.profileImg})}" alt="" class="searchProfile">
                                     </th:block>
                                 </div>
                                 <div>

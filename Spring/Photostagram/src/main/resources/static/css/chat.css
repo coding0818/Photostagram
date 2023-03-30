@@ -765,6 +765,7 @@ a {
     width: 24px;
     height: 24px;
     margin-top: 14px;
+    border-radius: 50%;
 }
 
 .wrap .chat .textbox {
