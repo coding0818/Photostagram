@@ -290,7 +290,7 @@
                             <div>
                                 <a th:href="@{/profile(username=${notice.username})}">
                                     <th:block th:if="${#strings.isEmpty(notice.profileImg)}">
-                                        <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="">
+                                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="">
                                     </th:block>
                                     <th:block th:unless="${#strings.isEmpty(notice.profileImg)}">
                                         <img th:src="@{/thumb/{img}(img=${notice.profileImg})}" alt="">
@@ -317,7 +317,7 @@
                             <div>
                                 <a th:href="@{/profile(username=${notice.username})}">
                                     <th:block th:if="${#strings.isEmpty(notice.profileImg)}">
-                                        <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="">
+                                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="">
                                     </th:block>
                                     <th:block th:unless="${#strings.isEmpty(notice.profileImg)}">
                                         <img th:src="@{/thumb/{img}(img=${notice.profileImg})}" alt="">
@@ -385,7 +385,7 @@
                             <div>
                                 <a th:href="@{/profile/index(username = ${notice.username})}">
                                     <th:block th:if="${#strings.isEmpty(notice.profileImg)}">
-                                        <img src="./img/44884218_345707102882519_2446069589734326272_n.jpg" alt="">
+                                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="">
                                     </th:block>
                                     <th:block th:unless="${#strings.isEmpty(notice.profileImg)}">
                                         <img th:src="@{/thumb/{img}(img=${notice.profileImg})}" alt="">
