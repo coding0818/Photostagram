@@ -69,7 +69,7 @@ public class IndexController {
         }
 
         List<PostVO> articles = service.selectArticles(usersNo);
-        log.info("articles : " + articles);
+//        log.info("articles : " + articles);
         model.addAttribute("articles", articles);
         model.addAttribute("members", members);
         model.addAttribute("followings", followings);
@@ -83,7 +83,7 @@ public class IndexController {
         model.addAttribute("notices", notices);
 
         model.addAttribute("comments", comments);
-        log.info("followings" + followings);
+//        log.info("followings" + followings);
         return "index";
     }
 

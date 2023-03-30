@@ -353,10 +353,16 @@
         <div class="side_box">
           <div class="user_profile">
             <div class="profile_thumb">
-              <a th:href="@{/profile(username=${user.username})}">
-                <img th:src="|@{/}thumb/${user.profileImg}" alt="프로필사진" />
-              </a>
+              <th:block th:if="${#strings.isEmpty(user.profileImg)}">
+                <a th:href="@{/profile(username=${user.username})}"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/></a>
+              </th:block>
+              <th:block th:unless="${#strings.isEmpty(user.profileImg)}">
+                <a th:href="@{/profile(username=${user.username})}"><img th:src="|@{/}thumb/${user.profileImg}" alt="프로필사진"/></a>
+              </th:block>
             </div>
+
+
+
 
             <div class="detail">
               <a th:href="@{/profile(username=${user.username})}">
