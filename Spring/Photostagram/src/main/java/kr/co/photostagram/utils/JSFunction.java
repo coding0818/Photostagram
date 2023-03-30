@@ -32,6 +32,10 @@ public class JSFunction {
     }
 
 
+    public static void test(HttpServletResponse resp){
+
+    }
+
     /*** 메시지 알림창을 띄운 후 새로고침 ***/
     public static void alertReload(HttpServletResponse resp, String msg){
 
