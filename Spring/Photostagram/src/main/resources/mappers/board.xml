@@ -154,6 +154,19 @@
             `rdate`=NOW();
     </insert>
 
-
+    <select id="selectPlusImg" resultType="kr.co.photostagram.vo.PostVO">
+        SELECT
+        a.`no`,
+        a.`content`,
+        b.`thumb`,
+        a.`user_no`,
+        a.`like`,
+        a.`rdate`
+        FROM `post` AS a
+        JOIN `image` AS b ON a.`no` = b.`post_no`
+        WHERE `user_no`=(SELECT `user_no` FROM `post` WHERE `no`=#{no})
+        GROUP BY a.`no`
+        order BY a.`no` DESC;
+    </select>
 
 </mapper>

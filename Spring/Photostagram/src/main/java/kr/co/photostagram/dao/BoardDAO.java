@@ -21,6 +21,7 @@ public interface BoardDAO {
    public List<Board2VO> selectcommentlist(@Param("postNo") int postNo);
 
    public PostVO selectContentLikeTime(int no);
+   public List<PostVO> selectPlusImg(int no);
 
 
    public int insertComment(CommentVO vo);

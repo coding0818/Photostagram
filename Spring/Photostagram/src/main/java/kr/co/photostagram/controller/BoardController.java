@@ -67,8 +67,8 @@ public class BoardController {
         /*** 댓글 작성 시간 ***/
         List<NoticeVO> noticesTime = service.selectNoticesTime(no);
 
-
-
+        List<PostVO> plusimg = service.selectPlusImg(no);
+        log.info("plusimg : " + plusimg);
 
         model.addAttribute("user", user);
         model.addAttribute("post", post);
@@ -78,6 +78,7 @@ public class BoardController {
         model.addAttribute("commentList", commentList);
         model.addAttribute("noticesTime", noticesTime);
         model.addAttribute("content_like_time", content_like_time);
+        model.addAttribute("plusimg", plusimg);
 
 
         return "board/post";
