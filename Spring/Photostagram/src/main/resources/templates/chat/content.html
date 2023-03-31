@@ -243,10 +243,10 @@
                     </div>
                     <div class="chat ch1" th:unless="${chat.user_no == user.no}">
                         <div class="icon">
-                            <th:block th:if="@{not #strings.isEmpty(chat.profileImg)}">
+                            <th:block th:if="${not #strings.isEmpty(chat.profileImg)}">
                                 <img class="" th:src="@{/thumb/{image}(image=${chat.profileImg})}" alt="계정사진">
                             </th:block>
-                            <th:block th:unless="@{not #strings.isEmpty(chat.profileImg)}">
+                            <th:block th:unless="${not #strings.isEmpty(chat.profileImg)}">
                                 <img class="" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="계정사진">
                             </th:block>
                         </div>
@@ -260,7 +260,12 @@
                     <ul th:each="list:${roomNow}">
                         <li>
                             <a th:href="@{/profile/index(username=${list.username})}">
-                                <img th:src="@{/thumb/{img}(img=${list.profileImg})}">
+                                <th:block th:if="${not #strings.isEmpty(list.profileImg)}">
+                                    <img th:src="@{/thumb/{img}(img=${list.profileImg})}">
+                                </th:block>
+                                <th:block th:unless="${not #strings.isEmpty(list.profileImg)}">
+                                    <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}">
+                                </th:block>
                                 <span class="chatMembers">&nbsp;&nbsp;[[${list.username}]]</span>
                             </a>
                         </li>
