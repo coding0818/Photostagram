@@ -125,6 +125,7 @@ public class ChatService {
         if(owner == user_no){
             //방 주인이 나가는 경우
             dao.deleteRoomMemberAll(room_no);
+            dao.deleteChats(room_no);
             result = dao.deleteRoom(room_no, user_no);
         }else{
             // 방 멤버가 나가는 경우

@@ -972,7 +972,21 @@ html {height: 100%;}
       visibility: hidden;
     }
 
+/** tagModal **/
+.tagModal{
+    width:338px;
+    height:226px;
+    z-index:18;
+    background: red;
+    position:absolute;
+}
 
+.tagModal > div:nth-child(1){
+    width:20px;
+    height:15px;
+    background: red;
+    transform: rotate(90deg);
+}
 
 
 /********** post Modal ************/

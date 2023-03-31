@@ -32,4 +32,5 @@ public interface ChatDAO {
     public int deleteRoom(@Param("room_no") int room_no, @Param("user_no") int user_no);
     public int deleteRoomMemberOne(@Param("room_no") int room_no, @Param("user_no") int user_no);
     public int deleteRoomMemberAll(int room_no);
+    public int deleteChats(int room_no);
 }
