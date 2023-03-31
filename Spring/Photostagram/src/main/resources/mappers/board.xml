@@ -166,7 +166,7 @@
         JOIN `image` AS b ON a.`no` = b.`post_no`
         WHERE `user_no`=(SELECT `user_no` FROM `post` WHERE `no`=#{no})
         GROUP BY a.`no`
-        order BY a.`no` DESC;
+        order BY a.`no` DESC LIMIT 6;
     </select>
 
 </mapper>
