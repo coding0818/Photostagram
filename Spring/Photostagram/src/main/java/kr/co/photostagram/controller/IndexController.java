@@ -59,7 +59,7 @@ public class IndexController {
             int user_no = followings.get(i).getNo();
             usersNo.add(user_no); // 상대방 유저번호
         }
-        
+
         // 회원님을 위한 추천에 (로그인 한 본인이 뜨지않게)
         for(int j = 0; j < members.size(); j++){
             MemberVO followfilter = members.get(j);

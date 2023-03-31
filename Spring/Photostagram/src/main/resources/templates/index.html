@@ -38,6 +38,7 @@
           <!-- 메인콘텐츠 -->
           <th:block th:if="${#lists.size(articles) != 0}">
             <article th:each="article : ${articles}" th:class="contents" th:data-no="${article.no}">
+
                 <header class="top">
                   <div class="user_container">
                     <!-- 상단 게시자 정보 div -->
@@ -334,6 +335,21 @@
                     <div class="next" onclick="postNext();"></div>
                   </div>
                 </div>
+
+                <!-- 포스트 메뉴 모달 -->
+                <div class="post-menu">
+                  <div class="wrapper">
+                    <button>신고</button>
+                    <button><a th:href="@{/board/post(no=${article.no})}">게시물로 이동</a></button>
+                    <button>공유 대상...</button>
+                    <button>링크 복사</button>
+                    <button>퍼가기</button>
+                    <button class="postmenu-cancel">
+                      취소
+                    </button>
+                  </div>
+                </div>
+                <!-- -->
               </article>
           </th:block>
           <th:block th:if="${#lists.size(articles) == 0}">
