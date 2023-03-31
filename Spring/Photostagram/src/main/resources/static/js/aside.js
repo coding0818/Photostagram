@@ -658,4 +658,14 @@ function uploadFiles(e){
             }, 1000);
         }
     });
+
+    $('#input_image').on('click', function(e){
+        let x = e.clientX;
+        let y = e.clientY;
+
+        console.log('x 좌표 : '+x);
+        console.log('x 좌표 : '+y);
+
+        $('.tagModal').css({top:x, left:y});
+    });
   });
