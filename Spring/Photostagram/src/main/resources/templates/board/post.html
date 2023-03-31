@@ -11,7 +11,7 @@
                 //alert('click!!!');
 
                 var comment = $("#comment").val();
-                var user_no = [[${user.user_no}]];
+                var user_no = [[${user.no}]];
                 var post_no = [[${post.no}]];
                 var username = [[${user.username}]];
                 var profileImg = [[${user.profileImg}]];
@@ -48,6 +48,7 @@
                                         </li>`;
 
                             $('#post > .contents > ul').append(tags);
+                            $('#comment').val('');
 
 
                         }else{
@@ -77,9 +78,9 @@
             <section class="contents">
                 <nav>
                     <div id="profile">
-                        <img th:src="|@{/}thumb/${user.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"  alt="profile">
+                        <img th:src="|@{/}thumb/${post.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"  alt="profile">
                         <p class="postTop">
-                            <span id="nick">[[${user.username}]]</span>
+                            <span id="nick">[[${post.username}]]</span>
                             <span>·</span>
                             <a id="postFollowing" href="#">팔로잉</a>
                             <a id="postFollow" href="#">팔로우</a>
@@ -89,9 +90,9 @@
                 </nav>
                 <ul>
                     <li>
-                        <img class="proImg" th:src="|@{/}thumb/${user.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"  alt="profile">
+                        <img class="proImg" th:src="|@{/}thumb/${post.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"  alt="profile">
                         <div class="reply">
-                            <h1><span>[[${user.username}]]</span>[[${post.content}]]</h1>
+                            <h1><span>[[${post.username}]]</span>[[${post.content}]]</h1>
                             <th:block th:each="hash:${hashes}">
                                 <a href="#">#[[${hash.hashtag}]]</a>
                             </th:block>

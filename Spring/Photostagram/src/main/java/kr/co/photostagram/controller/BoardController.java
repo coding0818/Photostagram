@@ -1,11 +1,15 @@
 package kr.co.photostagram.controller;
 
+import kr.co.photostagram.entity.UserEntity;
+import kr.co.photostagram.security.MyUserDetails;
 import kr.co.photostagram.service.BoardService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +27,10 @@ public class BoardController {
     @Autowired
     private BoardService service;
     @GetMapping("board/post")
-    public String post(Principal principal, Model model, int no) {
+    public String post(Authentication authentication, Model model, int no) {
 
+        MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
+        UserEntity user = myUserDetails.getUser();
 
         /*** 게시물 작성자 ***/
 
@@ -36,12 +42,13 @@ public class BoardController {
         log.info("post : " + post);
 
         /*** 게시자 아이디, 프로필 ***/
+        /*
         BoardVO user = BoardVO.builder()
                 .user_no(post.getUser_no())
                 .username(post.getUsername())
                 .profileImg(post.getProfileImg())
                 .build();
-
+        */
 
 
         /*** 해쉬태그 ***/
