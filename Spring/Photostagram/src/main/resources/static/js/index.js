@@ -13,8 +13,6 @@ $(function () {
     moveSlides: 1
   });
 
-  let PostMenu = $(".post-menu");
-  
   // 댓글 모두보기
   $(".commentMore").on("click", function () {
     let article    = $(this).closest('article');
@@ -54,12 +52,19 @@ $(function () {
     $("body").css("overflow-y", "visible");
   });
 
+  // 게시글 토글버튼
   $(".sprite_more_icon").on("click", function () {
+    let article  = $(this).closest('article');
+    let PostMenu = article.find('.post-menu');
+
     PostMenu.css("display", " flex");
     $("body").css("overflow-y", "hidden");
   });
 
   $(".postmenu-cancel").on("click", function () {
+    let article  = $(this).closest('article');
+    let PostMenu = article.find('.post-menu');
+
     PostMenu.css("display", "none");
     $("body").css("overflow-y", "visible");
   });

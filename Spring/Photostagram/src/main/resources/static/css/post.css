@@ -191,10 +191,9 @@
       font-weight: bold;
       margin-right: 10px;
     }
-    .reply > h1 {float: left;}
+    .reply > h1 {float: left; margin-right: 4px;}
     .reply > a {color: #0095f6; width: 350px; }
     .reply > div {
-      margin-top: 22px;
       margin-left: 1px;
       color: #a9a9a9;
       font-weight: bold;
