@@ -45,6 +45,12 @@
                     let MSec = calDate1.getTime() - calDate2.getTime();
                     let Min = MSec / 1000 / 60;
                     Min = parseInt(Min);
+
+                    if(Min < 60){
+                        $('.noticeTime')[index].append(Min+'분');
+                        return;
+                    }
+
                     let h = Min / 60;
                     h = Math.round(h);
                     console.log("h : "+h);
