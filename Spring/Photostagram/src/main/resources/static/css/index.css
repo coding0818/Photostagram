@@ -1,0 +1,28 @@
+div.resp_comment_section{
+    margin-left: 55px;
+}
+div.resp_comment_section img {
+    width: 32px;
+    height: 32px;
+    border-radius: 20px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+div.resp_comment_section > div {
+    width: 366px;
+}
+div.resp_comment_section > div > a {
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "nsM";
+}
+div.resp_comment_section > div > span {
+    font-size: 14px;
+    font-family: "nsM";
+}
+
+div.modal-post div.commentInfo span.resp_comment {
+    cursor: pointer;
+}
+
