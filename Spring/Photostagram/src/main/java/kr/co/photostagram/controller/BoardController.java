@@ -22,14 +22,16 @@ public class BoardController {
 
     @Autowired
     private BoardService service;
+    @Autowired
+    private ProfileService profileService;
+
     @GetMapping("board/post")
     public String post(Principal principal, Model model, int no) {
-
+        MemberVO login_info =  profileService.selectMember(principal.getName());
+        log.info("login_info : " + login_info);
 
         /*** 게시물 작성자 ***/
-
         //BoardVO user = service.selectMember(myName);
-        //log.info("user : " + user);
 
         /*** 게시물 내용 ***/
         BoardVO post = service.selectPost(no);
@@ -42,23 +44,20 @@ public class BoardController {
                 .profileImg(post.getProfileImg())
                 .build();
 
-
-
         /*** 해쉬태그 ***/
         List<Board1VO> hashes = service.selectPostHashTag(no);
-        log.info("hashes : " + hashes);
+//        log.info("hashes : " + hashes);
 
         /*** 댓글 ***/
         List<CommentVO> comments = service.selectcomments(no);
-        log.info("comments : " + comments);
+//        log.info("comments : " + comments);
 
         /*** 게시물 사진 ***/
         List<ImageVO> images = service.selectimages(no);
-        log.info("images : " + images);
+//        log.info("images : " + images);
 
         /*** 게시물 작성 날짜 ***/
         PostVO content_like_time = service.selectContentLikeTime(no);
-
 
         /*** 게시물 댓글 ***/
         List<Board2VO> commentList = service.selectcommentlist(no);
@@ -67,8 +66,11 @@ public class BoardController {
         /*** 댓글 작성 시간 ***/
         List<NoticeVO> noticesTime = service.selectNoticesTime(no);
 
+        Post_likeVO post_like_user = service.selectPostLike(no, login_info.getNo());
+        log.info("post like null Check : " +  post_like_user);
+
         List<PostVO> plusimg = service.selectPlusImg(no);
-        log.info("plusimg : " + plusimg);
+//        log.info("plusimg : " + plusimg);
 
         model.addAttribute("user", user);
         model.addAttribute("post", post);
@@ -79,6 +81,8 @@ public class BoardController {
         model.addAttribute("noticesTime", noticesTime);
         model.addAttribute("content_like_time", content_like_time);
         model.addAttribute("plusimg", plusimg);
+        model.addAttribute("login_info", login_info);
+        model.addAttribute("post_like_user", post_like_user);
 
 
         return "board/post";

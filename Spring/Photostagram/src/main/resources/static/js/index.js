@@ -4,7 +4,7 @@
  */
 
 $(function () {
-  
+
   $(".bx_slider").bxSlider({
     infiniteLoop: false,
     height: 600,
@@ -56,16 +56,21 @@ $(function () {
   $(".sprite_more_icon").on("click", function () {
     let article  = $(this).closest('article');
     let PostMenu = article.find('.post-menu');
+    let bxControll = article.find('.bx-controls-direction');
 
     PostMenu.css("display", " flex");
+    bxControll.css("display", "none");
     $("body").css("overflow-y", "hidden");
   });
 
+  // 게시글 토글버튼 취소클릭
   $(".postmenu-cancel").on("click", function () {
     let article  = $(this).closest('article');
     let PostMenu = article.find('.post-menu');
+    let bxControll = article.find('.bx-controls-direction');
 
     PostMenu.css("display", "none");
+    bxControll.css("display", "flex");
     $("body").css("overflow-y", "visible");
   });
 
@@ -121,12 +126,12 @@ $(function () {
     let user_no = input.eq(2).val();
     let comment = input.eq(3).val();
     let image = $('#myProfile').children().children().attr("src")
-    
+
     console.log("uid : " + uid)
     console.log("post_no : " + post_no)
     console.log("user_no : " + user_no)
     console.log("comment : " + comment)
-    
+
     let jsonData = {
       "uid":uid,
       "post_no":post_no,
@@ -181,8 +186,8 @@ $(function () {
         }
       }
     })
-    
-        
+
+
   })
   /*
     게시글 좋아요 (빈하트 -52px -258px 꽉찬하트 -26px -258px;)
@@ -190,7 +195,7 @@ $(function () {
   */
   $(document).on("click", ".sprite_heart_icon_outline", function(e){
     e.preventDefault();
-    let article    = $(this).closest('article'); 
+    let article    = $(this).closest('article');
     let post_no    = article.attr('data-no'); // 게시글 번호
     let user_no    = $(this).attr('data-no'); // 유저 번호
     let url        = "/Photostagram/ArticleLikeAdd";
@@ -209,11 +214,11 @@ $(function () {
       success: (data)=>{
         if(data.result > 0){
           if(article.find('.artLike').hasClass('sprite_heart_icon_outline')){
-      
+
             article.find('.artLike')
             .removeClass('sprite_heart_icon_outline')
             .addClass('sprite_full_heart_icon_outline');
-      
+
             let textCount = article.find('.like-count').text();
             let count = parseInt(textCount);
 
@@ -247,7 +252,7 @@ $(function () {
         success: (data)=>{
           if(data.result > 0){
             if(article.find('.artLike').hasClass('sprite_full_heart_icon_outline')){
-      
+
               article.find('.artLike')
               .removeClass('sprite_full_heart_icon_outline')
               .addClass('sprite_heart_icon_outline');
@@ -309,7 +314,7 @@ $(function () {
   $(document).on("click", ".sprite_full_small_heart_icon_outline", function(e){
     e.preventDefault();
 
-    let article    = $(this).closest('article'); 
+    let article    = $(this).closest('article');
     let user_no    = $(this).attr('data-no'); // 유저 번호
     let comment_no = article.find($(this).parent()).attr('data-no'); // 댓글번호
     let url        = "/Photostagram/CommentLikeDel";
@@ -331,7 +336,7 @@ $(function () {
       success: (data)=>{
         if(data.result > 0){
           if(article.find($(this)).hasClass('sprite_full_small_heart_icon_outline')){
-      
+
             article.find($(this))
              .removeClass('sprite_full_small_heart_icon_outline')
              .addClass('sprite_small_heart_icon_outline');
@@ -342,7 +347,7 @@ $(function () {
           }
         }
       }
-    })  
+    })
 
   })
 
@@ -351,7 +356,7 @@ $(function () {
     let following = $(this).attr('data-no');
 
     let jsonData = {"following":following};
-    
+
     $.ajax({
       url:'/Photostagram/follow',
       method:'GET',

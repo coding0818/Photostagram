@@ -13,6 +13,9 @@ public interface BoardDAO {
    public BoardVO selectMember(String username);
    public BoardVO selectPost(int no);
    public BoardVO selectContent(int no);
+
+   Post_likeVO selectPostLike(@Param("no") int no, @Param("user_no") int user_no);
+
    public List<Board1VO> selectPostHashTag(int no);
    public List<CommentVO> selectcomments(int no);
    public List<ImageVO> selectimages(int no);

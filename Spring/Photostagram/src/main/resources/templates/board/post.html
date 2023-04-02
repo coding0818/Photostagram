@@ -40,7 +40,9 @@
                                             <img class="proImg" src="/Photostagram/thumb/${profileImg}" alt="profile">
                                             <div class="reply">
                                                 <h1><span>${username}</span>${comment}</h1>
-                                                <div class="comment-time">
+                                                <span class="comment_writeTime">1일</span>
+                                                " 좋아요 "
+                                                <div class="favorite">
                                                    <a href="#">답글달기</a>
                                                 </div>
                                             </div>
@@ -88,6 +90,7 @@
                     <a href="#">...</a>
                 </nav>
                 <ul>
+                    <!-- 게시글 작성 콘텐츠 내용&해시태그-->
                     <li>
                         <img class="proImg" th:src="|@{/}thumb/${user.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"  alt="profile">
                         <div class="reply">
@@ -100,20 +103,22 @@
                             </div>
                         </div>
                     </li>
+                    <!---->
+
                     <li id="text" th:each="commentVo:${commentList}">
                         <img class="proImg" th:src="|@{/}thumb/${commentVo.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'" alt="profile">
                         <div class="reply">
-                            <h1><span>[[${commentVo.username}]]</span>[[${commentVo.comment}]]</h1>
-                            <!--/*
-                            <th:block th:each="hash:${commentlist}">
-                                <a href="#">#[[${hash.board1VO.hashtag}]]</a>
-                            </th:block>
-                            */-->
-                            <div class="comment-time">
-                                <span class="favorite" th:if="${commentVo.like_count > 0}">좋아요 <span>[[${commentVo.like_count}]]</span>개</span>&nbsp;&nbsp;<a href="#">답글달기</a>
+                            <h1 class="comment_width"><span>[[${commentVo.username}]]</span>[[${commentVo.comment}]]</h1>
+
+                            <div class="favorite">
+                                <span class="comment_writeTime">1일</span>
+                                좋아요
+                                <span class="cmt_like_count">[[${commentVo.like_count}]]</span>개
+                                <span class="comment_more">답글달기</span>
                             </div>
                         </div>
-                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
+                        <a href="#" id="reHeart" class="reWhite"></a>
+
                         <div class="showReply">
                             <a href="#" class="reOpen" th:if="${commentVo.parent > 0}">ㅡ 답글보기</a>
                             <div class="listReply reHide">
@@ -130,74 +135,10 @@
                                         </div>
                                         <a href="#" id="reHeart" class="reWhite">좋아요</a>
                                     </li>
-                                    <li>
-                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
-                                    <li>
-                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
-                                        <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div>
-                                                5주 &nbsp;&nbsp;
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
+
                     </li>
                 </ul>
                 <!--<p>
@@ -206,11 +147,17 @@
                 </p>-->
                 <div>
                     <div>
-                        <a href="#" id="like" class="unlike"></a>
+<!--                        <th:block th:if="${#strings.isEmpty(post_like_user.user_no)}">-->
+<!--                            <a href="#" class="unlike"></a>-->
+<!--                        </th:block>-->
+<!--                        <th:block th:unless="${#strings.isEmpty(post_like_user.user_no)}">-->
+<!--                            <a href="#" class="like"></a>-->
+<!--                        </th:block>-->
                         <a href="#" id="writeReply"></a>
                         <a href="#" id="share"></a>
                         <a href="#" id="bookMark" class="remove"></a>
                     </div>
+
                     <div th:if="${content_like_time.like > 0}">
                         <div>좋아요 <span>[[${content_like_time.like}]]</span>개</div>
                         <div class="date" th:text="${#strings.substring(content_like_time.rdate, 5, 10)}">2월 28일</div>
@@ -220,7 +167,7 @@
                         <div class="date" th:text="${#strings.substring(content_like_time.rdate, 5, 10)}">2월 28일</div>
                     </div>
 
-                    <div>
+                    <div class="comment_textarea">
                         <a href="#"><i class="fa-regular fa-face-smile fa-2x"></i></a>
                         <textarea name="comment" id="comment"></textarea>
                         <a href="#" id="btnComment">게시</a>
