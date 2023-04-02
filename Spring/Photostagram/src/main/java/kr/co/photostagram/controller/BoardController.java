@@ -66,8 +66,8 @@ public class BoardController {
         /*** 댓글 작성 시간 ***/
         List<NoticeVO> noticesTime = service.selectNoticesTime(no);
 
-        Post_likeVO post_like_user = service.selectPostLike(no, login_info.getNo());
-        log.info("post like null Check : " +  post_like_user);
+//        Post_likeVO post_like_user = service.selectPostLike(no, login_info.getNo());
+//        log.info("post like null Check : " +  post_like_user);
 
         List<PostVO> plusimg = service.selectPlusImg(no);
 //        log.info("plusimg : " + plusimg);
@@ -82,7 +82,7 @@ public class BoardController {
         model.addAttribute("content_like_time", content_like_time);
         model.addAttribute("plusimg", plusimg);
         model.addAttribute("login_info", login_info);
-        model.addAttribute("post_like_user", post_like_user);
+//        model.addAttribute("post_like_user", post_like_user);
 
 
         return "board/post";

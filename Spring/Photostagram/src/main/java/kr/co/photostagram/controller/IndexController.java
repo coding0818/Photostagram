@@ -115,7 +115,7 @@ public class IndexController {
 
         return map;
     }
-
+    // 답글 작성
     @PostMapping("respCmtRegister")
     @ResponseBody
     public Map<String, Object> respCmtRegister(@RequestBody CommentVO vo){

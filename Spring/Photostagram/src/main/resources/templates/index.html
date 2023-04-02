@@ -258,7 +258,7 @@
                               <!---------- modal 댓글작성자 ID, 내용 입니다 ---------->
                               <div class="posting">
                                 <div th:data-no="${comment.no}">
-                                  <a class="modal_comment_id" th:href="@{/profile(username=${user.username})}" th:text="${comment.memberVO.username}">KingTiger</a>
+                                  <a class="modal_comment_id" th:href="@{/profile(username=${comment.username})}" th:text="${comment.memberVO.username}">KingTiger</a>
                                   <input type="hidden" th:value="${comment.no}">
                                   <span class="modal_comment" th:text="${comment.comment}">안녕하세요 나는 타이거입니다.</span>
                                   <!-- 댓글 좋아요 -->
@@ -281,19 +281,22 @@
                               <!-------------------------------------------------->
                             </div>
 
-                            <!--!!!!!!!!! 답글이 있을경우 !!!!!!!!-->
-                            <div class="resp_comment_section" th:if="${comment.parent > 0}">
+                            <!--!! 답글이 있을경우 !!-->
+                            <div class="resp_comment_section" >
+                              <!-- 프로필 사진 -->
                               <th:block th:if="${#strings.isEmpty(comment.memberVO.profileImg)}">
                                 <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
                               </th:block>
-
                               <th:block th:unless="${#strings.isEmpty(comment.memberVO.profileImg)}">
                                 <img th:src="|@{/}thumb/${comment.memberVO.profileImg}" alt="프로필이미지"/>
                               </th:block>
+                              <!-- 프로필 사진 -->
+
                               <div th:data-no="${comment.no}" style="display: inline-block;">
                                 <a class="modal_comment_id" th:href="@{/profile(username=${user.username})}" th:text="${comment.memberVO.username}">KingTiger</a>
-                                <input type="hidden" th:value="${comment.no}">
+                                <a href="#" class="resp_id" style="color:#00376B;">@letary</a>&nbsp;
                                 <span class="modal_comment" th:text="${comment.comment}">안녕하세요 나는 타이거입니다.</span>
+
                                 <!-- 댓글 좋아요 -->
                                 <th:block th:if="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
                                   <div class="comLike sprite_full_small_heart_icon_outline" th:data-no="${user.no}"></div>

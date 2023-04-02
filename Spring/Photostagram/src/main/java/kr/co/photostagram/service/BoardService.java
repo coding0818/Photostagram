@@ -23,7 +23,7 @@ public class BoardService {
 
     public BoardVO selectPost(int no) {return dao.selectPost(no);}
     public BoardVO selectContent(int no) {return dao.selectContent(no);}
-    public Post_likeVO selectPostLike(int no , int user_no) {return dao.selectPostLike(no, user_no);}
+//    public Post_likeVO selectPostLike(int no , int user_no) {return dao.selectPostLike(no, user_no);}
 
     public List<Board1VO> selectPostHashTag(int no) {return dao.selectPostHashTag(no);}
     public List<CommentVO> selectcomments(int no) {return dao.selectcomments(no);}
