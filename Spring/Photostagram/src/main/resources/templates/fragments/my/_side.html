@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <th:block th:fragment="sideFragment">
+    <div id="mySelect">
+      <div>내 활동</div>
+      <th:block th:switch="${cate}">
+        <th:block th:case="interaction">
+          <div class="currentMenu">
+            <a th:href="@{/my/interaction/like}" class="currentSet">반응</a>
+          </div>
+          <div>
+            <a th:href="@{/my/photos/posts}">사진 및 동영상</a>
+          </div>
+          <div>
+            <a th:href="@{/my/history}">계정 내역</a>
+          </div>
+        </th:block>
+        <th:block th:case="photos">
+          <div>
+            <a th:href="@{/my/interaction/like}">반응</a>
+          </div>
+          <div class="currentMenu">
+            <a th:href="@{/my/photos/posts}" class="currentSet">사진 및 동영상</a>
+          </div>
+          <div>
+            <a th:href="@{/my/history}">계정 내역</a>
+          </div>
+        </th:block>
+        <th:block th:case="history">
+          <div>
+            <a th:href="@{/my/interaction/like}">반응</a>
+          </div>
+          <div>
+            <a th:href="@{/my/photos/posts}">사진 및 동영상</a>
+          </div>
+          <div class="currentMenu">
+            <a th:href="@{/my/history}" class="currentSet">계정 내역</a>
+          </div>
+        </th:block>
+      </th:block>
+    </div>
+  </th:block>
+</html>

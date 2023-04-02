@@ -27,10 +27,13 @@
     <main>
       <!--/*** aside ***/-->
       <th:block th:replace="~{fragments/_aside::asideFragment}"></th:block>
-      <!--/*** 본문 ***/-->
-      <th:block layout:fragment="main"></th:block>
+      <div id="myPage">
+        <th:block th:replace="~{fragments/my/_side::sideFragment}"></th:block>
+        <!--/*** 본문 ***/-->
+        <th:block layout:fragment="main"></th:block>
+      </div>
     </main>
   </body>
     <!--/*** aside modal ***/-->
-    <th:block th:replace="~{fragments/profile/_modal::modalFragment}"></th:block>
+    <th:block th:replace="~{fragments/my/_modal::modalFragment}"></th:block>
 </html>

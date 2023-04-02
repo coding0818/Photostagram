@@ -2,34 +2,20 @@
 <!--/*
 날짜 : 2023/03/31
 이름 : 조주영
-내용 : 반응 화면
+내용 : 사진 화면
 */-->
 <html xmlns:th="http://www.thymleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/myLayout}">
-    <th:block layout:fragment="main">
-        <div id="myPage">
-          <div id="mySelect">
-              <div>내 활동</div>
-              <div class="currentMenu">
-                  <a th:href="@{/my/interaction}" class="currentSet">반응</a>
-              </div>
-              <div>
-                  <a th:href="@{/my/photos}">사진 및 동영상</a>
-              </div>
-              <div>
-                  <a th:href="@{/my/history}">계정 내역</a>
-              </div>
-          </div>
-          <div id="myActivity">
-              <div>
-                  <a th:href="@{/my/}">좋아요</a>
-                  <a>댓글</a>
-              </div>
-              <div>
-                  게시한 콘텐츠가 없습니다.
-              </div>
-          </div>
+<th:block layout:fragment="main">
+    <div id="myActivity">
+        <div>
+            <a th:href="@{/my/interaction/like}">좋아요</a>
+            <a th:href="@{/my/interaction/comment}">댓글</a>
         </div>
-    </th:block>
+        <div>
+            좋아요를 누른 콘텐츠가 없습니다.
+        </div>
+    </div>
+</th:block>
 </html>
