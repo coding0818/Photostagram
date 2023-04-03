@@ -667,6 +667,7 @@ function uploadFiles(e){
         console.log('x 좌표 : '+x);
         console.log('x 좌표 : '+y);
 
+        $('.tagModal').toggleClass('on');
         $('.tagModal').css({left:x-18, top:y});
     });
   });
