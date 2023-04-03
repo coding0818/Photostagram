@@ -38,6 +38,8 @@ public class IndexService {
     public void insertComment(CommentVO vo){
         dao.insertComment(vo);
     }
+    // 답글 작성
+    public void insertRespComment(CommentVO vo) {dao.insertRespComment(vo);}
 
     public List<MemberVO> selectUser(){
         return dao.selectUser();

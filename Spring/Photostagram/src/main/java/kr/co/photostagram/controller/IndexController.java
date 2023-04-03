@@ -115,6 +115,21 @@ public class IndexController {
 
         return map;
     }
+    // 답글 작성
+    @PostMapping("respCmtRegister")
+    @ResponseBody
+    public Map<String, Object> respCmtRegister(@RequestBody CommentVO vo){
+        service.insertRespComment(vo);
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("result", 1);
+        map.put("no",vo.getNo());
+        map.put("user_no", vo.getUser_no());
+
+        return map;
+    }
+
+
 
     // 게시글 좋아요 클릭 시
     @PostMapping("ArticleLikeAdd")

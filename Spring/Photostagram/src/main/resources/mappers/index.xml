@@ -10,6 +10,15 @@
             `rdate`= NOW();
     </insert>
 
+    <insert id="insertRespComment" useGeneratedKeys="true" keyColumn="no" keyProperty="no" parameterType="kr.co.photostagram.vo.CommentVO">
+        INSERT INTO `comment` SET
+            `comment` = #{comment},
+            `post_no` = #{post_no},
+            `user_no` = #{user_no},
+            `parent`  = #{parent},
+            `rdate`   = NOW();
+    </insert>
+
     <insert id="insertArticleLikeAdd">
         INSERT INTO `post_like` SET
             `post_no` = #{no},
@@ -39,10 +48,13 @@
         LEFT JOIN `post_hashtag` AS e ON a.no = e.post_no
         LEFT JOIN `hashtag` AS f ON e.hashtag_no = f.`no`
 
-        WHERE a.`user_no` IN
-            <foreach collection="usersNo" item="following" index="index" separator="," open="(" close=")">
-                 #{following},0
-            </foreach>
+        WHERE a.
+        no = 134
+<!--            `user_no`-->
+<!--            IN-->
+<!--            <foreach collection="usersNo" item="following" index="index" separator="," open="(" close=")">-->
+<!--                 #{following},0-->
+<!--            </foreach>-->
 
 
         ORDER BY a.`no` DESC;

@@ -27,6 +27,8 @@ public interface IndexDAO {
 
     // 댓글 등록
     public void insertComment(CommentVO vo);
+    // 답글 등록
+    public void insertRespComment(CommentVO vo);
 
     public List<PostVO> selectArticles(@Param("usersNo") List<Integer> usersNo);
     public List<CommentVO> selectComment();
