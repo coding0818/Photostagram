@@ -21,6 +21,7 @@ public class MyController {
     public String like(Principal principal, Model model) {
         MemberVO user = profileService.selectMember(principal.getName());
         model.addAttribute("user", user);
+        model.addAttribute("cate", "interaction");
         return "my/interaction/like";
     }
 
@@ -28,7 +29,24 @@ public class MyController {
     public String comment(Principal principal, Model model) {
         MemberVO user = profileService.selectMember(principal.getName());
         model.addAttribute("user", user);
+        model.addAttribute("cate", "interaction");
         return "my/interaction/comment";
+    }
+
+    @GetMapping("my/photos/posts")
+    public String photos(Principal principal, Model model) {
+        MemberVO user = profileService.selectMember(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("cate", "photos");
+        return "my/photos/posts";
+    }
+
+    @GetMapping("my/history")
+    public String history(Principal principal, Model model){
+        MemberVO user = profileService.selectMember(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("cate", "history");
+        return "my/history";
     }
 
 }

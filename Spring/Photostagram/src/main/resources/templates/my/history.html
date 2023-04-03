@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--/*
+날짜 : 2023/03/31
+이름 : 조주영
+내용 : 반응 화면
+*/-->
+<html xmlns:th="http://www.thymleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/myLayout}">
+    <th:block layout:fragment="main">
+        <div id="myHistory">
+            <div class="historyTop">
+                <span>계정 내역 정보</span><br/>
+                계정을 만든 이후 적용한 변경 사항을 검토해보세요.
+            </div>
+            <div class="historyContents">
+                <div>
+                    <h1>최신순</h1>
+                    <a>정렬 및 필터</a>
+                </div>
+                <div>
+                    <div class="historyBox">
+                        <h3>오늘</h3>
+                        <ul>
+                            <li>
+                                <img th:src="@{/img/history_introduction.png}"/>
+                                <div>
+                                    <div>소개</div>
+                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>0시간</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="historyBox">
+                        <h3>이전 활동</h3>
+                        <ul>
+                            <li>
+                                <img th:src="@{/img/history_introduction.png}"/>
+                                <div>
+                                    <div>소개</div>
+                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>1달</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                            <li>
+                                <img th:src="@{/img/history_introduction.png}"/>
+                                <div>
+                                    <div>소개</div>
+                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>1달</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                            <li>
+                                <img th:src="@{/img/history_introduction.png}"/>
+                                <div>
+                                    <div>소개</div>
+                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>1달</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                            <li>
+                                <img th:src="@{/img/history_introduction.png}"/>
+                                <div>
+                                    <div>소개</div>
+                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>1달</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                            <li>
+                                <img th:src="@{/img/history_introduction.png}"/>
+                                <div>
+                                    <div>소개</div>
+                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>1달</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                            <li>
+                                <img th:src="@{/img/history_pass.png}"/>
+                                <div>
+                                    <div>비밀번호</div>
+                                    <div>비밀번호를 변경했습니다. <span>5달</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                            <li>
+                                <img th:src="@{/img/history_pass.png}"/>
+                                <div>
+                                    <div>비밀번호</div>
+                                    <div>비밀번호를 변경했습니다. <span>3년</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                            <li>
+                                <img th:src="@{/img/history_name.png}"/>
+                                <div>
+                                    <div>사용자 이름</div>
+                                    <div>사용자 이름을 <span>user</span>로 변경했습니다. <span>3년</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                            <li>
+                                <img th:src="@{/img/history_private.png}"/>
+                                <div>
+                                    <div>공개 범위</div>
+                                    <div>계정을 <span>공개</span>로 설정했습니다. <span>3년</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                            <li>
+                                <img th:src="@{/img/history_private.png}"/>
+                                <div>
+                                    <div>공개 범위</div>
+                                    <div>계정을 <span>비공개</span>로 설정했습니다. <span>3년</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                            <li>
+                                <img th:src="@{/img/history_notice.png}"/>
+                                <div>
+                                    <div>계정 생섬됨</div>
+                                    <div><span>September 02, 2016</span>에 계정을 만들었습니다. <span>6년</span></div>
+                                </div>
+                                <img th:src="@{/img/arrowR_8x13.png}">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</html>
