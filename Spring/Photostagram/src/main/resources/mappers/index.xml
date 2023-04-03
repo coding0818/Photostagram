@@ -49,12 +49,12 @@
         LEFT JOIN `hashtag` AS f ON e.hashtag_no = f.`no`
 
         WHERE a.
-<!--        no = 134-->
-            `user_no`
-            IN
-            <foreach collection="usersNo" item="following" index="index" separator="," open="(" close=")">
-                 #{following},0
-            </foreach>
+        no = 134
+<!--            `user_no`-->
+<!--            IN-->
+<!--            <foreach collection="usersNo" item="following" index="index" separator="," open="(" close=")">-->
+<!--                 #{following},0-->
+<!--            </foreach>-->
 
 
         ORDER BY a.`no` DESC;

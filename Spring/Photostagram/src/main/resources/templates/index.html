@@ -244,7 +244,7 @@
                       <div class="rest">
                         <div class="text">
                           <th:block th:each="comment : ${comments}" th:if="${#strings.equals(comment.post_no,article.no)}">
-                            <div class="top">
+                            <div class="top" th:data-value="${comment.no}">
                               <!----------- modal 댓글 프로필 사진입니다 ------------>
                               <th:block th:if="${#strings.isEmpty(comment.memberVO.profileImg)}">
                                 <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
@@ -281,8 +281,8 @@
                               <!-------------------------------------------------->
                             </div>
 
-                            <!--!! 답글이 있을경우 !!-->
-                            <div class="resp_comment_section" >
+                            <!-- 답글 있는경우 -->
+                            <div class="resp_comment_section" th:if="${#strings.equals(comment.no,comment.parent)}">
                               <!-- 프로필 사진 -->
                               <th:block th:if="${#strings.isEmpty(comment.memberVO.profileImg)}">
                                 <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
