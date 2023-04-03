@@ -160,12 +160,16 @@ $(function () {
       console.log("답글 달 댓글 번호입니다 : " + respComment_No);
       
       let jsonData = {
-        "comment":respComment_split[1],
+        "comment":comment,
         "post_no":post_no,
         "user_no":user_no,
         "parent":respComment_No
       };
 
+      let respComment = comment.split(" ");
+      console.log("답글 내용 나누기 : " + respComment);
+      console.log(respComment[0]) // 피 답글자 아이디
+      console.log(respComment[1]) // 해당 답글의 내용
       $.ajax({
         url:'/Photostagram/respCmtRegister',
         method:'POST',
@@ -174,20 +178,20 @@ $(function () {
         dataType:'json',
         success: function(data){
           if(data.result > 0){
-            // let str = "<div class='resp_comment_section'>";
-            //     str += "<img src='/Photostagram/thumb/82ec473d-76dd-442b-a4ff-0c9e32bcfd61.jpg' alt='프로필이미지'>";
-            //     str += "<div data-no='295' style='display: inline-block;'>";
-            //     str += "<a class='modal_comment_id' href='/Photostagram/profile?username=letary'>coding0818</a>";
-            //     str += "<a href='#' class='resp_id' style='color:#00376B;'>@letary</a>&nbsp;";
-            //     str += "<span class='modal_comment'>23</span>";
-            //     str += "<div class='comLike sprite_small_heart_icon_outline' data-no='5'></div>";
-            //     str += "<div class='commentInfo'>";
-            //     str += "<span>1일</span>&nbsp;&nbsp;좋아요";
-            //     str += "<span id='md_comment_likeCount'>0</span>개&nbsp;";
-            //     str += "<span class='resp_comment'>답글달기</span>";
-            //     str += "</div>";
-            //     str += "</div>";
-            //     str += "</div>";
+            let str = "<div class='resp_comment_section'>";
+                str += "<img src='/Photostagram/thumb/82ec473d-76dd-442b-a4ff-0c9e32bcfd61.jpg' alt='프로필이미지'>";
+                str += "<div data-no='295' style='display: inline-block;'>";
+                str += "<a class='modal_comment_id' href='/Photostagram/profile?username=letary'>coding0818</a>";
+                str += "<a href='#' class='resp_id' style='color:#00376B;'>'"+respComment[0]+"'</a>&nbsp;";
+                str += "<span class='modal_comment'>'"+respComment[1]+"'</span>";
+                str += "<div class='comLike sprite_small_heart_icon_outline' data-no='5'></div>";
+                str += "<div class='commentInfo'>";
+                str += "<span>1일</span>&nbsp;&nbsp;좋아요";
+                str += "<span id='md_comment_likeCount'>0</span>개&nbsp;";
+                str += "<span class='resp_comment'>답글달기</span>";
+                str += "</div>";
+                str += "</div>";
+                str += "</div>";
             
           }
         }
