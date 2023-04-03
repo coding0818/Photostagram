@@ -979,6 +979,11 @@ html {height: 100%;}
     z-index:18;
     background: white;
     position:absolute;
+    display:none;
+}
+
+.tagModal.on{
+    display:block;
 }
 
 .tagModal > div:nth-child(1){
