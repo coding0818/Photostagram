@@ -977,15 +977,32 @@ html {height: 100%;}
     width:338px;
     height:226px;
     z-index:18;
-    background: red;
+    background: white;
     position:absolute;
 }
 
 .tagModal > div:nth-child(1){
-    width:20px;
-    height:15px;
-    background: red;
+    width: 20px;
+    height: 15px;
+    background: white;
     transform: rotate(90deg);
+    position: absolute;
+    left: 18px;
+    top: -5px;
+    clip-path: path( 'M8 0C8 4 9.32406e-08 7.819 1.25211e-07 10.5C1.57188e-07 13.1815 8 17.0005 8 21L8 0Z' );
+}
+
+.tagSearch {
+    margin-left: 10px;
+    margin-top:5px;
+}
+
+.tagSearch > div{
+    float:left;
+}
+
+.tagSearch > div > input{
+    border: none;
 }
 
 
