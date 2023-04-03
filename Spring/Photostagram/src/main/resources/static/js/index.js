@@ -172,40 +172,54 @@ $(function () {
       let top = new Array(top_length);
 
       for (let i = 0; i < top_length; i++) {
-        let top_cmt = $("div.top").eq(i)
-        top_cmt
+        let top_cmt = $("div.top").eq(i);
+        console.log(top_cmt);
 
-        let value = $("div.top").eq(i).attr('data-value');
-        console.log('value : ' + value);
+        let value = $("div.top").eq(i).attr("data-value");
+        console.log("value : " + value);
       }
 
-      //      $.ajax({
-      //        url:'/Photostagram/respCmtRegister',
-      //        method:'POST',
-      //        data:JSON.stringify(jsonData),
-      //        contentType:"application/json",
-      //        dataType:'json',
-      //        success: function(data){
-      //          if(data.result > 0){
-      //            let str = "<div class='resp_comment_section'>";
-      //                str += "<img src='" + image + "' alt='프로필이미지'>";
-      //                str += "<div data-no='" + data.no + "' style='display: inline-block;'>";
-      //                str += "<a class='modal_comment_id' href='/Photostagram/profile?username=" + uid + "'>" + uid + "</a>";
-      //
-      //                str += "<a href='/Photostagram/profile?username=" + uid + "' class='resp_id' style='color:#00376B;'>'" + respComment[0] + "'</a>&nbsp;";
-      //                str += "<span class='modal_comment'>'" + respComment[1] + "'</span>";
-      //                str += "<div class='comLike sprite_small_heart_icon_outline' data-no='" + user_no + "'></div>";
-      //                str += "<div class='commentInfo'>";
-      //                str += "<span>1일</span>&nbsp;&nbsp;좋아요";
-      //                str += "<span id='md_comment_likeCount'>0</span>개&nbsp;";
-      //                str += "<span class='resp_comment'>답글달기</span>";
-      //                str += "</div>";
-      //                str += "</div>";
-      //                str += "</div>";
-      //
-      //          }
-      //        }
-      //      })
+      // $.ajax({
+      //   url: "/Photostagram/respCmtRegister",
+      //   method: "POST",
+      //   data: JSON.stringify(jsonData),
+      //   contentType: "application/json",
+      //   dataType: "json",
+      //   success: function (data) {
+      //     if (data.result > 0) {
+      //       let str = "<div class='resp_comment_section'>";
+      //       str += "<img src='" + image + "' alt='프로필이미지'>";
+      //       str +=
+      //         "<div data-no='" + data.no + "' style='display: inline-block;'>";
+      //       str +=
+      //         "<a class='modal_comment_id' href='/Photostagram/profile?username=" +
+      //         uid +
+      //         "'>" +
+      //         uid +
+      //         "</a>";
+
+      //       str +=
+      //         "<a href='/Photostagram/profile?username=" +
+      //         uid +
+      //         "' class='resp_id' style='color:#00376B;'>'" +
+      //         respComment[0] +
+      //         "'</a>&nbsp;";
+      //       str +=
+      //         "<span class='modal_comment'>'" + respComment[1] + "'</span>";
+      //       str +=
+      //         "<div class='comLike sprite_small_heart_icon_outline' data-no='" +
+      //         user_no +
+      //         "'></div>";
+      //       str += "<div class='commentInfo'>";
+      //       str += "<span>1일</span>&nbsp;&nbsp;좋아요";
+      //       str += "<span id='md_comment_likeCount'>0</span>개&nbsp;";
+      //       str += "<span class='resp_comment'>답글달기</span>";
+      //       str += "</div>";
+      //       str += "</div>";
+      //       str += "</div>";
+      //     }
+      //   },
+      // });
     } else {
       // let jsonData = {
       //   "uid":uid,
