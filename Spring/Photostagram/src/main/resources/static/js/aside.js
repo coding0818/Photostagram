@@ -663,9 +663,10 @@ function uploadFiles(e){
         let x = e.clientX;
         let y = e.clientY;
 
+        console.log('------------------');
         console.log('x 좌표 : '+x);
         console.log('x 좌표 : '+y);
 
-        $('.tagModal').css({top:x, left:y});
+        $('.tagModal').css({left:x-18, top:y});
     });
   });
