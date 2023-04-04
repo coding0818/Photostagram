@@ -1,5 +1,6 @@
 div.resp_comment_section{
     margin-left: 55px;
+    margin-top: 12px;
 }
 div.resp_comment_section img {
     width: 32px;
@@ -24,5 +25,17 @@ div.resp_comment_section > div > span {
 
 div.modal-post div.commentInfo span.resp_comment {
     cursor: pointer;
+}
+
+div.resp_comment_section > ul li {
+}
+div.resp_comment_section > ul li > div {
+    width: 86.7%
+}
+
+
+div.modal-post div.posting {
+    display: inline-block;
+    width: 87.5%;
 }
 

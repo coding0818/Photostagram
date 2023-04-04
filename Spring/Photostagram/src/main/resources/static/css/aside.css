@@ -1188,7 +1188,7 @@ div.modal-post
   div.rest
   div.text
   div.comment-container {
-  display: flex;
+  display: block;
   width: 100%;
 }
 div.modal-post div.wrapper div.post-content div.rest div.text div.top img,

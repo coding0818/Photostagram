@@ -173,101 +173,109 @@ $(function () {
 
       for (let i = 0; i < top_length; i++) {
         let top_cmt = $("div.top").eq(i);
-        console.log(top_cmt);
+        top.push(top_cmt);
 
         let value = $("div.top").eq(i).attr("data-value");
         console.log("value : " + value);
+
       }
 
-      // $.ajax({
-      //   url: "/Photostagram/respCmtRegister",
-      //   method: "POST",
-      //   data: JSON.stringify(jsonData),
-      //   contentType: "application/json",
-      //   dataType: "json",
-      //   success: function (data) {
-      //     if (data.result > 0) {
-      //       let str = "<div class='resp_comment_section'>";
-      //       str += "<img src='" + image + "' alt='프로필이미지'>";
-      //       str +=
-      //         "<div data-no='" + data.no + "' style='display: inline-block;'>";
-      //       str +=
-      //         "<a class='modal_comment_id' href='/Photostagram/profile?username=" +
-      //         uid +
-      //         "'>" +
-      //         uid +
-      //         "</a>";
+      $.ajax({
+        url: "/Photostagram/respCmtRegister",
+        method: "POST",
+        data: JSON.stringify(jsonData),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+          if (data.result > 0) {
+            
+            let str = "<div class='resp_comment_section'>";
+            str += "<ul>"
+            str += "<li>"
+            str += "<img src='" + image + "' alt='프로필이미지'>";
+            str += "<div data-no='" + data.no + "' style='display: inline-block;'>";
+            str += "<a class='modal_comment_id' href='/Photostagram/profile?username=" + uid + "'>" + uid + "</a>";
+            str += "<a href='/Photostagram/profile?username=" + uid + " class='resp_id' style='color:#00376B;'>" +
+                    respComment[0] +
+                   "</a>&nbsp;";
+            str += "<span class='modal_comment'>" + respComment[1] + "</span>";
+            str +=
+              "<div class='comLike sprite_small_heart_icon_outline' data-no='" + user_no + "'></div>";
 
-      //       str +=
-      //         "<a href='/Photostagram/profile?username=" +
-      //         uid +
-      //         "' class='resp_id' style='color:#00376B;'>'" +
-      //         respComment[0] +
-      //         "'</a>&nbsp;";
-      //       str +=
-      //         "<span class='modal_comment'>'" + respComment[1] + "'</span>";
-      //       str +=
-      //         "<div class='comLike sprite_small_heart_icon_outline' data-no='" +
-      //         user_no +
-      //         "'></div>";
-      //       str += "<div class='commentInfo'>";
-      //       str += "<span>1일</span>&nbsp;&nbsp;좋아요";
-      //       str += "<span id='md_comment_likeCount'>0</span>개&nbsp;";
-      //       str += "<span class='resp_comment'>답글달기</span>";
-      //       str += "</div>";
-      //       str += "</div>";
-      //       str += "</div>";
-      //     }
-      //   },
-      // });
+            str += "<div class='commentInfo'>";
+            str += "<span>1일</span>&nbsp;&nbsp;좋아요";
+            str += "<span id='md_comment_likeCount'>0</span>개&nbsp;";
+            str += "<span class='resp_comment'>답글달기</span>";
+            str += "</div>";
+            str += "</div>";
+            str += "</li>"
+            str += "</ul>"
+            str += "</div>";
+      
+            
+            for (let i = 0; i < top_length; i++) {
+              let top_cmt = $("div.top").eq(i);
+              top.push(top_cmt);
+      
+              let value = $("div.top").eq(i).attr("data-value");
+              console.log("value : " + value);
+
+             if(top_cmt.attr("data-value") == respComment_No){
+               top_cmt.append(str)
+             }
+            }
+            
+          }
+        },
+      });
     } else {
-      // let jsonData = {
-      //   "uid":uid,
-      //   "post_no":post_no,
-      //   "user_no":user_no,
-      //   "comment":comment
-      // };
-      // $.ajax({
-      //   url:'/Photostagram/CmtRegister',
-      //   method:'POST',
-      //   data: JSON.stringify(jsonData),
-      //   contentType: "application/json",
-      //   dataType:'json',
-      //   success: function(data){
-      //     if(data.result > 0){
-      //       let modal_comment = "<div class='top'>";
-      //       modal_comment += "<img src='" + image + "' alt='프로필이미지'>";
-      //       modal_comment += "<div class='posting'>";
-      //       modal_comment += "<div data-no='" + data.no + "'>";
-      //       modal_comment += "<a class='modal_comment_id' href='/Photostagram/profile?username=" + uid + "'>" + uid + "</a>";
-      //       modal_comment += "<input type='hidden' value='" + data.no + "'>";
-      //       modal_comment += "<span class='modal_comment' style='margin-left:2px;'>" + comment + "</span>";
-      //       modal_comment += "<div class='comLike sprite_small_heart_icon_outline' data-no='" + user_no + "'></div>";
-      //       modal_comment += "<div class='commentInfo'>";
-      //       modal_comment += "<span>1일</span>&nbsp;&nbsp;좋아요&nbsp;";
-      //       modal_comment += "<span id='md_comment_likeCount'>0</span>개&nbsp;";
-      //       modal_comment += "<span>답글달기</span>";
-      //       modal_comment += "</div>";
-      //       modal_comment += "</div>";
-      //       modal_comment += "</div>";
-      //       modal_comment += "</div>";
-      //       article.find('.text').append(modal_comment);
-      //       let str = "<div class='reply_user' data-no='"+data.no+"'>";
-      //         str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
-      //         str += "<span class='reply_nick'>" + uid + "</span>";
-      //         str += "<span class='reply_content' style='margin-left:4px;'>" + comment + "</span>";
-      //         str += "<div class='comLike sprite_small_heart_icon_outline' data-no='"+data.user_no+"'></div>";
-      //         str += "</div>";
-      //       article.find('.comment_container').append(str);
-      //       article.find('.commentText').val('');
-      //       let count = article.find('#comment-count').text(); // 현재 태그사이 텍스트받고
-      //       let commentCount = parseInt(count); // 문자열이라 더하기가 안되기때문에 parseInt
-      //       article.find('#comment-count').text(commentCount+1); // 해당 텍스트에 +1
-      //     }else{
-      //         alert('실패')
-      //     }
-      //   }
-      // })
+       let jsonData = {
+         "uid":uid,
+         "post_no":post_no,
+         "user_no":user_no,
+         "comment":comment
+       };
+       $.ajax({
+         url:'/Photostagram/CmtRegister',
+         method:'POST',
+         data: JSON.stringify(jsonData),
+         contentType: "application/json",
+         dataType:'json',
+         success: function(data){
+           if(data.result > 0){
+             let modal_comment = "<div class='top'>";
+             modal_comment += "<img src='" + image + "' alt='프로필이미지'>";
+             modal_comment += "<div class='posting'>";
+             modal_comment += "<div data-no='" + data.no + "'>";
+             modal_comment += "<a class='modal_comment_id' href='/Photostagram/profile?username=" + uid + "'>" + uid + "</a>";
+             modal_comment += "<input type='hidden' value='" + data.no + "'>";
+             modal_comment += "<span class='modal_comment' style='margin-left:2px;'>" + comment + "</span>";
+             modal_comment += "<div class='comLike sprite_small_heart_icon_outline' data-no='" + user_no + "'></div>";
+             modal_comment += "<div class='commentInfo'>";
+             modal_comment += "<span>1일</span>&nbsp;&nbsp;좋아요&nbsp;";
+             modal_comment += "<span id='md_comment_likeCount'>0</span>개&nbsp;";
+             modal_comment += "<span>답글달기</span>";
+             modal_comment += "</div>";
+             modal_comment += "</div>";
+             modal_comment += "</div>";
+             modal_comment += "</div>";
+             article.find('.text').append(modal_comment);
+             let str = "<div class='reply_user' data-no='"+data.no+"'>";
+               str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
+               str += "<span class='reply_nick'>" + uid + "</span>";
+               str += "<span class='reply_content' style='margin-left:4px;'>" + comment + "</span>";
+               str += "<div class='comLike sprite_small_heart_icon_outline' data-no='"+data.user_no+"'></div>";
+               str += "</div>";
+             article.find('.comment_container').append(str);
+             article.find('.commentText').val('');
+             let count = article.find('#comment-count').text(); // 현재 태그사이 텍스트받고
+             let commentCount = parseInt(count); // 문자열이라 더하기가 안되기때문에 parseInt
+             article.find('#comment-count').text(commentCount+1); // 해당 텍스트에 +1
+           }else{
+               alert('실패')
+           }
+         }
+       })
     }
   });
   /*
