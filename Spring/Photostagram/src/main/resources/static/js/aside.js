@@ -101,16 +101,19 @@ function uploadFiles(e){
         modal.css('display', 'none');
         $('body').css('overflow-y', 'visible');
         $('.bx-controls-direction').css('display', 'flex');
+        $('.tagModal').css({display:'none'});
       });
 
       $('#close_modal_feed').on('click', function(){
         modal_feed.css('display', 'none');
         $('body').css('overflow-y', 'visible');
+        $('.tagModal').css({display:'none'});
       });
 
       $('#close_modal_feed_drop').on('click', function(){
         modal_feed_drop.css('display', 'none');
         $('body').css('overflow-y', 'visible');
+        $('.tagModal').css({display:'none'});
       });
       
       $('.modal_image_upload')
@@ -667,7 +670,6 @@ function uploadFiles(e){
         console.log('x 좌표 : '+x);
         console.log('x 좌표 : '+y);
 
-        $('.tagModal').toggleClass('on');
-        $('.tagModal').css({left:x-18, top:y});
+        $('.tagModal').css({left:x-18, top:y, display:'block'});
     });
   });
