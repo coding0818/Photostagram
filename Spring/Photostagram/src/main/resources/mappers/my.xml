@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.photostagram.dao.MyDAO">
+
+    <select id="selectPosts" resultType="kr.co.photostagram.vo.PostVO">
+        SELECT *,COUNT(`thumb`) AS 'thumbs'
+            FROM `post` AS a
+            JOIN `image` AS b
+            ON a.`no`=b.`post_no`
+            WHERE a.`user_no`=#{no}
+            GROUP BY a.`no`
+            DESC LIMIT #{index}, 25 ;       <!-- 무한스크롤 페이징 처리하며 추가 -->
+    </select>
+
+
+</mapper>
