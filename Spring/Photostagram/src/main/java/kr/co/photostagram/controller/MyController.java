@@ -1,7 +1,9 @@
 package kr.co.photostagram.controller;
 
+import kr.co.photostagram.service.MyService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.vo.MemberVO;
+import kr.co.photostagram.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,10 +11,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Slf4j
 @Controller
 public class MyController {
+
+    @Autowired
+    private MyService service;
 
     @Autowired
     private ProfileService profileService;
@@ -34,10 +43,23 @@ public class MyController {
     }
 
     @GetMapping("my/photos/posts")
-    public String photos(Principal principal, Model model) {
+    public String posts(Principal principal, Model model) {
         MemberVO user = profileService.selectMember(principal.getName());
+
+        List<PostVO> articles = service.selectPosts(user.getNo(), 0);
+        Map<Integer, PostVO> map = new HashMap<>();
+
+        for (int i=0; i<articles.size(); i++){
+            int artNo = articles.get(i).getNo();
+            PostVO article = profileService.selectThumb(user.getNo(), artNo);
+            map.put(i, article);
+        }
+
+        Map<Integer, PostVO> sortMap = new TreeMap<>(map);
+
         model.addAttribute("user", user);
         model.addAttribute("cate", "photos");
+        model.addAttribute("sortMap", sortMap);
         return "my/photos/posts";
     }
 
