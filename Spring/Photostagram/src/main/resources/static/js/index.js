@@ -29,7 +29,7 @@ $(function () {
     let id = "@" + idtext;
 
     // textarea @아이디 생성
-    let modal_cmt_text = $(".modal_commentText").val(id + " ");
+    let modal_cmt_text = $(".modal_commentText").val(id + " | ");
   });
 
   // 댓글 모두보기
@@ -157,16 +157,19 @@ $(function () {
       let respComment_No = $("input[name=commentNo]").last().val();
       console.log("답글 달 댓글 번호입니다 : " + respComment_No);
 
-      let jsonData = {
-        comment: comment,
-        post_no: post_no,
-        user_no: user_no,
-        parent: respComment_No,
-      };
-
-      let respComment = comment.split(" ");
+      let respComment = comment.split(" | ");
       console.log(respComment[0]); // 피 답글자 아이디
       console.log(respComment[1]); // 해당 답글의 내용
+
+      
+      let jsonData = {
+        comment: respComment[1],
+        post_no: post_no,
+        user_no: user_no,
+        parent: respComment_No
+      };
+
+      
 
       let top_length = $("div.top").length;
       let top = new Array(top_length);
@@ -215,7 +218,6 @@ $(function () {
             
             for (let i = 0; i < top_length; i++) {
               let top_cmt = $("div.top").eq(i);
-              top.push(top_cmt);
       
               let value = $("div.top").eq(i).attr("data-value");
               console.log("value : " + value);

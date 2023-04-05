@@ -244,7 +244,7 @@
                       <div class="rest">
                         <div class="text">
                           <th:block th:each="comment : ${comments}" th:if="${#strings.equals(comment.post_no,article.no)}">
-                            <div class="top" th:data-value="${comment.no}">
+                            <div class="top" th:data-value="${comment.no}" th:if="${#strings.contains(comment.parent,'')}">
                               <!----------- modal 댓글 프로필 사진입니다 ------------>
                               <th:block th:if="${#strings.isEmpty(comment.memberVO.profileImg)}">
                                 <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
@@ -280,7 +280,7 @@
                               <!-------------------------------------------------->
 
                               <!-- 답글 -->
-                              <div class="resp_comment_section" th:if="${#strings.isEmpty(comment.parent)}" >
+                              <div class="resp_comment_section" th:if="${#strings.equals(comment.no,comment.parent)}">
                                   <ul>
                                     <li>
                                       <!-- 프로필 사진 -->
@@ -294,7 +294,7 @@
 
                                       <div th:data-no="${comment.no}" style="display: inline-block;">
                                         <a class="modal_comment_id" th:href="@{/profile(username=${user.username})}" th:text="${comment.memberVO.username}">KingTiger</a>
-                                        <a href="#" class="resp_id" style="color:#00376B;">@letary</a>&nbsp;
+                                        <a href="#" class="resp_id" th:text="|@${comment.username}|"  style="color:#00376B;">@아이디</a>&nbsp;
                                         <span class="modal_comment" th:text="${comment.comment}">안녕하세요 나는 타이거입니다.</span>
 
                                         <!-- 댓글 좋아요 -->
