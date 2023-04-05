@@ -1021,11 +1021,32 @@ html {height: 100%;}
     height:62px;
 }
 
+.tagSearchUser{
+    display:flex;
+}
+
 .tagSearchUser > img{
     width:46px;
     height:46px;
 }
 
+.tagUserInfo{
+    padding:8px;
+}
+
+.tagUserInfo > div{
+    text-align: left;
+    font-size:14px;
+    color:#000000;
+    font-weight:bold;
+}
+.tagUserInfo > span{
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    font-size:14px;
+    color:#737373;
+}
 
 /********** post Modal ************/
 div.modal-post {
