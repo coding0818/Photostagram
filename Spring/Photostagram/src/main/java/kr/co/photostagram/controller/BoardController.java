@@ -1,11 +1,14 @@
 package kr.co.photostagram.controller;
 
+import kr.co.photostagram.entity.UserEntity;
+import kr.co.photostagram.security.MyUserDetails;
 import kr.co.photostagram.service.BoardService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +29,9 @@ public class BoardController {
     private ProfileService profileService;
 
     @GetMapping("board/post")
-    public String post(Principal principal, Model model, int no) {
-        MemberVO login_info =  profileService.selectMember(principal.getName());
-        log.info("login_info : " + login_info);
+    public String post(Authentication authentication, Model model, int no) {
+        MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
+        UserEntity user = myUserDetails.getUser();
 
         /*** 게시물 작성자 ***/
         //BoardVO user = service.selectMember(myName);
@@ -37,16 +40,19 @@ public class BoardController {
         BoardVO post = service.selectPost(no);
         log.info("post : " + post);
 
+
         /*** 게시자 아이디, 프로필 ***/
+        /*
         BoardVO user = BoardVO.builder()
                 .user_no(post.getUser_no())
                 .username(post.getUsername())
                 .profileImg(post.getProfileImg())
                 .build();
+        */
 
         /*** 해쉬태그 ***/
         List<Board1VO> hashes = service.selectPostHashTag(no);
-//        log.info("hashes : " + hashes);
+//       log.info("hashes : " + hashes);
 
         /*** 댓글 ***/
         List<CommentVO> comments = service.selectcomments(no);
@@ -81,7 +87,6 @@ public class BoardController {
         model.addAttribute("noticesTime", noticesTime);
         model.addAttribute("content_like_time", content_like_time);
         model.addAttribute("plusimg", plusimg);
-        model.addAttribute("login_info", login_info);
 //        model.addAttribute("post_like_user", post_like_user);
 
 
