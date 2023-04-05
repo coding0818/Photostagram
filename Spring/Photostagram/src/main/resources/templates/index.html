@@ -176,7 +176,7 @@
                   <button class="upload_btn m_text">게시</button>
                 </div>
 
-                <!-- 포스트 게시글 모달 -->
+                <!-------------- 포스트 게시글 모달 ------------------->
                 <div class="modal-post" th:data-no="${article.no}">
                   <svg class="post-close" fill="#ffffff" viewBox="0 0 48 48">
                     <path
@@ -186,7 +186,7 @@
                     ></path>
                   </svg>
                   <div class="wrapper">
-                    <!---------- 모달 메인 사진 -------->
+                    <!---------- 모달 메인 사진영역 -------->
                     <div class="image">
                       <div class="bx_slider">
                         <!------------- 게시글 사진입니다 --------------------->
@@ -210,57 +210,38 @@
                     <div class="post-content">
                       <!-- 글 작성자 -->
                       <div class="user">
-                        <th:block th:if="${#strings.isEmpty(article.memberVO.profileImg)}">
-                          <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
-                          <a th:href="@{/profile(username=${article.memberVO.username})}" th:text="${article.memberVO.username}"></a>
-                        </th:block>
-
-                        <th:block th:unless="${#strings.isEmpty(article.memberVO.profileImg)}">
-                          <img th:src="|@{/}thumb/${article.memberVO.profileImg}" alt="프로필이미지"/>
-                          <a th:href="@{/profile(username=${article.memberVO.username})}" th:text="${article.memberVO.username}"></a>
-                        </th:block>
-
+                        <img th:src="|@{/}thumb/${article.memberVO.profileImg}"
+                             onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'">
+                        <a th:href="@{/profile(username=${article.memberVO.username})}" th:text="${article.memberVO.username}"></a>
                       </div>
+
                       <!-- modal 게시글 내용 -->
                       <div class="user-content">
-                        <th:block th:if="${#strings.isEmpty(article.memberVO.profileImg)}">
-                          <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
-                          <a th:href="@{/profile(username=${article.memberVO.username})}" th:text="${article.memberVO.username}"></a>
-                        </th:block>
+                        <img th:src="|@{/}thumb/${article.memberVO.profileImg}"
+                             onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'">
+                        <a th:href="@{/profile(username=${article.memberVO.username})}" th:text="${article.memberVO.username}"></a>
 
-                        <th:block th:unless="${#strings.isEmpty(article.memberVO.profileImg)}">
-                          <img th:src="|@{/}thumb/${article.memberVO.profileImg}" alt="프로필이미지"/>
-                          <a th:href="@{/profile(username=${article.memberVO.username})}" th:text="${article.memberVO.username}"></a>
-                        </th:block>
-
-                        <span>
-                      [[${article.content}]]
-                      <a th:href="@{/search(no = ${hashtag.no})}" th:each="hashtag : ${article.hashTagVO}" class="modalhashtag_text" style="color: #00376B;">#[[${hashtag.hashtag}]]</a>
-                    </span>
+                        <span>[[${article.content}]]
+                          <a th:href="@{/search(no = ${hashtag.no})}" th:each="hashtag : ${article.hashTagVO}" class="modalhashtag_text" style="color: #00376B;">#[[${hashtag.hashtag}]]</a>
+                        </span>
 
                       </div>
 
-                      <!-- modal 댓글 -->
+                      <!-- modal 댓글 th:if="${comment.parent} == 0" -->
                       <div class="rest">
                         <div class="text">
                           <th:block th:each="comment : ${comments}" th:if="${#strings.equals(comment.post_no,article.no)}">
-                            <div class="top" th:data-value="${comment.no}" th:if="${#strings.contains(comment.parent,'')}">
-                              <!----------- modal 댓글 프로필 사진입니다 ------------>
-                              <th:block th:if="${#strings.isEmpty(comment.memberVO.profileImg)}">
-                                <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
-                              </th:block>
+                            <div class="top" th:data-value="${comment.no}" >
+                              <!---- modal 댓글 프로필 사진입니다 --->
+                              <img th:src="|@{/}thumb/${comment.memberVO.profileImg}"
+                                   onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'">
 
-                              <th:block th:unless="${#strings.isEmpty(comment.memberVO.profileImg)}">
-                                <img th:src="|@{/}thumb/${comment.memberVO.profileImg}" alt="프로필이미지"/>
-                              </th:block>
-                              <!--------------------프로필 사진 ------------------->
-
-                              <!---------- modal 댓글작성자 ID, 내용 입니다 ---------->
+                              <!---- modal 댓글작성자 ID, 내용 입니다 ---->
                               <div class="posting">
                                 <div th:data-no="${comment.no}">
                                   <a class="modal_comment_id" th:href="@{/profile(username=${comment.username})}" th:text="${comment.memberVO.username}">KingTiger</a>
                                   <input type="hidden" th:value="${comment.no}">
-                                  <span class="modal_comment" th:text="${comment.comment}">안녕하세요 나는 타이거입니다.</span>
+                                  <span class="modal_comment" th:text="${comment.comment}">모달 댓글 내용</span>
                                   <!-- 댓글 좋아요 -->
                                   <th:block th:if="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
                                     <div class="comLike sprite_full_small_heart_icon_outline" th:data-no="${user.no}"></div>
@@ -277,25 +258,27 @@
                                   </div>
                                 </div>
                               </div>
-                              <!-------------------------------------------------->
+                              <!---------------------------------->
 
                               <!-- 답글 -->
-                              <div class="resp_comment_section" th:if="${#strings.equals(comment.no,comment.parent)}">
+                              <div class="resp_comment_section" th:if="${comment.childComment != null}">
                                   <ul>
-                                    <li>
+                                    <li th:each="child:${comment.childComment}">
+
                                       <!-- 프로필 사진 -->
-                                      <th:block th:if="${#strings.isEmpty(comment.memberVO.profileImg)}">
-                                        <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/>
-                                      </th:block>
-                                      <th:block th:unless="${#strings.isEmpty(comment.memberVO.profileImg)}">
-                                        <img th:src="|@{/}thumb/${comment.memberVO.profileImg}" alt="프로필이미지"/>
-                                      </th:block>
-                                      <!-- 프로필 사진 -->
+                                      <img th:src="|@{/}thumb/${comment.memberVO.profileImg}"
+                                           onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"
+                                           alt="profile">
 
                                       <div th:data-no="${comment.no}" style="display: inline-block;">
-                                        <a class="modal_comment_id" th:href="@{/profile(username=${user.username})}" th:text="${comment.memberVO.username}">KingTiger</a>
-                                        <a href="#" class="resp_id" th:text="|@${comment.username}|"  style="color:#00376B;">@아이디</a>&nbsp;
-                                        <span class="modal_comment" th:text="${comment.comment}">안녕하세요 나는 타이거입니다.</span>
+                                        <!-- 답글 작성자-->
+                                        <a class="modal_comment_id" th:href="@{/profile(username=${child.username})}" th:text="${child.memberVO.username}">KingTiger</a>
+
+                                        <!-- 답글 대상자(@jgh0609) -->
+                                        <a th:href="@{/profile(username=${comment.username})}" class="resp_id" th:text="|@${comment.username}|"  style="color:#00376B;">@아이디</a>&nbsp;
+
+                                        <!-- 답글 내용 -->
+                                        <span class="modal_comment" th:text="${child.comment}">모달 답글내용</span>
 
                                         <!-- 댓글 좋아요 -->
                                         <th:block th:if="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">

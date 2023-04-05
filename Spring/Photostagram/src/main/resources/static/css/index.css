@@ -1,6 +1,7 @@
 div.resp_comment_section{
-    margin-left: 55px;
-    margin-top: 12px;
+   margin-left: 14px;
+   /* margin-top: 12px; */
+   width: 100%;
 }
 div.resp_comment_section img {
     width: 32px;
@@ -8,6 +9,20 @@ div.resp_comment_section img {
     border-radius: 20px;
     margin-right: 12px;
     cursor: pointer;
+}
+
+div.resp_comment_section > ul li > div > .modal_comment_id {
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "nsM";
+}
+div.resp_comment_section > ul li > div > .resp_id {
+    font-size: 13px;
+    font-weight: bold;
+}
+div.resp_comment_section > ul li > div > .modal_comment {
+    font-size: 14px;
+    font-family: "nsM";
 }
 
 div.resp_comment_section > div {
@@ -28,14 +43,13 @@ div.modal-post div.commentInfo span.resp_comment {
 }
 
 div.resp_comment_section > ul li {
+    padding-top: 10px;
 }
 div.resp_comment_section > ul li > div {
     width: 86.7%
 }
-
-
 div.modal-post div.posting {
     display: inline-block;
-    width: 87.5%;
+    width: 410px;
 }
 

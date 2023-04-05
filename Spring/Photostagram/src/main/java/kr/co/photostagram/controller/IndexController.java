@@ -32,8 +32,7 @@ public class IndexController {
 
     @GetMapping(value = {"/", "index"})
     public String index(Model model, Principal principal) throws IndexOutOfBoundsException{
-        // 댓글 조회
-        List<CommentVO> comments = service.selectComment();
+
         MemberVO user =  profileService.selectMember(principal.getName());
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
@@ -63,8 +62,11 @@ public class IndexController {
             }
         }
 
+        // 게시글 조회
         List<PostVO> articles = service.selectArticles(usersNo);
-//        log.info("articles : " + articles);
+        // 댓글 조회
+        List<CommentVO> comments = service.selectComment();
+
         model.addAttribute("articles", articles);
         model.addAttribute("members", members);
         model.addAttribute("followings", followings);
