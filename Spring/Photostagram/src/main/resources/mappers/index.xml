@@ -157,6 +157,7 @@
         <result column="parent" property="parent"/>
         <result column="commentRdate" property="rdate"/>
         <result column="username" property="username"/>
+        <result column="profileImg" property="profileImg"/>
 
         <collection property="memberVO" ofType="kr.co.photostagram.vo.MemberVO">
             <result column="username" property="username"/>

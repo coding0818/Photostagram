@@ -3,6 +3,7 @@ package kr.co.photostagram.controller;
 import kr.co.photostagram.entity.UserEntity;
 import kr.co.photostagram.security.MyUserDetails;
 import kr.co.photostagram.service.BoardService;
+import kr.co.photostagram.service.IndexService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,8 @@ public class BoardController {
     private BoardService service;
     @Autowired
     private ProfileService profileService;
+    @Autowired
+    private IndexService indexService;
 
     @GetMapping("board/post")
     public String post(Authentication authentication, Model model, int no) {
@@ -54,10 +57,6 @@ public class BoardController {
         List<Board1VO> hashes = service.selectPostHashTag(no);
 //       log.info("hashes : " + hashes);
 
-        /*** 댓글 ***/
-        List<CommentVO> comments = service.selectcomments(no);
-//        log.info("comments : " + comments);
-
         /*** 게시물 사진 ***/
         List<ImageVO> images = service.selectimages(no);
 //        log.info("images : " + images);
@@ -66,8 +65,8 @@ public class BoardController {
         PostVO content_like_time = service.selectContentLikeTime(no);
 
         /*** 게시물 댓글 ***/
-        List<Board2VO> commentList = service.selectcommentlist(no);
-        log.info("commentList : " + commentList);
+        List<CommentVO> articleComments = indexService.selectComment();
+        log.info("comment ~~~~ : " + articleComments);
 
         /*** 댓글 작성 시간 ***/
         List<NoticeVO> noticesTime = service.selectNoticesTime(no);
@@ -78,12 +77,13 @@ public class BoardController {
         List<PostVO> plusimg = service.selectPlusImg(no);
 //        log.info("plusimg : " + plusimg);
 
+        model.addAttribute("comments", articleComments);
+        model.addAttribute("NowArticleNo", no);
+
         model.addAttribute("user", user);
         model.addAttribute("post", post);
         model.addAttribute("hashes", hashes);
-        model.addAttribute("comments", comments);
         model.addAttribute("images", images);
-        model.addAttribute("commentList", commentList);
         model.addAttribute("noticesTime", noticesTime);
         model.addAttribute("content_like_time", content_like_time);
         model.addAttribute("plusimg", plusimg);

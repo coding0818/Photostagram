@@ -87,7 +87,7 @@
     #post > .contents > ul::-webkit-scrollbar {display: none;}
     #post > .contents > ul > li {
       width: auto;
-      height: 60px;
+      height: 47px;
       display: block;
       margin-left: 10px;
       margin-top: 10px;
@@ -168,8 +168,8 @@
       float: left;
       margin-bottom: 8px;
     }
-    .listReply > ul > li > .reply {width: 390px; margin-bottom: 3px;}
-
+    .listReply > ul > li > .reply {width: 380px; margin-bottom: 3px;}
+    .listReply > ul > li > .reply .favorite > span {}
 
     .proImg {
       margin-right: 10px;

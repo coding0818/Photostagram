@@ -1261,7 +1261,7 @@ div.modal-post
   div.rest
   div.text
   div.comment-container {
-  display: flex;
+  display: block;
   width: 100%;
 }
 div.modal-post div.wrapper div.post-content div.rest div.text div.top img,
@@ -1277,6 +1277,7 @@ div.modal-post
   border-radius: 20px;
   margin-right: 12px;
   cursor: pointer;
+  vertical-align: top;
 }
 div.modal-post
   div.wrapper

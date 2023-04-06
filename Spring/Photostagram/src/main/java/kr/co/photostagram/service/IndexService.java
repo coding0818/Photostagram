@@ -5,14 +5,18 @@ import kr.co.photostagram.vo.CommentVO;
 import kr.co.photostagram.vo.Comment_likeVO;
 import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class IndexService {
 
     @Autowired
@@ -71,9 +75,23 @@ public class IndexService {
             int likecount = dao.selectModalCommentlikeCount(vo.getNo());
             vo.setModal_likeCount(likecount);
         }
-        return comments;
 
+        Map<Integer, List<CommentVO>> map = comments.stream().collect(Collectors.groupingBy(CommentVO::getParent));
+//        log.info(""+ map);
+        List<CommentVO> oriComment = map.get(0);
+//        log.info("oriComment : " + oriComment);
+
+        for(CommentVO com : oriComment) {
+            com.setChildComment(map.get(com.getNo()));
+//            log.info(" com : "+com);
+        }
+
+//        for(CommentVO com : oriComment) {
+//            부모댓글들 log.info(" test1 : "+com.getNo());
+//        }
+//        for(CommentVO com : oriComment) {
+//            자식댓글들 log.info(" test2 : "+map.get(com.getNo()));
+//        }
+        return oriComment;
     }
-
-
 }
