@@ -133,7 +133,7 @@
                     </li>
                     <!---->
 
-                    <li id="text" th:each="commentVo:${commentList}">
+                    <li id="text" th:each="commentVo:${comments}" th:if="${commentVo.post_no == NowArticleNo}">
                         <img class="proImg" th:src="|@{/}thumb/${commentVo.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'" alt="profile">
                         <div class="reply">
                             <h1 class="comment_width"><span>[[${commentVo.username}]]</span>[[${commentVo.comment}]]</h1>
@@ -141,24 +141,29 @@
                             <div class="favorite">
                                 <span class="comment_writeTime">1일</span>
                                 좋아요
-                                <span class="cmt_like_count">[[${commentVo.like_count}]]</span>개
+                                <span class="cmt_like_count">[[${commentVo.modal_likeCount}]]</span>개
                                 <span class="comment_more">답글달기</span>
                             </div>
                         </div>
                         <a href="#" id="reHeart" class="reWhite"></a>
 
-                        <div class="showReply">
-                            <a href="#" class="reOpen" th:if="${commentVo.parent > 0}">ㅡ 답글보기</a>
+                        <div class="showReply" >
+                            <a href="#" class="reOpen" th:if="${commentVo.childComment != null}">ㅡ 답글보기</a>
                             <div class="listReply reHide">
                                 <ul class="reReply">
-                                    <li>
-                                        <img class="proImg" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}"  alt="profile">
+                                    <li th:each="child:${commentVo.childComment}">
+                                        <img class="proImg" th:src="|@{/}thumb/${child.profileImg}"  alt="profile">
+
                                         <div class="reply">
-                                            <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
-                                            <a href="#">#해시태그</a>
-                                            <div class="comment-time">
-                                                좋아요 <span>100</span>개 &nbsp;&nbsp;
-                                                <a href="#">답글달기</a>
+                                            <h1>
+                                                <span th:text="${child.memberVO.username}">gildong</span>
+                                                [[${child.comment}]]
+                                            </h1>
+                                            <div class="favorite">
+                                                <span class="comment_writeTime">1일</span>
+                                                좋아요
+                                                <span class="cmt_like_count">[[${child.modal_likeCount}]]</span>개
+                                                <span class="comment_more">답글달기</span>
                                             </div>
                                         </div>
                                         <a href="#" id="reHeart" class="reWhite">좋아요</a>

@@ -66,7 +66,7 @@ public class IndexController {
         List<PostVO> articles = service.selectArticles(usersNo);
         // 댓글 조회
         List<CommentVO> comments = service.selectComment();
-
+        log.info("comments : " + comments);
         model.addAttribute("articles", articles);
         model.addAttribute("members", members);
         model.addAttribute("followings", followings);

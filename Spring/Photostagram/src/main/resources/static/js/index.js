@@ -130,6 +130,7 @@ $(function () {
     let comment = input.eq(3).val();
     let image = $("#myProfile").children().children().attr("src");
 
+    // 댓글쓰는게 답글이면
     if (comment.startsWith("@")) {
       console.log(uid);
       console.log("답글 내용입니다 : " + comment);
@@ -181,7 +182,7 @@ $(function () {
             str += "<div data-no='" + data.no + "' style='display: inline-block; margin-left: 2px;'>";
             str += "<a class='modal_comment_id' href='/Photostagram/profile?username=" + uid + "'>" + uid + "</a>";
 
-            str += "<a href='/Photostagram/profile?username="+respComment[0]+"' class='resp_id' style='color:#00376B; font-size:13px; font-weight:bold; margin-left: 4px;'>"+respComment[0]+"</a>&nbsp;"
+            str += "<a href='/Photostagram/profile?username="+respComment[0].substring(1)+"' class='resp_id' style='color:#00376B; font-size:13px; font-weight:bold; margin-left: 4px;'>"+respComment[0]+"</a>&nbsp;"
 
             str += "<span class='modal_comment'>" + respComment[1] + "</span>";
             str +=

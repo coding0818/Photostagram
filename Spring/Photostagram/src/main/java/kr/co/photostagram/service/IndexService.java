@@ -70,30 +70,28 @@ public class IndexService {
     @Transactional
     public List<CommentVO> selectComment(){
         List<CommentVO> comments = dao.selectComment();
-//        log.info("map : " + oriComment);
-//        log.info("List : " + comments);
-//
-//        for(CommentVO com : oriComment) {
-//            log.info(" test1 : "+com.getNo());
-//        }
-//        for(CommentVO com : oriComment) {
-//            log.info(" test2 : "+map.get(com.getNo()));
-//        }
-//        for(CommentVO com : oriComment) {
-//            com.setChildComment(map.get(com.getNo()));
-//            log.info("com : "+com);
-//        }
+
         for(CommentVO vo : comments){
             int likecount = dao.selectModalCommentlikeCount(vo.getNo());
             vo.setModal_likeCount(likecount);
         }
 
         Map<Integer, List<CommentVO>> map = comments.stream().collect(Collectors.groupingBy(CommentVO::getParent));
+//        log.info(""+ map);
         List<CommentVO> oriComment = map.get(0);
+//        log.info("oriComment : " + oriComment);
+
         for(CommentVO com : oriComment) {
             com.setChildComment(map.get(com.getNo()));
-//            log.info(" 부모댓글 : "+com);
+//            log.info(" com : "+com);
         }
+
+//        for(CommentVO com : oriComment) {
+//            부모댓글들 log.info(" test1 : "+com.getNo());
+//        }
+//        for(CommentVO com : oriComment) {
+//            자식댓글들 log.info(" test2 : "+map.get(com.getNo()));
+//        }
         return oriComment;
     }
 }

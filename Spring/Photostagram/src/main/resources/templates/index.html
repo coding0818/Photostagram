@@ -266,12 +266,12 @@
                                     <li th:each="child:${comment.childComment}">
 
                                       <!-- 프로필 사진 -->
-                                      <img th:src="|@{/}thumb/${comment.memberVO.profileImg}"
+                                      <img th:src="|@{/}thumb/${child.profileImg}"
                                            onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"
                                            alt="profile">
 
                                       <div th:data-no="${comment.no}" style="display: inline-block;">
-                                        <!-- 답글 작성자-->
+                                        <!-- 답글 작성자 & 프로필 경로 -->
                                         <a class="modal_comment_id" th:href="@{/profile(username=${child.username})}" th:text="${child.memberVO.username}">KingTiger</a>
 
                                         <!-- 답글 대상자(@jgh0609) -->

@@ -23,6 +23,7 @@ public class CommentVO {
 
     // 추가필드
     private String username;
+    private String profileImg;
     private List<CommentVO> childComment;
 
 
