@@ -154,4 +154,8 @@
     <delete id="deleteFollow">
         delete from `follow` where `follower`=#{my_no} and `following`=#{user_no};
     </delete>
+    <!--태그 유저 검색-->
+    <select id="selectTagUsers" resultType="kr.co.photostagram.vo.MemberVO">
+        select * from `user` where `username` like CONCAT(#{search},'%');
+    </select>
 </mapper>

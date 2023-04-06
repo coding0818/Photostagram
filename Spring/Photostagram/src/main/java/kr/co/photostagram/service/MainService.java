@@ -217,4 +217,8 @@ public class MainService {
     public int deleteFollow(int my_no, int user_no){
         return dao.deleteFollow(my_no, user_no);
     }
+
+    public List<MemberVO> selectTagUsers(String search){
+        return dao.selectTagUsers(search);
+    }
 }

@@ -27,7 +27,8 @@ function uploadFiles(e){
 
     if (files[0].type.match(/image.*/)) {
         $('#modal_add_feed_content_drop').css({
-            display : 'flex'
+            display : 'flex',
+            "top" : $(window).scrollTop()+'px'
         });
         $('#input_image_drop').css({
             "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
@@ -45,7 +46,8 @@ function uploadFiles(e){
         $('video').css({"display":"none"});
     }else if(files[0].type.match(/video.*/)){
        $('#modal_add_feed_content').css({
-           display : 'flex'
+           display : 'flex',
+           "top" : $(window).scrollTop()+'px'
        });
        $('.modal_image_upload_content').css({
          //"background-image": "url(./img/play.png)",
@@ -140,14 +142,15 @@ function uploadFiles(e){
 
           if (images[0].type.match(/image.*/)) {
               $('#modal_add_feed_content').css({
-                  display : 'flex'
+                  display : 'flex',
+                  "top" : $(window).scrollTop()+'px'
               });
               $('.modal_image_upload_content').css({
                 "background-image": "url(" + window.URL.createObjectURL(images[0]) + ")",
                 "outline": "none",
                 "background-size": "contain",
                 "background-repeat" : "no-repeat",
-                "background-position" : "center"
+                "background-position" : "center",
               });                  
               $('#modal_add_feed').css({
                   display: 'none'
@@ -158,7 +161,8 @@ function uploadFiles(e){
               $('video').css({"display":"none"});
           }else if(images[0].type.match(/video.*/)){
               $('#modal_add_feed_content').css({
-                  display : 'flex'
+                  display : 'flex',
+                  "top" : $(window).scrollTop()+'px'
               });
               $('.modal_image_upload_content').css({
                 //"background-image": "url(./img/play.png)",
@@ -640,7 +644,7 @@ function uploadFiles(e){
         let my_no = div.attr('data-myNo');
         let status = div.attr('data-status');
 
-        btn.children('.snipper').show();
+        btn.children('.spinner').show();
 
         let jsonData = {"user_no":user_no, "my_no":my_no};
         console.log(jsonData);
@@ -662,21 +666,26 @@ function uploadFiles(e){
         }
     });
 
+    let x = 0;
+    let y = 0;
+
     $('#input_image').on('click', function(e){
-        let x = e.clientX;
-        let y = e.clientY;
+        x = e.clientX;
+        y = e.clientY;
 
         console.log('------------------');
         console.log('x 좌표 : '+x);
         console.log('x 좌표 : '+y);
 
-        $('.tagModal').css({left:x-18, top:y, display:'block'});
+        $('.tagModal').css({left:x-18, top:$(window).scrollTop()+y, display:'block'});
     });
 
     $('input[name=tagUser]').on('keyup', function(){
         let searchUser = $(this).val();
 
         console.log('search대상 : '+searchUser);
+
+        $('.snipper').show();
 
         let jsonData = {"search":searchUser};
 
@@ -687,9 +696,64 @@ function uploadFiles(e){
                 data:jsonData,
                 dataType:'json',
                 success:function(data){
+                    $('.snipper').hide();
+                    $('.tagUserList').empty();
+                    let tagUsers = data.result;
+                    console.log(tagUsers);
+                    tagUsers.forEach(function(tagUser){
+                        let tags = "<div class='tagSearches'>";
+                            tags += "<div class='tagSearchUser' data-userno="+tagUser.no+" data-username="+tagUser.username+">";
+                            if(tagUser.profileImg != null){
+                                tags += "<img src='/Photostagram/thumb/"+tagUser.profileImg+"'>";
+                            }else{
+                                tags += "<img src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'>";
+                            }
+                            tags += "<div class='tagUserInfo'>";
+                            tags += "<div>"+tagUser.username+"</div>";
+                            if(tagUser.profileText != null){
+                                tags += "<span>"+tagUser.profileText+"</span>";
+                            }else{
+                               tags += "<span></span>";
+                            }
+                            tags += "</div>";
+                            tags += "</div>";
+                            tags += "</div>";
 
+                        $('.tagUserList').append(tags);
+                    });
                 }
             });
         }, 1000);
+    });
+
+    $(document).on('click', '.tagSearches', function(){
+        let select = $(this).children('.tagSearchUser');
+        let user_no = select.attr('data-userno');
+        let username = select.attr('data-username');
+
+        console.log('username : '+username);
+
+        $('.tagSearches').empty();
+        let val = $('input[name=tagUser]').val();
+        val = '';
+        $('.tagModal').hide();
+
+        let tag = "<div class='tag1'>";
+            tag += "<div></div>";
+            tag += "<div data-no="+user_no+"><span>"+username+"</span><button>x</button></div>";
+            tag += "</div>";
+
+        let tagObj = $(tag);
+
+        console.log("x좌표 : "+x);
+        console.log("y좌표 : "+y);
+
+        tagObj.css({
+               left:x-18,
+               top:$(window).scrollTop()+y,
+               display:'block'
+               });
+
+        $('#tooltipArea').append(tagObj);
     });
   });
