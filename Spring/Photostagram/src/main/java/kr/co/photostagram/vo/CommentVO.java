@@ -2,6 +2,8 @@ package kr.co.photostagram.vo;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +23,7 @@ public class CommentVO {
 
     // 추가필드
     private String username;
+    private List<CommentVO> childComment;
 
 
 }

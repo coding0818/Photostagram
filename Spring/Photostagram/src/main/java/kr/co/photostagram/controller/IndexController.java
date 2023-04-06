@@ -32,8 +32,6 @@ public class IndexController {
 
     @GetMapping(value = {"/", "index"})
     public String index(Model model, Principal principal) throws IndexOutOfBoundsException{
-        // 댓글 조회
-        List<CommentVO> comments = service.selectComment();
 
         MemberVO user =  profileService.selectMember(principal.getName());
         // 검색기록 요청
@@ -42,11 +40,8 @@ public class IndexController {
 
         List<MemberVO> members = service.selectUser();
         List<MemberVO> followings = service.selectFollowing(user.getNo());
-
-
         // 팔로잉 되어있는 "유저넘버" 리스트
         List<Integer> usersNo = new ArrayList<>();
-
         usersNo.add(user.getNo()); // 로그인 한 유저번호
 
         // 회원님을 위한 추천 (미 팔로잉자)
@@ -59,7 +54,6 @@ public class IndexController {
             int user_no = followings.get(i).getNo();
             usersNo.add(user_no); // 상대방 유저번호
         }
-
         // 회원님을 위한 추천에 (로그인 한 본인이 뜨지않게)
         for(int j = 0; j < members.size(); j++){
             MemberVO followfilter = members.get(j);
@@ -68,8 +62,11 @@ public class IndexController {
             }
         }
 
+        // 게시글 조회
         List<PostVO> articles = service.selectArticles(usersNo);
-//        log.info("articles : " + articles);
+        // 댓글 조회
+        List<CommentVO> comments = service.selectComment();
+
         model.addAttribute("articles", articles);
         model.addAttribute("members", members);
         model.addAttribute("followings", followings);
@@ -81,7 +78,6 @@ public class IndexController {
         log.info("notices : "+notices);
 
         model.addAttribute("notices", notices);
-
         model.addAttribute("comments", comments);
 //        log.info("followings" + followings);
         return "index";

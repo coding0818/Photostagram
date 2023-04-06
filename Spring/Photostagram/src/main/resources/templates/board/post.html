@@ -36,18 +36,43 @@
                             console.log('username : ' + username);
                             console.log('profileImg : ' + profileImg);
 
+                            
+
                             let tags = `<li id="text">
-                                            <img class="proImg" src="/Photostagram/thumb/${profileImg}" alt="profile">
-                                            <div class="reply">
-                                                <h1><span>${username}</span>${comment}</h1>
-                                                <span class="comment_writeTime">1일</span>
-                                                " 좋아요 "
-                                                <div class="favorite">
-                                                   <a href="#">답글달기</a>
+                                <img class="proImg" src="/Photostagram/thumb/${profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'" alt="profile">
+                                <div class="reply">
+                                    <h1 class="comment_width"><span>${username}</span>${comment}</h1>
+
+                                    <div class="favorite">
+                                        <span class="comment_writeTime">1일</span>
+                                        좋아요
+                                        <span class="cmt_like_count">0</span>개
+                                        <span class="comment_more">답글달기</span>
+                                    </div>
+                                </div>
+                                <a href="#" id="reHeart" class="reWhite">좋아요</a>
+
+                                <div class="showReply">
+                                    
+                                    <div class="listReply reHide">
+                                        <ul class="reReply">
+                                            <li>
+                                                <img class="proImg" src="/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg" alt="profile">
+                                                <div class="reply">
+                                                    <h1><span>gildong</span>댓글 내용111111111111111111111111111111111111111111111111111111</h1>
+                                                    <a href="#">#해시태그</a>
+                                                    <div class="comment-time">
+                                                        좋아요 <span>100</span>개 &nbsp;&nbsp;
+                                                        <a href="#">답글달기</a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <a href="#" id="reHeart" class="reWhite">좋아요</a>
-                                        </li>`;
+                                                <a href="#" id="reHeart" class="reWhite">좋아요</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </li>`;
 
                             $('#post > .contents > ul').append(tags);
                             $('#comment').val('');
@@ -68,6 +93,7 @@
     <div id="wrapper">
         <article id="post">
             <section class="picture" >
+                    <!-- 게시글 사진 -->
                    <div class="mySlide">
                             <div class="mySlides">
                                 <th:block th:each="images:${images}">
@@ -76,7 +102,9 @@
                             </div>
                    </div>
             </section>
+
             <section class="contents">
+                <!-- 글 작성자 -->
                 <nav>
                     <div id="profile">
                         <img th:src="|@{/}thumb/${post.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"  alt="profile">
@@ -153,6 +181,7 @@
 <!--                        <th:block th:unless="${#strings.isEmpty(post_like_user.user_no)}">-->
 <!--                            <a href="#" class="like"></a>-->
 <!--                        </th:block>-->
+
                         <a href="#" id="writeReply"></a>
                         <a href="#" id="share"></a>
                         <a href="#" id="bookMark" class="remove"></a>
@@ -175,6 +204,8 @@
                 </div>
             </section>
         </article>
+
+
         <div id="more">
             <div><span>[[${user.username}]]</span>님의 게시물 더 보기</div>
             <th:block th:each="plus:${plusimg}">
