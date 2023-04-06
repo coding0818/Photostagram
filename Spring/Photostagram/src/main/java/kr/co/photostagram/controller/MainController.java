@@ -122,4 +122,13 @@ public class MainController {
         resultMap.put("result", result);
         return resultMap;
     }
+
+    @ResponseBody
+    @PostMapping("findTagUser")
+    public Map<String, List<MemberVO>> findTagUser(String search){
+        List<MemberVO> members = service.selectTagUsers(search);
+        Map<String, List<MemberVO>> resultMap = new HashMap<>();
+        resultMap.put("result", members);
+        return resultMap;
+    }
 }
