@@ -28,10 +28,8 @@
                     <th:block th:unless="${#strings.endsWith(m.value.firstThumb, '.mp4')} == true">
                         <img th:src="|@{/}thumb/${m.value.firstThumb}">
                     </th:block>
-                        <!--
                         <input type="checkbox" th:id="${m.value.firstThumb}" th:data-value="${m.value.no}">
                         <label th:for="${m.value.firstThumb}"></label>
-                        -->
                     </a>
                 </th:block>
             </div>
@@ -39,3 +37,30 @@
     </div>
 </th:block>
 </html>
+<script>
+    $('.mySortSelect').click(function(){
+        let checkArray = [];
+        let length = $('input:checked').length;
+        //console.log ($('input:checked').length);
+
+        $("input[type=checkbox]:checked").each(function(){
+            let no = $(this).attr("data-value");
+            checkArray.push(no);
+        });
+
+        console.log(checkArray);
+
+        $.ajax({
+            url: "/Photostagram/my/delete",
+            type: "POST",
+            traditional: true,
+            data: { checkArray:checkArray, type:"photo" },
+            success: function(data){
+                console.log("success");
+                console.log(data.result);
+                $("input[type=checkbox]:checked").hide();
+                alert('정상적으로 삭제되었습니다.');
+            }
+        });
+    });
+</script>

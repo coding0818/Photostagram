@@ -173,19 +173,21 @@
     input[type="checkbox"] + label {
         width: 20px;
         height: 20px;
-        border: 1px solid white;
-        border-radius: 70%;
         display: block;
         position: relative;
+        border-radius: 70%;
         top: -30px;
         left: 100px;
+        background-image: url("../img/check_none.png");
+        background-size: cover;
     }
     input[type="checkbox"]:checked + label {
-        background: #32a4ff;
-        content: '✔';
         font-size: 18px;
         text-align: center;
         position: relative;
+        border-radius: 70%;
         top: -30px;
         left: 100px;
+        background-image: url("../img/check_click.png");
+        background-size: cover;
     }

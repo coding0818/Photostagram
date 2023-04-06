@@ -5,10 +5,14 @@ import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -69,6 +73,16 @@ public class MyController {
         model.addAttribute("user", user);
         model.addAttribute("cate", "history");
         return "my/history";
+    }
+
+    @ResponseBody
+    @PostMapping("my/delete")
+    public Map<String, Integer> delete(@RequestParam("type") String type, @RequestParam("checkArray") int[] checkArray){
+        Map<String, Integer> map = new HashMap<>();
+        log.info("type : " + type);
+        log.info("array : " + checkArray[0]);
+        map.put("result", 1);
+        return map;
     }
 
 }
