@@ -334,7 +334,7 @@ function uploadFiles(e){
     });
 
     //게시글 업로드 버튼 클릭시
-    $('#button_write_feed').on('click', ()=>{
+    $(document).on('click', '#button_write_feed', ()=>{
       let inputFile = $('#file_upload');
       let files = inputFile[0].files;
 
@@ -361,12 +361,22 @@ function uploadFiles(e){
       console.log('content : '+content);
       console.log('user_no : '+user_no);
 
+      let length = $('.tag1').length;
+      let users = [];
+
+      for(i=0; i<length; i++){
+          users.push($('#tooltipArea').children().eq(i).attr('data-no'));
+      }
+
+      console.log('user_no : '+users);
+
       let formData = new FormData();
       for(j=0; j<images.length; j++){
         formData.append('files', files[j]);
       }
       formData.append('content', content);
       formData.append('user_no', user_no);
+      formData.append('tags', users);
 
       $.ajax({
         url:'/Photostagram/postUpload',
@@ -380,13 +390,14 @@ function uploadFiles(e){
             alert('업로드되었습니다.');
             $('#modal_add_feed_content').css({display : 'none'});
             $('#input_content').val('');
+            $('#tooltipArea').empty();
           }
         }
       });
     });
 
     // 게시물 업로드
-    $('#button_write_feed_drop').on('click', function(){
+    $(document).on('click', '#button_write_feed_drop', function(){
         let content = $('#input_content_drop').val();
         let user_id = $('#input_user_id_drop').data('no');
         let file = files;
@@ -396,11 +407,19 @@ function uploadFiles(e){
 
         let fd = new FormData();
 
+        let length = $('.tag1').length;
+        let users = [];
+
+        for(i=0; i<length; i++){
+            users.push($('#tooltipArea').children().eq(i).attr('data-no'));
+        }
+
         for(j=0; j<file.length; j++){
           fd.append('files', file[j]);
         }
         fd.append('content', content);
         fd.append('user_no', user_id);
+        fd.append('tags', users);
 
         $.ajax({
             url:'/Photostagram/postUpload',
@@ -738,9 +757,9 @@ function uploadFiles(e){
         val = '';
         $('.tagModal').hide();
 
-        let tag = "<div class='tag1'>";
+        let tag = "<div class='tag1' data-no="+user_no+">";
             tag += "<div></div>";
-            tag += "<div data-no="+user_no+"><span>"+username+"</span><button>x</button></div>";
+            tag += "<div class='username'><span>"+username+"</span><button>x</button></div>";
             tag += "</div>";
 
         let tagObj = $(tag);
@@ -755,5 +774,9 @@ function uploadFiles(e){
                });
 
         $('#tooltipArea').append(tagObj);
+    });
+
+    $(document).on('click', '.username > button', function(){
+        $(this).parent().parent('.tag1').remove();
     });
   });

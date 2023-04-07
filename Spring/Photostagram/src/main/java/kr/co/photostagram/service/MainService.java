@@ -61,6 +61,12 @@ public class MainService {
             images.get(i).setPost_no(vo.getNo());
             dao.insertImage(images.get(i));
         }
+
+        // 유저 태그 DB 넣기
+        for(int tag_no : vo.getTags()){
+            dao.insertTagUser(vo.getNo(), tag_no);
+        }
+
         return result1;
     }
 

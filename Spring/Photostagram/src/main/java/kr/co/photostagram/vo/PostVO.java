@@ -31,6 +31,6 @@ public class PostVO {
     private List<HashTagVO> hashTagVO;
 
     private String thumb;
-
+    private List<Integer> tags;
 
 }
