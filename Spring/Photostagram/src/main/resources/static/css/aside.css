@@ -925,7 +925,11 @@ html {height: 100%;}
       position: fixed;
       top: 45%;
       left: 9px;
-      background: none;
+      background: #4e4e4e;
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      color:white;
       border: none;
       visibility: hidden;
     }
@@ -933,7 +937,11 @@ html {height: 100%;}
       position: fixed;
       top: 45%;
       right: 305px;
-      background: none;
+      background: #4e4e4e;
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      color:white;
       border: none;
       visibility: hidden;
     }
@@ -959,7 +967,11 @@ html {height: 100%;}
       position: fixed;
       top: 45%;
       left: 9px;
-      background: none;
+      background: #4e4e4e;
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      color:white;
       border: none;
       visibility: hidden;
     }
@@ -967,7 +979,11 @@ html {height: 100%;}
       position: fixed;
       top: 45%;
       right: 305px;
-      background: none;
+      background: #4e4e4e;
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      color:white;
       border: none;
       visibility: hidden;
     }
@@ -980,6 +996,8 @@ html {height: 100%;}
     background: white;
     position:absolute;
     display:none;
+    border-radius:15px;
+    box-shadow:3px 3px 3px 3px #d0d0d0;
 }
 
 .tagModal > div:nth-child(1){
