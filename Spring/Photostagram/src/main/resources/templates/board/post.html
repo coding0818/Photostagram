@@ -147,12 +147,15 @@
                         </div>
                         <a href="#" id="reHeart" class="reWhite"></a>
 
+                        <!----- 답글 ----->
                         <div class="showReply" >
                             <a href="#" class="reOpen" th:if="${commentVo.childComment != null}">ㅡ 답글보기</a>
                             <div class="listReply reHide">
                                 <ul class="reReply">
                                     <li th:each="child:${commentVo.childComment}">
-                                        <img class="proImg" th:src="|@{/}thumb/${child.profileImg}"  alt="profile">
+                                        <img class="proImg" th:src="|@{/}thumb/${child.memberVO.profileImg}"
+                                             onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"
+                                             alt="profile">
 
                                         <div class="reply">
                                             <h1>
@@ -173,20 +176,12 @@
                         </div>
 
                     </li>
+
                 </ul>
-                <!--<p>
-                    아직 댓글이 없습니다.<br>
-                    댓글을 남겨보세요.
-                </p>-->
+
                 <div>
                     <div>
-<!--                        <th:block th:if="${#strings.isEmpty(post_like_user.user_no)}">-->
-<!--                            <a href="#" class="unlike"></a>-->
-<!--                        </th:block>-->
-<!--                        <th:block th:unless="${#strings.isEmpty(post_like_user.user_no)}">-->
-<!--                            <a href="#" class="like"></a>-->
-<!--                        </th:block>-->
-
+                        <a href="#" class="unlike"></a>
                         <a href="#" id="writeReply"></a>
                         <a href="#" id="share"></a>
                         <a href="#" id="bookMark" class="remove"></a>

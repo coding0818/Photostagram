@@ -4,11 +4,11 @@
 
 
     /*** 게시글 좋아요 ***/
-    $('#like').click(function(){
-      if($('#like').hasClass('unlike')){
-        $('#like').removeClass('unlike').addClass('like');
+    $('.like').click(function(){
+      if($('.like').hasClass('unlike')){
+        $('.like').removeClass('unlike').addClass('like');
       } else {
-        $('#like').removeClass('like').addClass('unlike');
+        $('.like').removeClass('like').addClass('unlike');
       }
     });
 
@@ -46,8 +46,11 @@
 
   });
 
+   /*** 게시글 좋아요 ***/
+   
+
    /*** 답글 없을 때 숨기기 ***/
-    $()
+//    $()
 
 
     /*** 게시물 팔로잉 클릭 시 뜨는 모달 창 ***/
