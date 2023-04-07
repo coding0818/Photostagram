@@ -735,9 +735,7 @@ function uploadFiles(e){
         console.log('2- target id : ' + e.target.id == 'beforeBtn');
         console.log('3- target id : ' + e.target.id == 'afterBtn');
 
-        if(e.target.id == 'afterBtn' || e.target.id == 'beforeBtn'){
-            return;
-        }else{
+        if(e.target.id != 'afterBtn' && e.target.id != 'beforeBtn'){
             x = e.clientX;
             y = e.clientY;
 
