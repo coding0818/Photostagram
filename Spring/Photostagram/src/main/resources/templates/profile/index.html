@@ -98,14 +98,14 @@
                   </div>
               </div>
               <div class="myNav">
-                  <div><a href="#">게시물</a></div>
+                  <div><a th:href="@{/profile/index (username=${username})}">게시물</a></div>
                       <th:block th:if="${#strings.equals(myName, username)}">
                           <div><a href="#">저장됨</a></div>
                       </th:block>
                       <th:block th:unless="${#strings.equals(myName, username)}">
                           <div><a href="#">릴스</a></div>
                       </th:block>
-                  <div><a href="#">태그됨</a></div>
+                  <div><a th:href="@{/profile/tagged (username=${username})}">태그됨</a></div>
               </div>
               <div class="myList">
                   <th:block th:if="${#maps.isEmpty(sortMap)}">

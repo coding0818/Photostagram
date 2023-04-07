@@ -14,5 +14,10 @@
             DESC LIMIT #{index}, 25 ;       <!-- 무한스크롤 페이징 처리하며 추가 -->
     </select>
 
+    <delete id="deletePost">
+        DELETE FROM `post`
+            WHERE `user_no` = #{no};
+    </delete>
+
 
 </mapper>

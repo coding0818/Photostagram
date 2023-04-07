@@ -46,6 +46,21 @@
             GROUP BY b.`no`;
     </select>
 
+    <select id="selectTaggedPosts" resultType="kr.co.photostagram.vo.PostVO">
+        SELECT a.*, `thumb` AS 'firstThumb',
+            COUNT(DISTINCT b.thumb) AS 'thumbs',
+            COUNT(DISTINCT c.`comment`) AS 'commentCount'
+            FROM `post` AS a
+            LEFT JOIN `image` AS b
+            ON a.`no` = b.`post_no`
+            LEFT JOIN `comment` AS c
+            ON a.`no` = c.`post_no` WHERE a.`no` IN
+            (SELECT c.`no` FROM `post` AS c
+            JOIN `post_usertag` AS d
+            ON c.`no`=d.`post_no`
+            WHERE d.`tag_user_no`=#{no});
+    </select>
+
     <!--
     <select id="selectThumb" resultType="kr.co.photostagram.vo.ImageVO">
         SELECT * FROM `image`
@@ -75,6 +90,7 @@
             WHERE `user_no`=#{pageNo}
             LIMIT #{pg}, 12 ;
     </select>
+
 
     <select id="selectCountPost" resultType="int">
         SELECT COUNT(*) FROM `post` WHERE `user_no`=#{no};

@@ -518,5 +518,31 @@ public class ProfileController {
         return map;
     }
 
+    @GetMapping("profile/tagged")
+    public String tagged (Principal principal, Model model, String username){
+
+        String myName = principal.getName();
+        MemberVO member =  service.selectMember(username);
+        MemberVO user = service.selectMember(myName);
+
+        int myNo = user.getNo();          // 현재 로그인 된 사용자 번호
+        int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
+
+        List<PostVO> tags = service.selectTaggedPosts(pageNo);
+        Map<Integer, PostVO> map = new HashMap<>();
+        for (int i=0; i<tags.size(); i++) {
+            map.put(i, tags.get(i));
+            System.out.println(tags.get(i));
+        }
+        Map<Integer, PostVO> sortMap = new TreeMap<>(map);
+
+        model.addAttribute("user", user);
+        model.addAttribute("member", member);
+        model.addAttribute("myName", myName);
+        model.addAttribute("username", username);
+        model.addAttribute("sortMap", sortMap);
+        return "profile/tagged";
+    }
+
 
 }
