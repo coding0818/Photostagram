@@ -170,7 +170,9 @@
     }
     .listReply > ul > li > .reply {width: 380px; margin-bottom: 3px;}
     .listReply > ul > li > .reply .favorite > span {}
-
+    .listReply > ul > li > .reply h1 {
+        width: 100%;
+    }
     .proImg {
       margin-right: 10px;
       float: left;

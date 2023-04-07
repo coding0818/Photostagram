@@ -102,6 +102,7 @@
                     <th:block th:if="${#strings.equals(user.no,article.post_likeVO.user_no)}">
                       <div class="artLike sprite_full_heart_icon_outline" th:data-no="${user.no}"></div>
                     </th:block>
+
                     <th:block th:unless="${#strings.equals(user.no,article.post_likeVO.user_no)}">
                       <div class="artLike sprite_heart_icon_outline" th:data-no="${user.no}"></div>
                     </th:block>

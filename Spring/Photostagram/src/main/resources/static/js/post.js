@@ -4,11 +4,11 @@
 
 
     /*** 게시글 좋아요 ***/
-    $('#like').click(function(){
-      if($('#like').hasClass('unlike')){
-        $('#like').removeClass('unlike').addClass('like');
+    $('.like').click(function(){
+      if($('.like').hasClass('unlike')){
+        $('.like').removeClass('unlike').addClass('like');
       } else {
-        $('#like').removeClass('like').addClass('unlike');
+        $('.like').removeClass('like').addClass('unlike');
       }
     });
 
