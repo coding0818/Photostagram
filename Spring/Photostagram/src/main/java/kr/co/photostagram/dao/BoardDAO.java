@@ -10,6 +10,15 @@ import java.util.List;
 @Mapper
 @Repository
 public interface BoardDAO {
+   public int detailPostLikeAdd(PostVO vo);
+   public int detailPostDelAdd(PostVO vo);
+   // `post` like Update
+   public void detailPostLikeUpdate(PostVO vo);
+   public void detailPostDelLikeUpdate(PostVO vo);
+
+   public int detailPostCommentLikeAdd(Comment_likeVO vo);
+   public int detailPostCommentLikeDel(Comment_likeVO vo);
+
    public BoardVO selectMember(String username);
    public BoardVO selectPost(int no);
    public BoardVO selectContent(int no);

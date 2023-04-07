@@ -19,6 +19,19 @@ public class BoardService {
     @Autowired
     private BoardDAO dao;
 
+    public int detailPostLikeAdd(PostVO vo) { return dao.detailPostLikeAdd(vo); }
+    public int detailPostDelAdd(PostVO vo) { return dao.detailPostDelAdd(vo); }
+
+    public int detailPostCommentLikeAdd(Comment_likeVO vo){
+        return dao.detailPostCommentLikeAdd(vo);
+    };
+    public int detailPostCommentLikeDel(Comment_likeVO vo){
+        return dao.detailPostCommentLikeDel(vo);
+    }
+    // Post-like Update
+    public void detailPostLikeUpdate(PostVO vo) { dao.detailPostLikeUpdate(vo); }
+    public void detailPostDelLikeUpdate(PostVO vo) { dao.detailPostDelLikeUpdate(vo);}
+
     public BoardVO selectMember(String username){return dao.selectMember(username);}
 
     public BoardVO selectPost(int no) {return dao.selectPost(no);}
