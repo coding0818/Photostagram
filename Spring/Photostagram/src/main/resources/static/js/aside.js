@@ -104,18 +104,21 @@ function uploadFiles(e){
         $('body').css('overflow-y', 'visible');
         $('.bx-controls-direction').css('display', 'flex');
         $('.tagModal').css({display:'none'});
+        $('#tooltipArea').empty();
       });
 
       $('#close_modal_feed').on('click', function(){
         modal_feed.css('display', 'none');
         $('body').css('overflow-y', 'visible');
         $('.tagModal').css({display:'none'});
+        $('#tooltipArea').empty();
       });
 
       $('#close_modal_feed_drop').on('click', function(){
         modal_feed_drop.css('display', 'none');
         $('body').css('overflow-y', 'visible');
         $('.tagModal').css({display:'none'});
+        $('#tooltipArea').empty();
       });
       
       $('.modal_image_upload')
@@ -211,6 +214,15 @@ function uploadFiles(e){
 
         console.log("j1 :"+j);
 
+        let length = $('#tooltipArea').children('.tag1').length;
+        for(i=0; i<length; i++){
+            if($('#tooltipArea').children().eq(i).attr('data-page') == j){
+                $('#tooltipArea').children().eq(i).show();
+            }else{
+                $('#tooltipArea').children().eq(i).hide();
+            }
+        }
+
         $('.modal_image_upload_content').css({
             "background-image": "url(" + window.URL.createObjectURL(images[j]) + ")",
             "outline": "none",
@@ -246,6 +258,15 @@ function uploadFiles(e){
             $(this).css({"visibility":"hidden"});
         }
         j--;
+
+        let length = $('#tooltipArea').children('.tag1').length;
+        for(i=0; i<length; i++){
+            if($('#tooltipArea').children().eq(i).attr('data-page') == j){
+                $('#tooltipArea').children().eq(i).show();
+            }else{
+                $('#tooltipArea').children().eq(i).hide();
+            }
+        }
 
         $('.modal_image_upload_content').css({
             "background-image": "url(" + window.URL.createObjectURL(images[j]) + ")",
@@ -283,6 +304,15 @@ function uploadFiles(e){
 
         console.log("j1 :"+j);
 
+        let length = $('#tooltipArea').children('.tag1').length;
+        for(i=0; i<length; i++){
+            if($('#tooltipArea').children().eq(i).attr('data-page') == j){
+                $('#tooltipArea').children().eq(i).show();
+            }else{
+                $('#tooltipArea').children().eq(i).hide();
+            }
+        }
+
         $('.modal_image_upload_content').css({
             "background-image": "url(" + window.URL.createObjectURL(images[j]) + ")",
             "outline": "none",
@@ -317,6 +347,15 @@ function uploadFiles(e){
         }
 
         j--;
+
+        let length = $('#tooltipArea').children('.tag1').length;
+        for(i=0; i<length; i++){
+            if($('#tooltipArea').children().eq(i).attr('data-page') == j){
+                $('#tooltipArea').children().eq(i).show();
+            }else{
+                $('#tooltipArea').children().eq(i).hide();
+            }
+        }
 
         $('.modal_image_upload_content').css({
             "background-image": "url(" + window.URL.createObjectURL(images[j]) + ")",
@@ -689,14 +728,26 @@ function uploadFiles(e){
     let y = 0;
 
     $('#input_image').on('click', function(e){
-        x = e.clientX;
-        y = e.clientY;
 
-        console.log('------------------');
-        console.log('x 좌표 : '+x);
-        console.log('x 좌표 : '+y);
+        console.log('0- target id : ' + e.target.id);
+        console.log('1- target id : ' + typeof e.target.id);
 
-        $('.tagModal').css({left:x-18, top:$(window).scrollTop()+y, display:'block'});
+        console.log('2- target id : ' + e.target.id == 'beforeBtn');
+        console.log('3- target id : ' + e.target.id == 'afterBtn');
+
+        if(e.target.id != 'afterBtn' && e.target.id != 'beforeBtn'){
+            x = e.clientX;
+            y = e.clientY;
+
+            console.log('------------------');
+            console.log('x 좌표 : '+x);
+            console.log('x 좌표 : '+y);
+
+            $('.tagModal').css({left:x-18, top:$(window).scrollTop()+y, display:'block'});
+        }
+
+
+
     });
 
     $('input[name=tagUser]').on('keyup', function(){
@@ -757,7 +808,22 @@ function uploadFiles(e){
         val = '';
         $('.tagModal').hide();
 
-        let tag = "<div class='tag1' data-no="+user_no+">";
+        let length = $('.tag1').length;
+
+        for(i=0; i<length; i++){
+            let no = $('#tooltipArea').children().eq(i).attr('data-no');
+            if(no == user_no){
+                let tagObject = $('#tooltipArea').children().eq(i);
+                tagObject.css({
+                    left:x-18,
+                    top:$(window).scrollTop()+y,
+                    display:'block'
+                });
+                return;
+            }
+        }
+
+        let tag = "<div class='tag1' data-no="+user_no+" data-page="+j+">";
             tag += "<div></div>";
             tag += "<div class='username'><span>"+username+"</span><button>x</button></div>";
             tag += "</div>";

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.*;
 
@@ -108,6 +109,77 @@ public class BoardController {
         map.put("comment", vo.getComment());
         map.put("user_no", vo.getUser_no());
         map.put("post_no", vo.getPost_no());
+
+        return map;
+    }
+
+    @PostMapping("detailPostLike")
+    @ResponseBody
+    @Transactional
+    public Map detailPostLike(@RequestBody PostVO vo){
+        int result = 0;
+        // post_like : Insert
+        result = service.detailPostLikeAdd(vo);
+
+        // Table : `post` , Column : like 업데이트
+        if(result > 0){
+            service.detailPostLikeUpdate(vo);
+        }
+
+        Map map = new HashMap();
+        map.put("result", result);
+
+        return map;
+    }
+
+    // 게시글 좋아요 취소 시
+    @PostMapping("detailPostDelLike")
+    @ResponseBody
+    public Map deleteArticleLike(@RequestBody PostVO vo){
+        int result = 0;
+        result = service.detailPostDelAdd(vo);
+
+        if(result > 0){
+            service.detailPostDelLikeUpdate(vo);
+        }
+
+        Map map = new HashMap();
+        map.put("result", result);
+
+        return map;
+    }
+
+    // 댓글 좋아요 클릭 시
+    @PostMapping("detailCommentLike")
+    @ResponseBody
+    @Transactional
+    public Map detailCommentLikeAdd(@RequestBody Comment_likeVO vo){
+        int result = 0;
+        result = service.detailPostCommentLikeAdd(vo);
+
+        log.info(" =============================== ");
+        log.info("     댓글 좋아요 : " + result);
+        log.info(" =============================== ");
+
+        Map map = new HashMap();
+        map.put("result", result);
+
+        return map;
+    }
+
+    // 댓글 좋아요 취소 시
+    @PostMapping("detailCommentLikeDel")
+    @ResponseBody
+    public Map CommentLikeDel(@RequestBody Comment_likeVO vo){
+        int result = 0;
+        result = service.detailPostCommentLikeDel(vo);
+
+        log.info(" =============================== ");
+        log.info("     댓글 좋아요취소 : " + result);
+        log.info(" =============================== ");
+
+        Map map = new HashMap();
+        map.put("result", result);
 
         return map;
     }

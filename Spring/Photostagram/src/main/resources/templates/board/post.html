@@ -91,7 +91,7 @@
         });
     </script>
     <div id="wrapper">
-        <article id="post">
+        <article id="post" th:data-no="${NowArticleNo}">
             <section class="picture" >
                     <!-- 게시글 사진 -->
                    <div class="mySlide">
@@ -133,6 +133,7 @@
                     </li>
                     <!---->
 
+                    <!-- 댓글 -->
                     <li id="text" th:each="commentVo:${comments}" th:if="${commentVo.post_no == NowArticleNo}">
                         <img class="proImg" th:src="|@{/}thumb/${commentVo.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'" alt="profile">
                         <div class="reply">
@@ -145,7 +146,9 @@
                                 <span class="comment_more">답글달기</span>
                             </div>
                         </div>
-                        <a href="#" id="reHeart" class="reWhite"></a>
+
+                        <input type="hidden" th:data-no="${commentVo.no}">
+                        <a href="#" id="reHeart" class="reWhite" th:data-no="${user.no}"></a>
 
                         <!----- 답글 ----->
                         <div class="showReply" >
@@ -176,19 +179,18 @@
                         </div>
 
                     </li>
-
                 </ul>
 
                 <div>
                     <div>
-                        <a href="#" class="unlike"></a>
+                        <a href="#" id="likeThis" class="unlike" th:data-no="${user.no}"></a>
                         <a href="#" id="writeReply"></a>
                         <a href="#" id="share"></a>
                         <a href="#" id="bookMark" class="remove"></a>
                     </div>
 
                     <div th:if="${content_like_time.like > 0}">
-                        <div>좋아요 <span>[[${content_like_time.like}]]</span>개</div>
+                        <div>좋아요 <span class="like-count">[[${content_like_time.like}]]</span>개</div>
                         <div class="date" th:text="${#strings.substring(content_like_time.rdate, 5, 10)}">2월 28일</div>
                     </div>
                     <div th:unless="${content_like_time.like > 0}">

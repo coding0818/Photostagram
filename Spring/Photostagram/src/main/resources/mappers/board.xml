@@ -170,5 +170,42 @@
         GROUP BY a.`no`
         order BY a.`no` DESC LIMIT 6;
     </select>
+    <!-- 게시글 좋아요 -->
+    <insert id="detailPostLikeAdd">
+        INSERT INTO `post_like` SET
+        `post_no` = #{no},
+        `user_no` = #{user_no},
+        `rdate`=NOW();
+    </insert>
+    <update id="detailPostLikeUpdate">
+        UPDATE `post` SET
+        `like` = `like`+1
+        WHERE `no` = #{no};
+    </update>
+    <update id="detailPostDelLikeUpdate">
+        UPDATE `post` SET
+        `like` = `like`-1
+        WHERE `no` = #{no};
+    </update>
 
+    <delete id="detailPostDelAdd">
+        DELETE FROM `post_like`
+        WHERE
+        `post_no` = #{no} AND
+        `user_no` = #{user_no};
+    </delete>
+    <!-- -->
+
+    <insert id="detailPostCommentLikeAdd">
+        INSERT INTO `comment_like` SET
+        `user_no` = #{user_no},
+        `comment_no` = #{comment_no},
+        `rdate`=NOW();
+    </insert>
+    <delete id="detailPostCommentLikeDel">
+        DELETE FROM `comment_like`
+        WHERE
+        `user_no` = #{user_no} AND
+        `comment_no` = #{comment_no};
+    </delete>
 </mapper>
