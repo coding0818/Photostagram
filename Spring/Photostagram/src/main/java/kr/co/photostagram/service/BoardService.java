@@ -1,16 +1,13 @@
 package kr.co.photostagram.service;
 
 import kr.co.photostagram.dao.BoardDAO;
-import kr.co.photostagram.dao.ProfileDAO;
 import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -49,6 +46,18 @@ public class BoardService {
 
     public int insertComment(CommentVO vo) {
         return dao.insertComment(vo);
+    }
+
+    @Transactional
+    public int deletePost(int post_no){
+        List<CommentVO> comments = dao.selectComment(post_no);
+        for(CommentVO comment: comments){
+            dao.deleteCommentLike(comment.getNo());
+        }
+        dao.deletePosts(post_no);
+        int result = dao.deletePost(post_no);
+
+        return result;
     }
 
 

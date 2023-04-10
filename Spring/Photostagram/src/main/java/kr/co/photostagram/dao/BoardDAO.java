@@ -38,6 +38,9 @@ public interface BoardDAO {
 
    public int insertComment(CommentVO vo);
 
-
+   public List<CommentVO> selectComment(int post_no);
+   public int deleteCommentLike(int comment_no);
+   public int deletePost(int post_no);
+   public int deletePosts(int post_no);
 
 }

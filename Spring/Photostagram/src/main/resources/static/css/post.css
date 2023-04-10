@@ -321,6 +321,10 @@
 
     #post > .picture .bx-pager {top: 93%;}
 
+    .bx-next{
+        z-index:0;
+    }
+
 
 
 

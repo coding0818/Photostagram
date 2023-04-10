@@ -1,6 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="postModalFragment">
+    <script th:inline="javascript">
+        $(function(){
+            $(document).on('click', '.post_delete', function(e){
+                e.preventDefault();
+                let post_no = [[${post.no}]];
+                let username = [[${user.username}]];
+
+                console.log('post_no' + post_no);
+                console.log('username' + username);
+
+                let jsonData = {"post_no":post_no};
+
+                $.ajax({
+                    url:'/Photostagram/deletePost',
+                    method:'POST',
+                    data:jsonData,
+                    dataType:'json',
+                    success:function(data){
+                        console.log('result : '+data.result);
+                        if(data.result > 0){
+                            location.href='/Photostagram/profile?username='+username;
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
     <div id="modal_postSelect" class="modalPost modal_post_overlay">
         <div class="modal_post_window">
             <div class="modal_post_title">
@@ -14,6 +42,64 @@
                     <span>취소</span>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="modal_postSelect_delete" class="modalPost modal_post_overlay">
+        <div class="modal_post_window_delete">
+            <div class="modal_post_title">
+                <div class="confirm_delete">
+                    <span>게시물을 삭제할까요?</span>
+                    <span>이 게시물을 삭제하시겠어요?</span>
+                </div>
+                <div class="post_delete">
+                    <span>삭제</span>
+                </div>
+                <div class="post_delete_cancel">
+                    <span>취소</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal_modify_feed_content" class="modal modal_overlay_content">
+        <div class="modal_postModify_window">
+            <div class="modal_postModify_title">
+                <div class="modal_title_side_post_cancel">취소</div>
+                <div style="margin: 5px"> 정보수정 </div>
+                <div class="modal_title_side_post_modify">완료</div>
+            </div>
+            <div class="modal_image_content_post">
+                <div id="input_image_post" class="modal_image_upload_content_post" style="cursor:crosshair">
+                    <th:block th:if="${#lists.size(images) > 1}">
+                        <button class="afterBtn" id="afterBtn">></button>
+                    </th:block>
+                    <button class="beforeBtn" id="beforeBtn"><</button>
+                    <th:block th:each="img:${images}">
+                        <th:block th:if="${img.thumb.endsWith('.mp4')}">
+                            <video autoplay muted loop src="path/to/video.mp4" type="video/mp4"></video>
+                        </th:block>
+                        <th:block th:unless="${img.thumb.endsWith('.mp4')}">
+                            <img th:src="@{/thumb/{img}(img=${img.thumb})}">
+                        </th:block>
+                    </th:block>
+                </div>
+                <div class="modal_content_write">
+                    <div class="feed_name">
+                        <div class="profile_box">
+                            <th:block th:if="${#strings.isEmpty(user.profileImg)}">
+                                <img id="input_profile_image" class="profile_img" th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}">
+                            </th:block>
+                            <th:block th:unless="${#strings.isEmpty(user.profileImg)}">
+                                <img id="input_profile_image_o" class="profile_img" th:src="@{/thumb/{img}(img=${user.profileImg})}">
+                            </th:block>
+                        </div>
+                        <span id="input_user_id" class="feed_name_txt" th:data-no="${user.no}">[[${#authentication.principal.username}]]</span>
+                    </div>
+                    <div style="height: 440px">
+                        <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10" placeholder="설명을 입력하세요..."></textarea>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </th:block>
