@@ -25,6 +25,8 @@ public class CommentVO {
     private String username;
     private String profileImg;
     private List<CommentVO> childComment;
+    private String content;
+    private String counts;
 
 
 }

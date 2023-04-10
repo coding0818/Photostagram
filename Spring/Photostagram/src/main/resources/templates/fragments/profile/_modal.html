@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="modalFragment">
+    <!-- 새 게시물 -->
     <div id="modal_add_feed" class="modal modal_overlay">
         <div class="modal_window">
             <div class="modal_title">
@@ -32,9 +33,10 @@
                 </div>
             </div>
             <div class="modal_image_content">
-                <div id="input_image" class="modal_image_upload_content">
-                    <button class="beforeBtn" id="beforeBtn"><img src="./img/arrowL.png" alt=""></button>
-                    <button class="afterBtn" id="afterBtn"><img src="./img/arrowR_8x13.png" alt=""></button>
+                <div id="input_image" class="modal_image_upload_content" style="cursor:crosshair">
+                    <button class="beforeBtn" id="beforeBtn"><</button>
+                    <button class="afterBtn" id="afterBtn">></button>
+                    <video autoplay muted loop src="path/to/video.mp4" type="video/mp4"></video>
                 </div>
                 <div class="modal_content_write">
                     <div class="feed_name">
@@ -63,7 +65,7 @@
         <div class="modal_window">
             <div class="modal_title">
                 <div class="modal_title_side"></div>
-                <div style="margin: 5px"> 새 게시물 </div>
+                <div style="margin: 11px"> 새 게시물 </div>
                 <div class="modal_title_side">
                 <span id="close_modal_feed_drop" class="close_modal material-icons-outlined" style="font-size: 30px">
                     close
@@ -71,9 +73,12 @@
                 </div>
             </div>
             <div class="modal_image_content">
-                <div id="input_image_drop" class="modal_image_upload_content">
-                    <button class="beforeBtn" id="beforeBtnDrop"><img src="./img/arrowL.png" alt=""></button>
-                    <button class="afterBtn" id="afterBtnDrop"><img src="./img/arrowR_8x13.png" alt=""></button>
+                <div id="input_image_drop" class="modal_image_upload_content" style="cursor:crosshair">
+                    <button class="beforeBtnDrop" id="beforeBtnDrop"><img th:src="@{/img/arrowL.png}" alt=""></button>
+                    <button class="afterBtnDrop" id="afterBtnDrop"><img th:src="@{/img/arrowR_8x13.png}" alt=""></button>
+                    <video autoplay muted loop>
+                        <source src="path/to/video.mp4" type="video/mp4">
+                    </video>
                 </div>
                 <div class="modal_content_write">
                     <div class="feed_name">
@@ -98,5 +103,58 @@
 
         </div>
     </div>
+    <!--사람 태그 모달-->
+
+    <div class="tagModal">
+        <div></div>
+        <div class="tagSearch">
+            <div class="tag">
+                <h4>태그 : </h4>
+            </div>
+            <div class="searchInput">
+                <input placeholder="검색" name="tagUser">
+            </div>
+        </div>
+        <div class="tagUserList">
+            <span class="snipper"></span>
+            <!--
+            <div class="tagSearches">
+                <div class="tagSearchUser">
+                    <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}">
+                    <div class="tagUserInfo">
+                        <div>아이디</div>
+                        <span>이름</span>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+    <div id="tooltipArea">
+        <!--
+        <div class='tag1'>
+            <div></div>
+            <div><span>username</span><button>x</button></div>
+        </div>-->
+    </div>
+
+
+
+
+
+    <!-- 포스트 메뉴 모달 -->
+    <div class="post-menu">
+        <div class="wrapper">
+            <button>신고</button>
+            <button>게시물로 이동</button>
+            <button>공유 대상...</button>
+            <button>링크 복사</button>
+            <button>퍼가기</button>
+            <button class="postmenu-cancel">
+                취소
+            </button>
+        </div>
+    </div>
+
 </th:block>
 </html>
