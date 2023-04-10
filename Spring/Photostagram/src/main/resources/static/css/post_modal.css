@@ -1,0 +1,74 @@
+.modalPost {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    z-index: 16;
+}
+
+.modal_post_window {
+    background: white;
+    backdrop-filter: blur(13.5px);
+    -webkit-backdrop-filter: blur(13.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 295px;
+    height: 210px;
+    position: relative;
+}
+
+.modal_post_title{
+    display: block;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+.modal_postDelete{
+    width:290px;
+    height:70px;
+    border-bottom:1px solid gray;
+}
+
+.modal_postDelete > span{
+    color:red;
+    line-height:70px;
+    font-size:20px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.modal_postModify{
+    width:290px;
+    height:70px;
+    border-bottom:1px solid gray;
+}
+
+.modal_postModify > span{
+    color:black;
+    font-size:20px;
+    line-height:70px;
+    text-align:center;
+}
+
+.modal_postCancel{
+    width:290px;
+    height:70px;
+}
+
+.modal_postModify > span{
+    color:black;
+    font-size:20px;
+    line-height:70px;
+    text-align:center;
+}

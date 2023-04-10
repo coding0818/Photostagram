@@ -21,8 +21,10 @@
 
   <link rel="stylesheet" th:href="@{/css/aside.css}" />
   <link rel="stylesheet" th:href="@{/css/post.css}"/>
+  <link rel="stylesheet" th:href="@{/css/post_modal.css}"/>
   <script th:src="@{/js/aside.js}"></script>
   <script th:src="@{/js/post.js}"></script>
+  <script th:src="@{/js/post_modal.js}"></script>
 
   <!-- bxslider 슬라이더 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
@@ -41,5 +43,8 @@
 </body>
 <!--/*** aside modal ***/-->
 <th:block th:replace="~{fragments/profile/_modal::modalFragment}"></th:block>
+<th:block layout:fragment="script"></th:block>
+<!--/*** post modal ***/-->
+<th:block th:replace="~{fragments/_postModal::postModalFragment}"></th:block>
 <th:block layout:fragment="script"></th:block>
 </html>
