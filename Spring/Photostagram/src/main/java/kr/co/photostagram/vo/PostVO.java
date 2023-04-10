@@ -20,10 +20,13 @@ public class PostVO {
     private List<MultipartFile> files;
     // 추가필드
     private int commentCount;
+    private List<CommentVO> comments;
 
     private String firstThumb;
-
     private int thumbs;
+    private int hashtags;
+    private String username;
+    private String profileImg;
 
     private Post_likeVO post_likeVO;
     private List<ImageVO> imageVO;

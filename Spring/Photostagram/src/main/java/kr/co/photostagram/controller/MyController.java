@@ -2,6 +2,7 @@ package kr.co.photostagram.controller;
 
 import kr.co.photostagram.service.MyService;
 import kr.co.photostagram.service.ProfileService;
+import kr.co.photostagram.vo.CommentVO;
 import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -33,15 +35,41 @@ public class MyController {
     @GetMapping("my/interaction/like")
     public String like(Principal principal, Model model) {
         MemberVO user = profileService.selectMember(principal.getName());
+
+        int[] postNo = service.selectLikePostNo(user.getNo());
+        Map<Integer, PostVO> map = new HashMap<>();
+
+        for (int i=0; i<postNo.length; i++){
+            PostVO article = service.selectPost(postNo[i]);
+            map.put(i, article);
+        }
+
+        Map<Integer, PostVO> sortMap = new TreeMap<>(map);
+        System.out.println(sortMap);
+
         model.addAttribute("user", user);
+        model.addAttribute("sortMap", sortMap);
         model.addAttribute("cate", "interaction");
         return "my/interaction/like";
     }
 
     @GetMapping("my/interaction/comment")
     public String comment(Principal principal, Model model) {
+
         MemberVO user = profileService.selectMember(principal.getName());
+
+        List<PostVO> posts = service.selectMyCommentPosts(user.getNo());
+        Map<Integer, PostVO> map = new HashMap<>();
+        for (int i=0; i<posts.size(); i++) {
+            List<CommentVO> comments = service.selectMyComments(posts.get(i).getNo(), user.getNo());
+            posts.get(i).setComments(comments);
+            map.put(i, posts.get(i));
+        }
+        Map<Integer, PostVO> sortMap = new TreeMap<>(map);
+
         model.addAttribute("user", user);
+        model.addAttribute("posts", posts);
+        model.addAttribute("sortMap", sortMap);
         model.addAttribute("cate", "interaction");
         return "my/interaction/comment";
     }
@@ -50,7 +78,7 @@ public class MyController {
     public String posts(Principal principal, Model model) {
         MemberVO user = profileService.selectMember(principal.getName());
 
-        List<PostVO> articles = service.selectPosts(user.getNo(), 0);
+        List<PostVO> articles = service.selectPosts(user.getNo());
         Map<Integer, PostVO> map = new HashMap<>();
 
         for (int i=0; i<articles.size(); i++){
@@ -75,14 +103,45 @@ public class MyController {
         return "my/history";
     }
 
+    @Transactional
     @ResponseBody
     @PostMapping("my/delete")
-    public Map<String, Integer> delete(@RequestParam("type") String type, @RequestParam("checkArray") int[] checkArray){
+    public Map<String, Integer> delete(Principal principal,
+                   @RequestParam("type") String type, @RequestParam("checkArray") int[] checkArray){
+        log.info("here1");
+
+        MemberVO user = profileService.selectMember(principal.getName());
         Map<String, Integer> map = new HashMap<>();
-        log.info("type : " + type);
-        log.info("array : " + checkArray[0]);
-        map.put("result", 1);
+        int result = 0;
+
+        System.out.println(checkArray);
+
+        if ("like".equals(type)) {
+            for (int i=0; i<checkArray.length; i++) {
+                service.updateRemoveLike(checkArray[i]);
+                result = service.deleteLike(checkArray[i], user.getNo());
+            }
+        } else if ("photo".equals(type)){
+            log.info("here2");
+            for (int i=0; i<checkArray.length; i++) {
+                int[] replyNumbers = service.selectCommentNo(checkArray[i]);
+                for (int j = 0; j < replyNumbers.length; j++) {
+                    System.out.println(replyNumbers[j]);
+                    log.info("here3");
+                    service.deleteCommentLike(replyNumbers[j]);
+                }
+                result = service.deletePost(checkArray[i]);
+            }
+        } else if ("comment".equals(type)){
+
+        }
+
+
+        //log.info("type : " + type);
+        //log.info("array : " + checkArray[0]);
+        map.put("result", result);
         return map;
+
     }
 
 }

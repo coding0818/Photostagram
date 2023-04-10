@@ -16,9 +16,100 @@
               <div>
                   <div class="activityTop">
                       <h1 class="mySortTitle">최신순</h1>
-                      <a class="mySort">정렬 및 필터</a>
+                      <a class="mySort" id="mySort">정렬 및 필터</a>
+                      <a class="mySortSelect">선택</a>
+                  </div>
+                  <div class="activityContents">
+                      <th:block th:each="m:${sortMap}">
+                          <div class="activityBox">
+                              <div class="oriContent">
+                                  <div><img th:src="|@{/}thumb/${m.value.profileImg}" alt="profile"></div>
+                                  <div>
+                                      <h3>
+                                          <p>[[${m.value.username}]]</p>
+                                          [[${m.value.content}]]
+                                      </h3>
+                                  </div>
+                                  <th:block th:if="${#strings.endsWith(m.value.firstThumb, '.mp4')} == true">
+                                      <video th:src="|@{/}thumb/${m.value.firstThumb}"></video>
+                                  </th:block>
+                                  <th:block th:unless="${#strings.endsWith(m.value.firstThumb, '.mp4')} == true">
+                                      <img th:src="|@{/}thumb/${m.value.firstThumb}">
+                                  </th:block>
+                                  <span>1주</span>
+                              </div>
+                              <th:block th:each="c:${m.value.comments}">
+                                  <div class="replyContent">
+                                      <div>
+                                          <th:block th:if="${not #strings.isEmpty(user.profileImg)}">
+                                              <img th:src="|@{/}thumb/${user.profileImg}" alt="profile"/>
+                                          </th:block>
+                                          <th:block th:unless="${not #strings.isEmpty(user.profileImg)}">
+                                              <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="profile"/>
+                                          </th:block>
+                                      </div>
+                                      <div>
+                                          <h3>
+                                              <p>[[${user.username}]]</p>
+                                              [[${c.comment}]]
+                                          </h3>
+                                      </div>
+                                      <span>1주</span>
+                                      <input name="photo" type="checkbox" onclick="getCheckedCnt()" th:id="${c.no}">
+                                      <label class="myCheckOff" th:for="${c.no}"></label>
+                                  </div>
+                              </th:block>
+                              <th:block th:if="${m.value.commentCount} > 3">
+                                <a class="moreRe" th:href="@{/board/post (no=${m.value.no})}">ㅡ 스레드 더 보기</a>
+                              </th:block>
+                              <th:block th:unless="${m.value.commentCount} > 3">
+                              </th:block>
+                          </div>
+                      </th:block>
                   </div>
               </div>
+              <div class="activityPop" style="display: none;">
+                  <span class="closePop">X</span>
+                  <h1><span id="deleteCount">0</span>개 선택됨</h1>
+                  <button class="mySortDelete">좋아요 취소</button>
+              </div>
           </div>
+
     </th:block>
 </html>
+<script>
+
+</script>
+<script>
+    $(function(){
+        const labels = $("label");
+        $('.mySortSelect').on('click', function(){
+            if (labels.hasClass("myCheckOff")){
+                labels.removeClass("myCheckOff");
+                labels.addClass("myCheckOn");
+                $(".activityPop").show();
+            } else {
+                labels.removeClass("myCheckOn");
+                labels.addClass("myCheckOff");
+                $("input[name=photo]").prop("checked", false);
+                $("#deleteCount").text("0");
+                $(".activityPop").hide();
+            }
+        });
+    });
+
+    function getCheckedCnt(){
+      // 선택된 목록 가져오기
+          const query = 'input[name="photo"]:checked';
+          const selectedElements =
+              document.querySelectorAll(query);
+
+      // 선택된 목록의 갯수 세기
+      const selectedElementsCnt =
+            selectedElements.length;
+
+      // 출력
+      document.getElementById('deleteCount').innerText
+        = selectedElementsCnt;
+    }
+</script>

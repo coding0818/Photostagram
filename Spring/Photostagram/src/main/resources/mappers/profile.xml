@@ -47,18 +47,22 @@
     </select>
 
     <select id="selectTaggedPosts" resultType="kr.co.photostagram.vo.PostVO">
-        SELECT a.*, `thumb` AS 'firstThumb',
-            COUNT(DISTINCT b.thumb) AS 'thumbs',
-            COUNT(DISTINCT c.`comment`) AS 'commentCount'
-            FROM `post` AS a
-            LEFT JOIN `image` AS b
-            ON a.`no` = b.`post_no`
-            LEFT JOIN `comment` AS c
-            ON a.`no` = c.`post_no` WHERE a.`no` IN
-            (SELECT c.`no` FROM `post` AS c
-            JOIN `post_usertag` AS d
-            ON c.`no`=d.`post_no`
-            WHERE d.`tag_user_no`=#{no});
+        SELECT b.*,
+            a.`thumb` AS 'firstThumb',
+            COUNT(DISTINCT a.`thumb`) AS 'thumbs',
+            COUNT(DISTINCT c.`no`) AS 'commentCount'
+            FROM `post` AS b
+            JOIN `image` AS a ON b.`no`=a.`post_no`
+            left JOIN `comment` AS c ON a.`post_no`=c.`post_no`
+            WHERE b.`no` = #{no};
+    </select>
+
+    <select id="selectTaggedPostsNo" resultType="int">
+        SELECT a.`no` FROM `post` AS a
+            JOIN `post_usertag` AS b
+            ON a.`no`=b.`post_no`
+            WHERE b.`tag_user_no` = #{no}
+            LIMIT #{pg}, 12;
     </select>
 
     <!--

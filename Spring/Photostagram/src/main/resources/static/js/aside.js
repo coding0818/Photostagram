@@ -370,6 +370,7 @@ function uploadFiles(e){
 
     $('#more_view').on('click', function(){
         $('.more_logout').toggleClass('on');
+        $('.more_my').toggleClass('on');
     });
 
     //게시글 업로드 버튼 클릭시

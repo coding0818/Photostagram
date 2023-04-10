@@ -1,5 +1,6 @@
 package kr.co.photostagram.dao;
 
+import kr.co.photostagram.vo.CommentVO;
 import kr.co.photostagram.vo.PostVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,6 +18,15 @@ import java.util.List;
 @Repository
 public interface MyDAO {
 
-    public List<PostVO> selectPosts (@Param("no") int no, @Param("index") int index);
+    public PostVO selectPost (int no);
+    public List<PostVO> selectPosts (int no);
+    public int[] selectLikePostNo (int no);
+    public int[] selectCommentNo (int no);
+    public List<PostVO> selectMyCommentPosts (int no);
+    public List<CommentVO> selectMyComments (@Param("postNo") int postNo, @Param("userNo") int userNo);
+    public int updateRemoveLike (int no);
+    public int deleteCommentLike (int no);
+    public int deleteLike (@Param("postNo") int postNo, @Param("userNo") int userNo);
+    public int deletePost (int no);
 
 }

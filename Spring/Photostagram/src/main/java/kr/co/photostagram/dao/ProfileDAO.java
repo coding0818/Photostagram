@@ -37,7 +37,8 @@ public interface ProfileDAO {
 
     public PostVO selectThumb(@Param("pageNo") int pageNo, @Param("postNo") int postNo);
 
-    public List<PostVO> selectTaggedPosts(int no);
+    public PostVO selectTaggedPosts(@Param("no") int no, @Param("pg") int pg);
+    public int[] selectTaggedPostsNo (int no);
 
     public List<MemberVO> selectFollowers (@Param("pageNo") int pageNo, @Param("pg") int pg);
     public List<MemberVO> selectFollowings (@Param("pageNo") int pageNo, @Param("pg") int pg);

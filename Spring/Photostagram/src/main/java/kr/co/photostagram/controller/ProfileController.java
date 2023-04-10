@@ -528,20 +528,117 @@ public class ProfileController {
         int myNo = user.getNo();          // 현재 로그인 된 사용자 번호
         int pageNo = member.getNo();      // 프로필 페이지 사용자 번호
 
-        List<PostVO> tags = service.selectTaggedPosts(pageNo);
+        int[] postNo = service.selectTaggedPostsNo(pageNo);
+        System.out.println(postNo);
+
         Map<Integer, PostVO> map = new HashMap<>();
-        for (int i=0; i<tags.size(); i++) {
-            map.put(i, tags.get(i));
-            System.out.println(tags.get(i));
+        for (int i=0; i<postNo.length; i++){
+            PostVO article = service.selectTaggedPosts(pageNo, 0);
+            map.put(i, article);
         }
+
         Map<Integer, PostVO> sortMap = new TreeMap<>(map);
 
+        /*** 게시물, 팔로워, 팔로잉 ***/
+        int post = service.selectCountPost(pageNo);                         // 게시물 갯수
+        int myFollower = service.selectCountFollower(pageNo);               // 팔로워 수
+        int myFollowing = service.selectCountFollowing(pageNo);             // 팔로잉 하는 수
+        int tagFollowing = service.selectCountFollowingTags(pageNo);        // 팔로잉 하는 해시태그 수
+
+        List<MemberVO> myFollowers = service.selectFollowers(pageNo, 0);   // 팔로워 목록
+        List<MemberVO> myFollowings = service.selectFollowings(pageNo, 0); // 팔로잉 목록
+
+        /*** 팔로잉 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
+        int[] followingArray = new int [myFollowings.size()];
+        Map<MemberVO, Integer> followingMap = new HashMap<>();
+
+        for (int i=0; i<myFollowings.size(); i++){
+            MemberVO currentUser = service.selectMember(myFollowings.get(i).getUsername());
+            followingArray[i] = currentUser.getNo();
+            int j = service.searchFollowing(myNo, followingArray[i]);
+
+            followingMap.put(currentUser, j);
+            //System.out.println("service1 : "+ j);
+            //System.out.println("array1 : "+ followingArray[i]);
+        }
+
+        int result = 0;
+        Map<MemberVO, Integer> followerMap = new HashMap<>();
+
+        /*** 팔로워 목록 유저들 현재 사용자가 팔로잉 중인지 검색 ***/
+
+        /*** 현재 페이지 사용자와 로그인 사용자가 다른 경우에만 수행 ***/
+        if (!username.equals(myName)){
+            int[] followerArray = new int[myFollowers.size()];
+            for (int i=0; i<myFollowers.size(); i++){
+                MemberVO currentUser = service.selectMember(myFollowers.get(i).getUsername());
+                followerArray[i] = currentUser.getNo();
+                int j = service.searchFollowing(myNo, followerArray[i]);
+
+                followerMap.put(currentUser, j);
+                //System.out.println("service2 : "+ j);
+            }
+            System.out.println("array2 : "+ followerArray);
+
+            /*** 팔로워 팔로잉 버튼 ***/
+            result = service.searchFollowing(myNo, pageNo);  // 로그인 사용자가 현재 페이지 사용자를 팔로잉 했는지 여부 (0 = 하지않음, 1 = 함)
+
+            /*** 현재 페이지 사용자와 로그인 사용자가 같은 경우 팔로워 목록만 저장 ***/
+        } else {
+            int[] followerArray = new int[myFollowers.size()];
+            for (int i=0; i<myFollowers.size(); i++){
+                MemberVO currentUser = service.selectMember(myFollowers.get(i).getUsername());
+                followerArray[i] = currentUser.getNo();
+                followerMap.put(currentUser, 1);
+            }
+        }
+
+        // 검색기록 요청
+        List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
+
+        log.info("user_no : "+user.getNo());
+
+        // 알림
+        List<NoticeVO> notices = mainService.selectNotices(user.getNo());
+
+        log.info("notices : "+notices);
+
+        model.addAttribute("notices", notices);
         model.addAttribute("user", user);
         model.addAttribute("member", member);
-        model.addAttribute("myName", myName);
+        model.addAttribute("searchList", searchList);
         model.addAttribute("username", username);
+        model.addAttribute("myName", myName);
+        model.addAttribute("post", post);
+        model.addAttribute("myFollower", myFollower);
+        model.addAttribute("myFollowers", myFollowers);
+        model.addAttribute("myFollowing", myFollowing);
+        model.addAttribute("myFollowings", myFollowings);
+        model.addAttribute("tagFollowing", tagFollowing);
+        model.addAttribute("result", result);
         model.addAttribute("sortMap", sortMap);
+        model.addAttribute("followingMap", followingMap);
+        model.addAttribute("followerMap", followerMap);
         return "profile/tagged";
+    }
+
+    @ResponseBody
+    @PostMapping ("profile/tagged")
+    public Map<Integer, PostVO> tagged (String username, int pg){
+
+        MemberVO member = service.selectMember(username);
+        int pageNo = member.getNo();
+        pg = 12 * pg;
+
+        int[] postNo = service.selectTaggedPostsNo(pageNo);
+        Map<Integer, PostVO> map = new HashMap<>();
+        for (int i=0; i<postNo.length; i++){
+            PostVO article = service.selectTaggedPosts(pageNo, pg);
+            map.put(i, article);
+        }
+
+        Map<Integer, PostVO> data = new TreeMap<>(map);
+        return data;
     }
 
 
