@@ -4,6 +4,25 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.photostagram.dao.MyDAO">
 
+    <insert id="insertType">
+        INSERT INTO `history`
+            SET `user_no` = #{no},
+            `type` = #{type},
+            `rdate` = NOW();
+    </insert>
+
+    <insert id="insertDetail">
+        INSERT INTO `history`
+            SET `user_no` = #{no},
+            `type` = #{type},
+            `detail` = #{detail},
+            `rdate` = NOW();
+    </insert>
+
+    <select id="selectUserRecent" resultType="int">
+        SELECT `no` FROM `user` ORDER BY `no` DESC LIMIT 1;
+    </select>
+
     <select id="selectPosts" resultType="kr.co.photostagram.vo.PostVO">
         SELECT *,COUNT(`thumb`) AS 'thumbs'
             FROM `post` AS a
@@ -64,11 +83,26 @@
             ORDER BY `rdate` DESC LIMIT 3;
     </select>
 
+    <select id="selectHistory" resultType="kr.co.photostagram.vo.HistoryVO">
+        SELECT * FROM `history`
+            WHERE `user_no` = #{no}
+            ORDER BY `rdate` DESC;
+    </select>
+
     <update id="updateRemoveLike">
         UPDATE `post` SET
             `like` = `like` - 1
             WHERE `no`=#{no};
     </update>
+
+    <delete id="deleteComment">
+        <!-- 댓글 좋아요 삭제 -->
+        DELETE FROM `comment_like`
+            WHERE `comment_no` = #{no};
+        <!-- 댓글 삭제 -->
+        DELETE FROM `comment`
+            WHERE `no` = #{no};
+    </delete>
 
     <delete id="deleteCommentLike">
         <!-- 게시글에 달린 댓글 좋아요 삭제 -->

@@ -107,12 +107,12 @@
             <div id="myModalMiddle">
                 <div>
                     <h2>정렬 기준</h2>
-                    <div class="buttonOn">최신순</div>
-                    <div>오래된 순</div>
+                    <div class="buttonOn" th:data-value="recent">최신순</div>
+                    <div th:data-value="oldest">오래된 순</div>
                 </div>
                 <div>
                     <h2>시작 날짜</h2>
-                    <select name="year">
+                    <select name="startYear">
                         <option>2016</option>
                         <option>2017</option>
                         <option>2018</option>
@@ -122,7 +122,7 @@
                         <option>2022</option>
                         <option>2023</option>
                     </select>
-                    <select name="month">
+                    <select name="startMonth">
                         <option>1월</option>
                         <option>2월</option>
                         <option>3월</option>
@@ -136,12 +136,12 @@
                         <option>11월</option>
                         <option>12월</option>
                     </select>
-                    <select name="day">
+                    <select name="startDay">
                     </select>
                 </div>
                 <div>
                     <h2>종료 날짜</h2>
-                    <select name="year">
+                    <select name="endYear">
                         <option>2016</option>
                         <option>2017</option>
                         <option>2018</option>
@@ -151,7 +151,7 @@
                         <option>2022</option>
                         <option>2023</option>
                     </select>
-                    <select name="month">
+                    <select name="endMonth">
                         <option>1월</option>
                         <option>2월</option>
                         <option>3월</option>
@@ -165,7 +165,7 @@
                         <option>11월</option>
                         <option>12월</option>
                     </select>
-                    <select name="day">
+                    <select name="endDay">
                     </select>
                 </div>
             </div>

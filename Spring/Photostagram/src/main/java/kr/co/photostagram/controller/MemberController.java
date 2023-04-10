@@ -3,6 +3,7 @@ package kr.co.photostagram.controller;
 import kr.co.photostagram.service.MailPassService;
 import kr.co.photostagram.service.MailService;
 import kr.co.photostagram.service.MemberService;
+import kr.co.photostagram.service.MyService;
 import kr.co.photostagram.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -39,6 +40,9 @@ public class MemberController {
 
     @Autowired
     public MailPassService mailPassService;
+
+    @Autowired
+    public MyService myService;
 
     /**
      * 로그인 페이지
@@ -135,6 +139,9 @@ public class MemberController {
         if(!error.hasErrors()){ // false면 에러가 없다.
             log.info("No errors");
             result = service.insertMember(vo);
+            int userNo = myService.selectUserRecent();
+            myService.insertType(userNo, "join");
+
         }else{
             log.info("errors occurred");
         }

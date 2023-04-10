@@ -16,7 +16,7 @@
               <div>
                   <div class="activityTop">
                       <h1 class="mySortTitle">최신순</h1>
-                      <a class="mySort" id="mySort">정렬 및 필터</a>
+                      <a class="mySort">정렬 및 필터</a>
                       <a class="mySortSelect">선택</a>
                   </div>
                   <div class="activityContents">
@@ -55,8 +55,8 @@
                                           </h3>
                                       </div>
                                       <span>1주</span>
-                                      <input name="photo" type="checkbox" onclick="getCheckedCnt()" th:id="${c.no}">
-                                      <label class="myCheckOff" th:for="${c.no}"></label>
+                                      <input name="photo" type="checkbox" onclick="getCheckedCnt()" th:id="${c.no}" th:data-value="${c.no}">
+                                      <label class="myCheckOff" th:for="${c.no}" th:data-value="${c.no}"></label>
                                   </div>
                               </th:block>
                               <th:block th:if="${m.value.commentCount} > 3">
@@ -71,45 +71,8 @@
               <div class="activityPop" style="display: none;">
                   <span class="closePop">X</span>
                   <h1><span id="deleteCount">0</span>개 선택됨</h1>
-                  <button class="mySortDelete">좋아요 취소</button>
+                  <button class="mySortDelete" th:data-type="comment">삭제</button>
               </div>
           </div>
-
     </th:block>
 </html>
-<script>
-
-</script>
-<script>
-    $(function(){
-        const labels = $("label");
-        $('.mySortSelect').on('click', function(){
-            if (labels.hasClass("myCheckOff")){
-                labels.removeClass("myCheckOff");
-                labels.addClass("myCheckOn");
-                $(".activityPop").show();
-            } else {
-                labels.removeClass("myCheckOn");
-                labels.addClass("myCheckOff");
-                $("input[name=photo]").prop("checked", false);
-                $("#deleteCount").text("0");
-                $(".activityPop").hide();
-            }
-        });
-    });
-
-    function getCheckedCnt(){
-      // 선택된 목록 가져오기
-          const query = 'input[name="photo"]:checked';
-          const selectedElements =
-              document.querySelectorAll(query);
-
-      // 선택된 목록의 갯수 세기
-      const selectedElementsCnt =
-            selectedElements.length;
-
-      // 출력
-      document.getElementById('deleteCount').innerText
-        = selectedElementsCnt;
-    }
-</script>
