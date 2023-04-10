@@ -510,6 +510,35 @@ $(function () {
     });
   });
 
+  // 답글 보기 / 펼치기
+  $(".respCommentOpen").click(function (e) {
+      e.preventDefault();
+
+      let items = $(this).parent().find("ul");
+
+      if (items.is(":visible")) {
+        items.hide();
+        items.prev().text('―― 답글 보기')
+      } else {
+        items.show();
+        items.prev().text('―― 답글 숨기기')
+      }
+  });
+
+
+  $(".posting").on({
+      "mouseover":function() {
+        let options = $(this).find('.comment_option');
+        options.css({"display":"inline"});
+      },
+      "mouseout":function() {
+        let options = $(this).find('.comment_option');
+        options.css({"display":"none"});
+      }
+  });
+
+
+
   /*
     북마크 (default : -237px -286px, click : -159px -286px)
   */
