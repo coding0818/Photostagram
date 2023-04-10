@@ -7,7 +7,6 @@ import kr.co.photostagram.service.IndexService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.vo.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -18,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.transaction.Transactional;
-import java.security.Principal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -184,5 +184,16 @@ public class BoardController {
         return map;
     }
 
+
+    @PostMapping("deletePost")
+    @ResponseBody
+    public Map<String, Integer> deletePost(int post_no){
+        int result = service.deletePost(post_no);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
 
 }

@@ -208,4 +208,28 @@
         `user_no` = #{user_no} AND
         `comment_no` = #{comment_no};
     </delete>
+
+    <!--게시물 삭제-->
+    <select id="selectComment" resultType="kr.co.photostagram.vo.CommentVO">
+        select * from `comment` where `post_no`=#{post_no};
+    </select>
+    <delete id="deleteCommentLike">
+        delete from `comment_like` where `comment_no`=#{comment_no};
+    </delete>
+    <delete id="deletePosts">
+        <!--댓글 삭제-->
+        delete from `comment` where `post_no`=#{post_no};
+        <!--태그된 해시태그 삭제-->
+        delete from `post_hashtag` where `post_no`=#{post_no};
+        <!--포스트 좋아요 삭제-->
+        delete from `post_like` where `post_no`=#{post_no};
+        <!--포스트 태그유저 삭제-->
+        delete from `post_usertag` where `post_no`=#{post_no};
+        <!--이미지 삭제-->
+        delete from `image` where `post_no`=#{post_no};
+    </delete>
+    <delete id="deletePost">
+        <!--게시물 삭제-->
+        delete from `post` where `no`=#{post_no};
+    </delete>
 </mapper>
