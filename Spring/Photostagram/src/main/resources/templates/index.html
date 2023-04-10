@@ -256,14 +256,16 @@
                                     <span>1일</span>&nbsp;&nbsp;좋아요
                                     <span id="md_comment_likeCount" th:text="${comment.modal_likeCount}">100개</span>개&nbsp;
                                     <span class="resp_comment">답글달기</span>
+                                    <button class="comment_option"></button>
                                   </div>
                                 </div>
                               </div>
                               <!---------------------------------->
 
                               <!-- 답글 -->
-                              <div class="resp_comment_section" th:if="${comment.childComment != null}">
-                                  <ul>
+                              <div class="resp_comment_section" >
+                                <a href="#" class="respCommentOpen" th:if="${comment.childComment != null}">―― 답글보기</a>
+                                  <ul style="display:none">
                                     <li th:each="child:${comment.childComment}">
 
                                       <!-- 프로필 사진 -->
@@ -271,7 +273,7 @@
                                            onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"
                                            alt="profile">
 
-                                      <div th:data-no="${comment.no}" style="display: inline-block;">
+                                      <div th:data-no="${child.no}" style="display: inline-block;">
                                         <!-- 답글 작성자 & 프로필 경로 -->
                                         <a class="modal_comment_id" th:href="@{/profile(username=${child.username})}" th:text="${child.memberVO.username}">KingTiger</a>
 
@@ -282,17 +284,17 @@
                                         <span class="modal_comment" th:text="${child.comment}">모달 답글내용</span>
 
                                         <!-- 댓글 좋아요 -->
-                                        <th:block th:if="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
+                                        <th:block th:if="${#strings.equals(user.no,child.comment_likeVO.user_no)}">
                                           <div class="comLike sprite_full_small_heart_icon_outline" th:data-no="${user.no}"></div>
                                         </th:block>
                                         <!-- 댓글 좋아요를 안 누른 경우 -->
-                                        <th:block th:unless="${#strings.equals(user.no,comment.comment_likeVO.user_no)}">
+                                        <th:block th:unless="${#strings.equals(user.no,child.comment_likeVO.user_no)}">
                                           <div class="comLike sprite_small_heart_icon_outline" th:data-no="${user.no}"></div>
                                         </th:block>
 
                                         <div class="commentInfo">
                                           <span>1일</span>&nbsp;&nbsp;좋아요
-                                          <span id="md_comment_likeCount" th:text="${comment.modal_likeCount}">100개</span>개&nbsp;
+                                          <span id="md_comment_likeCount" th:text="${child.modal_likeCount}">100개</span>개&nbsp;
                                           <span class="resp_comment">답글달기</span>
                                         </div>
 
@@ -388,16 +390,15 @@
         </div>
         <!-- <input type="hidden" id="page" value="1"> 왜 있는지 모름 (보류)-->
 
-        <!-- 게시글 오른쪽 사용자 프로필 및 정보 -->
+        <!-- 본인 프로필 및 정보 -->
         <div class="side_box">
           <div class="user_profile">
             <div class="profile_thumb">
-              <th:block th:if="${#strings.isEmpty(user.profileImg)}">
-                <a th:href="@{/profile(username=${user.username})}"><img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}" alt="프로필이미지"/></a>
-              </th:block>
-              <th:block th:unless="${#strings.isEmpty(user.profileImg)}">
-                <a th:href="@{/profile(username=${user.username})}"><img th:src="|@{/}thumb/${user.profileImg}" alt="프로필사진"/></a>
-              </th:block>
+              <a th:href="@{/profile(username=${user.username})}">
+                <img th:src="|@{/}thumb/${user.profileImg}"
+                   onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"
+                   alt="profile">
+              </a>
             </div>
 
             <div class="detail">

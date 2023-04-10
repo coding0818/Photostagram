@@ -51,5 +51,23 @@ div.resp_comment_section > ul li > div {
 div.modal-post div.posting {
     display: inline-block;
     width: 410px;
+    margin-bottom: 8px;
 }
+
+a.respCommentOpen {
+    color: #737373;
+    position: relative;
+    margin-left: 7%;
+}
+
+div.modal-post div.commentInfo button.comment_option {
+    display: none;
+    background: url(../img/background01.png) no-repeat -301px -186px;
+    margin-left: 8px;
+    width: 21px;
+    height: 13px;
+    border: 0;
+    cursor: pointer;
+}
+
 
