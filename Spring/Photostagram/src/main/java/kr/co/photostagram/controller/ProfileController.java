@@ -1,6 +1,7 @@
 package kr.co.photostagram.controller;
 
 import kr.co.photostagram.service.MainService;
+import kr.co.photostagram.service.MyService;
 import kr.co.photostagram.service.ProfileService;
 import kr.co.photostagram.service.SearchService;
 import kr.co.photostagram.utils.JSFunction;
@@ -39,6 +40,9 @@ public class ProfileController {
 
     @Autowired
     private SearchService searchService;
+
+    @Autowired
+    private MyService myService;
 
     @GetMapping(value = {"profile", "profile/index"})
     public String index(Principal principal, Model model, String username) {
@@ -330,6 +334,7 @@ public class ProfileController {
 
                 /*** 비밀번호 변경에 성공했을 시 로그아웃 ***/
                 if (result > 0){
+                    myService.insertType(no, "pass");
                     JSFunction.alertLocation(resp, "비밀번호 변경이 완료되었습니다. 다시 로그인해주세요.", "/Photostagram/member/logout");
                 }
 

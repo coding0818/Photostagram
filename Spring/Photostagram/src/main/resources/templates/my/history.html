@@ -22,14 +22,16 @@
                     <div class="historyBox">
                         <h3>오늘</h3>
                         <ul>
-                            <li>
-                                <img th:src="@{/img/history_introduction.png}"/>
-                                <div>
-                                    <div>소개</div>
-                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>0시간</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
+                            <th:block th:each="h:${history}">
+                                <li>
+                                    <img th:src="@{/img/history_{type}.png(type=${h.type})}"/>
+                                    <div>
+                                        <div>소개</div>
+                                        <div>소개를 <span>1</span>으로 변경했습니다. <span>0시간</span></div>
+                                    </div>
+                                    <img th:src="@{/img/arrowR_8x13.png}">
+                                </li>
+                            </th:block>
                         </ul>
                     </div>
                     <div class="historyBox">

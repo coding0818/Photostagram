@@ -37,69 +37,8 @@
             <div class="activityPop" style="display: none;">
                 <span class="closePop">X</span>
                 <h1><span id="deleteCount">0</span>개 선택됨</h1>
-                <button class="mySortDelete">삭제</button>
+                <button class="mySortDelete" th:data-type="like">삭제</button>
             </div>
         </div>
     </th:block>
 </html>
-<script>
-    $(function(){
-        const labels = $("label");
-        $('.mySortSelect').on('click', function(){
-            if (labels.hasClass("myCheckOff")){
-                labels.removeClass("myCheckOff");
-                labels.addClass("myCheckOn");
-                $(".activityPop").show();
-            } else {
-                labels.removeClass("myCheckOn");
-                labels.addClass("myCheckOff");
-                $("input[name=photo]").prop("checked", false);
-                $("#deleteCount").text("0");
-                $(".activityPop").hide();
-            }
-        });
-    });
-
-    function getCheckedCnt(){
-      // 선택된 목록 가져오기
-          const query = 'input[name="photo"]:checked';
-          const selectedElements =
-              document.querySelectorAll(query);
-
-      // 선택된 목록의 갯수 세기
-      const selectedElementsCnt =
-            selectedElements.length;
-
-      // 출력
-      document.getElementById('deleteCount').innerText
-        = selectedElementsCnt;
-    }
-</script>
-<script>
-    $('.mySortDelete').click(function(){
-        let checkArray = [];
-        let length = $('input:checked').length;
-        //console.log ($('input:checked').length);
-
-        $("input[type=checkbox]:checked").each(function(){
-            let no = $(this).attr("data-value");
-            checkArray.push(no);
-        });
-
-        console.log(checkArray);
-
-        $.ajax({
-            url: "/Photostagram/my/delete",
-            type: "POST",
-            traditional: true,
-            data: { checkArray:checkArray, type:"like" },
-            success: function(data){
-                console.log("success");
-                console.log(data.result);
-                $("input[type=checkbox]:checked").parent().remove();
-                $("input[type=checkbox]:checked").remove();
-                alert('정상적으로 삭제되었습니다.');
-            }
-        });
-    });
-</script>
