@@ -27,7 +27,7 @@
                                     <img th:src="@{/img/history_{type}.png(type=${h.type})}"/>
                                     <div>
                                         <div>소개</div>
-                                        <div>소개를 <span>1</span>으로 변경했습니다. <span>0시간</span></div>
+                                        <div>소개를 <span>1</span>으로 변경했습니다. <span class="myTimeStamp" th:data-value="${h.rdate}"></span></div>
                                     </div>
                                     <img th:src="@{/img/arrowR_8x13.png}">
                                 </li>
@@ -45,86 +45,6 @@
                                 </div>
                                 <img th:src="@{/img/arrowR_8x13.png}">
                             </li>
-                            <li>
-                                <img th:src="@{/img/history_introduction.png}"/>
-                                <div>
-                                    <div>소개</div>
-                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>1달</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
-                            <li>
-                                <img th:src="@{/img/history_introduction.png}"/>
-                                <div>
-                                    <div>소개</div>
-                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>1달</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
-                            <li>
-                                <img th:src="@{/img/history_introduction.png}"/>
-                                <div>
-                                    <div>소개</div>
-                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>1달</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
-                            <li>
-                                <img th:src="@{/img/history_introduction.png}"/>
-                                <div>
-                                    <div>소개</div>
-                                    <div>소개를 <span>1</span>으로 변경했습니다. <span>1달</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
-                            <li>
-                                <img th:src="@{/img/history_pass.png}"/>
-                                <div>
-                                    <div>비밀번호</div>
-                                    <div>비밀번호를 변경했습니다. <span>5달</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
-                            <li>
-                                <img th:src="@{/img/history_pass.png}"/>
-                                <div>
-                                    <div>비밀번호</div>
-                                    <div>비밀번호를 변경했습니다. <span>3년</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
-                            <li>
-                                <img th:src="@{/img/history_name.png}"/>
-                                <div>
-                                    <div>사용자 이름</div>
-                                    <div>사용자 이름을 <span>user</span>로 변경했습니다. <span>3년</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
-                            <li>
-                                <img th:src="@{/img/history_private.png}"/>
-                                <div>
-                                    <div>공개 범위</div>
-                                    <div>계정을 <span>공개</span>로 설정했습니다. <span>3년</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
-                            <li>
-                                <img th:src="@{/img/history_private.png}"/>
-                                <div>
-                                    <div>공개 범위</div>
-                                    <div>계정을 <span>비공개</span>로 설정했습니다. <span>3년</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
-                            <li>
-                                <img th:src="@{/img/history_notice.png}"/>
-                                <div>
-                                    <div>계정 생섬됨</div>
-                                    <div><span>September 02, 2016</span>에 계정을 만들었습니다. <span>6년</span></div>
-                                </div>
-                                <img th:src="@{/img/arrowR_8x13.png}">
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -132,3 +52,6 @@
         </div>
     </th:block>
 </html>
+<script>
+
+</script>

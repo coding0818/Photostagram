@@ -275,19 +275,25 @@ public class ProfileController {
         return "profile/modify";
     }
 
+    @Transactional
     @ResponseBody
     @PostMapping("profile/modify")
     public void modify(HttpServletResponse resp, MemberVO vo, Principal principal){
         //log.info("user_no : "+vo.getNo());
+
+        MemberVO preUser = service.selectMember(principal.getName());
 
         if (vo.getGender().length() > 2){
             vo.setGender(null);
         }
 
         if (service.searchUserName(vo.getUsername()) == 0){
+            myService.updateHistories(preUser, vo);
+            myService.insertDetail(vo.getNo(), "id", vo.getUsername());
             service.updateMember(vo);
         } else {
             if ((principal.getName()).equals(vo.getUsername())){
+                myService.updateHistories(preUser, vo);
                 service.updateMember(vo);
                 JSFunction.alertLocation(resp, "수정이 완료되었습니다.", "/Photostagram/profile/modify");
             } else {
@@ -295,7 +301,7 @@ public class ProfileController {
             }
         }
 
-        JSFunction.alertLocation(resp, "수정이 완료되었습니다.", "/Photostagram/profile/modify");
+        JSFunction.alertLocation(resp, "수정이 완료되었습니다. \\n 아이디를 변경할 경우 재로그인이 필요합니다.", "/Photostagram/member/logout");
     }
 
 
