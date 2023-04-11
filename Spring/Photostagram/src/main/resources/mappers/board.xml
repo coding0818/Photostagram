@@ -232,4 +232,9 @@
         <!--게시물 삭제-->
         delete from `post` where `no`=#{post_no};
     </delete>
+    <select id="selectUserTags" resultType="kr.co.photostagram.vo.UserTagVO">
+        SELECT a.*, b.username from `post_usertag` AS a
+        JOIN `user` AS b ON a.tag_user_no=b.`no`
+        where `post_no`=#{post_no};
+    </select>
 </mapper>

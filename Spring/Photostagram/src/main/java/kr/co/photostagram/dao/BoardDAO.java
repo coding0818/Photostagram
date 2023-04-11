@@ -43,4 +43,6 @@ public interface BoardDAO {
    public int deletePost(int post_no);
    public int deletePosts(int post_no);
 
+   public List<UserTagVO> selectUserTags(int post_no);
+
 }

@@ -33,5 +33,5 @@ public interface MainDAO {
     public int deleteFollow(@Param("my_no") int my_no, @Param("user_no") int user_no);
 
     public List<MemberVO> selectTagUsers(String search);
-    public int insertTagUser(@Param("post_no") int post_no, @Param("tag_no") int tag_no);
+    public int insertTagUser(@Param("post_no") int post_no, @Param("tag_no") int tag_no, @Param("top") int top, @Param("left") int left, @Param("page") int page);
 }

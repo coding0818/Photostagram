@@ -3,6 +3,9 @@
 <th:block th:fragment="postModalFragment">
     <script th:inline="javascript">
         $(function(){
+            let modal = $('#modal_postSelect');
+            let modal_modify = $('#modal_modify_feed_content');
+
             $(document).on('click', '.post_delete', function(e){
                 e.preventDefault();
                 let post_no = [[${post.no}]];
@@ -27,6 +30,20 @@
                 });
             });
 
+            $(document).on('click', '.modal_postModify', function(){
+                modal.css('display', 'none');
+                modal_modify.css('display', 'flex');
+
+                let image1 = [[${images[0].thumb}]];
+                console.log(image1);
+
+                $('#input_image_post').css({
+                    "background-image": "url(/Photostagram/thumb/"+image1+")",
+                    "background-size": "cover",
+                    "background-repeat" : "no-repeat",
+                    "background-position" : "center"
+                });
+            });
         });
     </script>
     <div id="modal_postSelect" class="modalPost modal_post_overlay">
@@ -73,14 +90,14 @@
                         <button class="afterBtn" id="afterBtn">></button>
                     </th:block>
                     <button class="beforeBtn" id="beforeBtn"><</button>
-                    <th:block th:each="img:${images}">
-                        <th:block th:if="${img.thumb.endsWith('.mp4')}">
-                            <video autoplay muted loop src="path/to/video.mp4" type="video/mp4"></video>
+                    <div id="tooltipArea_post">
+                        <th:block th:each="userTag:${userTags}">
+                            <div class='tag1' th:style="'top:'+${userTag.top}+'px;left:'+${userTag.left}+'px;display:block;'" th:data-no="${userTag.tag_user_no}" th:data-page="${userTag.page}" th:if="${userTag.page == 0}">
+                                <div></div>
+                                <div class="username"><span>[[${userTag.username}]]</span><button>x</button></div>
+                            </div>
                         </th:block>
-                        <th:block th:unless="${img.thumb.endsWith('.mp4')}">
-                            <img th:src="@{/thumb/{img}(img=${img.thumb})}">
-                        </th:block>
-                    </th:block>
+                    </div>
                 </div>
                 <div class="modal_content_write">
                     <div class="feed_name">
@@ -95,7 +112,12 @@
                         <span id="input_user_id" class="feed_name_txt" th:data-no="${user.no}">[[${#authentication.principal.username}]]</span>
                     </div>
                     <div style="height: 440px">
-                        <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10" th:text="${post.content}"></textarea>
+                        <div contenteditable id="input_content" class="feed_content_textarea_post form-control col-sm-5" rows="10">
+                            [[${post.content}]]&nbsp;
+                            <th:block th:each="hash:${hashes}">
+                                #[[${hash.hashtag}]]&nbsp;
+                            </th:block>
+                        </div>
                     </div>
                 </div>
             </div>

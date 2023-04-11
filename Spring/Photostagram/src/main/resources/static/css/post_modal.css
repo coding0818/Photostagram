@@ -186,14 +186,8 @@
     transition: all .15s ease-in-out;
     width:500px;
     height: 548px;
-    overflow: hidden;
+    overflow: visible;
     position: relative;
-}
-
-.modal_image_upload_content_post > img{
-    object-fit:cover;
-    width:500px;
-    height:548px;
 }
 
 #input_image_post > .beforeBtn{
@@ -220,3 +214,16 @@
   border: none;
   visibility: hidden;
 }
+
+.feed_content_textarea_post{
+     resize: none;
+     width: 294px;
+     border: none;
+ }
+
+#tooltipArea_post{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+

@@ -35,5 +35,8 @@ public class PostVO {
 
     private String thumb;
     private List<Integer> tags;
+    private List<Integer> tops;
+    private List<Integer> lefts;
+    private List<Integer> pages;
 
 }

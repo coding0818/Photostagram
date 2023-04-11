@@ -63,8 +63,8 @@ public class MainService {
         }
 
         // 유저 태그 DB 넣기
-        for(int tag_no : vo.getTags()){
-            dao.insertTagUser(vo.getNo(), tag_no);
+        for(int i=0; i<vo.getTags().size(); i++){
+            dao.insertTagUser(vo.getNo(), vo.getTags().get(i), vo.getTops().get(i), vo.getLefts().get(i), vo.getPages().get(i));
         }
 
         return result1;
