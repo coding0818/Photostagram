@@ -152,19 +152,7 @@ $(function () {
         parent: respComment_No
       };
 
-      
-
       let top_length = $("div.top").length;
-      let top = new Array(top_length);
-
-      for (let i = 0; i < top_length; i++) {
-        let top_cmt = $("div.top").eq(i);
-        top.push(top_cmt);
-
-        let value = $("div.top").eq(i).attr("data-value");
-        console.log("value : " + value);
-
-      }
 
       $.ajax({
         url: "/Photostagram/respCmtRegister",
@@ -210,10 +198,13 @@ $(function () {
              }
             }
             
+            $(".modal_commentText").val('');
+            
           }
         },
       });
     } else {
+        // 답글X 일반댓글
        let jsonData = {
          "uid":uid,
          "post_no":post_no,
@@ -525,7 +516,7 @@ $(function () {
       }
   });
 
-
+  // 댓글 옵션 창 hover
   $(".posting").on({
       "mouseover":function() {
         let options = $(this).find('.comment_option');
