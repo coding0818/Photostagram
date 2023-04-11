@@ -13,32 +13,38 @@
                 <a th:href="@{/my/interaction/like}">좋아요</a>
                 <a th:href="@{/my/interaction/comment}">댓글</a>
             </div>
-            <div>
-                <div class="activityTop">
-                    <h1 class="mySortTitle">최신순</h1>
-                    <a class="mySort">정렬 및 필터</a>
-                    <a class="mySortSelect">선택</a>
+            <th:block th:if="${#maps.isEmpty(sortMap)}">
+                <h1>좋아요를 남기지 않았습니다.</h1>
+                <h2>사진이나 동영상에 좋아요를 남기면 여기에 표시됩니다.</h2>
+            </th:block>
+            <th:block th:unless="${#maps.isEmpty(sortMap)}">
+                <div>
+                    <div class="activityTop">
+                        <h1 class="mySortTitle">최신순</h1>
+                        <a class="mySort">정렬 및 필터</a>
+                        <a class="mySortSelect">선택</a>
+                    </div>
+                    <div class="activityContents">
+                        <th:block th:each="m:${sortMap}">
+                            <a th:href="@{/board/post (no=${m.value.no})}">
+                                <th:block th:if="${#strings.endsWith(m.value.firstThumb, '.mp4')} == true">
+                                    <video th:src="|@{/}thumb/${m.value.firstThumb}"></video>
+                                </th:block>
+                                <th:block th:unless="${#strings.endsWith(m.value.firstThumb, '.mp4')} == true">
+                                    <img th:src="|@{/}thumb/${m.value.firstThumb}">
+                                </th:block>
+                                <input name="photo" type="checkbox" onclick="getCheckedCnt()" th:id="${m.value.firstThumb}" th:data-value="${m.value.no}">
+                                <label class="myCheckOff" th:for="${m.value.firstThumb}"></label>
+                            </a>
+                        </th:block>
+                    </div>
                 </div>
-                <div class="activityContents">
-                    <th:block th:each="m:${sortMap}">
-                        <a th:href="@{/board/post (no=${m.value.no})}">
-                            <th:block th:if="${#strings.endsWith(m.value.firstThumb, '.mp4')} == true">
-                                <video th:src="|@{/}thumb/${m.value.firstThumb}"></video>
-                            </th:block>
-                            <th:block th:unless="${#strings.endsWith(m.value.firstThumb, '.mp4')} == true">
-                                <img th:src="|@{/}thumb/${m.value.firstThumb}">
-                            </th:block>
-                            <input name="photo" type="checkbox" onclick="getCheckedCnt()" th:id="${m.value.firstThumb}" th:data-value="${m.value.no}">
-                            <label class="myCheckOff" th:for="${m.value.firstThumb}"></label>
-                        </a>
-                    </th:block>
+                <div class="activityPop" style="display: none;">
+                    <span class="closePop">X</span>
+                    <h1><span id="deleteCount">0</span>개 선택됨</h1>
+                    <button class="mySortDelete" th:data-type="like">삭제</button>
                 </div>
-            </div>
-            <div class="activityPop" style="display: none;">
-                <span class="closePop">X</span>
-                <h1><span id="deleteCount">0</span>개 선택됨</h1>
-                <button class="mySortDelete" th:data-type="like">삭제</button>
-            </div>
+            </th:block>
         </div>
     </th:block>
 </html>

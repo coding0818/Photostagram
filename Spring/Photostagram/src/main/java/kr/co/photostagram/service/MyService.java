@@ -3,6 +3,7 @@ package kr.co.photostagram.service;
 import kr.co.photostagram.dao.MyDAO;
 import kr.co.photostagram.vo.CommentVO;
 import kr.co.photostagram.vo.HistoryVO;
+import kr.co.photostagram.vo.MemberVO;
 import kr.co.photostagram.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,24 @@ public class MyService {
     public int deleteLike (int postNo, int userNo) {return dao.deleteLike(postNo, userNo);}
     public int deletePost (int no) {return dao.deletePost(no);}
 
+
+    public void updateHistories (MemberVO preUser, MemberVO newUser) {
+
+        log.info("here1");
+
+        if (!(preUser.getProfileText()).equals(newUser.getProfileText())) {
+            log.info("here2");
+            insertDetail(preUser.getNo(), "intro", newUser.getProfileText());
+        }
+
+        if (!(preUser.getProfilePhone()).equals(newUser.getProfilePhone())) {
+            log.info("here3");
+            insertDetail(preUser.getNo(), "phone", newUser.getProfilePhone());
+        }
+
+        if (!(preUser.getName()).equals(newUser.getName())){
+            log.info("here4");
+            insertDetail(preUser.getNo(), "name", newUser.getName());
+        }
+    }
 }
