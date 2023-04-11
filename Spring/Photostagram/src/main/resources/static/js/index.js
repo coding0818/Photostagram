@@ -12,69 +12,6 @@ $(function () {
     moveSlides: 1,
   });
 
-
-
-  // 댓글 모두보기
-  $(".commentMore").on("click", function () {
-    let article = $(this).closest("article");
-    let modalPost = article.find(".modal-post");
-    let imgsection = article.find(".img_section");
-    let mainPostBx = imgsection.find(".bx-controls-direction");
-    let modalPostBx = modalPost.find(".bx-controls-direction");
-
-    modalPost.css("display", "flex");
-    mainPostBx.css("display", "none");
-    modalPostBx.css("display", "flex");
-    $("body").css("overflow-y", "hidden");
-  });
-
-  // 버블 아이콘
-  $(".sprite_bubble_icon").on("click", function () {
-    let article = $(this).closest("article");
-    let modalPost = article.find(".modal-post");
-    let imgsection = article.find(".img_section");
-    let mainPostBx = imgsection.find(".bx-controls-direction");
-    let modalPostBx = modalPost.find(".bx-controls-direction");
-
-    modalPost.css("display", "flex");
-    mainPostBx.css("display", "none");
-    modalPostBx.css("display", "flex");
-    $("body").css("overflow-y", "hidden");
-  });
-
-  // 모달 post 닫기
-  $(".post-close").on("click", function () {
-    let article = $(this).closest("article");
-    let modalPost = article.find(".modal-post");
-    let bxControll = article.find(".bx-controls-direction");
-
-    modalPost.css("display", "none");
-    bxControll.css("display", "flex");
-    $("body").css("overflow-y", "visible");
-  });
-
-  // 게시글 토글버튼
-  $(".sprite_more_icon").on("click", function () {
-    let article = $(this).closest("article");
-    let PostMenu = article.find(".post-menu");
-    let bxControll = article.find(".bx-controls-direction");
-
-    PostMenu.css("display", " flex");
-    bxControll.css("display", "none");
-    $("body").css("overflow-y", "hidden");
-  });
-
-  // 게시글 토글버튼 취소클릭
-  $(".postmenu-cancel").on("click", function () {
-    let article = $(this).closest("article");
-    let PostMenu = article.find(".post-menu");
-    let bxControll = article.find(".bx-controls-direction");
-
-    PostMenu.css("display", "none");
-    bxControll.css("display", "flex");
-    $("body").css("overflow-y", "visible");
-  });
-
   //메인콘텐츠 더보기 누를 경우
   $(".contents").each(function () {
     let article = $(this).closest("article");
@@ -144,12 +81,11 @@ $(function () {
       console.log(respComment[0]); // 피 답글자 아이디
       console.log(respComment[1]); // 해당 답글의 내용
 
-      
       let jsonData = {
         comment: respComment[1],
         post_no: post_no,
         user_no: user_no,
-        parent: respComment_No
+        parent: respComment_No,
       };
 
       let top_length = $("div.top").length;
@@ -162,19 +98,33 @@ $(function () {
         dataType: "json",
         success: function (data) {
           if (data.result > 0) {
-            
             let str = "<div class='resp_comment_section'>";
-            str += "<ul>"
-            str += "<li>"
+            str += "<ul>";
+            str += "<li>";
             str += "<img src='" + image + "' alt='프로필이미지'>";
-            str += "<div data-no='" + data.no + "' style='display: inline-block; margin-left: 2px;'>";
-            str += "<a class='modal_comment_id' href='/Photostagram/profile?username=" + uid + "'>" + uid + "</a>";
+            str +=
+              "<div data-no='" +
+              data.no +
+              "' style='display: inline-block; margin-left: 2px;'>";
+            str +=
+              "<a class='modal_comment_id' href='/Photostagram/profile?username=" +
+              uid +
+              "'>" +
+              uid +
+              "</a>";
 
-            str += "<a href='/Photostagram/profile?username="+respComment[0].substring(1)+"' class='resp_id' style='color:#00376B; font-size:13px; font-weight:bold; margin-left: 4px;'>"+respComment[0]+"</a>&nbsp;"
+            str +=
+              "<a href='/Photostagram/profile?username=" +
+              respComment[0].substring(1) +
+              "' class='resp_id' style='color:#00376B; font-size:13px; font-weight:bold; margin-left: 4px;'>" +
+              respComment[0] +
+              "</a>&nbsp;";
 
             str += "<span class='modal_comment'>" + respComment[1] + "</span>";
             str +=
-              "<div class='comLike sprite_small_heart_icon_outline' data-no='" + user_no + "'></div>";
+              "<div class='comLike sprite_small_heart_icon_outline' data-no='" +
+              user_no +
+              "'></div>";
 
             str += "<div class='commentInfo'>";
             str += "<span>1일</span>&nbsp;&nbsp;좋아요";
@@ -182,101 +132,119 @@ $(function () {
             str += "<span class='resp_comment'>답글달기</span>";
             str += "</div>";
             str += "</div>";
-            str += "</li>"
-            str += "</ul>"
+            str += "</li>";
+            str += "</ul>";
             str += "</div>";
-      
-            
+
             for (let i = 0; i < top_length; i++) {
               let top_cmt = $("div.top").eq(i);
-      
+
               let value = $("div.top").eq(i).attr("data-value");
               console.log("value : " + value);
 
-             if(top_cmt.attr("data-value") == respComment_No){
-               top_cmt.append(str)
-             }
+              if (top_cmt.attr("data-value") == respComment_No) {
+                top_cmt.append(str);
+              }
             }
-            
-            $(".modal_commentText").val('');
-            
+
+            $(".modal_commentText").val("");
           }
         },
       });
     } else {
-        // 답글X 일반댓글
-       let jsonData = {
-         "uid":uid,
-         "post_no":post_no,
-         "user_no":user_no,
-         "comment":comment
-       };
-       $.ajax({
-         url:'/Photostagram/CmtRegister',
-         method:'POST',
-         data: JSON.stringify(jsonData),
-         contentType: "application/json",
-         dataType:'json',
-         success: function(data){
-           if(data.result > 0){
-             let modal_comment = "<div class='top' data-value='" + data.no + "'>";
-             modal_comment += "<img src='" + image + "' alt='프로필이미지'>";
-             modal_comment += "<div class='posting'>";
-             modal_comment += "<div data-no='" + data.no + "'>";
-             modal_comment += "<a class='modal_comment_id' href='/Photostagram/profile?username=" + uid + "'>" + uid + "</a>";
-             modal_comment += "<input type='hidden' value='" + data.no + "'>";
-             modal_comment += "<span class='modal_comment' style='margin-left:2px;'>" + comment + "</span>";
-             modal_comment += "<div class='comLike sprite_small_heart_icon_outline' data-no='" + user_no + "'></div>";
-             modal_comment += "<div class='commentInfo'>";
-             modal_comment += "<span>1일</span>&nbsp;&nbsp;좋아요&nbsp;";
-             modal_comment += "<span id='md_comment_likeCount'>0</span>개&nbsp;&nbsp;";
-             modal_comment += "<span class='resp_comment'>답글달기</span>";
-             modal_comment += "</div>";
-             modal_comment += "</div>";
-             modal_comment += "</div>";
-             modal_comment += "</div>";
+      // 답글X 일반댓글
+      let jsonData = {
+        uid: uid,
+        post_no: post_no,
+        user_no: user_no,
+        comment: comment,
+      };
+      $.ajax({
+        url: "/Photostagram/CmtRegister",
+        method: "POST",
+        data: JSON.stringify(jsonData),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+          if (data.result > 0) {
+            let modal_comment =
+              "<div class='top' data-value='" + data.no + "'>";
+            modal_comment += "<img src='" + image + "' alt='프로필이미지'>";
+            modal_comment += "<div class='posting'>";
+            modal_comment += "<div data-no='" + data.no + "'>";
+            modal_comment +=
+              "<a class='modal_comment_id' href='/Photostagram/profile?username=" +
+              uid +
+              "'>" +
+              uid +
+              "</a>";
+            modal_comment += "<input type='hidden' value='" + data.no + "'>";
+            modal_comment +=
+              "<span class='modal_comment' style='margin-left:2px;'>" +
+              comment +
+              "</span>";
+            modal_comment +=
+              "<div class='comLike sprite_small_heart_icon_outline' data-no='" +
+              user_no +
+              "'></div>";
+            modal_comment += "<div class='commentInfo'>";
+            modal_comment += "<span>1일</span>&nbsp;&nbsp;좋아요&nbsp;";
+            modal_comment +=
+              "<span id='md_comment_likeCount'>0</span>개&nbsp;&nbsp;";
+            modal_comment += "<span class='resp_comment'>답글달기</span>";
+            modal_comment += "</div>";
+            modal_comment += "</div>";
+            modal_comment += "</div>";
+            modal_comment += "</div>";
 
-             article.find('.text').append(modal_comment);
+            article.find(".text").append(modal_comment);
 
-             let str = "<div class='reply_user' data-no='"+data.no+"'>";
-               str += "<input type='hidden' class='reply_no' value='"+data.no+"'>";
-               str += "<span class='reply_nick'>" + uid + "</span>";
-               str += "<span class='reply_content' style='margin-left:4px;'>" + comment + "</span>";
-               str += "<div class='comLike sprite_small_heart_icon_outline' data-no='"+data.user_no+"'></div>";
-               str += "</div>";
+            let str = "<div class='reply_user' data-no='" + data.no + "'>";
+            str +=
+              "<input type='hidden' class='reply_no' value='" + data.no + "'>";
+            str += "<span class='reply_nick'>" + uid + "</span>";
+            str +=
+              "<span class='reply_content' style='margin-left:4px;'>" +
+              comment +
+              "</span>";
+            str +=
+              "<div class='comLike sprite_small_heart_icon_outline' data-no='" +
+              data.user_no +
+              "'></div>";
+            str += "</div>";
 
-             article.find('.comment_container').append(str);
-             article.find('.commentText').val('');
+            article.find(".comment_container").append(str);
+            article.find(".commentText").val("");
 
-             let count = article.find('#comment-count').text(); // 현재 태그사이 텍스트받고
-             let commentCount = parseInt(count); // 문자열이라 더하기가 안되기때문에 parseInt
-             article.find('#comment-count').text(commentCount+1); // 해당 텍스트에 +1
-           }else{
-               alert('실패')
-           }
-         }
-       })
+            let count = article.find("#comment-count").text(); // 현재 태그사이 텍스트받고
+            let commentCount = parseInt(count); // 문자열이라 더하기가 안되기때문에 parseInt
+            article.find("#comment-count").text(commentCount + 1); // 해당 텍스트에 +1
+          } else {
+            alert("실패");
+          }
+        },
+      });
     }
   });
 
   $(".resp_comment").on("click", function () {
-      // 피 답글 닉네임
-      let idtext = $(this).parent().parent().children(":first").text();
-      let posting = $(this).closest(".posting");
-      // 댓글 번호
-      let modal_comment_no = posting.children().attr("data-no");
+    // 피 답글 닉네임
+    let idtext = $(this).parent().parent().children(":first").text();
+    let posting = $(this).closest(".posting");
+    // 댓글 번호
+    let modal_comment_no = posting.children().attr("data-no");
 
-      // 댓글번호 동적 생성
-      let dynamicCommentNo =
-        "<input type='hidden' name='commentNo' value='" + modal_comment_no + "'>";
-      $(".comment-wrapper").append(dynamicCommentNo);
+    // 댓글번호 동적 생성
+    let dynamicCommentNo =
+      "<input type='hidden' name='commentNo' value='" + modal_comment_no + "'>";
+    $(".comment-wrapper").append(dynamicCommentNo);
 
-      // console.log("해당 댓글 번호 : " + modal_comment_no);
+    // console.log("해당 댓글 번호 : " + modal_comment_no);
 
-      let id = "@" + idtext;
+    let id = "@" + idtext;
 
-      // textarea @아이디 생성
-      let modal_cmt_text = $(".modal_commentText").val(id + " | ");
+    // textarea @아이디 생성
+    let modal_cmt_text = $(".modal_commentText").val(id + " | ");
   });
 
   /*
@@ -372,6 +340,7 @@ $(function () {
 
     console.log("user_no : " + user_no);
     console.log("comment_no : " + comment_no);
+
     let jsonData = {
       user_no: user_no,
       comment_no: comment_no,
@@ -397,18 +366,13 @@ $(function () {
             // modal 댓글 좋아요 개수 올리기
             let likeCount = $(this)
               .next()
-              .children()
-              .next()
-              .next()
-              .prev()
+              .children("#md_comment_likeCount")
               .text();
             let count = parseInt(likeCount);
+
             $(this)
               .next()
-              .children()
-              .next()
-              .next()
-              .prev()
+              .children("#md_comment_likeCount")
               .text(count + 1);
           }
         }
@@ -455,18 +419,13 @@ $(function () {
 
               let likeCount = $(this)
                 .next()
-                .children()
-                .next()
-                .next()
-                .prev()
+                .children("#md_comment_likeCount")
                 .text();
               let count = parseInt(likeCount);
+
               $(this)
                 .next()
-                .children()
-                .next()
-                .next()
-                .prev()
+                .children("#md_comment_likeCount")
                 .text(count - 1);
             }
           }
@@ -503,32 +462,41 @@ $(function () {
 
   // 답글 보기 / 펼치기
   $(".respCommentOpen").click(function (e) {
-      e.preventDefault();
+    e.preventDefault();
 
-      let items = $(this).parent().find("ul");
+    let items = $(this).parent().find("ul");
 
-      if (items.is(":visible")) {
-        items.hide();
-        items.prev().text('―― 답글 보기')
-      } else {
-        items.show();
-        items.prev().text('―― 답글 숨기기')
-      }
+    if (items.is(":visible")) {
+      items.hide();
+      items.prev().text("―― 답글 보기");
+    } else {
+      items.show();
+      items.prev().text("―― 답글 숨기기");
+    }
   });
 
   // 댓글 옵션 창 hover
   $(".posting").on({
-      "mouseover":function() {
-        let options = $(this).find('.comment_option');
-        options.css({"display":"inline"});
-      },
-      "mouseout":function() {
-        let options = $(this).find('.comment_option');
-        options.css({"display":"none"});
-      }
+    mouseover: function () {
+      let options = $(this).find(".comment_option");
+      options.css({ display: "inline" });
+    },
+    mouseout: function () {
+      let options = $(this).find(".comment_option");
+      options.css({ display: "none" });
+    },
   });
 
-
+  $(".resp_comment_section > ul li").on({
+    mouseover: function () {
+      let options = $(this).find(".comment_option");
+      options.css({ display: "inline" });
+    },
+    mouseout: function () {
+      let options = $(this).find(".comment_option");
+      options.css({ display: "none" });
+    },
+  });
 
   /*
     북마크 (default : -237px -286px, click : -159px -286px)

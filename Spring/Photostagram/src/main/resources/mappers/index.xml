@@ -121,6 +121,10 @@
         `comment_no` = #{comment_no};
     </delete>
 
+    <delete id="deleteComment">
+
+    </delete>
+
     <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">
         <result column="no" property="no"/>
         <result column="content" property="content"/>
@@ -171,7 +175,4 @@
         </collection>
     </resultMap>
 
-    <sql id="YesFollowing">
-
-    </sql>
 </mapper>
