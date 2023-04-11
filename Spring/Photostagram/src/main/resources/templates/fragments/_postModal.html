@@ -95,7 +95,7 @@
                         <span id="input_user_id" class="feed_name_txt" th:data-no="${user.no}">[[${#authentication.principal.username}]]</span>
                     </div>
                     <div style="height: 440px">
-                        <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10" placeholder="설명을 입력하세요..."></textarea>
+                        <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10" th:text="${post.content}"></textarea>
                     </div>
                 </div>
             </div>

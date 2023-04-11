@@ -427,10 +427,11 @@ function uploadFiles(e){
         dataType:'json',
         success:function(data){
           if(data.result > 0){
-            alert('업로드되었습니다.');
+            //alert('업로드되었습니다.');
             $('#modal_add_feed_content').css({display : 'none'});
             $('#input_content').val('');
             $('#tooltipArea').empty();
+            location.href='/Photostagram/index';
           }
         }
       });
