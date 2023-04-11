@@ -7,10 +7,12 @@ $(function(){
     $('.postSelect').on('click', function(){
         modal.css('top', $(window).scrollTop()+'px');
         modal.css('display', 'flex');
+        $('body').css('overflow-y', 'hidden');
     });
 
     $('.modal_postCancel').on('click', function(){
         modal.css('display', 'none');
+        $('body').css('overflow-y', 'visible');
     });
 
     $(document).on('click', '.modal_postDelete', function(){
@@ -20,11 +22,7 @@ $(function(){
 
     $(document).on('click', '.post_delete_cancel', function(){
         modal_delete.css('display', 'none');
-    });
-
-    $(document).on('click', '.modal_postModify', function(){
-        modal.css('display', 'none');
-        modal_modify.css('display', 'flex');
+        $('body').css('overflow-y', 'visible');
     });
 
     $(document).on('click', '.modal_title_side_post_cancel', function(){

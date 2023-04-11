@@ -60,6 +60,10 @@ public class BoardService {
         return result;
     }
 
+    public List<UserTagVO> selectUserTags(int post_no){
+        return dao.selectUserTags(post_no);
+    }
+
 
 
 

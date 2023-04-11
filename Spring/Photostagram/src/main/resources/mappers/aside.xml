@@ -160,6 +160,6 @@
     </select>
     <!--태그 유저 삽입-->
     <insert id="insertTagUser">
-        insert into `post_usertag` set `post_no`=#{post_no}, `tag_user_no`=#{tag_no};
+        insert into `post_usertag` set `post_no`=#{post_no}, `tag_user_no`=#{tag_no}, `top`=#{top}, `left`=#{left}, `page`=#{page};
     </insert>
 </mapper>

@@ -403,12 +403,23 @@ function uploadFiles(e){
 
       let length = $('.tag1').length;
       let users = [];
+      let tops = [];
+      let lefts = [];
+      let pages = [];
 
       for(i=0; i<length; i++){
           users.push($('#tooltipArea').children().eq(i).attr('data-no'));
+          console.log("offsetx top : "+$('#tooltipArea').children().eq(i).position().top);
+          console.log("offsetx left : "+$('#tooltipArea').children().eq(i).position().left);
+          tops.push(Math.ceil($('#tooltipArea').children().eq(i).position().top));
+          lefts.push(Math.ceil($('#tooltipArea').children().eq(i).position().left));
+          pages.push($('#tooltipArea').children().eq(i).attr('data-page'));
       }
 
       console.log('user_no : '+users);
+      console.log('tops : '+tops);
+      console.log('lefts : '+lefts);
+      console.log('pages : '+pages);
 
       let formData = new FormData();
       for(j=0; j<images.length; j++){
@@ -417,6 +428,9 @@ function uploadFiles(e){
       formData.append('content', content);
       formData.append('user_no', user_no);
       formData.append('tags', users);
+      formData.append('tops', tops);
+      formData.append('lefts', lefts);
+      formData.append('pages', pages);
 
       $.ajax({
         url:'/Photostagram/postUpload',
@@ -729,7 +743,7 @@ function uploadFiles(e){
     let x = 0;
     let y = 0;
 
-    $('#input_image').on('click', function(e){
+    $('#tooltipArea').on('click', function(e){
 
         console.log('0- target id : ' + e.target.id);
         console.log('1- target id : ' + typeof e.target.id);
@@ -738,14 +752,14 @@ function uploadFiles(e){
         console.log('3- target id : ' + e.target.id == 'afterBtn');
 
         if(e.target.id != 'afterBtn' && e.target.id != 'beforeBtn'){
-            x = e.clientX;
-            y = e.clientY;
+            x = e.offsetX;
+            y = e.offsetY;
 
             console.log('------------------');
             console.log('x 좌표 : '+x);
             console.log('x 좌표 : '+y);
 
-            $('.tagModal').css({left:x-18, top:$(window).scrollTop()+y, display:'block'});
+            $('.tagModal').css({left:x-18, top:y, display:'block'});
         }
 
 
@@ -837,7 +851,7 @@ function uploadFiles(e){
 
         tagObj.css({
                left:x-18,
-               top:$(window).scrollTop()+y,
+               top:y,
                display:'block'
                });
 
