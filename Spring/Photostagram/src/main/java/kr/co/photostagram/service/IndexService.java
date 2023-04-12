@@ -94,4 +94,8 @@ public class IndexService {
 //        }
         return oriComment;
     }
+
+    public int deleteComment(int comment_no) {
+        return dao.deleteComment(comment_no);
+    }
 }

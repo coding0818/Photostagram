@@ -41,4 +41,6 @@ public interface IndexDAO {
     // modal 댓글 좋아요 수
     public int selectModalCommentlikeCount(int comment_no);
 
+    public int deleteComment(int comment_no);
+
 }

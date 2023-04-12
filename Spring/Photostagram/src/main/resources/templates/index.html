@@ -298,12 +298,11 @@
                                           <span class="resp_comment">답글달기</span>
                                           <button class="comment_option"></button>
                                         </div>
-
                                       </div>
+
                                     </li>
                                   </ul>
                                 </div>
-
                               <div id="modal_postSelect" class="modalPost modal_post_overlay">
                                 <div class="modal_post_window">
                                   <div class="modal_post_title">
@@ -325,8 +324,8 @@
                                       <span>댓글을 삭제할까요?</span>
                                       <span>이 댓글을 정말 삭제하시겠어요?</span>
                                     </div>
-                                    <div class="post_delete">
-                                      <span th:data-value="${comment.no}">삭제</span>
+                                    <div class="post_delete" th:data-value="${comment.no}">
+                                      <span>삭제</span>
                                     </div>
                                     <div class="post_delete_cancel">
                                       <span>취소</span>
@@ -335,8 +334,6 @@
                                 </div>
                               </div>
                             </div>
-
-
                           </th:block> <!-- comment : ${comments}-->
                         </div>
                         <div class="buttons">

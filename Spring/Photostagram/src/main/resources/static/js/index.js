@@ -501,4 +501,26 @@ $(function () {
   /*
     북마크 (default : -237px -286px, click : -159px -286px)
   */
+
+  $(".post_delete").on("click", function () {
+    let no = $(this).attr("data-value");
+
+    let jsonData = { comment_no: no };
+
+    $.ajax({
+      url: "/Photostagram/deleteComment",
+      method: "GET",
+      data: jsonData,
+      dataType: "json",
+      success: function (data) {
+        if (data.result == 0) {
+          alert("댓글 삭제에 성공했습니다!");
+        } else {
+          alert("답글이 존재하면 삭제할 수 없습니다");
+        }
+
+        
+      },
+    });
+  });
 });

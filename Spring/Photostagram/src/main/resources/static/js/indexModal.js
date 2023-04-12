@@ -61,36 +61,32 @@ $(function () {
   });
 
   // (1)댓글 Modal Open
-  /*
-  $(".comment_option").on("click", function () {
-    let divtop = $(this).closest("div.top");
-    let optionOpen = divtop.find("#modal_postSelect");
-    optionOpen.show();
 
-    let confirm_delete = divtop.find(".modal_postDelete");
-    if (confirm_delete.click()) {
-      alert("ㅋ르릭");
-    }
+  $(".comment_option").on("click", function () {
+    let rootTop = $(this).closest("div.top");
+    let postSelect = rootTop.find("#modal_postSelect");
+    postSelect.show();
   });
 
-  // (1)에서 삭제버튼 클릭 시
-  // $(".modal_postDelete").click(function () {
-  //   let divtop = $(this).closest("div.top");
-  //   divtop.find("#modal_postSelect").hide();
+  //(1)에서 삭제버튼 클릭 시
+  $(".modal_postDelete").click(function () {
+    let rootTop = $(this).closest("div.top");
+    rootTop.find("#modal_postSelect").hide();
 
-  //   // (2)Confirm Modal Show
-  //   divtop.find("#modal_postSelect_delete").show();
-  // });
+    // (2)Confirm Modal Show
+    rootTop.find("#modal_postSelect_delete").show();
+  });
 
   // modal 취소 관련
-  $(".modal_postCancel").click(() => {
-    let divtop = $(this).closest("div.top");
-    divtop.find("#modal_postSelect").hide();
+  $(".modal_postCancel").on("click", function () {
+    let rootTop = $(this).closest("div.top");
+    let postSelect = rootTop.find("#modal_postSelect");
+    postSelect.hide();
   });
 
-  $(".post_delete_cancel").click(() => {
-    let divtop = $(this).closest("div.top");
-    divtop.find("#modal_postSelect_delete").hide();
+  $(".post_delete_cancel").on("click", function () {
+    let rootTop = $(this).closest("div.top");
+    let postSelect_delete = rootTop.find("#modal_postSelect_delete");
+    postSelect_delete.hide();
   });
-  */
 });
