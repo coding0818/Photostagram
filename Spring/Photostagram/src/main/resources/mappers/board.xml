@@ -237,4 +237,17 @@
         JOIN `user` AS b ON a.tag_user_no=b.`no`
         where `post_no`=#{post_no};
     </select>
+    <!--게시물 수정-->
+    <delete id="deleteUserTags">
+        delete from `post_usertag` where `post_no`=#{post_no};
+    </delete>
+    <insert id="insertTagNewUser">
+        insert into `post_usertag` set `post_no`=#{post_no}, `tag_user_no`=#{tag_no}, `top`=#{top}, `left`=#{left}, `page`=#{page};
+    </insert>
+    <delete id="deleteHashes">
+        delete from `post_hashtag` where `post_no`=#{post_no};
+    </delete>
+    <update id="updatePost">
+        update `post` set `content`=#{content} where `no`=#{post_no};
+    </update>
 </mapper>
