@@ -2,6 +2,7 @@ package kr.co.photostagram.controller;
 
 import kr.co.photostagram.service.QuestService;
 import kr.co.photostagram.vo.ImageVO;
+import kr.co.photostagram.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ public class QuestController {
 
     @GetMapping("board/quest")
     public String quest(Model model){
-        List<ImageVO> allImg = service.selectAllImg();
+        List<PostVO> allImg = service.selectAllImg();
 
         model.addAttribute("allImg", allImg);
         return "board/quest";

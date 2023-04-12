@@ -9,13 +9,13 @@
                 <div class="content2">
                     <div class="content3">
                         <div class="content4">
-                            <th:block th:each="${allImg.thumb}">
+                            <th:block th:each="${allImg}">
                             <div class="content5">
                                 <div class="content6">
                                     <a class="content7" href="#">
                                         <div class="content8">
                                             <div class="content9">
-                                                <img class="content10" src="../profile/img/300x300-1.png" alt="게시물 이미지">
+                                                <img th:src="|@{/}thumb/${allImg.thumb}">
                                             </div>
                                             <div class="content11"></div>
                                         </div>

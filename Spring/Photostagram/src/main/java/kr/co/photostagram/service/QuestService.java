@@ -15,5 +15,5 @@ public class QuestService {
     @Autowired
     private QuestDAO dao;
 
-    public List<ImageVO> selectAllImg() { return dao.selectAllImg();}
+    public List<PostVO> selectAllImg() { return dao.selectAllImg();}
 }
