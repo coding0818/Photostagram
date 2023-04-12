@@ -25,10 +25,32 @@
                             <th:block th:each="h:${history}">
                                 <li>
                                     <img th:src="@{/img/history_{type}.png(type=${h.type})}"/>
-                                    <div>
-                                        <div>소개</div>
-                                        <div>소개를 <span>1</span>으로 변경했습니다. <span class="myTimeStamp" th:data-value="${h.rdate}"></span></div>
-                                    </div>
+                                    <th:block th:switch="${h.type}">
+                                        <div th:case="join">
+                                            <div>계정 생성됨</div>
+                                            <div><span>[[${h.rdate}]]</span>에 계정을 생성했습니다. <span class="myTimeStamp" th:data-value="${h.rdate}"></span></div>
+                                        </div>
+                                        <div th:case="pass">
+                                            <div>비밀번호 변경</div>
+                                            <div>계정 비밀번호를 변경했습니다. <span class="myTimeStamp" th:data-value="${h.rdate}"></span></div>
+                                        </div>
+                                        <div th:case="id">
+                                            <div>사용자 이름</div>
+                                            <div>사용자 이름을 <span>[[${h.detail}]]</span>로 변경했습니다. <span class="myTimeStamp" th:data-value="${h.rdate}"></span></div>
+                                        </div>
+                                        <div th:case="name">
+                                            <div>이름</div>
+                                            <div>이름을 <span>[[${h.detail}]]</span>로 변경했습니다. <span class="myTimeStamp" th:data-value="${h.rdate}"></span></div>
+                                        </div>
+                                        <div th:case="intro">
+                                            <div>소개</div>
+                                            <div>소개를 <span>[[${h.detail}]]</span>로 변경했습니다. <span class="myTimeStamp" th:data-value="${h.rdate}"></span></div>
+                                        </div>
+                                        <div th:case="phone">
+                                            <div>연락처</div>
+                                            <div>연락처를 <span>[[${h.detail}]]</span>로 변경했습니다. <span class="myTimeStamp" th:data-value="${h.rdate}"></span></div>
+                                        </div>
+                                    </th:block>
                                     <img th:src="@{/img/arrowR_8x13.png}">
                                 </li>
                             </th:block>
@@ -53,5 +75,19 @@
     </th:block>
 </html>
 <script>
+$(function(){
+    $("#goSorting").on('click', function(){
+        let sortValue = $('.buttonOn').attr('data-value');
+        let year1 = $('select[name="startYear"]').val();
+        let year2 = $('select[name="endYear"]').val();
+        let month1 = $('select[name="startMonth"]').val();
+        let month2 = $('select[name="endMonth"]').val();
+        let day1 = $('select[name="startDay"]').val();
+        let day2 = $('select[name="endDay"]').val();
 
+        console.log("sortValue : " + sortValue);
+        console.log("start : " + year1, month1, day1);
+        console.log("end : " + year2, month2, day2);
+    });
+});
 </script>

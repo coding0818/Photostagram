@@ -48,8 +48,8 @@ public class ProfileService {
 
     public PostVO selectThumb(int pageNo, int postNo) {return dao.selectThumb(pageNo, postNo);}
 
-    public PostVO selectTaggedPosts(int no, int pg) {return dao.selectTaggedPosts(no, pg);}
-    public int[] selectTaggedPostsNo(int no) {return dao.selectTaggedPostsNo(no);}
+    public PostVO selectTaggedPosts(int no) {return dao.selectTaggedPosts(no);}
+    public int[] selectTaggedPostsNo(int no, int pg) {return dao.selectTaggedPostsNo(no, pg);}
 
     public List<MemberVO> selectFollowers(int pageNo, int pg) {return dao.selectFollowers(pageNo, pg);}
     public List<MemberVO> selectFollowings(int pageNo, int pg) {return dao.selectFollowings(pageNo, pg);}
