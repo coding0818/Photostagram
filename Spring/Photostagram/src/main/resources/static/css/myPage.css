@@ -453,7 +453,9 @@
         color: #888;
       }
 
-      .myTimeStamp {width: 50px;}
+      .myTimeStamp {width: 75px;}
 
       #myActivity > h1 {}
       #myActivity > h2 {}
+
+      #myHistory > .historyContents > div > div > ul > li > div > div > span:nth-child(1) {font-size: 15px; font-weight: bold;}

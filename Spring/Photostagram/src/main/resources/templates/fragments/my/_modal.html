@@ -113,7 +113,7 @@
                 <div>
                     <h2>시작 날짜</h2>
                     <select name="startYear">
-                        <option>2016</option>
+                        <option value="2016">2016</option>
                         <option>2017</option>
                         <option>2018</option>
                         <option>2019</option>
@@ -123,7 +123,7 @@
                         <option>2023</option>
                     </select>
                     <select name="startMonth">
-                        <option>1월</option>
+                        <option value="1">1월</option>
                         <option>2월</option>
                         <option>3월</option>
                         <option>4월</option>
@@ -137,6 +137,8 @@
                         <option>12월</option>
                     </select>
                     <select name="startDay">
+                        <option value="1">1</option>
+                        <option>2</option>
                     </select>
                 </div>
                 <div>
@@ -166,11 +168,13 @@
                         <option>12월</option>
                     </select>
                     <select name="endDay">
+                        <option>1</option>
+                        <option>2</option>
                     </select>
                 </div>
             </div>
             <div id="myModalBottom">
-                <button>적용</button>
+                <button id="goSorting">적용</button>
             </div>
         </div>
     </div>

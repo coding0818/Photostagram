@@ -100,12 +100,12 @@
               <div class="myNav">
                   <div><a th:href="@{/profile/index (username=${username})}">게시물</a></div>
                       <th:block th:if="${#strings.equals(myName, username)}">
-                          <div><a href="#">저장됨</a></div>
+                          <div><a href="#" class="myMarked">저장됨</a></div>
                       </th:block>
                       <th:block th:unless="${#strings.equals(myName, username)}">
-                          <div><a href="#">릴스</a></div>
+                          <div><a href="#" class="myReels">릴스</a></div>
                       </th:block>
-                  <div><a th:href="@{/profile/tagged (username=${username})}">태그됨</a></div>
+                  <div><a href="#" class="myTagged">태그됨</a></div>
               </div>
               <div class="myList">
                   <th:block th:if="${#maps.isEmpty(sortMap)}">
@@ -1087,5 +1087,70 @@ $(function(){
         });
     });
 
+/*]]*/
+</script>
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+$('.myTagged').on('click', function(){
+
+    let username = [[${username}]];
+    $.ajax({
+        url: '/Photostagram/profile/tagged',
+        method: 'POST',
+        async: false,
+        data: {'pg':0, 'username':username},
+        dataType: 'json',
+        success: function(data){
+            $('.myList').empty();
+            if (Object.keys(data).length != 0) {
+            let tags = '';
+
+                for (i=0; i<Object.keys(data).length; i++){
+                    let num = data[i].no
+                    let thumb = data[i].firstThumb
+                    let like = data[i].like
+                    let comments = data[i].commentCount
+
+
+                    if (thumb.slice(-4, thumb.length) == '.mp4') {
+                        tags = `<div class="pic">
+                                    <a href="/Photostagram/board/post?no=${num}">
+                                    <video src="/Photostagram/thumb/${thumb}"></video>
+                                    <i class="fa-solid fa-film fa-2x faIcons"></i></a>
+                                    <div class="picOver" onclick="window.open('/Photostagram/board/post?no=${num}')">
+                                       <div><i class="fa-solid fa-heart fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${like}</span></div>
+                                       <div><i class="fa-solid fa-comment fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${comments}</span></div>
+                                    </div>
+                                </div>`
+                    }else if (data[i].thumbs > 1) {
+                        tags = `<div class="pic">
+                                    <a href="/Photostagram/board/post?no=${num}">
+                                    <img src="/Photostagram/thumb/${thumb}">
+                                    <i class="fa-solid fa-images fa-2x faIcons"></i></a>
+                                    <div class="picOver" onclick="window.open('/Photostagram/board/post?no=${num}')">
+                                       <div><i class="fa-solid fa-heart fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${like}</span></div>
+                                       <div><i class="fa-solid fa-comment fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${comments}</span></div>
+                                    </div>
+                                </div>`
+                    } else {
+                       tags = `<div class="pic">
+                                    <a href="/Photostagram/board/post?no=${num}">
+                                    <img src="/Photostagram/thumb/${thumb}"></a>
+                                    <div class="picOver" onclick="window.open('/Photostagram/board/post?no=${num}')">
+                                       <div><i class="fa-solid fa-heart fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${like}</span></div>
+                                       <div><i class="fa-solid fa-comment fa-2x picOverI" style="color: #f0f4f9;"></i><span class="picOverSpan">${comments}</span></div>
+                                    </div>
+                                </div>`
+                    }
+                    $('.myList').append(tags);
+                }
+            } else {
+                tags = `<h1>사람들이 회원님을 태그하면 태그된 사진이 여기에 표시됩니다.</h1>`;
+                $('.myList').append(tags);
+            }
+        }
+    });
+});
 /*]]*/
 </script>
