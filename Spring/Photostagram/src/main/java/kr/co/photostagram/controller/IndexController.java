@@ -206,4 +206,17 @@ public class IndexController {
 
         return map;
     }
+    @GetMapping("deleteComment")
+    @ResponseBody
+    public Map deleteComment(@RequestParam("comment_no") int comment_no){
+        int result = 0;
+        result = service.deleteComment(comment_no);
+
+        Map map = new HashMap();
+        map.put("result", result);
+
+        log.info("result : " +  result);
+
+        return map;
+    }
 }

@@ -122,7 +122,11 @@
     </delete>
 
     <delete id="deleteComment">
-
+        DELETE FROM `comment_like`
+        WHERE `comment_no`= #{comment_no};
+        <!-- 코멘트 삭제 -->
+        DELETE FROM `comment`
+        WHERE `no`= #{comment_no};
     </delete>
 
     <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">
