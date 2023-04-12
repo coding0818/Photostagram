@@ -10,5 +10,5 @@ import java.util.List;
 @Mapper
 @Repository
 public interface QuestDAO {
-    public List<ImageVO> selectAllImg();
+    public List<PostVO> selectAllImg();
 }
