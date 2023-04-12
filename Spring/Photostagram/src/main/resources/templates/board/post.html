@@ -144,13 +144,14 @@
                             <div class="favorite">
                                 <span class="comment_writeTime">1일</span>
                                 좋아요
-                                <span class="cmt_like_count">[[${commentVo.modal_likeCount}]]</span>개
+                                <span class="cmt_like_count" th:text="${commentVo.modal_likeCount}"></span>개
                                 <span class="comment_more">답글달기</span>
                             </div>
                         </div>
 
                         <input type="hidden" th:data-no="${commentVo.no}">
-                        <a href="#" id="reHeart" class="reWhite" th:data-no="${user.no}"></a>
+                        <a href="#" id="reHeart" th:if="${#strings.equals(user.no , commentVo.comment_likeVO.user_no)}" class="reRed detail_comment_heart" th:data-no="${user.no}"></a>
+                        <a href="#" id="reHeart" th:unless="${#strings.equals(user.no , commentVo.comment_likeVO.user_no)}" class="reWhite detail_comment_heart" th:data-no="${user.no}"></a>
 
                         <!----- 답글 ----->
                         <div class="showReply" >
@@ -185,7 +186,9 @@
 
                 <div>
                     <div>
-                        <a href="#" id="likeThis" class="unlike" th:data-no="${user.no}"></a>
+
+                        <a href="#" id="likeThis" class="unlike" th:if="${post_like_user == null}" th:data-no="${user.no}"></a>
+                        <a href="#" id="likeThis" class="like" th:unless="${post_like_user == null}" th:data-no="${user.no}"></a>
                         <a href="#" id="writeReply"></a>
                         <a href="#" id="share"></a>
                         <a href="#" id="bookMark" class="remove"></a>
