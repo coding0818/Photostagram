@@ -6,6 +6,8 @@
             let modal = $('#modal_postSelect');
             let modal_modify = $('#modal_modify_feed_content');
 
+            let j = 0;
+
             $(document).on('click', '.post_delete', function(e){
                 e.preventDefault();
                 let post_no = [[${post.no}]];
@@ -45,8 +47,151 @@
                 });
             });
 
-            $('.modal_title_side_post_modify').on('click', function(){
+            $(document).on('click', '.modal_title_side_post_modify', function(){
+                let content = $('#input_content').text();
+                let post_no = [[${post.no}]];
+                let length = $('.tag1').length;
+                let users = [];
+                let tops = [];
+                let lefts = [];
+                let pages = [];
 
+                for(i=0; i<length; i++){
+                  users.push($('#tooltipArea_post').children().eq(i).attr('data-no'));
+                  console.log("offsetx top : "+$('#tooltipArea_post').children().eq(i).position().top);
+                  console.log("offsetx left : "+$('#tooltipArea_post').children().eq(i).position().left);
+                  tops.push(Math.ceil($('#tooltipArea_post').children().eq(i).position().top));
+                  lefts.push(Math.ceil($('#tooltipArea_post').children().eq(i).position().left));
+                  pages.push($('#tooltipArea_post').children().eq(i).attr('data-page'));
+                }
+
+                let jsonData = {
+                    "content":content,
+                    "post_no":post_no,
+                    "tags":users,
+                    "tops":tops,
+                    "lefts":lefts,
+                    "pages":pages
+                };
+
+                $.ajax({
+                    url:'/Photostagram/modifyPost',
+                    method:'POST',
+                    data:jsonData,
+                    dataType:'json',
+                    success:function(data){
+                        if(data.result > 0){
+                            location.href='/Photostagram/board/post?no='+post_no;
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.tagSearchesPost', function(){
+                let select = $(this).children('.tagSearchUserPost');
+                let user_no = select.attr('data-userno');
+                let username = select.attr('data-username');
+
+                console.log('username : '+username);
+
+                $('.tagSearchesPost').empty();
+                let val = $('input[name=tagUserPost]').val();
+                val = '';
+                $('.tagModalPost').hide();
+
+                let length = $('.tag1').length;
+
+                for(i=0; i<length; i++){
+                    let no = $('#tooltipArea_post').children().eq(i).attr('data-no');
+                    if(no == user_no){
+                        let tagObject = $('#tooltipArea_post').children().eq(i);
+                        tagObject.css({
+                            left:x-18,
+                            top:$(window).scrollTop()+y,
+                            display:'block'
+                        });
+                        return;
+                    }
+                }
+
+                let tag = "<div class='tag1' data-no="+user_no+" data-page="+j+">";
+                    tag += "<div></div>";
+                    tag += "<div class='username'><span>"+username+"</span><button>x</button></div>";
+                    tag += "</div>";
+
+                let tagObj = $(tag);
+
+                console.log("x좌표 : "+x);
+                console.log("y좌표 : "+y);
+
+                tagObj.css({
+                       left:x-18,
+                       top:y,
+                       display:'block'
+                       });
+
+                $('#tooltipArea_post').append(tagObj);
+            });
+
+            $('.afterBtnPost').on('click', function(){
+                let images = [[${images}]];
+
+                if(j+1 == images.length)return;
+                if(j+2 == images.length){
+                    $(this).css({"visibility":"hidden"});
+                }
+                j++;
+
+                let length = $('#tooltipArea_post').children('.tag1').length;
+                for(i=0; i<length; i++){
+                    if($('#tooltipArea_post').children().eq(i).attr('data-page') == j){
+                        $('#tooltipArea_post').children().eq(i).show();
+                    }else{
+                        $('#tooltipArea_post').children().eq(i).hide();
+                    }
+                }
+
+                let image = images[j].thumb;
+
+                $('#input_image_post').css({
+                    "background":"url(/Photostagram/thumb/"+image+")",
+                    "background-size": "cover",
+                    "background-repeat" : "no-repeat",
+                    "background-position" : "center"
+                });
+
+                $('.beforeBtnPost').css({"visibility":"visible"});
+            });
+
+            $('.beforeBtnPost').on('click', function(){
+                let images = [[${images}]];
+
+                if(j == 0) return;
+                if(j == 1){
+                    $(this).css({"visibility":"hidden"});
+                }
+
+                j--;
+
+                let length = $('#tooltipArea_post').children('.tag1').length;
+                for(i=0; i<length; i++){
+                    if($('#tooltipArea_post').children().eq(i).attr('data-page') == j){
+                        $('#tooltipArea_post').children().eq(i).show();
+                    }else{
+                        $('#tooltipArea_post').children().eq(i).hide();
+                    }
+                }
+
+                let image = images[j].thumb;
+
+                $('#input_image_post').css({
+                    "background":"url(/Photostagram/thumb/"+image+")",
+                    "background-size": "cover",
+                    "background-repeat" : "no-repeat",
+                    "background-position" : "center"
+                });
+
+                $('.afterBtnPost').css({"visibility":"visible"});
             });
         });
     </script>
@@ -91,9 +236,33 @@
             <div class="modal_image_content_post">
                 <div id="input_image_post" class="modal_image_upload_content_post" style="cursor:crosshair">
                     <th:block th:if="${#lists.size(images) > 1}">
-                        <button class="afterBtn" id="afterBtn">></button>
+                        <button class="afterBtnPost" id="afterBtn" style="cursor:auto">></button>
                     </th:block>
-                    <button class="beforeBtn" id="beforeBtn"><</button>
+                    <button class="beforeBtnPost" id="beforeBtn"><</button>
+                    <div class="tagModalPost">
+                        <div></div>
+                        <div class="tagSearchPost">
+                            <div class="tag">
+                                <h4>태그 : </h4>
+                            </div>
+                            <div class="searchInput">
+                                <input placeholder="검색" name="tagUserPost">
+                            </div>
+                        </div>
+                        <div class="tagUserListPost">
+                            <span class="snipper"></span>
+                            <!--
+                            <div class="tagSearches">
+                                <div class="tagSearchUser">
+                                    <img th:src="@{/img/44884218_345707102882519_2446069589734326272_n.jpg}">
+                                    <div class="tagUserInfo">
+                                        <div>아이디</div>
+                                        <span>이름</span>
+                                    </div>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
                     <div id="tooltipArea_post">
                         <th:block th:each="userTag:${userTags}">
                             <div class='tag1' th:style="'top:'+${userTag.top}+'px;left:'+${userTag.left}+'px;display:block;'" th:data-no="${userTag.tag_user_no}" th:data-page="${userTag.page}" th:if="${userTag.page == 0}">

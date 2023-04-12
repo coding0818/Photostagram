@@ -200,4 +200,14 @@ public class BoardController {
         return resultMap;
     }
 
+    @PostMapping("modifyPost")
+    @ResponseBody
+    public Map<String, Integer> modifyPost(ModifyPostVO vo){
+        int result = service.modifyPost(vo);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
 }
