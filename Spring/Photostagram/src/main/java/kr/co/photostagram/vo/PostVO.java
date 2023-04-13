@@ -39,4 +39,5 @@ public class PostVO {
     private List<Integer> lefts;
     private List<Integer> pages;
 
+    private int post_no;
 }

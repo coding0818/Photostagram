@@ -9,13 +9,13 @@
                 <div class="content2">
                     <div class="content3">
                         <div class="content4">
-                            <th:block th:each="${allImg}">
-                            <div class="content5">
+
+                            <div class="content5" th:each="vo:${allImg}">
                                 <div class="content6">
                                     <a class="content7" href="#">
                                         <div class="content8">
                                             <div class="content9">
-                                                <img th:src="|@{/}thumb/${allImg.thumb}">
+                                                <img th:src="|@{/}thumb/${vo.thumb}">
                                             </div>
                                             <div class="content11"></div>
                                         </div>
@@ -25,7 +25,9 @@
                                     </a>
                                 </div>
                             </div>
-                            </th:block>
+
+
+
                         </div>
                     </div>
                 </div>
