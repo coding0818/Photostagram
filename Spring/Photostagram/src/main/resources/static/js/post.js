@@ -1,15 +1,6 @@
 $(function () {
   $(".mySlides").bxSlider({});
 
-  /*** 게시글 좋아요 ***/
-  $(".like").click(function () {
-    if ($(".like").hasClass("unlike")) {
-      $(".like").removeClass("unlike").addClass("like");
-    } else {
-      $(".like").removeClass("like").addClass("unlike");
-    }
-  });
-
   /*** 게시글 북마크 ***/
   $("#bookMark").click(function () {
     if ($("#bookMark").hasClass("remove")) {
@@ -19,68 +10,79 @@ $(function () {
     }
   });
 
-  /*** 댓글 좋아요 ***/
-  $("#reHeart").click(function (e) {
-    e.preventDefault();
-    if ($("#reHeart").hasClass("reWhite")) {
-      $("#reHeart").removeClass("reWhite").addClass("reRed");
-      let user_no = $(this).attr("data-no");
-      let comment_no = $(this).prev().attr("data-no");
-      let li = $(this).closest("li");
-
-      let url = "/Photostagram/detailCommentLike";
-      let jsonData = {
-        user_no: user_no,
-        comment_no: comment_no,
-      };
-
-      $.ajax({
-        url: url,
-        method: "POST",
-        data: JSON.stringify(jsonData),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-          if (data.result > 0) {
-            let textCount = li.find(".cmt_like_count").text();
-            let count = parseInt(textCount);
-
-            li.find(".cmt_like_count").text(count + 1);
-          } else {
-            alert("[댓글 좋아요에 실패했습니다]");
-          }
-        },
-      });
+  /** 댓글 좋아요 이미지변경 **/
+  $(document).on("click", ".detail_comment_heart", function () {
+    if ($(this).hasClass("reWhite")) {
+      $(this).removeClass("reWhite").addClass("reRed");
     } else {
-      $("#reHeart").removeClass("reRed").addClass("reWhite");
-      let user_no = $(this).attr("data-no");
-      let comment_no = $(this).prev().attr("data-no");
-      let li = $(this).closest("li");
-
-      let url = "/Photostagram/detailCommentLikeDel";
-      let jsonData = {
-        user_no: user_no,
-        comment_no: comment_no,
-      };
-
-      $.ajax({
-        url: url,
-        method: "POST",
-        data: JSON.stringify(jsonData),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-          if (data.result > 0) {
-            let textCount = li.find(".cmt_like_count").text();
-            let count = parseInt(textCount);
-
-            li.find(".cmt_like_count").text(count - 1);
-          } else {
-            alert("[댓글 좋아요에 실패했습니다]");
-          }
-        },
-      });
+      $(this).removeClass("reRed").addClass("reWhite");
     }
+  });
+
+  /*** 댓글 좋아요 기능 ***/
+  $(document).on("click", ".reWhite", function (e) {
+    e.preventDefault();
+
+    let article = $(this).closest("article");
+    let user_no = $(this).attr("data-no");
+    let comment_no = $(this).prev().attr("data-no");
+    let url = "/Photostagram/detailCommentLike";
+
+    let jsonData = {
+      user_no: user_no,
+      comment_no: comment_no,
+    };
+    let like_count = $(this).prev().prev().find(".cmt_like_count");
+    let textCount = $(this).prev().prev().find(".cmt_like_count").text();
+
+    $.ajax({
+      url: url,
+      method: "POST",
+      data: JSON.stringify(jsonData),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        if (data.result > 0) {
+          let count = parseInt(textCount);
+
+          like_count.text(count + 1);
+        }
+      },
+    });
+
+    console.log("user_no : " + user_no);
+    console.log("comment_no : " + comment_no);
+  });
+
+  $(document).on("click", ".reRed", function (e) {
+    e.preventDefault();
+
+    let article = $(this).closest("article");
+    let user_no = $(this).attr("data-no");
+    let comment_no = $(this).prev().attr("data-no");
+    let url = "/Photostagram/detailCommentLikeDel";
+
+    let jsonData = {
+      user_no: user_no,
+      comment_no: comment_no,
+    };
+    let like_count = $(this).prev().prev().find(".cmt_like_count");
+    let textCount = $(this).prev().prev().find(".cmt_like_count").text();
+    console.log(" 과연? : " + textCount);
+    $.ajax({
+      url: url,
+      method: "POST",
+      data: JSON.stringify(jsonData),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        if (data.result > 0) {
+          let count = parseInt(textCount);
+
+          like_count.text(count - 1);
+        }
+      },
+    });
   });
 
   /*** 댓글 접기, 펴기 ***/
@@ -201,4 +203,3 @@ $(function () {
 //     x[i].style.display = "none";
 //   }
 //   x[slideIndex - 1].style.display = "block";
-// }

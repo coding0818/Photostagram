@@ -21,9 +21,9 @@
             WHERE a.`no`=#{no};
     </select>
 
-<!--    <select id="selectPostLike" resultType="kr.co.photostagram.vo.Post_likeVO">-->
-<!--        SELECT * FROM `post_like` WHERE post_no = #{no} AND user_no = #{user_no}-->
-<!--    </select>-->
+    <select id="selectPostLike" resultType="kr.co.photostagram.vo.Post_likeVO">
+        SELECT * FROM `post_like` WHERE post_no = #{no} AND user_no = #{user_no}
+    </select>
 
     <select id="selectPostHashTag" resultType="kr.co.photostagram.vo.Board1VO">
         SELECT

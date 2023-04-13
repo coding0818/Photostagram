@@ -36,7 +36,7 @@ public class BoardController {
     public String post(Authentication authentication, Model model, int no) {
         MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
         UserEntity user = myUserDetails.getUser();
-
+        log.info("user : " + user);
         /*** 게시물 작성자 ***/
         //BoardVO user = service.selectMember(myName);
 
@@ -75,8 +75,8 @@ public class BoardController {
         /***태그된 사람***/
         List<UserTagVO> userTags = service.selectUserTags(no);
 
-//        Post_likeVO post_like_user = service.selectPostLike(no, login_info.getNo());
-//        log.info("post like null Check : " +  post_like_user);
+        Post_likeVO post_like_user = service.selectPostLike(no, user.getNo());
+        log.info("post like null Check : " +  post_like_user);
 
         List<PostVO> plusimg = service.selectPlusImg(no);
 //        log.info("plusimg : " + plusimg);
@@ -92,7 +92,7 @@ public class BoardController {
         model.addAttribute("content_like_time", content_like_time);
         model.addAttribute("plusimg", plusimg);
         model.addAttribute("userTags", userTags);
-//        model.addAttribute("post_like_user", post_like_user);
+        model.addAttribute("post_like_user", post_like_user);
 
 
         return "board/post";
