@@ -122,7 +122,7 @@
                 <ul>
                     <!-- 게시글 작성 콘텐츠 내용&해시태그-->
                     <li>
-                        <img class="proImg" th:src="|@{/}thumb/${post.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"  alt="profile">
+                     <img class="proImg" th:src="|@{/}thumb/${post.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'"  alt="profile">
                         <div class="reply">
                             <h1><span>[[${post.username}]]</span>[[${post.content}]]</h1>
                             <th:block th:each="hash:${hashes}">
@@ -137,9 +137,16 @@
 
                     <!-- 댓글 -->
                     <li id="text" th:each="commentVo:${comments}" th:if="${commentVo.post_no == NowArticleNo}">
-                        <img class="proImg" th:src="|@{/}thumb/${commentVo.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'" alt="profile">
+                        <a th:href="@{/profile(username = ${commentVo.memberVO.username})}">
+                            <img class="proImg" th:src="|@{/}thumb/${commentVo.profileImg}" onerror="this.src='/Photostagram/img/44884218_345707102882519_2446069589734326272_n.jpg'" alt="profile">
+                        </a>
                         <div class="reply">
-                            <h1 class="comment_width"><span>[[${commentVo.username}]]</span>[[${commentVo.comment}]]</h1>
+                            <h1 class="comment_width">
+<!--                                <a th:href="@{/profile(username = ${commentVo.username})}">-->
+                                    <span>[[${commentVo.username}]]</span>
+<!--                                </a>-->
+                                [[${commentVo.comment}]]
+                            </h1>
 
                             <div class="favorite">
                                 <span class="comment_writeTime">1일</span>
