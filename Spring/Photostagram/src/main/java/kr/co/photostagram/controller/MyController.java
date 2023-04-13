@@ -99,9 +99,21 @@ public class MyController {
     public String history(Principal principal, Model model){
         MemberVO user = profileService.selectMember(principal.getName());
         List<HistoryVO> history = service.selectHistory(user.getNo());
-        System.out.println(history);
+        String joinDate = service.selectJoinDate(user.getNo());
+
+        int startYear = Integer.parseInt(joinDate.substring(0, 4));
+        int startMonth = Integer.parseInt(joinDate.substring(5, 7));
+        int startDay = Integer.parseInt(joinDate.substring(8, 10));
+
+        //System.out.println(startYear);
+        //System.out.println(startMonth);
+        //System.out.println(startDay);
+        //System.out.println(history);
         model.addAttribute("user", user);
         model.addAttribute("history", history);
+        model.addAttribute("startYear", startYear);
+        model.addAttribute("startMonth", startMonth);
+        model.addAttribute("startDay", startDay);
         model.addAttribute("cate", "history");
         return "my/history";
     }
