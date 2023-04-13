@@ -28,6 +28,7 @@ public class MyService {
     public List<PostVO> selectMyCommentPosts (int no) {return dao.selectMyCommentPosts(no);}
     public List<CommentVO> selectMyComments (int postNo, int userNo) {return dao.selectMyComments(postNo, userNo);}
     public List<HistoryVO> selectHistory (int no) {return dao.selectHistory(no);}
+    public String selectJoinDate (int no) {return dao.selectJoinDate(no);}
     public int updateRemoveLike (int no) {return dao.updateRemoveLike(no);}
     public int deleteComment(int no) {return dao.deleteComment(no);}
     public int deleteCommentLike (int no) {return dao.deleteCommentLike(no);}

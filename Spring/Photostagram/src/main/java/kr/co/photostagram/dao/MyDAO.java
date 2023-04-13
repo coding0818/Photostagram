@@ -31,6 +31,7 @@ public interface MyDAO {
     public List<PostVO> selectMyCommentPosts (int no);
     public List<CommentVO> selectMyComments (@Param("postNo") int postNo, @Param("userNo") int userNo);
     public List<HistoryVO> selectHistory (int no);
+    public String selectJoinDate (int no);
     public int updateRemoveLike (int no);
     public int deleteComment (int no);
     public int deleteCommentLike (int no);
