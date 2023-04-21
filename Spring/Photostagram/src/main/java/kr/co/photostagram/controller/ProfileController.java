@@ -253,11 +253,11 @@ public class ProfileController {
         for (HashTagVO follow : followList) {
             if (pageNo == myNo) {
                 follow.setFollowResult(1);
-                map.put(i, follow); i++;
             } else {
                 follow.setFollowResult(service.searchFollowingTag(pageNo, follow.getNo()));
-                map.put(i, follow); i++;
             }
+            map.put(i, follow);
+            i++;
         }
 
         Map<Integer, HashTagVO> data = new TreeMap<>(map);
@@ -303,11 +303,6 @@ public class ProfileController {
 
         JSFunction.alertLocation(resp, "수정이 완료되었습니다. \\n 아이디를 변경할 경우 재로그인이 필요합니다.", "/Photostagram/member/logout");
     }
-
-
-
-
-
 
     @GetMapping("profile/changePass")
     public String changePass(Principal principal, Model model) {

@@ -12,6 +12,8 @@ $(function () {
     moveSlides: 1,
   });
 
+  $();
+
   //메인콘텐츠 더보기 누를 경우
   $(".contents").each(function () {
     let article = $(this).closest("article");
@@ -50,9 +52,7 @@ $(function () {
     }
   });
 
-  /*
-    !!!!!! 댓글 작성 !!!!!
-  */
+  /** 댓글 작성 **/
   $(document).on("click", ".upload_btn", function () {
     let article = $(this).closest("article");
     let modal_cmt = $(this).closest(".posting");
@@ -227,6 +227,7 @@ $(function () {
     }
   });
 
+  /** Modal창 [답글달기] 클릭 이벤트**/
   $(".resp_comment").on("click", function () {
     // 피 답글 닉네임
     let idtext = $(this).parent().parent().children(":first").text();
@@ -244,13 +245,10 @@ $(function () {
     let id = "@" + idtext;
 
     // textarea @아이디 생성
-    let modal_cmt_text = $(".modal_commentText").val(id + " | ");
+    $(".modal_commentText").val(id + " | ");
   });
 
-  /*
-    게시글 좋아요 (빈하트 -52px -258px 꽉찬하트 -26px -258px;)
-    댓글 좋아요 (빈하트 -323px -274px 꽉찬하트  -323px -287px)
-  */
+  /** 게시글 좋아요 **/
   $(document).on("click", ".sprite_heart_icon_outline", function (e) {
     e.preventDefault();
     let article = $(this).closest("article");
@@ -288,6 +286,7 @@ $(function () {
     });
   });
 
+  /** 게시글 좋아요(2) **/
   $(document).on("click", ".sprite_full_heart_icon_outline", function (e) {
     e.preventDefault();
 
@@ -328,7 +327,7 @@ $(function () {
     });
   });
 
-  // 댓글 좋아요
+  /** 댓글 좋아요 **/
   $(document).on("click", ".sprite_small_heart_icon_outline", function (e) {
     e.preventDefault();
 
@@ -379,7 +378,7 @@ $(function () {
       },
     });
   });
-  // 좋아요 눌러져 있는 좋아요 클릭시
+  /** 댓글 좋아요(2) **/
   $(document).on(
     "click",
     ".sprite_full_small_heart_icon_outline",
@@ -487,6 +486,7 @@ $(function () {
     },
   });
 
+  // 답글 hover
   $(".resp_comment_section > ul li").on({
     mouseover: function () {
       let options = $(this).find(".comment_option");
@@ -501,7 +501,71 @@ $(function () {
   /*
     북마크 (default : -237px -286px, click : -159px -286px)
   */
+  $(document).on("click", ".sprite_bookmark_outline", function () {
+    if ($(this).hasClass("sprite_bookmark_outline")) {
+      $(this)
+        .removeClass("sprite_bookmark_outline")
+        .addClass("sprite_full_bookmark_outline");
+    }
 
+    let value = $(this).attr("data-value");
+    let article = $(this).closest("article");
+    let post_no = article.attr("data-no");
+
+    let jsonData = {
+      user_no: value,
+      post_no: post_no,
+    };
+    $.ajax({
+      url: "/Photostagram/insertBook",
+      method: "POST",
+      data: JSON.stringify(jsonData),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        if (data.result > 0) {
+          console.log(data);
+        }
+      },
+    });
+    console.log(" value 클릭 하기 전: " + value);
+    console.log(" post_no 클릭 하기 전 : " + post_no);
+  });
+
+  $(document).on("click", ".sprite_full_bookmark_outline", function () {
+    if ($(this).hasClass("sprite_full_bookmark_outline")) {
+      $(this)
+        .removeClass("sprite_full_bookmark_outline")
+        .addClass("sprite_bookmark_outline");
+    }
+
+    let value = $(this).attr("data-value");
+    let article = $(this).closest("article");
+    let post_no = article.attr("data-no");
+
+    console.log(" value 클릭한 후: " + value);
+    console.log(" post_no 클릭한 후 : " + post_no);
+
+    let jsonData = {
+      user_no: value,
+      post_no: post_no,
+    };
+
+    $.ajax({
+      url: "/Photostagram/deleteBook",
+      method: "POST",
+      data: JSON.stringify(jsonData),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        if (data.result > 0) {
+          console.log(data);
+        }
+      },
+    });
+  });
+
+  // 댓글삭제
   $(".post_delete").on("click", function () {
     let no = $(this).attr("data-value");
 
@@ -518,8 +582,6 @@ $(function () {
         } else {
           alert("답글이 존재하면 삭제할 수 없습니다");
         }
-
-
       },
     });
   });

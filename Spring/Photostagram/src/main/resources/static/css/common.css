@@ -87,6 +87,7 @@ body {
   height: 24px;
 }
 .sprite_full_bookmark_outline {
+  display: inline-block;
   background: url("../img/background01.png") no-repeat -159px -286px;
   width: 19px;
   height: 24px;

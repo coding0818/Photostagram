@@ -3,7 +3,8 @@
 <mapper namespace="kr.co.photostagram.dao.QuestDAO">
     <select id="selectAllImg" resultType="kr.co.photostagram.vo.PostVO">
         SELECT a.*,b.post_no,b.thumb FROM `post` AS a
-        JOIN `image` AS b ON a.`no` = b.post_no;
+        JOIN `image` AS b ON a.`no` = b.post_no
+        order by rand();
     </select>
 
 </mapper>

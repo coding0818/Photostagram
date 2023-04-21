@@ -131,13 +131,17 @@
             display: block;
             width: 100%;
             position: relative;
+            background-color: white;
         }
 
         .content9{
+
             display: block;
             overflow: hidden;
             padding-bottom: 100%;
             position: relative;
+            width: 300px;
+            height: 300px;
         }
 
         .content10{
@@ -189,3 +193,41 @@
           display: block;
           filter: drop-shadow(0 0 0.75px rgba(0,0,0,.42)) drop-shadow(0 1px 0.5px rgba(0,0,0,.18)) drop-shadow(0 2px 3px rgba(0,0,0,.2));
         }
+
+        .content9 > img {
+            width:300px;
+            height:300px;
+            object-fit: cover;
+        }
+
+        .content9 > video {
+                    width:300px;
+                    height:300px;
+                    object-fit: cover;
+                }
+
+       .fa-solid, .fas {
+           font-weight: 900;
+       }
+
+       .fa-images {
+           content: "\f302";
+       }
+
+       .fa-2x {
+           font-size: 2em;
+       }
+
+       .faIcons {
+           position: absolute;
+           right: 5px;
+           top: 5px;
+           color: white;
+       }
+
+
+        .fa-film:before {
+            content: "\f008";
+        }
+
+

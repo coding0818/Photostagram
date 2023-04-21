@@ -64,9 +64,10 @@ public class IndexController {
 
         // 게시글 조회
         List<PostVO> articles = service.selectArticles(usersNo);
+        log.info("articles : " + articles);
         // 댓글 조회
         List<CommentVO> comments = service.selectComment();
-        log.info("comments : " + comments);
+
         model.addAttribute("articles", articles);
         model.addAttribute("members", members);
         model.addAttribute("followings", followings);
@@ -219,4 +220,31 @@ public class IndexController {
 
         return map;
     }
+
+    @PostMapping("insertBook")
+    @ResponseBody
+    @Transactional
+    public Map insertBook(@RequestBody Post_saveVO vo){
+        int result = 0;
+        result = service.insertPostSave(vo);
+
+        Map map = new HashMap();
+        map.put("result", result);
+
+        return map;
+    }
+
+    @PostMapping("deleteBook")
+    @ResponseBody
+    @Transactional
+    public Map deleteBook(@RequestBody Post_saveVO vo){
+        int result = 0;
+        result = service.deleteBookmark(vo);
+
+        Map map = new HashMap();
+        map.put("result", result);
+
+        return map;
+    }
+
 }

@@ -1,12 +1,55 @@
 $(function () {
   $(".mySlides").bxSlider({});
 
+
+
+  $(document).on("click", ".comment_more", function () {
+    // 피 답글 닉네임
+    let idtext = $(this).parent().prev().children("span").text(); // ok
+    let dynamicNo = $(this).parent().parent().next().attr("data-no"); // ok
+
+    // 댓글번호 동적 생성
+    let dynamicCommentNo =
+      "<input type='hidden' name='commentNo' value='" + dynamicNo + "'>";
+
+    $(".comment_textarea").append(dynamicCommentNo);
+
+    let id = "@" + idtext;
+
+    // textarea @아이디 생성
+    $("#comment").val(id + " | ");
+  });
+
   /*** 게시글 북마크 ***/
   $("#bookMark").click(function () {
+    let user_no = $(this).attr("data-no");
+    let article = $(this).closest("article");
+    let post_no = article.attr("data-no");
+
+    let jsonData = {
+      user_no: user_no,
+      post_no: post_no,
+    };
+
+    function ajaxShot(url) {
+      $.ajax({
+        url: url,
+        method: "POST",
+        data: JSON.stringify(jsonData),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+          console.log(data);
+        },
+      });
+    }
+
     if ($("#bookMark").hasClass("remove")) {
       $("#bookMark").removeClass("remove").addClass("mark");
+      ajaxShot("/Photostagram/insertBook");
     } else {
       $("#bookMark").removeClass("mark").addClass("remove");
+      ajaxShot("/Photostagram/deleteBook");
     }
   });
 
@@ -54,10 +97,10 @@ $(function () {
     console.log("comment_no : " + comment_no);
   });
 
+  /*** 좋아요 된 상태 클릭시 ***/
   $(document).on("click", ".reRed", function (e) {
     e.preventDefault();
 
-    let article = $(this).closest("article");
     let user_no = $(this).attr("data-no");
     let comment_no = $(this).prev().attr("data-no");
     let url = "/Photostagram/detailCommentLikeDel";
@@ -68,7 +111,7 @@ $(function () {
     };
     let like_count = $(this).prev().prev().find(".cmt_like_count");
     let textCount = $(this).prev().prev().find(".cmt_like_count").text();
-    console.log(" 과연? : " + textCount);
+
     $.ajax({
       url: url,
       method: "POST",
@@ -162,11 +205,7 @@ $(function () {
   }
 });
 
-/*** 답글 없을 때 숨기기 ***/
-//    $()
-
 /*** 게시물 팔로잉 클릭 시 뜨는 모달 창 ***/
-
 $(function () {
   var modal = document.getElementById("pCancel");
   var btn = document.getElementById("postFollowing");

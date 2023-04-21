@@ -1,9 +1,6 @@
 package kr.co.photostagram.dao;
 
-import kr.co.photostagram.vo.CommentVO;
-import kr.co.photostagram.vo.Comment_likeVO;
-import kr.co.photostagram.vo.MemberVO;
-import kr.co.photostagram.vo.PostVO;
+import kr.co.photostagram.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -13,6 +10,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface IndexDAO {
+
+    public int insertPostSave(Post_saveVO vo);
 
     // 게시글 좋아요, 좋아요 삭제
     public int insertArticleLikeAdd(PostVO vo);
@@ -31,6 +30,7 @@ public interface IndexDAO {
     public void insertRespComment(CommentVO vo);
 
     public List<PostVO> selectArticles(@Param("usersNo") List<Integer> usersNo);
+    public List<Post_saveVO> selectPostSaveUser();
     public List<CommentVO> selectComment();
 
     public List<MemberVO> selectUser();
@@ -43,4 +43,5 @@ public interface IndexDAO {
 
     public int deleteComment(int comment_no);
 
+    public int deleteBookmark(Post_saveVO vo);
 }

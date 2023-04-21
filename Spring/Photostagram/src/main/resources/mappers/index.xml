@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.photostagram.dao.IndexDAO">
 
+    <insert id="insertPostSave">
+        INSERT INTO `post_save` SET
+            `user_no` = #{user_no},
+            `post_no` = #{post_no},
+            `rdate` = NOW();
+    </insert>
+
     <insert id="insertComment" useGeneratedKeys="true" keyColumn="no" keyProperty="no" parameterType="kr.co.photostagram.vo.CommentVO">
         INSERT INTO `comment` SET
             `comment` = #{comment},
@@ -39,7 +46,8 @@
         b.username, b.name, b.profileImg, b.profileText,
         c.thumb,
         d.post_no AS postlike_no, d.user_no AS postlike_user_no, d.rdate AS postlike_rdate,
-        f.no AS hash_no, f.`hashtag`
+        f.no AS hash_no, f.`hashtag`,
+        g.user_no AS postSave_user
         FROM `post` AS a
 
         JOIN `user` AS b ON a.user_no = b.no
@@ -47,20 +55,25 @@
         LEFT JOIN `post_like` AS d ON a.no = d.post_no
         LEFT JOIN `post_hashtag` AS e ON a.no = e.post_no
         LEFT JOIN `hashtag` AS f ON e.hashtag_no = f.`no`
+        LEFT JOIN `post_save` AS g ON g.post_no = a.no
 
         WHERE a.
-        no = 134
-<!--            `user_no`-->
-<!--            IN-->
-<!--            <foreach collection="usersNo" item="following" index="index" separator="," open="(" close=")">-->
-<!--                 #{following},0-->
-<!--            </foreach>-->
+<!--        no = 134-->
+            `user_no`
+            IN
+            <foreach collection="usersNo" item="following" index="index" separator="," open="(" close=")">
+                 #{following},0
+            </foreach>
 
 
         ORDER BY a.`no` DESC;
     </select>
     <select id="selectUser" resultType="kr.co.photostagram.vo.MemberVO">
         SELECT * FROM `user`;
+    </select>
+
+    <select id="selectPostSaveUser" resultType="kr.co.photostagram.vo.Post_saveVO">
+        SELECT * FROM `post_save`;
     </select>
 
     <select id="selectFollowing" resultType="kr.co.photostagram.vo.MemberVO">
@@ -129,6 +142,9 @@
         WHERE `no`= #{comment_no};
     </delete>
 
+    <delete id="deleteBookmark">
+        DELETE FROM `post_save` WHERE user_no = #{user_no} AND post_no = #{post_no}
+    </delete>
     <resultMap id="selectArticleResultMap" type="kr.co.photostagram.vo.PostVO">
         <result column="no" property="no"/>
         <result column="content" property="content"/>
@@ -141,6 +157,7 @@
             <result column="profileImg" property="profileImg"/>
             <result column="profileText" property="profileText"/>
         </association>
+
         <association property="post_likeVO" javaType="kr.co.photostagram.vo.Post_likeVO">
             <result column="no" property="no"/>
             <result column="postlike_no" property="post_no"/>
@@ -155,6 +172,10 @@
             <result column="hash_no" property="no"/>
             <result column="hashtag" property="hashtag"/>
         </collection>
+        <collection property="post_saveVO" ofType="kr.co.photostagram.vo.Post_saveVO">
+            <result column="postSave_user" property="user_no"/>
+        </collection>
+
     </resultMap>
 
     <resultMap id="selectCommentResultMap" type="kr.co.photostagram.vo.CommentVO">

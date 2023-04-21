@@ -107,8 +107,8 @@
             <div id="myModalMiddle">
                 <div>
                     <h2>정렬 기준</h2>
-                    <div class="buttonOn" th:data-value="recent">최신순</div>
-                    <div th:data-value="oldest">오래된 순</div>
+                    <div id="recentBtn" class="buttonOn" th:data-value="recent">최신순</div>
+                    <div id="oldestBtn" th:data-value="oldest">오래된 순</div>
                 </div>
                 <div>
                     <h2>시작 날짜</h2>
@@ -116,9 +116,7 @@
                     </select>
                     <select name="startMonth" id="startMonthBox">
                     </select>
-                    <select name="startDay">
-                        <option value="1">1</option>
-                        <option>2</option>
+                    <select name="startDay" id="startDayBox">
                     </select>
                 </div>
                 <div>
@@ -127,7 +125,7 @@
                     </select>
                     <select name="endMonth" id="endMonthBox">
                     </select>
-                    <select name="endDay">
+                    <select name="endDay" id="endDayBox">
                     </select>
                 </div>
             </div>

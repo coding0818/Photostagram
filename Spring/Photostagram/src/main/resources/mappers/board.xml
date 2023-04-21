@@ -156,6 +156,15 @@
             `rdate`=NOW();
     </insert>
 
+    <insert id="insertRespComment">
+        insert into `comment` set
+        `comment`=#{comment},
+        `post_no`=#{post_no},
+        `user_no`=#{user_no},
+        `parent` =#{parent},
+        `rdate`=NOW();
+    </insert>
+
     <select id="selectPlusImg" resultType="kr.co.photostagram.vo.PostVO">
         SELECT
         a.`no`,

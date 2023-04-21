@@ -839,7 +839,7 @@ function uploadFiles(e){
             }
         }
 
-        let tag = "<div class='tag1' data-no="+user_no+" data-page="+j+">";
+        let tag = "<div class='tag1' data-no="+user_no+" data-page="+j+" data-top="+y+" data-left="+x-18+">";
             tag += "<div></div>";
             tag += "<div class='username'><span>"+username+"</span><button>x</button></div>";
             tag += "</div>";
@@ -851,7 +851,7 @@ function uploadFiles(e){
 
         tagObj.css({
                left:x-18,
-               top:y,
+               top:$(window).scrollTop()+y,
                display:'block'
                });
 

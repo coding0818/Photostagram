@@ -89,6 +89,94 @@
             ORDER BY `rdate` DESC;
     </select>
 
+    <select id="sortSelectLikePostNo" resultType="int">
+        SELECT `post_no` FROM `post_like`
+            WHERE `user_no` = #{no}
+            AND `rdate` BETWEEN #{start} AND #{end}
+            ORDER BY `rdate`
+            <choose>
+                <when test= "sort == 'recent'">
+                    DESC;
+                </when>
+                <when test= "sort == 'oldest'">
+                    ASC;
+                </when>
+                <otherwise>
+                    ;
+                </otherwise>
+            </choose>
+    </select>
+
+    <select id="sortSelectMyCommentPosts" resultType="kr.co.photostagram.vo.PostVO">
+        SELECT a.`no`, a.`content`, a.`rdate`, b.`thumb` AS 'firstThumb',
+            COUNT(DISTINCT c.`hashtag_no`) AS 'hashtags',
+            d.`profileImg`, d.`username`,
+            COUNT(DISTINCT e.`no`) AS 'commentCount'
+            FROM `post` AS a
+            LEFT JOIN `image` AS b
+                ON a.`no` = b.`post_no`
+            LEFT JOIN `post_hashtag` AS c
+                ON a.`no` = c.`post_no`
+            LEFT JOIN `user` AS d
+                ON a.`user_no` = d.`no`
+            LEFT JOIN `comment` AS e
+                ON a.`no` = e.`post_no`
+            WHERE e.`user_no` = #{no}
+            AND e.`rdate` BETWEEN #{start} AND #{end}
+            GROUP BY a.`no`
+            <choose>
+                <when test= "sort == 'recent'">
+                    DESC;
+                </when>
+                <when test= "sort == 'oldest'">
+                    ASC;
+                </when>
+                <otherwise>
+                    ;
+                </otherwise>
+            </choose>
+    </select>
+
+    <select id="sortSelectPosts" resultType="kr.co.photostagram.vo.PostVO">
+        SELECT *,COUNT(`thumb`) AS 'thumbs'
+            FROM `post` AS a
+            JOIN `image` AS b
+            ON a.`no`=b.`post_no`
+            WHERE a.`user_no`=#{no}
+            AND `rdate` BETWEEN #{start} AND #{end}
+            GROUP BY a.`no`
+            <choose>
+                <when test= "sort == 'recent'">
+                    DESC;
+                </when>
+                <when test= "sort == 'oldest'">
+                    ASC;
+                </when>
+                <otherwise>
+                    ;
+                </otherwise>
+            </choose>
+            <!--DESC LIMIT #{index}, 25 ;       무한스크롤 페이징 처리하며 추가 -->
+    </select>
+
+    <select id="sortSelectHistory" resultType="kr.co.photostagram.vo.HistoryVO">
+        SELECT * FROM `history`
+            WHERE `user_no` = #{no}
+            AND `rdate` BETWEEN #{start} AND #{end}
+            ORDER BY `rdate`
+            <choose>
+                <when test= "sort == 'recent'">
+                    DESC;
+                </when>
+                <when test= "sort == 'oldest'">
+                    ASC;
+                </when>
+                <otherwise>
+                    ;
+                </otherwise>
+            </choose>
+    </select>
+
     <select id="selectJoinDate" resultType="String">
         SELECT `rdate` FROM `history`
             WHERE `type`='join' AND `user_no`=#{no};

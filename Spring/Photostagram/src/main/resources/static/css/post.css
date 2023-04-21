@@ -206,6 +206,7 @@
       width: 100%;
     }
     .reply  .comment_more {
+      cursor: pointer;
       margin-left: 1px;
       color: #a9a9a9;
       font-weight: bold

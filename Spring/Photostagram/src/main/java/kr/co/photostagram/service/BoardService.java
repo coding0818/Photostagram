@@ -54,6 +54,9 @@ public class BoardService {
     public int insertComment(CommentVO vo) {
         return dao.insertComment(vo);
     }
+    public int insertRespComment(CommentVO vo) {
+        return dao.insertRespComment(vo);
+    }
 
     @Transactional
     public int deletePost(int post_no){

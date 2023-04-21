@@ -104,3 +104,113 @@ $(function(){
 		return "방금 전"
     }
 });
+
+
+/*** 년 / 월별 동적으로 날짜 추가 ***/
+
+$(function(){
+
+    const yBtn1 = document.getElementById("startYearBox");
+    const mBtn1 = document.getElementById("startMonthBox");
+    const yBtn2 = document.getElementById("endYearBox");
+    const mBtn2 = document.getElementById("endMonthBox");
+
+    yBtn1.addEventListener("change", addStartDay);
+    mBtn1.addEventListener("change", addStartDay);
+    yBtn2.addEventListener("change", addEndDay);
+    mBtn2.addEventListener("change", addEndDay);
+
+    function addStartDay(){
+        const day31 = []; const day30 = [];
+
+        for (var i=1; i<=30; i++){
+            day31.push(i); day30.push(i);
+        }
+        day31.push(31);
+
+        //console.log (day31);
+        //console.log (day30);
+
+        let change;
+        let month = $("#startMonthBox").val();
+        let year = $("#startYearBox").val();
+
+        switch (month) {
+            case '1': case '3': case '5': case '7': case '8': case '10': case '12':
+                change = day31;
+                break;
+            case '4': case '6': case '9': case '11':
+                change = day30;
+                break;
+            case '2':
+                change = day30;
+                if (year % 4 == 0) {
+                    change.pop();
+                } else {
+                    change.pop(); change.pop();
+                }
+        }
+
+        console.log (change);
+
+        $("#startDayBox").empty();
+        let option;
+        for (let i=1; i<=change.length; i++){
+            option = $("<option>" + i + "</option>");
+            $("#startDayBox").append(option);
+        }
+    }
+
+    function addEndDay(){
+        const day31 = []; const day30 = [];
+
+        for (var i=1; i<=30; i++){
+            day31.push(i); day30.push(i);
+        }
+        day31.push(31);
+
+        //console.log (day31);
+        //console.log (day30);
+
+        let change;
+        let month = $("#endMonthBox").val();
+        let year = $("#endYearBox").val();
+
+        switch (month) {
+            case '1': case '3': case '5': case '7': case '8': case '10': case '12':
+                change = day31;
+                break;
+            case '4': case '6': case '9': case '11':
+                change = day30;
+                break;
+            case '2':
+                change = day30;
+                if (year % 4 == 0) {
+                    change.pop();
+                } else {
+                    change.pop(); change.pop();
+                }
+        }
+
+        console.log (change);
+
+        $("#endDayBox").empty();
+        let option;
+        for (let i=1; i<=change.length; i++){
+            option = $("<option>" + i + "</option>");
+            $("#endDayBox").append(option);
+        }
+    }
+});
+
+/*** modal 최신순, 오래된순 ***/
+$(function(){
+    $("#recentBtn").on("click", function(){
+        $("#recentBtn").addClass("buttonOn");
+        $("#oldestBtn").removeClass("buttonOn");
+    });
+    $("#oldestBtn").on("click", function(){
+        $("#oldestBtn").addClass("buttonOn");
+        $("#recentBtn").removeClass("buttonOn");
+    });
+});
