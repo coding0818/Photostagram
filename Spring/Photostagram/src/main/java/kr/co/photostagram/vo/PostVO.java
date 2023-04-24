@@ -39,7 +39,7 @@ public class PostVO {
     private List<Integer> lefts;
     private List<Integer> pages;
 
-    private List<Post_saveVO> post_saveVO;
+    private Post_saveVO post_saveVO;
     private int post_no;
 
 }

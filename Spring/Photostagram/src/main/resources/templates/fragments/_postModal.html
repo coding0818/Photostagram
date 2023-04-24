@@ -5,19 +5,19 @@
         $(function(){
             let modal = $('#modal_postSelect');
             let modal_modify = $('#modal_modify_feed_content');
-
+​
             let j = 0;
-
+​
             $(document).on('click', '.post_delete', function(e){
                 e.preventDefault();
                 let post_no = [[${post.no}]];
                 let username = [[${user.username}]];
-
+​
                 console.log('post_no' + post_no);
                 console.log('username' + username);
-
+​
                 let jsonData = {"post_no":post_no};
-
+​
                 $.ajax({
                     url:'/Photostagram/deletePost',
                     method:'POST',
@@ -31,14 +31,14 @@
                     }
                 });
             });
-
+​
             $(document).on('click', '.modal_postModify', function(){
                 modal.css('display', 'none');
                 modal_modify.css('display', 'flex');
-
+​
                 let image1 = [[${images[0].thumb}]];
                 console.log(image1);
-
+​
                 $('#input_image_post').css({
                     "background-image": "url(/Photostagram/thumb/"+image1+")",
                     "background-size": "cover",
@@ -46,7 +46,7 @@
                     "background-position" : "center"
                 });
             });
-
+​
             $(document).on('click', '.modal_title_side_post_modify', function(){
                 let content = $('#input_content_post').val();
                 let post_no = [[${post.no}]];
@@ -55,7 +55,7 @@
                 let tops = [];
                 let lefts = [];
                 let pages = [];
-
+​
                 for(i=0; i<length; i++){
                   users.push($('#tooltipArea_post').children().eq(i).attr('data-no'));
                   console.log("offsetx top : "+$('#tooltipArea_post').children().eq(i).position().top);
@@ -64,7 +64,7 @@
                   lefts.push(Math.ceil($('#tooltipArea_post').children().eq(i).attr("data-left")));
                   pages.push($('#tooltipArea_post').children().eq(i).attr('data-page'));
                 }
-
+​
                 let jsonData = {
                     "content":content,
                     "post_no":post_no,
@@ -73,13 +73,13 @@
                     "lefts":lefts,
                     "pages":pages
                 };
-
+​
                 console.log('content : '+content);
                 console.log('users : '+users);
                 console.log('tops : '+tops);
                 console.log('lefts : '+lefts);
-
-
+​
+​
                 $.ajax({
                     url:'/Photostagram/modifyPost',
                     method:'POST',
@@ -92,22 +92,22 @@
                     }
                 });
             });
-
+​
             $(document).on('click', '.tagSearchesPost', function(){
                 let select = $(this).children('.tagSearchUserPost');
                 let user_no = select.attr('data-userno');
                 let username = select.attr('data-username');
-
+​
                 console.log('username : '+username);
-
+​
                 $('.tagSearchesPost').empty();
                 let val = $('input[name=tagUserPost]').val();
                 val = '';
                 $('.tagModalPost').hide();
-
+​
                 let length = $('.tag1').length;
                 let left = x-18;
-
+​
                 for(i=0; i<length; i++){
                     let no = $('#tooltipArea_post').children().eq(i).attr('data-no');
                     if(no == user_no){
@@ -120,35 +120,35 @@
                         return;
                     }
                 }
-
+​
                 let tag = "<div class='tag1' data-no="+user_no+" data-page="+j+" data-top="+y+" data-left="+left+">";
                     tag += "<div></div>";
                     tag += "<div class='username'><span>"+username+"</span><button>x</button></div>";
                     tag += "</div>";
-
+​
                 let tagObj = $(tag);
-
+​
                 console.log("x좌표 : "+x);
                 console.log("y좌표 : "+y);
-
+​
                 tagObj.css({
                        left:x-18,
                        top:$(window).scrollTop()+y,
                        display:'block'
                        });
-
+​
                 $('#tooltipArea_post').append(tagObj);
             });
-
+​
             $('.afterBtnPost').on('click', function(){
                 let images = [[${images}]];
-
+​
                 if(j+1 == images.length)return;
                 if(j+2 == images.length){
                     $(this).css({"visibility":"hidden"});
                 }
                 j++;
-
+​
                 let length = $('#tooltipArea_post').children('.tag1').length;
                 for(i=0; i<length; i++){
                     if($('#tooltipArea_post').children().eq(i).attr('data-page') == j){
@@ -157,29 +157,29 @@
                         $('#tooltipArea_post').children().eq(i).hide();
                     }
                 }
-
+​
                 let image = images[j].thumb;
-
+​
                 $('#input_image_post').css({
                     "background":"url(/Photostagram/thumb/"+image+")",
                     "background-size": "cover",
                     "background-repeat" : "no-repeat",
                     "background-position" : "center"
                 });
-
+​
                 $('.beforeBtnPost').css({"visibility":"visible"});
             });
-
+​
             $('.beforeBtnPost').on('click', function(){
                 let images = [[${images}]];
-
+​
                 if(j == 0) return;
                 if(j == 1){
                     $(this).css({"visibility":"hidden"});
                 }
-
+​
                 j--;
-
+​
                 let length = $('#tooltipArea_post').children('.tag1').length;
                 for(i=0; i<length; i++){
                     if($('#tooltipArea_post').children().eq(i).attr('data-page') == j){
@@ -188,16 +188,16 @@
                         $('#tooltipArea_post').children().eq(i).hide();
                     }
                 }
-
+​
                 let image = images[j].thumb;
-
+​
                 $('#input_image_post').css({
                     "background":"url(/Photostagram/thumb/"+image+")",
                     "background-size": "cover",
                     "background-repeat" : "no-repeat",
                     "background-position" : "center"
                 });
-
+​
                 $('.afterBtnPost').css({"visibility":"visible"});
             });
         });
@@ -300,7 +300,7 @@
                     </div>
                 </div>
             </div>
-
+            ​
         </div>
     </div>
 </th:block>

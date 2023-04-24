@@ -72,9 +72,7 @@
         SELECT * FROM `user`;
     </select>
 
-    <select id="selectPostSaveUser" resultType="kr.co.photostagram.vo.Post_saveVO">
-        SELECT * FROM `post_save`;
-    </select>
+
 
     <select id="selectFollowing" resultType="kr.co.photostagram.vo.MemberVO">
         SELECT b.* FROM `follow` AS a
@@ -164,6 +162,9 @@
             <result column="postlike_user_no" property="user_no"/>
             <result column="postlike_rdate" property="rdate"/>
         </association>
+        <association property="post_saveVO" javaType="kr.co.photostagram.vo.Post_saveVO">
+            <result column="postSave_user" property="user_no"/>
+        </association>
         <collection property="imageVO" ofType="kr.co.photostagram.vo.ImageVO">
             <result column="thumb" property="thumb"/>
             <result column="post_no" property="post_no"/>
@@ -171,9 +172,6 @@
         <collection property="hashTagVO" ofType="kr.co.photostagram.vo.HashTagVO">
             <result column="hash_no" property="no"/>
             <result column="hashtag" property="hashtag"/>
-        </collection>
-        <collection property="post_saveVO" ofType="kr.co.photostagram.vo.Post_saveVO">
-            <result column="postSave_user" property="user_no"/>
         </collection>
 
     </resultMap>

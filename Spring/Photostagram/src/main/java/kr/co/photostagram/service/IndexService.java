@@ -95,9 +95,7 @@ public class IndexService {
         return oriComment;
     }
 
-    public List<Post_saveVO> selectPostSaveUser(){
-        return dao.selectPostSaveUser();
-    }
+
     public int deleteComment(int comment_no) {
         return dao.deleteComment(comment_no);
     }
