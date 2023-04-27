@@ -77,13 +77,13 @@ public class IndexService {
         }
 
         Map<Integer, List<CommentVO>> map = comments.stream().collect(Collectors.groupingBy(CommentVO::getParent));
-//        log.info(""+ map);
+        log.info(" map : "+ map);
         List<CommentVO> oriComment = map.get(0);
-//        log.info("oriComment : " + oriComment);
+        log.info("oriComment : " + oriComment);
 
         for(CommentVO com : oriComment) {
             com.setChildComment(map.get(com.getNo()));
-//            log.info(" com : "+com);
+            log.info(" com : "+com);
         }
 
 //        for(CommentVO com : oriComment) {

@@ -16,6 +16,7 @@ public interface IndexDAO {
     // 게시글 좋아요, 좋아요 삭제
     public int insertArticleLikeAdd(PostVO vo);
     public int deleteArticleLike(PostVO vo);
+
     // `post` like Update
     public void postLikeAddUpdate(PostVO vo);
     public void postLikeDelUpdate(PostVO vo);
@@ -30,7 +31,6 @@ public interface IndexDAO {
     public void insertRespComment(CommentVO vo);
 
     public List<PostVO> selectArticles(@Param("usersNo") List<Integer> usersNo);
-    public List<Post_saveVO> selectPostSaveUser();
     public List<CommentVO> selectComment();
 
     public List<MemberVO> selectUser();
@@ -42,6 +42,5 @@ public interface IndexDAO {
     public int selectModalCommentlikeCount(int comment_no);
 
     public int deleteComment(int comment_no);
-
     public int deleteBookmark(Post_saveVO vo);
 }

@@ -12,7 +12,6 @@ $(function () {
     moveSlides: 1,
   });
 
-  $();
 
   //메인콘텐츠 더보기 누를 경우
   $(".contents").each(function () {

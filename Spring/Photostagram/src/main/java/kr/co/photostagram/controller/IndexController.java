@@ -36,13 +36,14 @@ public class IndexController {
         MemberVO user =  profileService.selectMember(principal.getName());
         // 검색기록 요청
         List<SearchListVO> searchList = mainService.selectSearchItemRecent(user.getNo());
-        log.info("searchList....indexController : "+searchList);
+//        log.info("searchList....indexController : "+searchList);
 
         List<MemberVO> members = service.selectUser();
+
         List<MemberVO> followings = service.selectFollowing(user.getNo());
         // 팔로잉 되어있는 "유저넘버" 리스트
-        List<Integer> usersNo = new ArrayList<>();
-        usersNo.add(user.getNo()); // 로그인 한 유저번호
+        List<Integer> following_usersNo = new ArrayList<>();
+        following_usersNo.add(user.getNo()); // 로그인 한 유저번호
 
         // 회원님을 위한 추천 (미 팔로잉자)
         for(int i = 0; i < followings.size(); i++){
@@ -52,7 +53,7 @@ public class IndexController {
 
             // usersNo add
             int user_no = followings.get(i).getNo();
-            usersNo.add(user_no); // 상대방 유저번호
+            following_usersNo.add(user_no); // 상대방 유저번호
         }
         // 회원님을 위한 추천에 (로그인 한 본인이 뜨지않게)
         for(int j = 0; j < members.size(); j++){
@@ -63,8 +64,8 @@ public class IndexController {
         }
 
         // 게시글 조회
-        List<PostVO> articles = service.selectArticles(usersNo);
-        log.info("articles : " + articles);
+        List<PostVO> articles = service.selectArticles(following_usersNo);
+//        log.info("articles : " + articles);
 
         // 댓글 조회
         List<CommentVO> comments = service.selectComment();
@@ -77,7 +78,7 @@ public class IndexController {
 
         // 알림
         List<NoticeVO> notices = mainService.selectNotices(user.getNo());
-        log.info("notices : "+notices);
+//        log.info("notices : "+notices);
 
         model.addAttribute("notices", notices);
         model.addAttribute("comments", comments);
@@ -135,7 +136,6 @@ public class IndexController {
     @Transactional
     public Map ArticleLike(@RequestBody PostVO vo){
         int result = 0;
-        // post_like : Insert
         result = service.insertArticleLikeAdd(vo);
 
         log.info(" =============================== ");
